@@ -1,0 +1,28 @@
+#logo{
+	width:304px;
+	height:228px;
+	margin: 0 auto;
+	padding-top:120px;
+	}
+#searchBoxDiv{
+	position: relative;
+	/* margin-left: 25%; */
+	text-align:center;
+	z-index: 10;
+}
+#searchBox{
+	width: 30%;
+	height:auto;
+	}
+	
+#topBar{
+	background-color: gray;
+	border-style:solid;
+	border-color:gray;
+	height:50px;
+}
+
+.navigation ul
+{
+    list-style-type: none;
+}
