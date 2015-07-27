@@ -131,7 +131,7 @@
     border-radius: 4px 4px 0 0;
   }
   .sm-mint a:hover, .sm-mint a:focus, .sm-mint a:active {
-    background: #8db863;
+    background: #C070A0;
     color: white;
   }
   .sm-mint a.highlighted {
@@ -171,10 +171,10 @@
     border-color: white transparent transparent transparent;
   }
   .sm-mint a.highlighted span.sub-arrow {
-    border-color: #8db863 transparent transparent transparent;
+    border-color: #C070A0 transparent transparent transparent;
   }
   .sm-mint a.disabled span.sub-arrow {
-    border-color: #8db863 transparent transparent transparent;
+    border-color: #C070A0 transparent transparent transparent;
   }
   .sm-mint a.highlighted span.sub-arrow:before {
     display: none;
@@ -237,7 +237,7 @@
     border-color: transparent transparent transparent white;
   }
   .sm-mint ul a.disabled span.sub-arrow {
-    border-color: transparent transparent transparent #8db863;
+    border-color: transparent transparent transparent #C070A0;
   }
   .sm-mint span.scroll-up,
   .sm-mint span.scroll-down {
@@ -258,12 +258,12 @@
     overflow: hidden;
     border-width: 0 6px 8px 6px;
     border-style: dashed dashed solid dashed;
-    border-color: transparent transparent #8db863 transparent;
+    border-color: transparent transparent #C070A0 transparent;
   }
   .sm-mint span.scroll-down-arrow {
     border-width: 8px 6px 0 6px;
     border-style: solid dashed dashed dashed;
-    border-color: #8db863 transparent transparent transparent;
+    border-color: #C070A0 transparent transparent transparent;
   }
   .sm-mint.sm-rtl a.has-submenu {
     padding-right: 20px;
@@ -275,7 +275,7 @@
   }
   .sm-mint.sm-rtl.sm-vertical {
     border-right: 0;
-    border-left: 2px solid #8db863;
+    border-left: 2px solid #C070A0;
   }
   .sm-mint.sm-rtl.sm-vertical a {
     -webkit-border-radius: 0 4px 4px 0;
@@ -292,13 +292,13 @@
     left: 10px;
     border-width: 4.02px 6px 4.02px 0;
     border-style: dashed solid dashed dashed;
-    border-color: transparent #8db863 transparent transparent;
+    border-color: transparent #C070A0 transparent transparent;
   }
   .sm-mint.sm-rtl.sm-vertical a:hover span.sub-arrow, .sm-mint.sm-rtl.sm-vertical a:focus span.sub-arrow, .sm-mint.sm-rtl.sm-vertical a:active span.sub-arrow, .sm-mint.sm-rtl.sm-vertical a.highlighted span.sub-arrow {
     border-color: transparent white transparent transparent;
   }
   .sm-mint.sm-rtl.sm-vertical a.disabled span.sub-arrow {
-    border-color: transparent #8db863 transparent transparent;
+    border-color: transparent #C070A0 transparent transparent;
   }
   .sm-mint.sm-rtl ul {
     -webkit-border-radius: 4px 0 4px 4px;
