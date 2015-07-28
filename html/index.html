@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Aliro</title>
+	<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
+	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
+	<link href="css/sm-mint.css" rel="stylesheet" type="text/css">
+	<link href="css/jquery-ui.min.css" rel="stylesheet">
+	<link href="css/indexStyle.css" rel="stylesheet" type="text/css">
+	<script src="libs/jquery-1.11.3.min.js"></script>
+	<script src="libs/jquery-ui.min.js"></script>
+	<script src="libs/jquery.smartmenus.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.sm').smartmenus({
+				showFunction: function($ul, complete){
+					$ul.slideDown(250,complete);
+				},
+				hideFunction: function($ul, complete){
+					$ul.slideUp(250, complete);
+				}
+			}); //end smartmenus
+			var papers=['The Effect of Music on Memory', 'Music on Time Perception', 'Productivity and Music', 'Not What You Think: Music and Memory', 'Cosmic Radiation and Ice: The Space Miracle'];
+			$('#searchBox').autocomplete({source:papers});
+		}); //end ready
+	</script>
+</head>
+
+<body>
+	<div class="navigation">
+  		<ul class="sm sm-mint">
+  			<li><a href="index.html">Home</a></li>
+			<li>
+			 	<a>User</a>
+			 	<ul>
+				        <li><a href="submit.html">Submit Research</a></li>
+			 		<li><a href="edit.html">Edit Account</a></li>
+			 	</ul>
+			</li>
+			<li><a href="about.html">About</a></li>
+  		</ul>
+  	</div>
+	<div id="logo">
+		<img src="images/Aliro.png" alt="Company Name" id="compImage">
+	</div>
+	<!-- Search box form -->
+	<div id="searchBoxDiv">
+		<form id="searchForm" method="get">
+			<input type="text" name="searchBox" id="searchBox" placeholder="Find Research" maxlength="2048"></input>
+			<input type="submit" name="searchBoxSubmit" id="searchBoxSubmit" value="Search"></input>
+		</form>
+	</div>
+</body>
+</html>
+	

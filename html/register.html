@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Register</title>
+	<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
+	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
+	<link href="css/sm-mint.css" rel="stylesheet" type="text/css">
+	<link href="css/jquery-ui.min.css" rel="stylesheet">
+	<script src="javascript/addNavBar.js"></script>
+	<script src="libs/jquery-1.11.3.min.js"></script>
+	<script src="libs/jquery-ui.min.js"></script>
+	<script src="libs/jquery.smartmenus.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.sm').smartmenus({
+				showFunction: function($ul, complete){
+					$ul.slideDown(250,complete);
+				},
+				hideFunction: function($ul, complete){
+					$ul.slideUp(250, complete);
+				}
+			}); //end smartmenus
+			
+			var schools=["Great Neck South High School", "Great Neck North High School", "Jericho High School"];
+			$('#school').autocomplete({source:schools});
+			
+		}); //end ready
+	</script>
+</head>
+
+<body>
+	<form action="" method="post" name="register" id="registerForm">
+		<div id="firstNameDiv">
+			<label for="firstName" class="label">First Name</label>
+			<input name="firstName" type="text" id="firstName">
+		</div>
+		<div id="lastNameDiv">
+			<label for="lastName" class="label">Last Name</label>
+			<input name="lastName" type="text" id="lastName">
+		</div>
+		<div id="schoolDiv">
+			<label for="school" class="label">School</label>
+			<input name="school" type="text" id="school">
+		</div>
+		<div id="submitDiv">
+			<input type="submit" name="submit" id="submit" value="Submit">
+		</div>
+		
+</body>
+</html>
+	
