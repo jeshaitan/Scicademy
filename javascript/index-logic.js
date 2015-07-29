@@ -1,10 +1,3 @@
-function setCookie(cname, cvalue, exdays) {
-	var d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	var expires = "expires="+d.toUTCString();
-	document.cookie = cname + "=" + cvalue + "; " + expires;
-} 
-
 $(document).ready(function() {
 	$('.sm').smartmenus( {
 		showFunction: function($ul, complete) {
@@ -24,15 +17,15 @@ var hasAccount = false;
 function initSiso() {
 	if(hasAccount == true) {
     	if(signedin == false) {
-       		document.getElementById("si/so").innerHTML = "Sign In"  
+       		$(#"si/so").innerHTML = "Sign In"  
     	}
     	else {
-       		document.getElementById("si/so").innerHTML = "Sign Out"
+       		$(#"si/so").innerHTML = "Sign Out"
     	}
 	}
 	else if(hasAccount == false) {
-       	document.getElementById("si/so").href = "register.html"
-    	document.getElementById("si/so").innerHTML = "Register Account"
+       	$(#"si/so").href = "register.html"
+    	$(#"si/so").innerHTML = "Register Account"
 	}
 }
 
