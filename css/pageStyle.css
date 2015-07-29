@@ -22,3 +22,9 @@
 	border-color:gray;
 	height:50px;
 }
+
+#abouttext{
+    text-align:center;
+    margin-left:right;
+    margin-right:left;
+}

@@ -7,6 +7,7 @@
 	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
 	<link href="css/sm-mint.css" rel="stylesheet" type="text/css">
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
+	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
 	<script src="javascript/addNavBar.js"></script>
 	<script src="libs/jquery-1.11.3.min.js"></script>
 	<script src="libs/jquery-ui.min.js"></script>
@@ -30,23 +31,38 @@
 </head>
 
 <body>
-	<form action="" method="post" name="register" id="registerForm">
-		<div id="firstNameDiv">
-			<label for="firstName" class="label">First Name</label>
-			<input name="firstName" type="text" id="firstName">
-		</div>
-		<div id="lastNameDiv">
-			<label for="lastName" class="label">Last Name</label>
-			<input name="lastName" type="text" id="lastName">
-		</div>
-		<div id="schoolDiv">
-			<label for="school" class="label">School</label>
-			<input name="school" type="text" id="school">
-		</div>
-		<div id="submitDiv">
-			<input type="submit" name="submit" id="submit" value="Submit">
-		</div>
-		
+	<div class="navigation">
+  		<ul class="sm sm-mint">
+  			<li><a href="index.html">Home</a></li>
+			<li>
+			 	<a>User</a>
+			 	<ul>
+			 		<li><a href="submit.html">Submit Research</a></li>
+			 		<li><a href="edit.html">Edit Account</a></li>
+			 	</ul>
+			</li>
+			<li><a href="about.html">About</a></li>
+  		</ul>
+  	</div>
+	<center>
+		<form action="" method="post" name="register" id="registerForm">
+			<div id="firstNameDiv">
+				<label for="firstName" class="label">First Name</label>
+				<input name="firstName" type="text" id="firstName">
+			</div>
+			<div id="lastNameDiv">
+				<label for="lastName" class="label">Last Name</label>
+				<input name="lastName" type="text" id="lastName">
+			</div>
+			<div id="schoolDiv">
+				<label for="school" class="label">School</label>
+				<input name="school" type="text" id="school">
+			</div>
+			<div id="submitDiv">
+				<input type="submit" name="submit" id="submit" value="Submit">
+			</div>
+		</form>
+	</center>	
 </body>
 </html>
 	
