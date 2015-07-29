@@ -24,6 +24,32 @@
 			var papers=['The Effect of Music on Memory', 'Music on Time Perception', 'Productivity and Music', 'Not What You Think: Music and Memory', 'Cosmic Radiation and Ice: The Space Miracle'];
 			$('#searchBox').autocomplete({source:papers});
 		}); //end ready
+		var signedin = false;
+		var hasAccount = false;
+		if(hasAccount == true) {
+		    if(signedin == false) {
+		        document.getElementById("si/so").innerHTML = "Sign In"  
+		    }
+		    else {
+                document.getElementById("si/so").innerHTML = "Sign Out"
+		    }
+		}
+		else if(hasAccount == false) {
+            document.getElementById("si/so").href = "register.html"
+		    document.getElementById("si/so").innerHTML = "Register Account"
+		}
+		function siso() {
+		    if(hasAccount == true) {
+				if(signedin == true) {
+					signedin = true;
+					location.reload()
+				}
+				else {
+					signedin = false;
+					location.reload()
+				}
+		    }
+		}
 	</script>
 </head>
 
@@ -39,6 +65,7 @@
 			 	</ul>
 			</li>
 			<li><a href="about.html">About</a></li>
+			<li><a onclick="siso()" href="index.html" id="si/so">undefined</a></li>
   		</ul>
   	</div>
 	<div id="logo">
