@@ -16,7 +16,7 @@ function requestHandler(request, response) {
 	if(details.indexOf("getUser") != -1) {
 		console.log("recieved request for user");
 
-		var user = db."Users".find({"firstname": details[details.indexOf("getUser") + 1],
+		var user = db.Users.find({"firstname": details[details.indexOf("getUser") + 1],
 	                            	"lastname": details[details.indexOf("getUser") + 2],
 	                            	"school": details[details.indexOf("getUser") + 3]});
 		user = user.toArray[0];
