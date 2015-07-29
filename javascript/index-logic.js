@@ -12,7 +12,8 @@ $(document).ready(function() {
 	$('#searchBox').autocomplete({source:papers});
 
 	if(currentUser != null) {	
-      	    document.getElementById('si/so').innerHTML = "Sign Out";
+	    document.getElementById('si/so').href = "index.html"
+	    document.getElementById('si/so').innerHTML = "Sign Out";
    	}
 }); 
 
