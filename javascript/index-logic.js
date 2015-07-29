@@ -17,15 +17,15 @@ var hasAccount = false;
 function initSiso() {
 	if(hasAccount == true) {
     	if(signedin == false) {
-       		$(#"si/so").innerHTML = "Sign In"  
+       		$("#si/so").innerHTML = "Sign In"  
     	}
     	else {
-       		$(#"si/so").innerHTML = "Sign Out"
+       		$("#si/so").innerHTML = "Sign Out"
     	}
 	}
 	else if(hasAccount == false) {
-       	$(#"si/so").href = "register.html"
-    	$(#"si/so").innerHTML = "Register Account"
+       	$("#si/so").href = "register.html"
+    	$("#si/so").innerHTML = "Register Account"
 	}
 }
 

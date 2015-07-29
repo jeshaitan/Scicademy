@@ -11,13 +11,7 @@
 	<script src="libs/jquery-1.11.3.min.js"></script>
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
-	<script type="text/javascript">
-		function setCookie(cname, cvalue, exdays) {
-    		var d = new Date();
-    		d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    		var expires = "expires="+d.toUTCString();
-    		document.cookie = cname + "=" + cvalue + "; " + expires;
-		} 
+	<script type="text/javascript"> 
 		$(document).ready(function(){
 			$('.sm').smartmenus({
 				showFunction: function($ul, complete){
@@ -50,7 +44,7 @@
 			<input name="school" type="text" id="school">
 		</div>
 		<div id="submitDiv">
-			<input type="submit" name="submit" id="submit" value="Submit" onclick="setCookie(document.getElementById('firstNameDiv').innerHTML)">
+			<input type="submit" name="submit" id="submit" value="Submit">
 		</div>
 		
 </body>
