@@ -13,6 +13,7 @@
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
 	<script type="text/javascript">
+	addNavBar();
 		$(document).ready(function(){
 			$('.sm').smartmenus({
 				showFunction: function($ul, complete){
@@ -42,6 +43,12 @@
 			<li><a href="about.html">About</a></li>
   		</ul>
   	</div>
+  <br/>
+  <p>
+    <center>Aliro is a database of high-school and college student science research.</center>
+    <br />
+    <center>We aim to allow students to show their hard work and love of science to colleges, employers, and peers.</center>
+  </p>
 </body>
 </html>
 	
