@@ -26,19 +26,21 @@
 		}); //end ready
 		var signedin = false;
 		var hasAccount = false;
-		if(hasAccount == true) {
-		    if(signedin == false) {
-		        document.getElementById("si/so").innerHTML = "Sign In"  
-		    }
-		    else {
-                document.getElementById("si/so").innerHTML = "Sign Out"
-		    }
+		function initSiso() {
+			if(hasAccount == true) {
+		    	if(signedin == false) {
+		       		document.getElementById("si/so").innerHTML = "Sign In"  
+		    	}
+		    	else {
+               		document.getElementById("si/so").innerHTML = "Sign Out"
+		    	}
+			}
+			else if(hasAccount == false) {
+            	document.getElementById("si/so").href = "register.html"
+		    	document.getElementById("si/so").innerHTML = "Register Account"
+			}
 		}
-		else if(hasAccount == false) {
-            document.getElementById("si/so").href = "register.html"
-		    document.getElementById("si/so").innerHTML = "Register Account"
-		}
-		function siso() {
+		function sisoClick() {
 		    if(hasAccount == true) {
 				if(signedin == true) {
 					signedin = true;
@@ -53,7 +55,7 @@
 	</script>
 </head>
 
-<body>
+<body onload="initSiso()">
 	<div class="navigation">
   		<ul class="sm sm-mint">
   			<li><a href="index.html">Home</a></li>
@@ -65,7 +67,7 @@
 			 	</ul>
 			</li>
 			<li><a href="about.html">About</a></li>
-			<li><a onclick="siso()" href="index.html" id="si/so">undefined</a></li>
+			<li><a onclick="sisoClick()" href="index.html" id="si/so">undefined</a></li>
   		</ul>
   	</div>
 	<div id="logo">
