@@ -1,3 +1,8 @@
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = document.location.protocol + '//code.jquery.com/jquery-1.9.1.min.js';
+
+
 var signedin = false;
 var hasAccount = false;
 
