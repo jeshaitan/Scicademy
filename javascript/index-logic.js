@@ -3,15 +3,15 @@ $(document).ready(function() {
 	var hasAccount = false;
 	if(hasAccount == true) {
    		if(signedin == false) {
-     			$('#si/so').innerHTML = "Sign In"  
+     		$('#si/so').innerHTML = "Sign In";  
     	}
     	else {
-      			$('#si/so').innerHTML = "Sign Out"
+      		$('#si/so').innerHTML = "Sign Out";
    		}
    	}
 	else if(hasAccount == false) {
-    	$('#si/so').href = "register.html"
-    	$('#si/so').innerHTML = "Sign Up"
+    	$('#si/so').href = "register.html";
+    	$('#si/so').innerHTML = "Sign Up";
 	}
 
 	$('.sm').smartmenus( {
