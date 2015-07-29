@@ -1,8 +1,3 @@
-var script = document.createElement('script');
-script.type = 'text/javascript';
-script.src = document.location.protocol + '//code.jquery.com/jquery-1.9.1.min.js';
-
-
 var signedin = false;
 var hasAccount = false;
 
@@ -20,15 +15,15 @@ $(document).ready(function() {
 
 	if(hasAccount == true) {
    		if(signedin == false) {
-     		$('#si/so').innerHTML = "Sign In";  
+     		document.getElementById('si/so').innerHTML = "Sign In";  
     	}
     	else {
-      		$('#si/so').innerHTML = "Sign Out";
+      		document.getElementById('si/so').innerHTML = "Sign Out";
    		}
    	}
 	else if(hasAccount == false) {
-    	$('#si/so').href = "register.html";
-    	$('#si/so').innerHTML = "Sign Up";
+    	document.getElementById('si/so').href = "register.html";
+    	document.getElementById('si/so').innerHTML = "Sign Up";
 	}
 }); 
 
