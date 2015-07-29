@@ -1,4 +1,3 @@
-var signedin = false;
 var currentUser;
 $(document).ready(function() {
 	$('.sm').smartmenus( {
@@ -12,18 +11,9 @@ $(document).ready(function() {
 	var papers=['The Effect of Music on Memory', 'Music on Time Perception', 'Productivity and Music', 'Not What You Think: Music and Memory', 'Cosmic Radiation and Ice: The Space Miracle'];
 	$('#searchBox').autocomplete({source:papers});
 
-	if(hasAccount == true) {
-   		if(signedin == false) {
-     		document.getElementById('si/so').innerHTML = "Sign In";  
-    	}
-    	else {
-      		document.getElementById('si/so').innerHTML = "Sign Out";
-   		}
+	if(currentUser != null) {	
+      	    document.getElementById('si/so').innerHTML = "Sign Out";
    	}
-	else if(hasAccount == false) {
-    	document.getElementById('si/so').href = "register.html";
-    	document.getElementById('si/so').innerHTML = "Sign Up";
-	}
 }); 
 
 function sisoClick() {
