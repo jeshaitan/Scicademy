@@ -1,6 +1,5 @@
 var signedin = false;
-var hasAccount = false;
-
+var currentUser;
 $(document).ready(function() {
 	$('.sm').smartmenus( {
 		showFunction: function($ul, complete) {
@@ -38,4 +37,15 @@ function sisoClick() {
 			location.reload()
 		}
     }
+}
+
+function requestUser(firstname, lastname, school) {
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET", "http://localhost:8888/getUser/" + firstname + "/" + lastname + "/" + school, true);
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+           currentUser = xmlhttp.responseText;
+        }
+	}
+	xmlhttp.send();
 }
