@@ -1,14 +1,15 @@
 p {
-	font:Ubuntu;
+	font-family:Ubuntu, sans-serif;
 }
 
-#logo{
+#logo {
+	
 	width:304px;
 	height:228px;
 	margin: 0 auto;
 	padding-top:120px;
 	padding-bottom:50px;
-	}
+}
 #searchBoxDiv{
 	position: relative;
 	/* margin-left: 25%; */
@@ -35,6 +36,7 @@ p {
 
 body {
 	background-color: #FFFFFF;
+	font-family: Ubuntu, sans-serif;
 }
 
 /*site wide colors:
