@@ -30,9 +30,9 @@ function sisoClick() {
     }
 }
 
-function requestUser(firstname, lastname, school) {
+function requestUser(username, password, school) {
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET", "http://localhost:8888/getUser/" + firstname + "/" + lastname + "/" + school, true);
+	xmlhttp.open("GET", "http://localhost:8888/getUser/" + username + "/" + password, true);
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
            currentUser = xmlhttp.responseText;

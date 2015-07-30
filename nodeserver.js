@@ -10,15 +10,14 @@ var uri = "mongodb://<dbuser>:<dbpassword>@ds036698.mongolab.com:36698/alirodata
 var db = mongojs(uri, ["Papers", "Users"]);
 
 function requestHandler(request, response) {
-	//request for user is .../getUser/<firstname>/<lastname>/<school>
+	//request for user is .../getUser/<username>/<password>
 	var path = url.parse(request.url).pathname;
 	var details = path.split('/');
 	if(details.indexOf("getUser") != -1) {
 		console.log("recieved request for user");
 
-		var user = db.Users.find({"firstname": details[details.indexOf("getUser") + 1],
-	                              "lastname": details[details.indexOf("getUser") + 2],
-	                              "school": details[details.indexOf("getUser") + 3]});
+		var user = db.Users.find({"username": details[details.indexOf("getUser") + 1],
+	                              "password": details[details.indexOf("getUser") + 2]});
 		user = user.toArray[0];
 		response.writeHead(200, {"Content-Type": "application/json"});
 		response.write(JSON.stringify(user));
