@@ -23,6 +23,7 @@ body
 
 #top
 {
+	margin-top:7%;
 	display:block;
 	height:10px;
 	margin:10px auto 0;
