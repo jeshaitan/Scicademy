@@ -62,7 +62,7 @@ form.appnitro
 /**** Logo Section  *****/
 h1
 {
-	background-color:#996699;
+	background-color:#C070A0;
 	margin:0;
 	min-height:0;
 	padding:0;
