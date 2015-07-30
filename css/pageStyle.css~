@@ -29,6 +29,9 @@
     margin-right:auto;
 }
 
+#form_container {
+	background-color: #F6FFED;
+}
 body {
 	background-color: #FFFFFF;
 }
