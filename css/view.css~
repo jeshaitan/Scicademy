@@ -9,6 +9,7 @@ body
 	font-size:small;
 	margin:8px 0 16px;
 	text-align:center;
+	padding-top:10%;
 }
 
 #form_container
