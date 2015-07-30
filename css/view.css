@@ -2,9 +2,27 @@
 display:none;
 }
 
+.navigation{
+	background-color: white;
+}
+
+#highColImg{
+	width:20px;
+	height: auto;
+	line-height: 10em;
+}
+#element_6_label{
+	display: inline-block;
+}
+
 body
 {
-	background:#663366;
+	
+	background: -webkit-linear-gradient(90deg, #AA076B 10%, #61045F 90%); /* Chrome 10+, Saf5.1+ */
+	background:    -moz-linear-gradient(90deg, #AA076B 10%, #61045F 90%); /* FF3.6+ */
+	background:     -ms-linear-gradient(90deg, #AA076B 10%, #61045F 90%); /* IE10 */
+	background:      -o-linear-gradient(90deg, #AA076B 10%, #61045F 90%); /* Opera 11.10+ */
+	background:         linear-gradient(90deg, #AA076B 10%, #61045F 90%); /* W3C */        
 	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	font-size:small;
 	margin:8px 0 16px;
@@ -13,7 +31,7 @@ body
 
 #form_container
 {
-	background:#F6FFED;
+	background:#fff;
 	
 	margin:0 auto;
 	text-align:left;
@@ -24,7 +42,7 @@ body
 {
 	display:block;
 	height:10px;
-	margin:7% auto 0;
+	margin:10px auto 0;
 	width:650px;
 }
 
@@ -62,7 +80,7 @@ form.appnitro
 /**** Logo Section  *****/
 h1
 {
-	background-color:#C070A0;
+	background-color:#996699;
 	margin:0;
 	min-height:0;
 	padding:0;
