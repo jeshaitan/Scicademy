@@ -90,6 +90,9 @@
 						minlength: "Your password must contain at least six characters",
 						maxlength: "Your password must be under 18 characters"
 					},
+					element_5: {
+						equalTo: "The passwords do not match"
+					},
 					element_6: { //radio button for highschool or college
 						required: "Please choose either High School or Undergrad"
 					}
@@ -148,11 +151,11 @@
 					<li id="li_2" >
 		<label class="description" for="element_2">Name </label>
 		<span>
-			<input id="element_2_1" name= "element_2_1" class="element text required" maxlength="255" size="16" title="Please enter your first name"value=""/>
+			<input id="element_2_1" name= "element_2_1" class="element text required" maxlength="255" size="16" value=""/>
 			<label>First</label>
 		</span>
 		<span>
-			<input id="element_2_2" name= "element_2_2" class="element text required" maxlength="255" size="21" title="Please enter your last name" value=""/>
+			<input id="element_2_2" name= "element_2_2" class="element text required" maxlength="255" size="21" value=""/>
 			<label>Last</label>
 		</span> 
 		</li>		
@@ -192,7 +195,7 @@
 		</li>		<li id="li_5" >
 		<label class="description" for="element_5">Confirm Password </label>
 		<div>
-			<input id="element_5" name="element_5" class="element text medium required" type="password" title="This field must match the password field" maxlength="255" value=""/> 
+			<input id="element_5" name="element_5" class="element text medium required" type="password" maxlength="255" value=""/> 
 		</div> 
 		</li>
 			
