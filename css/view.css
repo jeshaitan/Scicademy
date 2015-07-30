@@ -19,7 +19,7 @@ display:none;
 body
 {
 	
-	background: #F6FFED;     
+	background: #FFFFFF;     
 	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	font-size:small;
 	margin:8px 0 16px;
@@ -28,7 +28,7 @@ body
 
 #form_container
 {
-	background:#fff;
+	background:#F6FFED;
 	
 	margin:0 auto;
 	text-align:left;
