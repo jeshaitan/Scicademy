@@ -21,6 +21,7 @@ $(document).ready(function() {
 	}); //end dialog
 	
 	$('#siso').click(function(evt) {
+		console.log("sign in button clicked");
 		evt.preventDefault();
 		$('#signInBox').load('sign_in.html').dialog('open');
 	}); //end signup click dialog open
