@@ -9,10 +9,8 @@ $(document).ready(function() {
 	}); 
 	var papers=['The Effect of Music on Memory', 'Music on Time Perception', 'Productivity and Music', 'Not What You Think: Music and Memory', 'Cosmic Radiation and Ice: The Space Miracle'];
 	$('#searchBox').autocomplete({source:papers});
-}); 
 
-
-   	$('#signInBox').load('sign_in.html').dialog({
+	   	$('#signInBox').load('sign_in.html').dialog({
 		modal: true,
 		draggable:true,
 		resizable:false,
@@ -34,7 +32,7 @@ $(document).ready(function() {
 	var schools=["Great Neck South High School", "Great Neck North High School", "Jericho High School"];
 	$('#school').load('sign_in.html').autocomplete({source:schools});
 
-
+}); 
 function requestUser(username, password, school) {
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", "http://localhost:8888/getUser/" + username + "/" + password, true);
