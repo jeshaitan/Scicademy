@@ -11,24 +11,28 @@ $(document).ready(function() {
 	var papers=['The Effect of Music on Memory', 'Music on Time Perception', 'Productivity and Music', 'Not What You Think: Music and Memory', 'Cosmic Radiation and Ice: The Space Miracle'];
 	$('#searchBox').autocomplete({source:papers});
 
-	if(currentUser != null) {	
-	    document.getElementById('si/so').href = "index.html"
-	    document.getElementById('si/so').innerHTML = "Sign Out";
-   	}
-}); 
+   	$('#signInBox').load('sign_in.html').dialog({
+		modal: true,
+		draggable:true,
+		resizable:false,
+		minWidth: 400,
+		autoOpen: false,
+	}); //end dialog
+			
+	$('#si/so').click(function(evt) {
+		evt.preventDefault();
+		$('#signInBox').load('sign_in.html').dialog('open');
+	}); //end signup click dialog open
+			
+	$('#signInForm').submit(function(evt) {
+		$('#signinBox').load('sign_in.html').dialog('close');
+	}); //end dialog close
+			
+	$('#signInButton').load('sign_in.html').button();
+	var schools=["Great Neck South High School", "Great Neck North High School", "Jericho High School"];
+	$('#school').load('sign_in.html').autocomplete({source:schools});
 
-function sisoClick() {
-    if(hasAccount == true) {
-		if(signedin == true) {
-			signedin = true;
-			location.reload()
-		}
-		else {
-			signedin = false;
-			location.reload()
-		}
-    }
-}
+}); 
 
 function requestUser(username, password, school) {
 	xmlhttp = new XMLHttpRequest();
