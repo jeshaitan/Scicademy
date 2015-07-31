@@ -18,10 +18,13 @@ $(document).ready(function() {
 		autoOpen: false,
 	}); //end dialog
 	
+function sisoopen() {
+	console.log("sign in button clicked");
+	evt.preventDefault();
+	$('#signInBox').load('sign_in.html').dialog('open');
+}	
 	$('#siso').click(function(evt) {
-		console.log("sign in button clicked");
-		evt.preventDefault();
-		$('#signInBox').load('sign_in.html').dialog('open');
+		
 	}); //end signup click dialog open
 			
 	$('#signInForm').submit(function(evt) {
