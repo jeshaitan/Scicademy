@@ -18,21 +18,22 @@ $(document).ready(function() {
 		minWidth: 400,
 		autoOpen: false,
 	}); //end dialog
-			
-	$('#si/so').click(function(evt) {
-		evt.preventDefault();
-		$('#signInBox').load('sign_in.html').dialog('open');
-	}); //end signup click dialog open
-			
-	$('#signInForm').submit(function(evt) {
-		$('#signinBox').load('sign_in.html').dialog('close');
-	}); //end dialog close
-			
+				
 	$('#signInButton').load('sign_in.html').button();
 	var schools=["Great Neck South High School", "Great Neck North High School", "Jericho High School"];
 	$('#school').load('sign_in.html').autocomplete({source:schools});
 
 }); 
+
+$('#si/so').click(function(evt) {
+	evt.preventDefault();
+	$('#signInBox').load('sign_in.html').dialog('open');
+}); //end signup click dialog open
+			
+$('#signInForm').submit(function(evt) {
+	$('#signinBox').load('sign_in.html').dialog('close');
+}); //end dialog close
+
 
 function requestUser(username, password, school) {
 	xmlhttp = new XMLHttpRequest();
