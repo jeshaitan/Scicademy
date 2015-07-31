@@ -7,6 +7,7 @@
 	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
 	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
+	<link href="css/signInCss.css" rel="stylesheet" type="text/css">
 	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	<script src="libs/jquery-1.11.3.min.js"></script>
@@ -23,6 +24,24 @@
 				}
 			}); //end smartmenus
 			
+			$('#signInBox').dialog({
+				modal: true,
+				draggable:false,
+				resizable:false,
+				minWidth: 400,
+				autoOpen: false,
+			}); //end dialog
+			
+			$('#signInPage').click(function(evt){
+				evt.preventDefault();
+				$('#signInBox').dialog('open');
+			}); //end signup click dialog open
+			
+			$('#signInForm').submit(function(evt){
+				$('#signinBox').dialog('close');
+			}); //end dialog close
+			
+			$('#signInButton').button();
 			var schools=["Great Neck South High School", "Great Neck North High School", "Jericho High School"];
 			$('#school').autocomplete({source:schools});
 			
@@ -42,8 +61,33 @@
 			 	</ul>
 			</li>
 			<li><a href="about.html">About</a></li>
+			<li id="signInPage"><a onclick="sisoClick()" href="" id="si/so">Sign In</a></li>
+			<li><a href="register.html">Sign Up</a></li>
   		</ul>
   	</div>
+
+	<div id="signInBox">
+		<h4 id="signInHeader">SIGN IN</h3>
+		<hr>
+		<form id="signInForm" method="post" action="">
+			<!-- <span><label class="description" for="email">Email</label></span> -->
+			<div>
+			<input type="text" id="email" name= "email" maxlength="255" size="16" value="" placeholder="email">
+			</div>
+			<!-- <span><label class="description" for="name">Password</label></span> -->
+			<div>
+			<input type="password" id="password" name="password" maxlength="255" size="16" value="" placeholder="password">
+			</div>
+			<div>
+				<label for="remember">Remember Me:</label>
+				<input type="checkbox" name="remember" value="remember" id="remember">
+			</div>
+			<div>
+			<input type="submit" id="signInButton" name="signInButton" value="Sign In">
+			</div>
+		</form>
+			<a href="register.html"><p>Don't have an account? Register here</p></a>
+	</div>
 </body>
 </html>
 	
