@@ -1,4 +1,43 @@
 $(document).ready(function() {
+	$('.navigation').html('<ul class="sm sm-simple"><li><a href="index.html">Home</a></li><li><a href="">User</a><ul><li><a href="submit.html">Submit Research</a></li><li><a href="edit.html">Edit Account</a></li></ul></li><li><a href="about.html">About</a></li><li><a href="" onclick="sisoopen()" id="siso">Sign In</a></li><li><a href="register.html">Sign Up</a></li></ul>');
+	$('#signInBox').html('<h4 id="signInHeader">Sign In</h3><hr><form id="signInForm" method="post" action=""><div><input type="text" id="email" name= "email" maxlength="255" size="16" value="" placeholder="email"></div><div><input type="password" id="password" name="password" maxlength="255" size="16" value="" placeholder="password"></div><div><input type="submit" id="signInButton" name="signInButton" value="Sign In"></div></form><a href="register.html"><p>Don\'t have an account? Register here</p></a>');
+	/** if you ever want to add more tabs, here's the original navBar code. Javascript can't have strings over one line
+	<ul class="sm sm-simple">
+  			<li><a href="index.html">Home</a></li>
+			<li>
+			 	<a href="">User</a>
+			 	<ul>
+			        <li><a href="submit.html">Submit Research</a></li>
+			 		<li><a href="edit.html">Edit Account</a></li>
+			 	</ul>
+			</li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="" onclick="sisoopen()" id="siso">Sign In</a></li>
+			<li><a href="register.html">Sign Up</a></li>
+	</ul>
+	
+	and here's original signInBox
+	
+	<h4 id="signInHeader">Sign In</h3>
+		<hr>
+		<form id="signInForm" method="post" action="">
+			<!-- <span><label class="description" for="email">Email</label></span> -->
+			<div>
+			<input type="text" id="email" name= "email" maxlength="255" size="16" value="" placeholder="email">
+			</div>
+			<!-- <span><label class="description" for="name">Password</label></span> -->
+			<div>
+			<input type="password" id="password" name="password" maxlength="255" size="16" value="" placeholder="password">
+			</div>
+			<div>
+			<input type="submit" id="signInButton" name="signInButton" value="Sign In">
+			</div>
+		</form>
+			<a href="register.html"><p>Don't have an account? Register here</p></a>
+		**/
+	
+	
+	$('[title]').tooltip();
 	$('.sm').smartmenus( {
 		showFunction: function($ul, complete) {
 			$ul.slideDown(250,complete);
@@ -10,7 +49,7 @@ $(document).ready(function() {
 	var papers=['The Effect of Music on Memory', 'Music on Time Perception', 'Productivity and Music', 'Not What You Think: Music and Memory', 'Cosmic Radiation and Ice: The Space Miracle'];
 	$('#searchBox').autocomplete({source:papers});
 
-	   	$('#signInBox').load('sign_in.html').dialog({
+	$('#signInBox').dialog({
 		modal: true,
 		draggable:true,
 		resizable:false,
@@ -20,20 +59,21 @@ $(document).ready(function() {
 	
 function sisoopen() {
 	console.log("sign in button clicked");
-	evt.preventDefault();
-	$('#signInBox').load('sign_in.html').dialog('open');
-}	
+	//jeshaitan, this fuunction wasn't running so I moved it to the siso.click
+	}
+	
 	$('#siso').click(function(evt) {
+		evt.preventDefault();
+		$('#signInBox').dialog('open');
 		
 	}); //end signup click dialog open
 			
 	$('#signInForm').submit(function(evt) {
-		$('#signinBox').load('sign_in.html').dialog('close');
+		$('#signinBox').dialog('close');
 	}); //end dialog close
 
-	$('#signInButton').load('sign_in.html').button();
-	var schools=["Great Neck South High School", "Great Neck North High School", "Jericho High School"];
-	$('#school').load('sign_in.html').autocomplete({source:schools});
+	$('#signInButton').button();
+
 
 }); 
 function requestUser(username, password, school) {

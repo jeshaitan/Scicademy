@@ -7,6 +7,7 @@
 	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
 	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
+	<link href="css/signInCss.css" rel="stylesheet">
 	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	<script src="libs/jquery-1.11.3.min.js"></script>
@@ -16,21 +17,14 @@
 </head>
 
 <body>
-	<div class="navigation">
-  		<ul class="sm sm-simple">
-  			<li><a href="index.html">Home</a></li>
-			<li>
-			 	<a>User</a>
-			 	<ul>
-			 		<li><a href="submit.html">Submit Research</a></li>
-			 		<li><a href="edit.html">Edit Account</a></li>
-			 	</ul>
-			</li>
-			<li><a href="about.html">About</a></li>
-			<li><a href="" id="siso">Sign In</a></li>
-			<li><a href="register.html">Sign Up</a></li>
-  		</ul>
-  	</div>
+	<script type="text/javascript"> 
+		//$('script').load('javascript/index-logic.js', function(jd){
+		//load the navBar and signIn box.
+		$.getScript('javascript/index-logic.js', function(jd){
+		});
+	</script>
+	<div class="navigation"></div>
+	<div id="signInBox"></div>
 
 </body>
 </html>

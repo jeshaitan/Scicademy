@@ -1,4 +1,4 @@
-input{
+#signInForm input{
 	height: 34px;
 	line-height: 20px;
 	padding: 6px 12px;
@@ -19,7 +19,7 @@ div.curFocus {
 	background: #fdecb2;
 }
 
-input[type=text], input[type=password], textarea {
+#signInForm input[type=text], #signInForm input[type=password], #signInForm textarea {
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
@@ -30,7 +30,7 @@ input[type=text], input[type=password], textarea {
   border: 1px solid #DDDDDD;
 }
  
-input[type=text]:focus,  input[type=password]:focus, textarea:focus {
+#signInForm input[type=text]:focus,  #signInForm input[type=password]:focus, #signInForm textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
