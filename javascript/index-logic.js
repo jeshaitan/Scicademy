@@ -54,7 +54,7 @@ $(document).ready(function() {
 		draggable:true,
 		resizable:false,
 		minWidth: 400,
-		autoOpen: false,
+		autoOpen: false
 	}); //end dialog
 	
 function sisoopen() {

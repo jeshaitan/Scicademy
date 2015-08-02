@@ -36,23 +36,3 @@ div.curFocus {
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
 }
-
-.ui-icon-closethick {
-    background-image: url(images/closeIcon.png) !important;
-    background-position: left top !important;
-    margin: 0 !important;
-}
-
-.ui-dialog .ui-dialog-titlebar-close, .ui-icon-closethick {
-    width: 10px !important;
-    height: 10px !important;
-}
-
-.ui-dialog .ui-dialog-titlebar-close {
-    background: none !important;
-    border: none !important;
-}
-
-.ui-dialog .ui-dialog-titlebar-close, .ui-dialog .ui-dialog-titlebar-close:hover {
-    padding: 0 !important;
-}
