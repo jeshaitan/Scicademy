@@ -62,17 +62,17 @@ function sisoopen() {
 	//jeshaitan, this fuunction wasn't running so I moved it to the siso.click
 	}
 	
-	$('#siso').click(function(evt) {
-		evt.preventDefault();
-		$('#signInBox').dialog('open');
+$('#siso').click(function(evt) {
+	evt.preventDefault();
+	$('#signInBox').dialog('open');
+	
+}); //end signup click dialog open
 		
-	}); //end signup click dialog open
-			
-	$('#signInForm').submit(function(evt) {
-		$('#signinBox').dialog('close');
-	}); //end dialog close
+$('#signInForm').submit(function(evt) {
+	$('#signinBox').dialog('close');
+}); //end dialog close
 
-	$('#signInButton').button();
+$('#signInButton').button();
 
 
 }); 
