@@ -59,7 +59,6 @@
 .sm-simple ul ul a:focus,
 .sm-simple ul ul a:active {
   border-left: 16px solid transparent;
-  color: #ffffff;
 
 }
 .sm-simple ul ul ul a,
@@ -67,21 +66,18 @@
 .sm-simple ul ul ul a:focus,
 .sm-simple ul ul ul a:active {
   border-left: 24px solid transparent;
-  color: #ffffff;
 }
 .sm-simple ul ul ul ul a,
 .sm-simple ul ul ul ul a:hover,
 .sm-simple ul ul ul ul a:focus,
 .sm-simple ul ul ul ul a:active {
   border-left: 32px solid transparent;
-  color: #ffffff;
 }
 .sm-simple ul ul ul ul ul a,
 .sm-simple ul ul ul ul ul a:hover,
 .sm-simple ul ul ul ul ul a:focus,
 .sm-simple ul ul ul ul ul a:active {
   border-left: 40px solid transparent;
-  color: #ffffff;
 }
 
 @media (min-width: 768px) {
@@ -129,6 +125,7 @@
   }
   .sm-simple a:hover, .sm-simple a:focus, .sm-simple a:active, .sm-simple a.highlighted {
     background: #c070a0;
+    color: #ffffff;
   }
   .sm-simple a.current {
     background: #555555;
