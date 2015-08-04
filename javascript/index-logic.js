@@ -50,7 +50,7 @@ $(document).ready(function() {
 	$('#searchBox').autocomplete({source:papers});
 
 	$('#signInBox').dialog({
-		modal: true,
+		modal: false,
 		draggable:true,
 		resizable:false,
 		minWidth: 400,
