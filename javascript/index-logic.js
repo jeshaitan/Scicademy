@@ -70,22 +70,22 @@ $(document).ready(function() {
 
 function readSignInForm(form) {
 	console.log('read from sign in');
-	var signinEmail = form.email.value;
-	var signinPassword = form.password.value;
+	var signinEmail = form.elements["email"].value;
+	var signinPassword = form.elements["password"].value;
 	requestUser(signinEmail, signinPassword);
 }
 
 function readRegisterForm(form) {
 	console.log('read from register');
-	var firstName = form.firstname.value;
-	var lastname = form.lastname.value;
-	var is_highschool = form.highschool.value;
-	var is_undergrad = form.undergrad.value;
+	var firstName = form.elements["firstname"].value;
+	var lastname = form.elements["lastname"].value;
+	var is_highschool = form.elements["highschool"].value;
+	var is_undergrad = form.elements["undergrad"].value;
 	if(is_highschool) {
-		var grade = form.grade.value;
+		var grade = form.elements["grade"].value;
 	}
-	var email = form.email.value;
-	var password = form.password2.value;
+	var email = form.elements["email"].value;
+	var password = form.elements["password2"].value;
 }
 
 function requestUser(email, password) {
