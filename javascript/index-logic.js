@@ -27,7 +27,7 @@ $(document).ready(function() {
 			<input type="password" id="password" name="password" maxlength="255" size="16" value="" placeholder="password">\
 			</div>\
 			<div>\
-			<input type="submit" id="signInButton" name="signInButton" value="Sign In" onclick="readSignInForm(this.form)">\
+			<input type="submit" id="signInButton" name="signInButton" value="Sign In">\
 			</div>\
 		</form>\
 			<a href="register.html"><p>Don\'t have an account? Register here</p></a>'
@@ -60,13 +60,19 @@ $(document).ready(function() {
 	}); //end signup click dialog open
 		
 	$('#signInForm').submit(function(evt) {
+		evt.preventDefault();
+		readSignInForm($('#signInForm'));
 		$('#signinBox').dialog('close');
 	}); //end dialog close
+
+	$('#registerForm').submit(function(evt) {
+		evt.preventDefault();
+		readRegisterForm($('#registerForm'));
+	});
 
 	$('#signInButton').button();
 
 }); 
-
 
 function readSignInForm(form) {
 	console.log('read from sign in');
