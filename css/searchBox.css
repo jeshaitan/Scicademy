@@ -1,0 +1,137 @@
+body {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	/* background: #eee url(../images/bg.jpg) top left repeat; */
+	background: url(../images/chemicals.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+	background-size: cover;
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-weight: 400;
+}
+
+#search-form {
+	width: 430px;
+	height: 360px;
+	margin: 0px auto 0 auto;
+	padding: 1px 0 0 0;
+	background: url(../images/form-bg.png) top center no-repeat;
+	text-align: center;
+}
+
+.form-container {
+	width: 353px;
+	height: 49px;
+	margin: 0px auto 0 auto;
+	padding: 0;
+	overflow: hidden;
+	text-align: left;
+	background: #f8f8f8;
+	border: 1px solid #ccc;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px; 
+	border-radius: 8px;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#eeeeee));
+	background-image: -webkit-linear-gradient(top, #f8f8f8, #eeeeee);
+	background-image: -moz-linear-gradient(top, #f8f8f8, #eeeeee);
+	background-image: -ms-linear-gradient(top, #f8f8f8, #eeeeee);
+	background-image: -o-linear-gradient(top, #f8f8f8, #eeeeee);
+	background-image: linear-gradient(top, #f8f8f8, #eeeeee);
+	-moz-box-shadow: 0 4px 0 #ddd, 0 6px 8px rgba(0,0,0,.5);
+	-webkit-box-shadow: 0 4px 0 #ddd, 0 6px 8px rgba(0,0,0,.5);
+	box-shadow: 0 4px 0 #ddd, 0 6px 8px rgba(0,0,0,.5);
+}
+
+.search-field {
+	float: left;
+	width: 250px;
+	height: 34px;
+	margin: 6px 0 0 8px;
+	padding: 0 8px;
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-size: 16px;
+	color: #888;
+	font-style: strong;
+	font-weight: 400;
+	background: #fff;
+	border: 1px solid #ccc;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px; 
+	border-radius: 8px;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#ffffff));
+	background-image: -webkit-linear-gradient(top, #f5f5f5, #ffffff);
+	background-image: -moz-linear-gradient(top, #f5f5f5, #ffffff);
+	background-image: -ms-linear-gradient(top, #f5f5f5, #ffffff);
+	background-image: -o-linear-gradient(top, #f5f5f5, #ffffff);
+	background-image: linear-gradient(top, #f5f5f5, #ffffff);
+	-moz-box-shadow: 0 1px 1px #e2e2e2 inset, 0 1px 0 #fff;
+	-webkit-box-shadow: 0 1px 1px #e2e2e2 inset, 0 1px 0 #fff;
+	box-shadow: 0 1px 1px #e2e2e2 inset, 0 1px 0 #fff;
+}
+
+.search-field:focus {
+	outline: 0;
+	color: #666;
+	border-color: #aaa;
+	-moz-box-shadow: 0 1px 1px #dadada inset;
+	-webkit-box-shadow: 0 1px 1px #dadada inset;
+	box-shadow: 0 1px 1px #dadada inset;
+}
+
+.submit-container {
+	float: left;
+	width: 60px;
+	height: 32px;
+	margin: 7px 0 0 7px;
+	padding: 0;
+	cursor: pointer;
+	background: #C070A0;
+	border: 1px solid #D658A4;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px; 
+	border-radius: 6px;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ED289E), to(#C070A0));
+	background-image: -webkit-linear-gradient(top, #ED289E, #C070A0);
+	background-image: -moz-linear-gradient(top, #ED289E, #C070A0);
+	background-image: -ms-linear-gradient(top, #ED289E, #C070A0);
+	background-image: -o-linear-gradient(top, #ED289E, #C070A0);
+	background-image: linear-gradient(top, #ED289E, #C070A0);
+	-moz-box-shadow: 0 1px 1px #fa8e1f inset, 0 1px 0 #fff;
+	-webkit-box-shadow: 0 1px 1px #fa8e1f inset, 0 1px 0 #fff;
+	box-shadow: 0 1px 1px #fa8e1f inset, 0 1px 0 #fff;
+}
+
+.submit-container:hover, .submit-container:focus {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#C070A0), to(#ED289E));
+	background-image: -webkit-linear-gradient(top, #C070A0, #ED289E);
+	background-image: -moz-linear-gradient(top, #C070A0, #ED289E);
+	background-image: -ms-linear-gradient(top, #C070A0, #ED289E);
+	background-image: -o-linear-gradient(top, #C070A0, #ED289E);
+	background-image: linear-gradient(top, #C070A0, #ED289E);
+	-moz-box-shadow: 0 1px 1px #f36215 inset, 0 1px 0 #fff;
+	-webkit-box-shadow: 0 1px 1px #f36215 inset, 0 1px 0 #fff;
+	box-shadow: 0 1px 1px #f36215 inset, 0 1px 0 #fff;
+}
+
+.submit-container:active {
+	outline: 0;
+	-moz-box-shadow: 0 1px 6px #e4340b inset;
+	-webkit-box-shadow: 0 1px 6px #e4340b inset;
+	box-shadow: 0 1px 6px #e4340b inset;
+}
+
+.submit {
+	float: left;
+	width: 60px;
+	height: 32px;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+	border: 0px solid #000;
+	background: url(../images/magnifier.png) 20px 6px no-repeat;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px; 
+	border-radius: 6px;
+}
+

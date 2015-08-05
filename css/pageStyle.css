@@ -10,17 +10,7 @@ p {
 	padding-top:120px;
 	padding-bottom:50px;
 }
-#searchBoxDiv{
-	position: relative;
-	/* margin-left: 25%; */
-	text-align:center;
-	z-index: 10;
-}
-#searchBox{
-	width: 30%;
-	height:auto;
-	}
-	
+
 #topBar{
 	background-color: gray;
 	border-style:solid;
