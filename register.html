@@ -141,11 +141,11 @@
 						<li id="li_2" >
 			<label class="description" for="element_2">Name </label>
 			<span>
-				<input type="text" id="element_2_1" name= "element_2_1" class="element text required" maxlength="255" size="16" value=""/>
+				<input type="text" id="element_2_1" name= "firstname" class="element text required" maxlength="255" size="16" value=""/>
 				<label>First</label>
 			</span>
 			<span>
-				<input type="text" id="element_2_2" name= "element_2_2" class="element text required" maxlength="255" size="21" value=""/>
+				<input type="text" id="element_2_2" name= "lastname" class="element text required" maxlength="255" size="21" value=""/>
 				<label>Last</label>
 			</span> 
 			</li>		
@@ -154,9 +154,9 @@
 				<img src="images/questionMark.png" id="highColImg" class="tool" title="We'll use this to classify research and provide more focused search results"></img>
 				<span>
 				<div id="highCol">
-					<input id="element_6_1" name="element_6" class="element radio" type="radio" value="1" />
+					<input id="element_6_1" name="highschool" class="element radio" type="radio" value="1" />
 					<label class="choice" for="element_6_1">High School</label>
-					<input id="element_6_2" name="element_6" class="element radio" type="radio" value="2" />
+					<input id="element_6_2" name="undergrad" class="element radio" type="radio" value="2" />
 					<label class="choice" for="element_6_2">Undergrad</label>
 				</div>
 				</span> 
@@ -164,7 +164,7 @@
 			<li id="li_1">
 			<label class="description" for="element_1">What grade are you in? </label>
 			<div>
-			<select class="element select small" id="element_1" name="element_1"> 
+			<select class="element select small" id="element_1" name="grade"> 
 				<option value="" selected="selected"></option>
 					<option value="1" >9th</option>
 					<option value="2" >10th</option>
@@ -175,24 +175,24 @@
 			</li>		<li id="li_3" >
 			<label class="description" for="element_3">Email </label>
 			<div>
-				<input id="element_3" name="element_3" class="element text medium required email" type="text" maxlength="255" value=""/> 
+				<input id="element_3" name="email" class="element text medium required email" type="text" maxlength="255" value=""/> 
 			</div> 
 			</li>		<li id="li_4" >
 			<label class="description" for="element_4">Password </label>
 			<div>
-				<input id="element_4" name="element_4" class="element text medium required" type="password" maxlength="255" value=""/> 
+				<input id="element_4" name="password1" class="element text medium required" type="password" maxlength="255" value=""/> 
 			</div><p class="guidelines" id="guide_4"><small>Your password must be between 6 and 18 characters and contain at least one number</small></p> 
 			</li>		<li id="li_5" >
 			<label class="description" for="element_5">Confirm Password </label>
 			<div>
-				<input id="element_5" name="element_5" class="element text medium required" type="password" maxlength="255" value=""/> 
+				<input id="element_5" name="password2" class="element text medium required" type="password" maxlength="255" value=""/> 
 			</div> 
 			</li>
 				
 						<li class="buttons">
 					<input type="hidden" name="form_id" value="1037235" />
 					
-					<input id="saveForm" class="button_text" type="submit" name="submit" value="Register" />
+					<input id="saveForm" class="button_text" type="submit" name="submit" value="Register" onclick="readRegisterForm(this.form)" />
 			</li>
 				</ul>
 			</form>	

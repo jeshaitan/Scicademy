@@ -15,8 +15,7 @@ function requestHandler(request, response) {
 	var details = path.split('/');
 	if(details.indexOf("getUser") != -1) {
 		console.log("recieved request for user");
-
-		var user = db.Users.find({"username": details[details.indexOf("getUser") + 1],
+		var user = db.Users.find({"email": details[details.indexOf("getUser") + 1],
 	                              "password": details[details.indexOf("getUser") + 2]});
 		user = user.toArray[0];
 		response.writeHead(200, {"Content-Type": "application/json"});
