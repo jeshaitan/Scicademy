@@ -53,20 +53,20 @@ $(document).ready(function() {
 		autoOpen: false
 	}); //end dialog
 	
-	$('#siso').click(function(evt) {
-		evt.preventDefault();
+	$('#siso').click(function(event) {
+		event.preventDefault();
 		$('#signInBox').dialog('open');
 	
-	}); //end signup click dialog open
+	});
 		
-	$('#signInForm').submit(function(evt) {
-		evt.preventDefault();
+	$('#signInForm').submit(function(event) {
+		event.preventDefault();
 		readSignInForm(document.getElementById('signInForm'));
 		$('#signinBox').dialog('close');
-	}); //end dialog close
+	});
 
-	$('#registerForm').submit(function(evt) {
-		evt.preventDefault();
+	$('#registerForm').submit(function(event) {
+		event.preventDefault();
 		readRegisterForm(document.getElementById('registerForm'));
 	});
 
