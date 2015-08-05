@@ -3,11 +3,11 @@ body {
 	padding: 0;
 	text-align: center;
 	/* background: #eee url(../images/bg.jpg) top left repeat; */
-	background: url(../images/Chemicals.jpg) no-repeat center center fixed; 
+	/*background: url(../images/Chemicals.jpg) no-repeat center center fixed; */
 	-webkit-background-size: cover;
     -moz-background-size: cover;
 	background-size: cover;
-	font-family: 'Open Sans', Arial, sans-serif;
+	font-family: Ubuntu, Arial, sans-serif;
 	font-weight: 400;
 }
 
@@ -49,7 +49,7 @@ body {
 	height: 34px;
 	margin: 6px 0 0 8px;
 	padding: 0 8px;
-	font-family: 'Open Sans', Arial, sans-serif;
+	font-family: Ubuntu, Arial, sans-serif;
 	font-size: 16px;
 	color: #888;
 	font-style: strong;
