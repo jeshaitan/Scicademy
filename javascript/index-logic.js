@@ -69,12 +69,14 @@ $(document).ready(function() {
 
 
 function readSignInForm(form) {
+	console.log('read from sign in');
 	var signinEmail = form.email.value;
 	var signinPassword = form.password.value;
 	requestUser(signinEmail, signinPassword);
 }
 
 function readRegisterForm(form) {
+	console.log('read from register');
 	var firstName = form.firstname.value;
 	var lastname = form.lastname.value;
 	var is_highschool = form.highschool.value;
