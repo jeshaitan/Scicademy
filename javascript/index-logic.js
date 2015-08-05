@@ -61,13 +61,13 @@ $(document).ready(function() {
 		
 	$('#signInForm').submit(function(evt) {
 		evt.preventDefault();
-		readSignInForm($('#signInForm'));
+		readSignInForm(document.getElementById('signInForm'));
 		$('#signinBox').dialog('close');
 	}); //end dialog close
 
 	$('#registerForm').submit(function(evt) {
 		evt.preventDefault();
-		readRegisterForm($('#registerForm'));
+		readRegisterForm(document.getElementById('registerForm'));
 	});
 
 	$('#signInButton').button();
