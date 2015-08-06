@@ -21,7 +21,7 @@ body {
 }
 
 .form-container {
-	width: 353px;
+	width: 465px;
 	height: 49px;
 	margin: 0px auto 0 auto;
 	padding: 0;
@@ -45,7 +45,7 @@ body {
 
 .search-field {
 	float: left;
-	width: 250px;
+	width: 360px;
 	height: 34px;
 	margin: 6px 0 0 8px;
 	padding: 0 8px;
