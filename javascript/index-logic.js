@@ -6,6 +6,7 @@ $(document).ready(function() {
 			 	<a href="">User</a>\
 			 	<ul>\
 			        <li><a href="submit.html">Submit Research</a></li>\
+			        <li><a href="poster.html">Submit Poster</a></li>\
 			 		<li><a href="edit.html">Edit Account</a></li>\
 			 	</ul>\
 			</li>\
