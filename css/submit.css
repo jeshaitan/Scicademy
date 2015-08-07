@@ -6,7 +6,7 @@ body
 #form_container
 {
 	background:#eeeeee;
-	
+	padding-top: 
 	margin:0 auto;
 	text-align:left;
 	width:640px;
@@ -16,7 +16,7 @@ body
 {
 	display:block;
 	height:10px;
-	margin:10px auto 0;
+	margin:7% auto 0;
 	width:650px;
 }
 
@@ -54,7 +54,7 @@ form.appnitro
 /**** Logo Section  *****/
 h1
 {
-	background-color:#996699;
+	background-color:#c070a0;
 	margin:0;
 	min-height:0;
 	padding:0;
