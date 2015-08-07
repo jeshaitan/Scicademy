@@ -1,31 +1,196 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="UTF-8">
-	<title>Aliro</title>
-	<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Submit Your Research</title>
+<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
 	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
 	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
 	<link href="css/signInCss.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/submit.css" media="all">
 	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	<script src="libs/jquery-1.11.3.min.js"></script>
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
+	<script type="text/javascript" src="javascript/submit.js"></script>
 	<script src="javascript/index-logic.js"></script>
-</head>
 
-<body>
+</head>
+<body id="main_body" >
 	<script type="text/javascript"> 
-		//$('script').load('javascript/index-logic.js', function(jd){
-		//load the navBar and signIn box.
-		$.getScript('javascript/index-logic.js', function(jd){
-		});
+		$(document).ready(function(){
+			$.getScript('javascript/index-logic.js', function(jd){});
+			$('#element_1').focus();
+			$('#noPDF').slideUp();
+			$('#li_14').slideUp();
+			$('#li_3').slideUp();
+			$('#convertToPDF').slideUp();
+			$('#saveForm').button();
+			$('#converted').button();
+			$('[title]').tooltip();
+			$('.sm').smartmenus({
+				showFunction: function($ul, complete){
+					$ul.slideDown(250,complete);
+				},
+				hideFunction: function($ul, complete){
+					$ul.slideUp(250, complete);
+				}
+			}); //end smartmenus
+			$(':radio').click(function() {
+				if ($('input[name="element_13"]:checked').val()=="yesPDF"){ //element 13, pdf or type it up there?
+					$('#li_3').slideUp(); //upload
+					$('#noPDF').slideUp();
+					$('#li_14').slideDown();
+					if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
+						$('#convertToPDF').slideUp();
+						$('#li_3').slideDown();
+				}
+					else if ($('input[name="element_14"]:checked').val()=="isWord"){
+						$('#li_3').slideUp();
+						$('#convertToPDF').slideDown();
+				}
+				}
+				else if($('input[name="element_13"]:checked').val()=="noPDF"){
+					$('#li_3').slideUp();
+					$('#li_14').slideUp();
+					$('#convertToPDF').slideUp();
+					$('#noPDF').slideDown();
+				}
+
+			})
+			$('#converted').click(function(e) {
+				e.preventDefault();
+				$("#element_14_1").prop("checked", true);
+				$('#convertToPDF').slideUp();
+				$('#li_3').slideDown();
+			})
+		}); //end ready
 	</script>
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
-
-</body>
-</html>
 	
+	
+	<img id="top" src="images/top.png" alt="">
+	<div id="form_container">
+	
+		<h1><a>Submit Your Research</a></h1>
+		<form id="form_1039889" class="appnitro" enctype="multipart/form-data" method="post" action="">
+					<div class="form_description">
+			<h2>Submit Your Research</h2>
+			<p></p>
+		</div>						
+			<ul >
+			
+					<li id="li_1" >
+		<label class="description" for="element_1">Title </label>
+		<div>
+			<input id="element_1" name="element_1" class="element text large" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_4" >
+		<label class="description" for="element_4">Authors </label>
+		<span>
+			<input id="element_4_1" name= "element_4_1" class="element text" maxlength="255" size="8" value=""/>
+			<label>First</label>
+		</span>
+		<span>
+			<input id="element_4_2" name= "element_4_2" class="element text" maxlength="255" size="14" value=""/>
+			<label>Last</label>
+		</span> 
+		</li>		<li id="li_5" >
+		<label class="description" for="element_5">School </label>
+		<div>
+			<input id="element_5" name="element_5" class="element text large" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_2" >
+		<label class="description" for="element_2">Abstract </label>
+		<div>
+			<textarea id="element_2" name="element_2" class="element textarea medium"></textarea> 
+		</div><p class="guidelines" id="guide_2"><small>Must be at least 40 characters</small></p> 
+		</li>		<li id="li_13" >
+		<label class="description" for="element_13">Do you have your paper saved as a pdf/word document? </label>
+		<span>
+				<input id="element_13_1" name="element_13" class="element radio" type="radio" value="yesPDF" />
+				<label class="choice" for="element_13_1">Yes, I have a pdf/word document</label>
+				<input id="element_13_2" name="element_13" class="element radio" type="radio" value="noPDF" />
+				<label class="choice" for="element_13_2">No, I will type up the required parts here</label>
+
+		</span> 
+		</li>
+		<div id="paperPDF">
+		<li id="li_14" >
+			<label class="description" for="element_14">Is your paper a pdf? </label>
+		<span>
+			<input id="element_14_1" name="element_14" class="element radio" type="radio" value="isPDF" />
+			<label class="choice" for="element_14_1">Yes</label>
+			<input id="element_14_2" name="element_14" class="element radio" type="radio" value="isWord" />
+			<label class="choice" for="element_14_2">No</label>
+
+		</span> 
+		</li>
+		</div>
+		<div id="convertToPDF">
+		<li>
+			<p>Make sure your paper is in PDF format. Either save it as a pdf, or use <a href="https://www.freepdfconvert.com/">a free online pdf converter</a></p>
+			<button id="converted">Ok, it's a pdf now</button>
+		</li>
+		</div>
+		<div id="upload">
+		<li id="li_3" >
+		<label class="description" for="element_3">Upload Your PDF </label>
+		<div>
+			<input id="element_3" name="element_3" class="element file" type="file"/> 
+		</div>  
+		</li>
+		</div>
+			<div id="noPDF">
+				<li id="li_6" >
+				<label class="description" for="element_6">Introduction </label>
+				<div>
+					<textarea id="element_6" name="element_6" class="element textarea medium"></textarea> 
+				</div><p class="guidelines" id="guide_6"><small>An introduction usually describes the theoretical background, indicates why the work is important, states a specific research question, and poses a specific hypothesis to be tested.</small></p> 
+				</li>		<li id="li_7" >
+				<label class="description" for="element_7">Methods </label>
+				<div>
+					<textarea id="element_7" name="element_7" class="element textarea medium"></textarea> 
+				</div><p class="guidelines" id="guide_7"><small>The methods section describes both specific techniques and the overall experimental strategy used by the scientists. </small></p> 
+				</li>		<li id="li_8" >
+				<label class="description" for="element_8">Results </label>
+				<div>
+					<textarea id="element_8" name="element_8" class="element textarea medium"></textarea> 
+				</div><p class="guidelines" id="guide_8"><small>The purpose of a results section is to present and illustrate your findings. Make this section a completely objective report of the results, and save all interpretation for the discussion.</small></p> 
+				</li>		<li id="li_9" >
+				<label class="description" for="element_9">Discussion </label>
+				<div>
+					<textarea id="element_9" name="element_9" class="element textarea medium"></textarea> 
+				</div><p class="guidelines" id="guide_9"><small>The objective here is to provide an interpretation of your results and support for all of your conclusions, using evidence from your experiment and generally accepted knowledge, if appropriate. The significance of findings should be clearly described.</small></p> 
+				</li>		<li id="li_10" >
+				<label class="description" for="element_10">Conclusion </label>
+				<div>
+					<textarea id="element_10" name="element_10" class="element textarea medium"></textarea> 
+				</div> 
+				</li>		<li id="li_12" >
+				<label class="description" for="element_12">Acknowledgements </label>
+				<div>
+					<textarea id="element_12" name="element_12" class="element textarea medium"></textarea> 
+				</div><p class="guidelines" id="guide_12"><small>The acknowledgments tell you what people or institutions (besides the authors) contributed to the work.</small></p> 
+				</li>		<li id="li_11" >
+				<label class="description" for="element_11">Bibliography </label>
+				<div>
+					<textarea id="element_11" name="element_11" class="element textarea medium"></textarea> 
+				</div><p class="guidelines" id="guide_11"><small>This section provides the sources cited throughout the paper. Need help creating citations? http://www.citationmachine.net/apa/cite-a-journal
+		Try to avoid using websites and instead use primary sources (such as scientific papers in journals).</small></p> 
+				</li>
+			</div>
+					<li class="buttons">
+			    <input type="hidden" name="form_id" value="1039889" />
+			    
+				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+		</li>
+			</ul>
+		</form>	
+	</div>
+	<img id="bottom" src="images/bottom.png" alt="">
+	</body>
+</html>

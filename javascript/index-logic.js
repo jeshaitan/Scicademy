@@ -50,7 +50,9 @@ $(document).ready(function() {
 		draggable:true,
 		resizable:false,
 		minWidth: 400,
-		autoOpen: false
+		autoOpen: false,
+		show: 'fade', 
+		hide: 'drop'
 	}); //end dialog
 	
 	$('#siso').click(function(event) {
@@ -65,9 +67,9 @@ $(document).ready(function() {
 		$('#signinBox').dialog('close');
 	});
 
-	$('#registerForm').submit(function(event) {
+	$('#form_1037235').submit(function(event) {
 		event.preventDefault();
-		readRegisterForm(document.getElementById('registerForm'));
+		readRegisterForm(document.getElementById('form_1037235'));
 	});
 
 	$('#signInButton').button();
@@ -83,15 +85,15 @@ function readSignInForm(form) {
 
 function readRegisterForm(form) {
 	console.log('read from register');
-	var firstName = form.elements["firstname"].value;
-	var lastname = form.elements["lastname"].value;
-	var is_highschool = form.elements["highschool"].value;
-	var is_undergrad = form.elements["undergrad"].value;
+	var firstName = $('#element_2_1').val();
+	var lastname = $('#element_2_2').val();
+	var is_highschool = $('#element_6_1').val();
+	var is_undergrad = $('#element_6_2').val();
 	if(is_highschool) {
-		var grade = form.elements["grade"].value;
+		var grade = $('#element_1').val();
 	}
-	var email = form.elements["email"].value;
-	var password = form.elements["password2"].value;
+	var email = $('#element_3').val();
+	var password = $('#element_5').val();
 }
 
 function requestUser(email, password) {
