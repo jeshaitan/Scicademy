@@ -2,8 +2,9 @@
 #saveForm{
 	height: 40px;
 	width: 100px;
-
 }
+
+.required:after { content:" *"; color:red; }
 #form_1037235 input{
 	line-height: 20px;
 	background-image: none;
