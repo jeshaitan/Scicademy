@@ -5,7 +5,7 @@ body
 
 #form_container
 {
-	background:#fff;
+	background:#eeeeee;
 	
 	margin:0 auto;
 	text-align:left;
@@ -83,7 +83,7 @@ img
 /**** Form Section ****/
 .appnitro
 {
-	font-family:Lucida Grande, Tahoma, Arial, Verdana, sans-serif;
+	font-family:Ubuntu, Lucida Grande, Tahoma, Arial, Verdana, sans-serif;
 	font-size:small;
 }
 
@@ -351,7 +351,7 @@ textarea.textarea
 	border-right:1px solid #c3c3c3;
 	border-top:1px solid #7c7c7c;
 	color:#333;
-	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	font-family:Ubuntu, "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	font-size:100%;
 	margin:0;
 	width:99%;
