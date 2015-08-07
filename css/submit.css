@@ -2,7 +2,7 @@ body
 {
 	background:gray;
 }
-
+.required:after { content:" *"; color:red; }
 #form_container
 {
 	background:#eeeeee;
@@ -462,12 +462,6 @@ textarea.large
 
 /**** Errors ****/
 
-form .required
-{
-	color:red;
-	float:none;
-	font-weight:700;
-}
 
 /**** Guidelines and Error Highlight ****/
 form li.highlighted
