@@ -43,7 +43,6 @@ body {
 	float: left;
 	width: 370px;
 	height: 34px;
-	margin: 6px 0 0 8px;
 	padding: 0 8px;
 	font-family: Ubuntu, Arial, sans-serif;
 	font-size: 16px;
@@ -129,5 +128,20 @@ body {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px; 
 	border-radius: 6px;
+}
+
+.smallSearchField {
+	margin-left: 5px !important;
+	margin-top: 2px;
+}
+
+#searchBox{
+	margin: 6px 0 0 8px;
+}
+
+.smallSubmitContainer{
+	left: -2px;
+    position: relative;
+    top: -5px;
 }
 

@@ -13,6 +13,14 @@ $(document).ready(function() {
 			<li><a href="about.html">About</a></li>\
 			<li><a href="" id="siso">Sign In</a></li>\
 			<li><a href="register.html">Sign Up</a></li>\
+			<li>\
+				<form class="smallForm" action="">\
+					<input type="text" class="search-field smallSearchField" placeholder="Find Research" maxlength="2048"  />\
+					<div class="submit-container smallSubmitContainer">\
+						<input type="submit" value="" class="submit smallSubmit searchBoxSubmit" />\
+					</div>\
+				</form>\
+			</li>\
 		</ul>'
 	);
 	$('#signInBox').html(
@@ -61,7 +69,7 @@ $(document).ready(function() {
 		$('#signInBox').dialog('open');
 	
 	});
-	$('#searchBoxSubmit').click(function(){
+	$('.searchBoxSubmit').click(function(){
 		window.location.href = "results.html";
 	})
 	$('#signInForm').submit(function(event) {
@@ -76,7 +84,15 @@ $(document).ready(function() {
 	});
 
 	$('#signInButton').button();
-
+	// $('.smallSubmitContainer').position({
+		// my: "left center",
+		// at: "right+5 center-1",
+		// of: ".search-field"
+	// });
+	var headText= $('head').html();
+	if (headText.indexOf('href="css/searchBox.css"')<0){
+		$('head').append('<link rel="stylesheet" href="css/searchBox.css" type="text/css" />');	
+	}
 }); 
 
 function readSignInForm(form) {

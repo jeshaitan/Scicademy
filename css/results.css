@@ -38,10 +38,10 @@
 .arrowSide:before {content:url("../images/purpleRightArrow.png");}
 
 .authors a{
-	color:black;
+	color:black !important;
 }
 
-.preTxt:hover{
+.abstractText:hover{
 	cursor:pointer;
 }
 
@@ -63,11 +63,6 @@
 	position:relative;
 }
 
-
-.ui-selectmenu-button span.ui-selectmenu-text{
-	line-height: 39px !important;
-}
-
 .separator {
 	width: 100%; 
 	height: 1px; 
@@ -77,4 +72,33 @@
 
 .searchInfo{
 	padding-right: 40px;
+}
+
+.select-style {
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("../images/purpleDownArrow.png") no-repeat 90% 50%;
+}
+
+.select-style select:hover{
+	cursor:pointer;
+	border-style: solid;
+	border-color: #C070A0;
+	border-width: 1px;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
 }
