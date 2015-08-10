@@ -14,10 +14,8 @@ $(document).ready(function() {
 			<li><a href="" id="siso">Sign In</a></li>\
 			<li><a href="register.html">Sign Up</a></li>\
 			<li>\
-				<form class="smallForm" action="">\
+				<form class="smallForm searchForm" action="">\
 					<input type="text" class="search-field smallSearchField" placeholder="Find Research" maxlength="2048"  />\
-					<div class="submit-container smallSubmitContainer">\
-						<input type="submit" value="" class="submit smallSubmit searchBoxSubmit" />\
 					</div>\
 				</form>\
 			</li>\
@@ -69,9 +67,17 @@ $(document).ready(function() {
 		$('#signInBox').dialog('open');
 	
 	});
-	$('.searchBoxSubmit').click(function(){
+	
+	$(document).on("submit", ".searchForm", function(event){
+		event.preventDefault();
 		window.location.href = "results.html";
-	})
+	});
+	
+	$(document).on("click", ".searchBoxSubmit", function(event){
+		event.preventDefault();
+		window.location.href = "results.html";
+	});
+	
 	$('#signInForm').submit(function(event) {
 		event.preventDefault();
 		readSignInForm(document.getElementById('signInForm'));
