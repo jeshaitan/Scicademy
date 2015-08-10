@@ -61,7 +61,9 @@ $(document).ready(function() {
 		$('#signInBox').dialog('open');
 	
 	});
-		
+	$('#searchBoxSubmit').click(function(){
+		window.location.href = "results.html";
+	})
 	$('#signInForm').submit(function(event) {
 		event.preventDefault();
 		readSignInForm(document.getElementById('signInForm'));
