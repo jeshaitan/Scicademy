@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	var currentUser = null;
 	$('.navigation').html(
 		'<ul class="sm sm-simple">\
   			<li><a href="index.html">Home</a></li>\
@@ -56,12 +57,12 @@ $(document).ready(function() {
 	}); //end dialog
 	
 	$('#siso').click(function(event) {
-		if(!currentUser) {
+		if(currentUser == null) {
 			event.preventDefault();
 			$('#signInBox').dialog('open');
 		}
 		else {
-			currentUser == null;
+			currentUser = null;
 			location.reload();
 		}
 	});
@@ -144,7 +145,7 @@ function requestUser(email, password) {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
            user = JSON.parse(xmlhttp.responseText);
            console.log(user);
-           var currentUser = user;
+           currentUser = user;
         }
 	}
 	xmlhttp.send();
