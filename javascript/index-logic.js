@@ -56,13 +56,13 @@ $(document).ready(function() {
 	}); //end dialog
 	
 	$('#siso').click(function(event) {
-		if(currentUser !== 'undefined') {
+		if(!currentUser) {
 			event.preventDefault();
 			$('#signInBox').dialog('open');
 		}
 		else {
 			currentUser == null;
-			window.location.href = "index.html";
+			location.reload();
 		}
 	});
 	if (currentUser != null) {
