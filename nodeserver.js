@@ -15,19 +15,13 @@ app.get('/getUser/:email/:passwd', function(req, res, next) {
     var user = db.Users.findOne({
         "email": req.params.email,
         "password": req.params.passwd
-    }, function(err, docs) {
-        if (err) {
-            res.json({error: ':(' });
-        }
-        else {
-            docs.toArray(function(err, users) {
-                if (err)  {
-                    res.json({error: ':(' });
-                }
-                else {
-                    res.json(user);
-                }
-            });
+    }, function(err, doc) {
+        	if (err) {
+            	res.json({error: 'error retrieving the JSON user' });
+        	}
+        	else {
+            	res.json(doc);
+            }
         }
     });
 });
