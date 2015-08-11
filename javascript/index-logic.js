@@ -124,6 +124,11 @@ function addUser(fnm, lnm, grd, shl, eml, pwd) {
 	xmlhttp.open("GET", "http://localhost:8888/addUser/" + eml + "/" + pwd + "/"
 														 + fnm + "/" + lnm + "/"
 														 + shl + "/" + grd + "/", true);
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+           console.log(xmlhttp.responseText);
+        }
+	}
 	xmlhttp.send();
 }
 

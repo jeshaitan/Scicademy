@@ -32,7 +32,12 @@ app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', functio
                    lastname:req.params.lastname,
                    school:req.params.school,
                    grade:req.params.grade}, {w:1}, function(err, record) {
-        console.log("Record added as "+records[0]._id);
+        if (err) {
+            res.send({error: 'error inserting new user'})
+        }
+        else {
+            res.send("inserted new user")
+        }
     });
 });
 
