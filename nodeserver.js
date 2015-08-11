@@ -26,19 +26,19 @@ app.get('/getUser/:email/:password', function(req, res, next) {
 });
 
 app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', function(req, res, next) {
-    db.Users.save({email:req.params.email, 
+    db.Users.insert({email:req.params.email, 
                    password:req.params.password, 
                    firstname:req.params.firstname,
                    lastname:req.params.lastname,
                    school:req.params.school,
-                   grade:req.params.grade}, {w:1}, function(err, record) {
+                   grade:req.params.grade}/*, function(err, record) {
         if (err) {
             res.send({error: 'error inserting new user'})
         }
         else {
             res.send("inserted new user")
         }
-    });
+    }*/);
 });
 
 app.get('/', function(req, res, next) {
