@@ -56,10 +56,18 @@ $(document).ready(function() {
 	}); //end dialog
 	
 	$('#siso').click(function(event) {
-		event.preventDefault();
-		$('#signInBox').dialog('open');
-	
+		if(currentUser == null) {
+			event.preventDefault();
+			$('#signInBox').dialog('open');
+		}
+		else {
+			currentUser == null;
+			window.location.href = "index.html";
+		}
 	});
+	if (currentUser != null) {
+		document.getElementById('siso').innerHTML("Sign Out");
+	};
 	
 	$(document).on("submit", ".searchForm", function(event){
 		event.preventDefault();
@@ -75,19 +83,16 @@ $(document).ready(function() {
 		event.preventDefault();
 		readSignInForm(document.getElementById('signInForm'));
 		$('#signinBox').dialog('close');
+		location.reload();
 	});
 
 	$('#form_1037235').submit(function(event) {
 		event.preventDefault();
 		readRegisterForm(document.getElementById('form_1037235'));
+		window.location.href = "index.html";
 	});
 
 	$('#signInButton').button();
-	// $('.smallSubmitContainer').position({
-		// my: "left center",
-		// at: "right+5 center-1",
-		// of: ".search-field"
-	// });
 	var headText= $('head').html();
 	if (headText.indexOf('href="css/searchBox.css"')<0){
 		$('head').append('<link rel="stylesheet" href="css/searchBox.css" type="text/css" />');	
@@ -139,6 +144,7 @@ function requestUser(email, password) {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
            user = JSON.parse(xmlhttp.responseText);
            console.log(user);
+           var currentUser = user;
         }
 	}
 	xmlhttp.send();
