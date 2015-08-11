@@ -1,4 +1,8 @@
 
+.text{
+	height: 17px !important;
+}
+
 #saveForm{
 	height: 40px;
 	width: 100px;

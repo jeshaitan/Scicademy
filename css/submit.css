@@ -3,6 +3,25 @@ body
 	background:gray;
 }
 .required:after { content:" *"; color:red; }
+
+#addAuthors{
+	font-size: 11px;
+	margin-left:8px;
+}
+
+#add, #remove{
+	text-decoration:none;
+	color:blue;
+}
+
+#add:hover, #remove:hover{
+	text-decoration:underline;
+}
+
+.spawnFirst, .spawnLast, .text{
+	height:17px;
+}
+
 #form_container
 {
 	background:#eeeeee;
