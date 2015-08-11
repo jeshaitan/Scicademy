@@ -12,12 +12,16 @@ var uri = "mongodb://<dbuser>:<dbpassword>@ds036698.mongolab.com:36698/alirodata
 var db = mongojs(uri, ["Papers", "Users"]);
 
 app.get('/getUser/:email/:passwd', function(req, res, next) {
-  var users = db.Users.find({"email": req.params.email,
+	var users = db.Users.find({"email": req.params.email,
 	                        "password": req.params.passwd});
-  user = users.toArray[0];
-  res.json(user);
+ 	user = users.toArray[0];
+  	res.json(user);
+});
+
+app.get('/', function(req, res, next) {
+	res.send("CORS-enabled node response")
 });
 
 app.listen(8888, function() {
-  console.log('CORS-enabled web server listening on port 8888');
+	console.log('CORS-enabled Aliro web server listening on port 8888');
 });
