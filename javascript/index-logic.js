@@ -3,11 +3,10 @@ $(document).ready(function() {
 		'<ul class="sm sm-simple">\
   			<li><a href="index.html">Home</a></li>\
 			<li>\
-			 	<a href="">User</a>\
+			 	<a href="">Submit Research</a>\
 			 	<ul>\
-			        <li><a href="submit.html">Submit Research</a></li>\
+			        <li><a href="submit.html">Submit Paper</a></li>\
 			        <li><a href="poster.html">Submit Poster</a></li>\
-			 		<li><a href="edit.html">Edit Account</a></li>\
 			 	</ul>\
 			</li>\
 			<li><a href="about.html">About</a></li>\
