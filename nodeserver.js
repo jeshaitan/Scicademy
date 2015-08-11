@@ -26,7 +26,7 @@ app.get('/getUser/:email/:password', function(req, res, next) {
 });
 
 app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', function(req, res, next) {
-    db.Users.insert({email:req.params.email, 
+    db.Users.save({email:req.params.email, 
                    password:req.params.password, 
                    firstname:req.params.firstname,
                    lastname:req.params.lastname,
