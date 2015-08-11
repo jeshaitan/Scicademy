@@ -11,10 +11,10 @@ app.use(cors());
 var uri = "mongodb://jeshaitan:aliro4greatgood@ds036698.mongolab.com:36698/alirodatabase";
 var db = mongojs(uri, ["Papers", "Users"]);
 
-app.get('/getUser/:email/:passwd', function(req, res, next) {
+app.get('/getUser/:email/:password', function(req, res, next) {
     var user = db.Users.findOne({
         "email": req.params.email,
-        "password": req.params.passwd
+        "password": req.params.password
     }, function(err, doc) {
         	if (err) {
             	res.json({error: 'error retrieving the JSON user' });
@@ -22,6 +22,17 @@ app.get('/getUser/:email/:passwd', function(req, res, next) {
         	else {
             	res.json(doc);
             }
+    });
+});
+
+app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', function(req, res, next) {
+    db.Users.save({email:req.params.email, 
+                   password:req.params.password, 
+                   firstname:req.params.firstname,
+                   lastname:req.params.lastname,
+                   school:req.params.school,
+                   grade:req.params.grade}, {w:1}, function(err, record) {
+        console.log("Record added as "+records[0]._id);
     });
 });
 
