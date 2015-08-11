@@ -32,19 +32,12 @@
 				$('.paperDiv .abstractText .arrowClick').toggleClass('arrowSide');
 				return false;
 			}); //end abstractText click
-
-			$( ".select-style" ).position({
-				  my: "left center",
-				  at: "right+55 center",
-				  of: "#search-form"
-			});
 			
 			$( "#dateOptions" ).position({
 				  my: "left top",
 				  at: "left-3 bottom+10",
 				  of: "#dates h6"
-			});
-		});
+			});		});
 	</script>
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
@@ -58,19 +51,17 @@
 				</div>
 			</form>
 		</div>
-		<div class="select-style">
-			<select class="searchBy">
-				<option value="All" selected>Search in...</option>
-				<option value="All">All Fields</option>
-				<option value="Title">Title</option>
-				<option value="Abstract">Abstract</option>
-				<option value="Author">Author</option>
-			</select> 
-		</div>
 		<div id="searchTableDiv">
 			<table id="searchTable">
 				<tr>
 					<td class="searchInfo">
+							<h4>Search In:</h4>
+							<div id="searchOptions">
+								<input type="radio" name="searchOptions" value="All" class="searchBy" checked="checked">All Fields</input><br>
+								<input type="radio" name="searchOptions" value="Title" class="searchBy">Title</input><br>
+								<input type="radio" name="searchOptions" value="Abstract" class="searchBy">Abstract</input><br>
+								<input type="radio" name="searchOptions" value="Author" class="searchBy">Author</input>
+							</div>						
 							<h4>Sort By:</h4>
 							<div id="dates">
 							<h6>Date:</h6>
