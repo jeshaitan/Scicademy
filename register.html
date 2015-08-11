@@ -43,7 +43,7 @@
 			}, "");
 			
 			$('#element_1').selectmenu({
-				width: 70,
+				width: 62,
 				icons: {
 					button: "ui-icon-circle-triangle-s"
 				}//end icons
@@ -107,8 +107,8 @@
 				}
 			}); //end smartmenus
 			
-			var schools=["Great Neck South High School", "Jericho High School"];
-			$('#school').autocomplete({
+			var schools=[]; //PUT THE ARRAY OF SCHOOLS HERE *****************************************************************************
+			$('#element_7').autocomplete({
 				source:schools
 			});
 			
@@ -148,10 +148,17 @@
 				<input type="text" id="element_2_2" name= "lname" class="element text required" maxlength="255" size="21" value=""/>
 				<label class="required">Last</label>
 			</span> 
-			</li>		
+			</li>
+			
+			<li id="li_7" >
+			<label class="description required" for="element_7">School </label>
+			<div>
+				<input id="element_7" name="element_7" class="element text large" type="text" maxlength="255" value=""/> 
+			</div> 
+			</li>
+			
 			<li id="li_6" >
 				<label class="description required" id="element_6_label" for="element_6">Are you a High School student or an Undergrad? </label>
-				<img src="images/questionMark.png" id="highColImg" class="tool" title="We'll use this to classify research and provide more focused search results"></img>
 				<span>
 				<div id="highCol">
 					<input id="element_6_1" name="highCol" class="element radio highColRadio" type="radio" value="1" />
@@ -162,14 +169,13 @@
 				</span> 
 			</li>		
 			<li id="li_1">
-			<label class="description" for="element_1">What grade are you in? </label>
+			<label class="description required" for="element_1">What grade are you in? </label>
 			<div>
 			<select class="element select small" id="element_1" name="grade"> 
-				<option value="" selected="selected"></option>
-					<option value="9" >9</option>
-					<option value="10" >10</option>
-					<option value="11" >11</option>
-					<option value="12" >12</option>
+				<option value="9" >9</option>
+				<option value="10" >10</option>
+				<option value="11" >11</option>
+				<option value="12" selected>12</option>
 			</select>
 			</div> 
 			</li>		<li id="li_3" >

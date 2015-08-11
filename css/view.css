@@ -42,6 +42,9 @@ div.curFocus {
   border: 1px solid rgba(81, 203, 238, 1);
 } */
 
+#element_1{
+	height: 10px;
+}
 
 #li_1{
 	display:none;
@@ -228,7 +231,6 @@ form li span
 	color:#444;
 	float:left;
 	margin:0 4px 0 0;
-	padding:0 0 8px;
 }
 
 form li div.left
