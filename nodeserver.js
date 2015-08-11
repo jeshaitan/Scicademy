@@ -8,7 +8,7 @@ var http = require("http"),
 app = express();
 app.use(cors());
 
-var uri = "mongodb://<dbuser>:<dbpassword>@ds036698.mongolab.com:36698/alirodatabase";
+var uri = "mongodb://jeshaitan:aliro4greatgood@ds036698.mongolab.com:36698/alirodatabase";
 var db = mongojs(uri, ["Papers", "Users"]);
 
 app.get('/getUser/:email/:passwd', function(req, res, next) {
