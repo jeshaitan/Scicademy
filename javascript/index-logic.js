@@ -119,7 +119,8 @@ function requestUser(email, password) {
 	xmlhttp.open("GET", "http://localhost:8888/getUser/" + email + "/" + password, true);
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-           console.log(xmlhttp.responseText);
+           user = JSON.parse(xmlhttp.responseText);
+           console.log(user);
         }
 	}
 	xmlhttp.send();
