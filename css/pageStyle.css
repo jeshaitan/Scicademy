@@ -27,7 +27,7 @@ p {
 
 body {
 	background-color: #FFFFFF;
-	font-family: Ubuntu, sans-serif;
+	font-family: Ubuntu, sans-serif !important;
 }
 
 /*site wide colors:

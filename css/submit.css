@@ -4,9 +4,48 @@ body
 }
 .required:after { content:" *"; color:red; }
 
-#.addAuthors, .addImages{
+.addAuthors, .addImages{
 	font-size: 11px;
 	margin-left:8px;
+}
+
+#form_1039889 input.error, #form_1039889 select.error {
+    background: #ffa9b8 none repeat scroll 0 0;
+    border: 1px solid red;
+}
+
+#form_1039889 input[type="text"], #form_1039889 input[type="password"], #form_1039889 textarea {
+    margin: 5px 1px 3px 0;
+    outline: medium none;
+    padding: 3px 0 3px 3px;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+#form_1039889 input {
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 1px 1px 2px -1px rgba(0, 0, 0, 0.15) inset;
+    display: block;
+    line-height: 20px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+
+#form_1039889 label.error {
+    color: #f00;
+    display: block;
+    font-weight: bold;
+}
+
+input.text {
+    background: #fff url("../images/shadow.gif") repeat-x scroll center top;
+    border-color: #7c7c7c #c3c3c3 #ddd;
+    border-style: solid;
+    border-width: 1px;
+    color: #333;
+    font-size: 100%;
+    margin: 0;
+    padding: 2px 0;
 }
 
 .spawnedImage{
