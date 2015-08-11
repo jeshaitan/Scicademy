@@ -13,12 +13,6 @@ $(document).ready(function() {
 			<li><a href="about.html">About</a></li>\
 			<li><a href="" id="siso">Sign In</a></li>\
 			<li><a href="register.html">Sign Up</a></li>\
-			<li>\
-				<form class="smallForm searchForm" action="">\
-					<input type="text" class="search-field smallSearchField" placeholder="Find Research" maxlength="2048"  />\
-					</div>\
-				</form>\
-			</li>\
 		</ul>'
 	);
 	$('#signInBox').html(
