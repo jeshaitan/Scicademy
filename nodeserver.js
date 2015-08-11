@@ -22,7 +22,6 @@ app.get('/getUser/:email/:passwd', function(req, res, next) {
         	else {
             	res.json(doc);
             }
-        }
     });
 });
 
