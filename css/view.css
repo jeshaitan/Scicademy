@@ -9,6 +9,7 @@
 }
 
 .required:after { content:" *"; color:red; }
+
 #form_1037235 input{
 	line-height: 20px;
 	background-image: none;
@@ -34,12 +35,12 @@ div.curFocus {
   border: 1px solid #DDDDDD;
 }
  
-#form_1037235 input[type=text]:focus,  #form_1037235 input[type=password]:focus, #form_1037235 textarea:focus {
+/* #form_1037235 input[type=text]:focus,  #form_1037235 input[type=password]:focus, #form_1037235 textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
-}
+} */
 
 
 #li_1{
@@ -141,7 +142,7 @@ h1 a
 
 img
 {
-	behavior:url(css/iepngfix.htc);
+	behavior:url(../images/iepngfix.htc);
 	border:none;
 }
 
@@ -390,7 +391,7 @@ span.symbol
 
 input.text
 {
-	background:#fff url(../../../images/shadow.gif) repeat-x top;
+	background:#fff url(../images/shadow.gif) repeat-x top;
 	border-bottom:1px solid #ddd;
 	border-left:1px solid #c3c3c3;
 	border-right:1px solid #c3c3c3;
@@ -411,7 +412,7 @@ input.file
 
 textarea.textarea
 {
-	background:#fff url(../../../images/shadow.gif) repeat-x top;
+	background:#fff url(../images/shadow.gif) repeat-x top;
 	border-bottom:1px solid #ddd;
 	border-left:1px solid #c3c3c3;
 	border-right:1px solid #c3c3c3;
@@ -429,7 +430,7 @@ select.select
 	font-size:100%;
 	margin:1px 0;
 	padding:1px 0 0;
-	background:#fff url(../../../images/shadow.gif) repeat-x top;
+	background:#fff url(../images/shadow.gif) repeat-x top;
 	border-bottom:1px solid #ddd;
 	border-left:1px solid #c3c3c3;
 	border-right:1px solid #c3c3c3;
