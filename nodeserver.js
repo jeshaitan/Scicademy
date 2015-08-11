@@ -8,7 +8,7 @@ server.listen(8888);
 
 var uri = "mongodb://<dbuser>:<dbpassword>@ds036698.mongolab.com:36698/alirodatabase";
 var db = mongojs(uri, ["Papers", "Users"]);
-console.log("node server running back end of Aliro on: " + server);
+console.log("node server running back end of app");
 function requestHandler(request, response) {
 	//request for user is .../getUser/<username>/<password>
 	var path = url.parse(request.url).pathname;
@@ -18,7 +18,7 @@ function requestHandler(request, response) {
 		var user = db.Users.find({"email": details[details.indexOf("getUser") + 1],
 	                              "password": details[details.indexOf("getUser") + 2]});
 		user = user.toArray[0];
-		response.writeHead(200, {"Content-Type": "application/json"});
+		response.writeHead(200, {"Content-Type": "text/json"});
 		response.write(JSON.stringify(user));
 	}
 	else {
