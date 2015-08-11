@@ -34,6 +34,10 @@ $(document).ready(function() {
 			<a href="register.html"><p>Don\'t have an account? Register here</p></a>'
 		);
 	
+	if (currentUser != null) {
+		document.getElementById('#siso').innerHTML("Sign Out");
+	}
+
 	$('[title]').tooltip();
 	$('.sm').smartmenus( {
 		showFunction: function($ul, complete) {
@@ -57,8 +61,8 @@ $(document).ready(function() {
 	}); //end dialog
 	
 	$('#siso').click(function(event) {
+		event.preventDefault();
 		if(currentUser == null) {
-			event.preventDefault();
 			$('#signInBox').dialog('open');
 		}
 		else {
@@ -66,9 +70,6 @@ $(document).ready(function() {
 			location.reload();
 		}
 	});
-	if (currentUser != null) {
-		document.getElementById('siso').innerHTML("Sign Out");
-	};
 	
 	$(document).on("submit", ".searchForm", function(event){
 		event.preventDefault();
