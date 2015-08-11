@@ -24,7 +24,7 @@
 			$.getScript('javascript/index-logic.js', function(jd){});
 			$('#element_1').focus();
 			$('#noPDF').slideUp();
-			$('#li_14').slideUp();
+			$('#paperPDF').slideDown();
 			$('#li_3').slideUp();
 			$('#convertToPDF').slideUp();
 			$('#saveForm').button();
@@ -39,24 +39,13 @@
 				}
 			}); //end smartmenus
 			$(':radio').click(function() {
-				if ($('input[name="element_13"]:checked').val()=="yesPDF"){ //element 13, pdf or type it up there?
-					$('#li_3').slideUp(); //upload
-					$('#noPDF').slideUp();
-					$('#li_14').slideDown();
-					if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
-						$('#convertToPDF').slideUp();
-						$('#li_3').slideDown();
+				if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
+					$('#convertToPDF').slideUp();
+					$('#li_3').slideDown();
 				}
-					else if ($('input[name="element_14"]:checked').val()=="isWord"){
+				else if ($('input[name="element_14"]:checked').val()=="isWord"){
 						$('#li_3').slideUp();
 						$('#convertToPDF').slideDown();
-				}
-				}
-				else if($('input[name="element_13"]:checked').val()=="noPDF"){
-					$('#li_3').slideUp();
-					$('#li_14').slideUp();
-					$('#convertToPDF').slideUp();
-					$('#noPDF').slideDown();
 				}
 
 			})
@@ -143,15 +132,6 @@
 		<div>
 			<textarea id="element_2" name="element_2" class="element textarea medium"></textarea> 
 		</div><p class="guidelines" id="guide_2"><small>Must be at least 40 characters. This is a short section and is intended to give the potential reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p> 
-		</li>		<li id="li_13" >
-		<label class="description required" for="element_13">Do you have your paper saved as a pdf/word document? </label>
-		<span>
-				<input id="element_13_1" name="element_13" class="element radio" type="radio" value="yesPDF" />
-				<label class="choice" for="element_13_1">Yes, I have a pdf/word document.</label>
-				<input id="element_13_2" name="element_13" class="element radio" type="radio" value="noPDF" />
-				<label class="choice" for="element_13_2">No, I will type up the required parts below.</label>
-
-		</span> 
 		</li>
 		<div id="paperPDF">
 		<li id="li_14" >
@@ -179,46 +159,6 @@
 		</div>  
 		</li>
 		</div>
-			<div id="noPDF">
-				<li id="li_6" >
-				<label class="description" for="element_6">Introduction </label>
-				<div>
-					<textarea id="element_6" name="element_6" class="element textarea medium"></textarea> 
-				</div><p class="guidelines" id="guide_6"><small>An introduction usually describes the theoretical background, indicates why the work is important, states a specific research question, and poses a specific hypothesis to be tested.</small></p> 
-				</li>		<li id="li_7" >
-				<label class="description required" for="element_7">Methods </label>
-				<div>
-					<textarea id="element_7" name="element_7" class="element textarea medium"></textarea> 
-				</div><p class="guidelines" id="guide_7"><small>The methods section describes both specific techniques and the overall experimental strategy used by the scientists. </small></p> 
-				</li>		<li id="li_8" >
-				<label class="description required" for="element_8">Results </label>
-				<div>
-					<textarea id="element_8" name="element_8" class="element textarea medium"></textarea> 
-				</div><p class="guidelines" id="guide_8"><small>The purpose of a results section is to present and illustrate your findings. Make this section a completely objective report of the results, and save all interpretation for the discussion.</small></p> 
-				</li>		<li id="li_9" >
-				<label class="description" for="element_9">Discussion </label>
-				<div>
-					<textarea id="element_9" name="element_9" class="element textarea medium"></textarea> 
-				</div><p class="guidelines" id="guide_9"><small>The objective here is to provide an interpretation of your results and support for all of your conclusions, using evidence from your experiment and generally accepted knowledge, if appropriate. The significance of findings should be clearly described.</small></p> 
-				</li>		<li id="li_10" >
-				<label class="description" for="element_10">Conclusion </label>
-				<p class="guidelines" id="guide_9"><small>The conclusion a paper states what you think the data means; by looking at only the conclusion, a reader should be able to have a general idea of what you have investigated.</small></p> 
-				<div>
-					<textarea id="element_10" name="element_10" class="element textarea medium"></textarea> 
-				</div> 
-				</li>		<li id="li_12" >
-				<label class="description" for="element_12">Acknowledgements </label>
-				<div>
-					<textarea id="element_12" name="element_12" class="element textarea medium"></textarea> 
-				</div><p class="guidelines" id="guide_12"><small>The acknowledgments tell you what people or institutions (besides the authors) contributed to the work.</small></p> 
-				</li>		<li id="li_11" >
-				<label class="description" for="element_11">Bibliography </label>
-				<div>
-					<textarea id="element_11" name="element_11" class="element textarea medium"></textarea> 
-				</div><p class="guidelines" id="guide_11"><small>This section provides the sources cited throughout the paper. Need help creating citations? http://www.citationmachine.net/apa/cite-a-journal
-		Try to avoid using websites and instead use primary sources (such as scientific papers in journals).</small></p> 
-				</li>
-			</div>
 					<li class="buttons">
 			    <input type="hidden" name="form_id" value="1039889" />
 			    
