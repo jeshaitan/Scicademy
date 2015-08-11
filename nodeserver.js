@@ -12,10 +12,24 @@ var uri = "mongodb://<dbuser>:<dbpassword>@ds036698.mongolab.com:36698/alirodata
 var db = mongojs(uri, ["Papers", "Users"]);
 
 app.get('/getUser/:email/:passwd', function(req, res, next) {
-	var users = db.Users.find({"email": req.params.email,
-	                        "password": req.params.passwd});
- 	user = users.toArray[0];
-  	res.json(user);
+    var user = db.Users.findOne({
+        "email": req.params.email,
+        "password": req.params.passwd
+    }, function(err, docs) {
+        if (err) {
+            res.json({error: ':(' });
+        }
+        else {
+            docs.toArray(function(err, users) {
+                if (err)  {
+                    res.json({error: ':(' });
+                }
+                else {
+                    res.json(user);
+                }
+            });
+        }
+    });
 });
 
 app.get('/', function(req, res, next) {
