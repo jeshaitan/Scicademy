@@ -31,14 +31,15 @@ app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', functio
                    firstname:req.params.firstname,
                    lastname:req.params.lastname,
                    school:req.params.school,
-                   grade:req.params.grade}/*, function(err, record) {
+                   grade:req.params.grade}, function(err, record) {
         if (err) {
             res.send({error: 'error inserting new user'})
         }
         else {
+            db.Users.ensureIndex({'email' : 1}, {unique : true, dropDups : true})
             res.send("inserted new user")
         }
-    }*/);
+    });
 });
 
 app.get('/', function(req, res, next) {
