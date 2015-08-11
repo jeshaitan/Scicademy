@@ -4,17 +4,34 @@ body
 }
 .required:after { content:" *"; color:red; }
 
-#addAuthors{
+#.addAuthors, .addImages{
 	font-size: 11px;
 	margin-left:8px;
 }
 
-#add, #remove{
+.spawnedImage{
+	size:359px !important;
+	margin-left:-7px !important;
+}
+
+.spawnedBrowse {
+	margin-left:-7px !important;
+}
+
+.captionPic{
+	width: 359px !important;
+}
+
+.fixOffset{
+	margin-left: 11px;
+}
+
+.add, .remove{
 	text-decoration:none;
 	color:blue;
 }
 
-#add:hover, #remove:hover{
+.add:hover, .remove:hover{
 	text-decoration:underline;
 }
 

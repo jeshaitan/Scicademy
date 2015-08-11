@@ -1,31 +1,181 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="UTF-8">
-	<title>Aliro</title>
-	<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Submit Your Poster</title>
+<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
 	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
 	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
 	<link href="css/signInCss.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/submit.css" media="all">
 	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	<script src="libs/jquery-1.11.3.min.js"></script>
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
+	<script type="text/javascript" src="javascript/submit.js"></script>
 	<script src="javascript/index-logic.js"></script>
-</head>
 
-<body>
+</head>
+<body id="main_body" >
 	<script type="text/javascript"> 
-		//$('script').load('javascript/index-logic.js', function(jd){
-		//load the navBar and signIn box.
-		$.getScript('javascript/index-logic.js', function(jd){
-		});
+		$(document).ready(function(){
+			$.getScript('javascript/index-logic.js', function(jd){});
+			$('#element_1').focus();
+			$('#saveForm').button();
+			$('[title]').tooltip();
+			$('.sm').smartmenus({
+				showFunction: function($ul, complete){
+					$ul.slideDown(250,complete);
+				},
+				hideFunction: function($ul, complete){
+					$ul.slideUp(250, complete);
+				}
+			}); //end smartmenus
+			
+			
+			
+			var authorCount=1;
+			$('#addAuthor').click(function(e){
+				e.preventDefault();
+				authorCount=authorCount+1;
+				breakText='<br><br><br>';
+				var idText="<div id='author";
+				idText=idText+authorCount+"'>";
+				$('#li_4').append(idText+breakText+
+				'<span>\
+					<input name= "element_4_1" class="element text spawnFiirst" maxlength="255" size="14" value=""/>\
+					<label class="required">First</label>\
+				</span>\
+				<span>\
+					<input name= "element_4_2" class="element text spawnLast" maxlength="255" size="20" value=""/>\
+					<label class="required">Last</label>\
+				</span>\
+				</div>'
+				)
+			})
+			$('#removeAuthor').click(function(e){
+				e.preventDefault();
+				var selector="#author";
+				selector+=authorCount;
+				$(selector).remove();
+				authorCount=authorCount-1;
+			})
+			
+			
+			
+			var imageCount=1;
+			$('#addImage').click(function(e){
+				e.preventDefault();
+				imageCount+=1;
+				breakText='<br><br><br>';
+				var imageID='<div id="upload'+imageCount+'"	>';
+				var imageText=imageID+'\
+				<li>\
+				<div class="captionPic">\
+				<input id="caption'
+			
+			imageText+=imageCount;
+			$('#li_3').append(imageText+'\
+				" name="caption" class="element text large spawnedImage" type="text" maxlength="255" value="" placeholder="Title your picture">\
+				</div>\
+				<div>\
+					<input name="element_3" class="element file spawnedBrowse" type="file"/>\
+				</div>\
+				</li>\
+			</div>'
+			)
+			}) //end add image click
+			
+			$('#removeImage').click(function(e){
+				e.preventDefault();
+				var selector="#upload";
+				selector+=imageCount;
+				$(selector).remove();
+				imageCount-=1;
+			})
+		}); //end ready
 	</script>
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
-
-</body>
-</html>
 	
+	
+	<img id="top" src="images/top.png" alt="">
+	<div id="form_container">
+	
+		<h1><a>Submit Your Poster</a></h1>
+		<form id="form_1039889" class="appnitro" enctype="multipart/form-data" method="post" action="">
+					<div class="form_description">
+			<h2>Submit Your Poster</h2>
+			<p></p>
+		</div>						
+			<ul >
+			
+					<li id="li_1" >
+		<label class="description required" for="element_1">Title </label>
+		<div>
+			<input id="element_1" name="element_1" class="element text large" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		
+		
+		<li id="li_4" >
+		
+		<label class="description required" for="element_4">Authors </label>
+		<span>
+			<input id="element_4_1" name= "element_4_1" class="element text" maxlength="255" size="14" value=""/>
+			<label class="required">First</label>
+		</span>
+		<span>
+			<input id="element_4_2" name= "element_4_2" class="element text" maxlength="255" size="20" value=""/>
+			<label class="required">Last</label>
+		</span> 
+		</li>
+		<div class="fixOffset">
+		<div id="addAuthors">
+			<a href="" class="add" id="addAuthor">Add Author</a>&nbsp;/
+			<a href="" class="remove" id="removeAuthor">Remove Author</a>
+		</div>
+		</div>
+		<li id="li_5" >
+		<label class="description" for="element_5">School </label>
+		<div>
+			<input id="element_5" name="element_5" class="element text large" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		
+		<li id="li_2" >
+		<label class="description required" for="element_2">Abstract </label>
+		<div>
+			<textarea id="element_2" name="element_2" class="element textarea medium"></textarea> 
+		</div><p class="guidelines" id="guide_2"><small>Must be at least 100 words. This is a short section and is intended to give the potential reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p> 
+		</li>
+		<div class="upload">
+		<li id="li_3" >
+		<label class="description required" for="element_3">Upload Your Poster Image</label>
+		<div class="captionPic">
+			<p>Provide a few words about your picture so other users know what it is (i.e. "Posterboard", "Left Panel of Posterboard", "Bird's eye view of the device", etc)</p>
+			<input id="caption" name="caption" class="element text large" type="text" maxlength="255" value="" placeholder="Title your picture">
+		</div>
+		<div>
+			<input id="element_3" name="element_3" class="element file" type="file"/> 
+		</div>		
+		</li>
+		<div class="fixOffset">
+		<div class="addImages">
+			<a href="" class="add" id="addImage">Add Image</a>&nbsp;/
+			<a href="" class="remove" id="removeImage">Remove Image</a>
+		</div>
+		<p>Please make sure that your file(s) are in image format (i.e. .jpg, .png, .gif, etc) and not a photoshop (.ps) or powerpoint (.ppt, .pptx, .pptm, etc) file.</p>
+		</div>
+		</div>
+					<li class="buttons">
+			    <input type="hidden" name="form_id" value="1039889" />
+			    
+				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+		</li>
+			</ul>
+		</form>	
+	</div>
+	<img id="bottom" src="images/bottom.png" alt="">
+	</body>
+</html>
