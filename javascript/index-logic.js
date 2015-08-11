@@ -56,7 +56,7 @@ $(document).ready(function() {
 	}); //end dialog
 	
 	$('#siso').click(function(event) {
-		if(currentUser == null) {
+		if(currentUser !== 'undefined') {
 			event.preventDefault();
 			$('#signInBox').dialog('open');
 		}
