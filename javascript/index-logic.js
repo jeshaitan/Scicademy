@@ -107,11 +107,24 @@ function readRegisterForm(form) {
 	var lastname = $('#element_2_2').val();
 	var is_highschool = $('#element_6_1').val();
 	var is_undergrad = $('#element_6_2').val();
+	var school = $('#element_7').val();
 	if(is_highschool) {
 		var grade = $('#element_1').val();
 	}
+	else {
+		var grade = "undergrad"
+	}
 	var email = $('#element_3').val();
 	var password = $('#element_5').val();
+	addUser(firstName, lastname, grade, school, email, password);
+}
+
+function addUser(fnm, lnm, grd, shl, eml, pwd) {
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET", "http://localhost:8888/addUser/" + eml + "/" + pwd + "/"
+														 + fnm + "/" + lnm + "/"
+														 + shl + "/" + grd + "/", true);
+	xmlhttp.send();
 }
 
 function requestUser(email, password) {
