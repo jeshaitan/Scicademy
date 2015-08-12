@@ -27,9 +27,11 @@
 	</script>
 	<script>
 		$(document).ready(function() {
+			$('.abstractParagraph').hide();
 			$('.abstractText').click(function(){
 				//slide in abstract text using ajax
 				$('.paperDiv .abstractText .arrowClick').toggleClass('arrowSide');
+				$('.abstractParagraph').slideToggle();
 				return false;
 			}); //end abstractText click
 			
@@ -74,15 +76,20 @@
 					</td>
 					<td id="papers">
 						<!-- paper info here-->
-						<div class="paperDiv">
+						<div class="paperDiv" id="firstPaper">
 							<span class="title">
-								<a href="linkToPaper.html">Title of Paper</a>
+								<a href="paper.html">Title of Paper</a>
 							</span>
 							<div class="authors"><a href="linkToAramProfile.html">Baghdassarian A</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Smith J</a></div>
 							<a class="abstractText">
 								<span class="arrowClick arrowSide"></span>
 								<span class="preTxt">Abstract</span>
 							</a>
+							<span class="abstractParagraph">
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non. 
+								</p>
+							</span>
 						</div>
 						<div class="separator"></div>
 						<div class="paperDiv">

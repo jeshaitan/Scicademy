@@ -44,6 +44,14 @@
 	cursor:pointer;
 }
 
+.abstractParagraph{
+	margin-top: -14px;
+}
+
+#firstPaper{
+	margin-top:-50px !important;
+}
+
 #searchTable .paperDiv{
 	margin: 10px 15px;
 }
@@ -58,6 +66,10 @@
 	background-color: #eeeeee; /* color for results area */
 }
 
+#papers{
+	width:75%;
+}
+
 .submit-container{
 	position:relative;
 }
@@ -70,7 +82,7 @@
 }
 
 .searchInfo{
-	padding-right: 40px;
+	width: 25%;
 }
 
 .select-style {

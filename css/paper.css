@@ -1,0 +1,61 @@
+.colorBody{
+	background-color: #C070A0;
+}
+
+.grid{
+	clear: both;
+    margin: 0 auto;
+    min-width: 1348px;
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+	background-color: #e1e1e1; /*color for searchbox area */
+}
+
+.paperOptions{
+	padding-right:250px;
+}
+
+.paperCol{
+	padding-right: 30px;
+}
+
+.authors a{
+	color:black !important;
+}
+
+.abstractText{
+	position:relative;
+	top:-15px;
+}
+
+.abstractHead{
+	color:#C070A0;
+	font-size:14;
+	font-weight:bold;
+}
+
+.abstractHeadText{
+	margin: 9px 0px 14px !important;
+}
+
+.abstract{
+	position:relative;
+}
+
+.school{
+	font-style: italic;
+}
+#paperTable a, #paperTable a:link {
+    color: #316c9d;
+    text-decoration: none;
+}
+
+#paperTable a:hover{
+	text-decoration: underline;
+	cursor: ponter;
+}
+
+#paperTableDiv{
+	background-color: #eeeeee; /* color for results area */
+}
