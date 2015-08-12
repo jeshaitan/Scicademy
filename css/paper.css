@@ -46,6 +46,11 @@
 .school{
 	font-style: italic;
 }
+
+.caption{
+	font-size:12px;
+}
+
 #paperTable a, #paperTable a:link {
     color: #316c9d;
     text-decoration: none;
