@@ -29,11 +29,6 @@
 	</script>
 	<script>
 		$(document).ready(function() {
-			$( ".overview" ).position({
-				  my: "center top",
-				  at: "center bottom",
-				  of: ".headerName"
-			});	//end position	
 			
 			
 	//		google.load("visualization", "1", {packages:["corechart"]});
@@ -49,6 +44,8 @@
 			var options = {
 				  title: 'Reputation Sources',
 				  backgroundColor:'#F7F7F7',
+				  width: 300,
+				  height: 200
 			};
 
 			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
