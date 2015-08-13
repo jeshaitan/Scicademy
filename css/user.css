@@ -54,3 +54,10 @@
 .ui-widget-header{
 	/* background: white !important; */
 }
+
+.prof_pic {
+	float:left;
+	margin-left:27px;
+	margin-top:20px;
+	margin-right:30px;
+}
