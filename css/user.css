@@ -5,7 +5,6 @@
 .grid{
 	clear: both;
     margin: 0 auto;
-    min-width: 1348px;
     overflow: hidden;
     text-align: left;
     width: 100%;
@@ -29,6 +28,12 @@
 
 .authors a{
 	color:black !important;
+	text-decoration: none;
+}
+
+.authors a:hover{
+	text-decoration: underline;
+	cursor:ponter;
 }
 
 .publications{
@@ -45,10 +50,11 @@
 	text-align:left;
 	font-size:14px;
 	color: #666;
-}
+	width:300px;
+}	
 
-.about{
-	margin-left: 27px;
+.details p{
+	margin-left: 30px;
 }
 
 .ui-widget-header{
@@ -60,4 +66,39 @@
 	margin-left:27px;
 	margin-top:20px;
 	margin-right:30px;
+}
+
+.about{
+	width: 200px;
+	height:40px;
+	font-size:14px;
+	color: #666;
+}
+
+.publications h3{
+	color: #316c9d;
+	font-size: 1.108em;
+}
+
+.publications a{
+	text-decoration:none;
+}
+
+.publications a:hover{
+	text-decoration:underline;
+}
+
+.reputation{
+	margin-left: 30px;
+}
+
+.reputation h1{
+	position:relative;
+	z-index: 999;
+}
+
+#piechart{
+	margin-top:-72px;
+	margin-left: -200px;
+	z-index:2;
 }
