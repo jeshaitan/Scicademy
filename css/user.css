@@ -53,6 +53,10 @@
 	width:300px;
 }	
 
+.details p{
+	margin-left: 30px;
+}
+
 .ui-widget-header{
 	/* background: white !important; */
 }
