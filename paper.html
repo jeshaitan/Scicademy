@@ -15,6 +15,8 @@
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
 	<script src="javascript/index-logic.js"></script>
+	<script src="javascript/pdf.js"></script>
+	<script type="javascript/compatibility.js"></script>
 
 </head>
 <body class="colorBody">
@@ -22,8 +24,71 @@
 		$(document).ready(function(){
 			$.getScript('javascript/index-logic.js', function(jd){});
 		}); //end ready
+		var pdf_url = "projects/1/Aram_Baghdassarian_Paper.pdf" /*this should be variable*/
+		PDFJS.disableWorker = true;
+		var pdfDoc = null,
+			pageNum = 1,
+			pageRendering = null,
+			scale = 0.8,
+			canvas = document.getElementById('pdf_canvas'),
+			ctx = canvas.getContext('2d');
+		function renderPage(num) {
+    		pageRendering = true;
+    		// Using promise to fetch the page
+		    pdfDoc.getPage(num).then(function(page) {
+      			var viewport = page.getViewport(scale);
+      			canvas.height = viewport.height;
+      			canvas.width = viewport.width;
+
+      			// Render PDF page into canvas context
+      			var renderContext = {
+      			  canvasContext: ctx,
+      			  viewport: viewport
+      			};
+     			var renderTask = page.render(renderContext);
+
+     			// Wait for rendering to finish
+     			renderTask.promise.then(function () {
+      				pageRendering = false;
+      				if (pageNumPending !== null) {
+      			    	// New page rendering is pending
+      			    	renderPage(pageNumPending);
+      			    	pageNumPending = null;
+        			}
+      			});
+    		});
+    		document.getElementById('page_num').textContent = pageNum;
+		}
+		function queueRenderPage(num) {
+    		if (pageRendering) {
+      			pageNumPending = num;
+    		} else {
+      			renderPage(num);
+    		}
+  		}
+  		function onPrevPage() {
+    		if (pageNum <= 1) {
+      			return;
+    		}
+    		pageNum--;
+    		queueRenderPage(pageNum);
+  		}
+	  	document.getElementById('prev').addEventListener('click', onPrevPage);
+	  	function onNextPage() {
+    		if (pageNum >= pdfDoc.numPages) {
+      			return;
+    		}
+    		pageNum++;
+    		queueRenderPage(pageNum);
+  		}
+  		document.getElementById('next').addEventListener('click', onNextPage);
+  		PDFJS.getDocument(url).then(function (pdfDoc_) {
+    		pdfDoc = pdfDoc_;
+    		document.getElementById('page_count').textContent = pdfDoc.numPages;
+    		// Initial/first page rendering
+    		renderPage(pageNum);
+  		});
 	</script>
-	
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
 	
@@ -55,8 +120,16 @@
 									</p>
 								</div>
 							</div>
-							<div class="paperPDF">
-									<p><a href="projects/1/Aram_Baghdassarian_Paper.pdf">Full Text (PDF)</a></p>
+							<div class="paperPDF"> <!--display pdf-->
+								<div>
+									<button id="prev">Previous</button>
+  									<button id="next">Next</button>
+  									&nbsp; &nbsp;
+ 									<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>	
+ 								</div>
+ 								<div>
+ 								<canvas id="pdf_canvas" style="border:1px solid black"></canvas>
+ 								</div>
 							</div>
 							<div class="posterPics">
 								<p>Poster Pictures</p>
