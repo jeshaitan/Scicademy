@@ -47,5 +47,9 @@
 }
 
 .about{
-	margin-left: 27px;
+	/* margin-left: 27px; */
+}
+
+.ui-widget-header{
+	/* background: white !important; */
 }

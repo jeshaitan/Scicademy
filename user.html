@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Aliro</title>
 	<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
+	<link rel="stylesheet" href="css/panels.css"/>
 	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
 	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
@@ -14,6 +15,7 @@
 	<script src="libs/jquery-1.11.3.min.js"></script>
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
+	<script src="javascript/jquery.tabbedcontent.min.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
 	<script src="javascript/index-logic.js"></script>
 </head>
@@ -45,13 +47,15 @@
 				]);
 
 			var options = {
-				  title: 'Reputation Sources'
+				  title: 'Reputation Sources',
+				  backgroundColor:'#F7F7F7',
 			};
 
 			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
 			chart.draw(data, options);
 			} //end drawChart
+			$('.tabsContent').tabbedContent(); //tabbedContent plugin
 		}); //end ready
 	</script>
 	
@@ -66,25 +70,34 @@
 		</div>
 	</div>
 	<div class="separator separator2"></div>
-	<div class="publications">
-		<div id="paper1">
-			<h3>Title of Paper</h3>
-			<span class="authors"><a href="linkToAramProfile.html">Smith J</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Zweigler R</a></span>
+	<ul class="tabs">
+		<li><a href="#publications">Publications</a></li>
+		<li><a href="#about">User Information</a></li>
+		<li><a href="#reputation">Reputation</a></li>	
+	</ul>
+	<div class="tabsContent">
+		<div class="publications" id="publications">
+			<div id="paper1">
+				<h3>Title of Paper</h3>
+				<span class="authors"><a href="linkToAramProfile.html">Smith J</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Zweigler R</a></span>
+			</div>
+			<div class="separator"></div>
+			<div id="paper2">
+				<h3>Title of Paper2</h3>
+				<span class="authors"><a href="linkToAramProfile.html">Smith J</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Trump D</a></span>
+			</div>
+			<div class="separator"></div>
 		</div>
-		<div class="separator"></div>
-		<div id="paper2">
-			<h3>Title of Paper2</h3>
-			<span class="authors"><a href="linkToAramProfile.html">Smith J</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Trump D</a></span>
+		
+		<div class="about" id="about">
+			<p class="grade">Grade: 11</p>
+			<p class="since">Join Date: August 11, 2015</p>	
 		</div>
-		<div class="separator"></div>
-	</div>
-	<div class="about">
-		<p class="grade">Grade: 11</p>
-		<p class="since">Join Date: August 11, 2015</p>	
-	</div>
-	<div class="reputation">
-		<p>Total Reputation: 16</p>
-		<div id="piechart" style="width: 900px; height: 500px;"></div>
+		
+		<div class="reputation" id="reputation">
+			<p>Total Reputation: 16</p>
+			<div id="piechart" style="width: 900px; height: 500px;"></div>
+		</div>
 	</div>
 	</div>
 </body>
