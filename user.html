@@ -29,8 +29,6 @@
 	</script>
 	<script>
 		$(document).ready(function() {
-			
-			
 	//		google.load("visualization", "1", {packages:["corechart"]});
 			google.setOnLoadCallback(drawChart);
 			function drawChart() {
@@ -41,14 +39,14 @@
 				  ['Creating Account',  1]
 				]);
 
-			var options = {
-				  title: 'Reputation Sources (Total Reputation: 26)',
-				  backgroundColor:'#F7F7F7'
-			};
+				var options = {
+					  title: 'Reputation Sources (Total Reputation: 26)',
+					  backgroundColor:'#F7F7F7'
+				};
 
-			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-			chart.draw(data, options);
+				chart.draw(data, options);
 			} //end drawChart
 			$('.tabsContent').tabbedContent(); //tabbedContent plugin
 		}); //end ready
@@ -58,7 +56,7 @@
 	<div id="signInBox"></div>
 	<div class="grid">
 	<div class="userBox">
-		<h1 class="headerName">John Smith</h1>
+		<h1 class="headerName">John Doe</h1>
 		<div class="details">
 			<p class="school">Great Neck South High School</p>
 			<p class="reputation">26 Reputation</p>				
