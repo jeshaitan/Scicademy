@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 <title>Submit Your Research</title>
 <link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
 	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
@@ -15,17 +15,12 @@
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
 	<script src="javascript/index-logic.js"></script>
-	<script src="javascript/pdf.js"></script>
 	<script type="javascript/compatibility.js"></script>
-
-</head>
-<body class="colorBody">
+	<script src="javascript/pdf.js"></script>
 	<script type="text/javascript"> 
-		$(document).ready(function(){
+		$(document).ready(function() {
 			$.getScript('javascript/index-logic.js', function(jd){});
-		}); //end ready
-		var url = "projects/1/Aram_Baghdassarian_Paper.pdf" /*this should be variable*/
-		//PDFJS.disableWorker = true;
+			var url = "projects/1/Aram_Baghdassarian_Paper.pdf" /*this should be variable*/
 		var pdfDoc = null,
 			pageNum = 1,
 			pageRendering = null,
@@ -59,6 +54,12 @@
     		});
     		document.getElementById('page_num').textContent = pageNum;
 		}
+		PDFJS.getDocument(url).then(function (pdfDoc_) {
+    		pdfDoc = pdfDoc_;
+    		document.getElementById('page_count').textContent = pdfDoc.numPages;
+    		// Initial/first page rendering
+    		renderPage(pageNum);
+  		});
 		function queueRenderPage(num) {
     		if (pageRendering) {
       			pageNumPending = num;
@@ -82,13 +83,12 @@
     		queueRenderPage(pageNum);
   		}
   		document.getElementById('next').addEventListener('click', onNextPage);
-  		PDFJS.getDocument(url).then(function (pdfDoc_) {
-    		pdfDoc = pdfDoc_;
-    		document.getElementById('page_count').textContent = pdfDoc.numPages;
-    		// Initial/first page rendering
-    		renderPage(pageNum);
-  		});
+	}); //end ready
 	</script>
+</head>
+
+<body class="colorBody">
+	
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
 	
@@ -102,8 +102,8 @@
 					
 					<td class="paperCol">
 						<div class="paper">
-							<h3>Title of Paper</h3>
-							<span class="authors"><a href="linkToAramProfile.html">Baghdassarian A</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Smith J</a></span>
+							<h3>Title of paper</h3>
+							<span class="authors"><a href="linkToAramProfile.html">Baghdassarian A.</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Smith J.</a></span>
 							<div class="school">
 								<p>School</p>
 							</div>
@@ -116,11 +116,11 @@
 								</span>
 								<div class="abstractText">
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non. 
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non.
 									</p>
 								</div>
 							</div>
-							<div class="paperPDF"> <!--display pdf-->
+							<div id="pdf-container"> <!--display pdf-->
 								<div>
 									<button id="prev">Previous</button>
   									<button id="next">Next</button>
