@@ -63,6 +63,7 @@
 }
 
 #searchTableDiv{
+	margin-top: 24px;
 	background-color: #eeeeee; /* color for results area */
 }
 
