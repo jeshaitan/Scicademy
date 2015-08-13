@@ -3,13 +3,8 @@ $(document).ready(function() {
 	$('.navigation').html(
 		'<ul class="sm sm-simple">\
   			<li><a href="index.html">Home</a></li>\
-			<li>\
-			 	<a href="">Submit Research</a>\
-			 	<ul>\
-			        <li><a href="submit.html">Submit Paper</a></li>\
-			        <li><a href="poster.html">Submit Poster</a></li>\
-			 	</ul>\
-			</li>\
+			<li><a href="submit.html">Submit Paper</a></li>\
+			<li><a href="poster.html">Submit Poster</a></li>\
 			<li><a href="about.html">About</a></li>\
 			<li><a href="" id="siso">Sign In</a></li>\
 			<li><a href="register.html">Sign Up</a></li>\
