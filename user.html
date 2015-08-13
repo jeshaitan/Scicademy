@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Aliro</title>
+	<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
+	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
+	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
+	<link href="css/jquery-ui.min.css" rel="stylesheet">
+	<link href="css/signInCss.css" rel="stylesheet">
+	<link href="css/user.css" rel="stylesheet" type="text/css">
+	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+	<script src="libs/jquery-1.11.3.min.js"></script>
+	<script src="libs/jquery-ui.min.js"></script>
+	<script src="libs/jquery.smartmenus.min.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script src="javascript/index-logic.js"></script>
+</head>
+
+<body class="colorBody">
+	<script type="text/javascript"> 
+		//load the navBar and signIn box.
+		$.getScript('javascript/index-logic.js', function(jd){
+		//this runs once the above code finishes loading
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			$( ".overview" ).position({
+				  my: "center top",
+				  at: "center bottom",
+				  of: ".headerName"
+			});	//end position	
+			
+			
+			google.load("visualization", "1", {packages:["corechart"]});
+			google.setOnLoadCallback(drawChart);
+			function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+				  ['Source', 'Reputation'],
+				  ['Publishing work',	20],
+				  ['Adding poster',      5],
+				  ['Creating Account',  1]
+				]);
+
+			var options = {
+				  title: 'Reputation Sources'
+			};
+
+			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+			chart.draw(data, options);
+			} //end drawChart
+		}); //end ready
+	</script>
+	
+	<div class="navigation"></div>
+	<div id="signInBox"></div>
+	<div class="grid">
+	<div class="userBox">
+		<h1 class="headerName">John Smith</h1>
+		<div class="details">
+			<p class="school">Great Neck South High School</p>
+			<p class="reputation">16 Reputation</p>				
+		</div>
+	</div>
+	<div class="separator separator2"></div>
+	<div class="publications">
+		<div id="paper1">
+			<h3>Title of Paper</h3>
+			<span class="authors"><a href="linkToAramProfile.html">Smith J</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Zweigler R</a></span>
+		</div>
+		<div class="separator"></div>
+		<div id="paper2">
+			<h3>Title of Paper2</h3>
+			<span class="authors"><a href="linkToAramProfile.html">Smith J</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Trump D</a></span>
+		</div>
+		<div class="separator"></div>
+	</div>
+	<div class="about">
+		<p class="grade">Grade: 11</p>
+		<p class="since">Join Date: August 11, 2015</p>	
+	</div>
+	<div class="reputation">
+		<p>Total Reputation: 16</p>
+		<div id="piechart" style="width: 900px; height: 500px;"></div>
+	</div>
+	</div>
+</body>
+</html>

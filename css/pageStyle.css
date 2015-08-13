@@ -30,6 +30,12 @@ body {
 	font-family: Ubuntu, sans-serif !important;
 }
 
+.separator {
+	height: 1px; 
+	background: #92948E; 
+	overflow: hidden;
+}
+
 /*site wide colors:
 	purple: #C070A0;
 	grey: #eeeeee; */
