@@ -14,7 +14,7 @@
 	<script src="libs/jquery-1.11.3.min.js"></script>
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
 	<script src="javascript/index-logic.js"></script>
 </head>
 
@@ -34,7 +34,7 @@
 			});	//end position	
 			
 			
-			google.load("visualization", "1", {packages:["corechart"]});
+	//		google.load("visualization", "1", {packages:["corechart"]});
 			google.setOnLoadCallback(drawChart);
 			function drawChart() {
 				var data = google.visualization.arrayToDataTable([
