@@ -114,3 +114,7 @@
 .select-style select:focus {
     outline: none;
 }
+
+#logo {
+	float:left;
+}
