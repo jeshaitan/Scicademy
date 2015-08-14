@@ -1,14 +1,14 @@
-#signInForm input{
-	height: 34px;
-	line-height: 20px;
-	padding: 6px 12px;
-	margin: 10px 0px;
-	background-image: none;
-	border: 1px solid #CCC;
-	border-radius: 4px;
-	box-shadow: 1px 1px 2px -1px rgba(0, 0, 0, 0.15) inset;
-	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-	display:block;
+/* #signInForm input{
+	height: 34px !important;
+	line-height: 20px !important;
+	padding: 6px 12px !important;
+	margin: 10px 0px !important;
+	background-image: none !important;
+	border: 1px solid #CCC !important;
+	border-radius: 4px !important;
+	box-shadow: 1px 1px 2px -1px rgba(0, 0, 0, 0.15) inset !important;
+	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s !important;
+	display:block !important;
 }
 
 #signInButton{
@@ -19,20 +19,20 @@ div.curFocus {
 	background: #fdecb2;
 }
 
-#signInForm input[type=text], #signInForm input[type=password], #signInForm textarea {
-  -webkit-transition: all 0.30s ease-in-out;
-  -moz-transition: all 0.30s ease-in-out;
-  -ms-transition: all 0.30s ease-in-out;
-  -o-transition: all 0.30s ease-in-out;
-  outline: none;
-  padding: 3px 0px 3px 3px;
-  margin: 5px 1px 3px 0px;
-  border: 1px solid #DDDDDD;
+table.credentialsTable form input[type=text], table.credentialsTable form input[type=password], table.credentialsTable form textarea {
+  -webkit-transition: all 0.30s ease-in-out !important;
+  -moz-transition: all 0.30s ease-in-out !important;
+  -ms-transition: all 0.30s ease-in-out !important;
+  -o-transition: all 0.30s ease-in-out !important;
+  outline: none !important;
+  padding: 3px 0px 3px 3px !important;
+  margin: 5px 1px 3px 0px !important;
+  border: 1px solid #DDDDDD !important;
 }
  
-#signInForm input[type=text]:focus,  #signInForm input[type=password]:focus, #signInForm textarea:focus {
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-  padding: 3px 0px 3px 3px;
-  margin: 5px 1px 3px 0px;
-  border: 1px solid rgba(81, 203, 238, 1);
-}
+table.credentialsTable form input[type=text]:focus,  table.credentialsTable form input[type=password]:focus, table.credentialsTable form textarea:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
+  padding: 3px 0px 3px 3px !important;
+  margin: 5px 1px 3px 0px !important;
+  border: 1px solid rgba(81, 203, 238, 1) !important;
+} */
