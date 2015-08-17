@@ -36,3 +36,7 @@ table.credentialsTable form input[type=text]:focus,  table.credentialsTable form
   margin: 5px 1px 3px 0px !important;
   border: 1px solid rgba(81, 203, 238, 1) !important;
 } */
+
+input.error, select.error textarea.error{
+	border: 1px solid red !important;
+}

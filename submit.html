@@ -19,7 +19,7 @@
 	<script src="javascript/index-logic.js"></script>
 
 </head>
-<body id="main_body" >
+<body id="main_body" class="colorBody">
 	<script type="text/javascript"> 
 		$(document).ready(function(){
 			$.getScript('javascript/index-logic.js', function(jd){});
@@ -31,27 +31,50 @@
 				counter=value.split(' ').length;
 			return counter>=100;
 			}, "");
+			var lines; //array that will hold all keywords
+			jQuery.validator.addMethod("isFourWords", function(value, element) {
+				lines = value.split('\n');
+				//for(var i = 0;i < lines.length;i++){
+					//code here using lines[i] which will give you each line
+				//}
+				if (lines[3]==''){ //without this, they can just have a new line on line 4 with no text
+					return false;
+				}
+				return lines.length>=4;
+			}, "");
+			
 			
 			$('#form_1039889').validate({
 				rules: {
 					element_2: { //abstract
+						required: true,
 						isLong : true 
+					},
+					element_9: { //keywords
+						required: true,
+						isFourWords: true
 					},
 				},
 				messages: {
 					element_2: {
 						required: "This field is required",
 						isLong: "Your abstract must be at least 100 words"
+					},
+					element_9: {
+						required: "This field is required",
+						isFourWords: "You must have at least four keywords, with each keyword on a new line"
 					}
 				}
 			})
+			$('#element_1').show();
 			$('#element_1').focus();
 			$('#noPDF').slideUp();
 			$('#paperPDF').slideDown();
-			$('#li_3').slideUp();
+			$('#li_3').hide();
+			$('#li_1').show();
 			$('#convertToPDF').slideUp();
-			$('#saveForm').button();
 			$('#converted').button();
+			$('#saveForm').button();
 			$('.sm').smartmenus({
 				showFunction: function($ul, complete){
 					$ul.slideDown(250,complete);
@@ -102,16 +125,13 @@
 				authorCount=authorCount-1;
 			}) //end remove click
 			
+			$('.ui-selectmenu-text').remove();
+			$('.ui-selectmenu-button').remove();
 		}); //end ready
 	</script>
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
-	
-	
-	<img id="top" src="images/top.png" alt="">
-	<div id="form_container">
-	
-		<h1><a>Submit Your Research</a></h1>
+	<div id="form_container" class="grid">
 		<form id="form_1039889" class="appnitro" enctype="multipart/form-data" method="post" action="">
 					<div class="form_description">
 			<h2>Submit Your Research</h2>
@@ -119,7 +139,7 @@
 		</div>						
 			<ul >
 			
-					<li id="li_1" >
+		<li id="li_1" >
 		<label class="description required" for="element_1">Title </label>
 		<div>
 			<input id="element_1" name="element_1" class="element text large required" type="text" maxlength="255" value=""/> 
@@ -147,8 +167,16 @@
 		<label class="description required" for="element_2">Abstract </label>
 		<div>
 			<textarea id="element_2" name="element_2" class="element textarea medium"></textarea> 
-		</div><p class="guidelines" id="guide_2"><small>Must be at least 40 characters. This is a short section and is intended to give the potential reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p> 
+		</div><p class="guidelines" id="guide_1"><small>Must be at least 40 characters. This is a short section and is intended to give the potential reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p> 
 		</li>
+		
+		<li id="li_9" >
+		<label class="description required" for="element_9">Keywords</label>
+		<div>
+			<textarea id="element_9" name="element_9" class="element textarea medium"></textarea> 
+		</div><p class="guidelines" id="guide_2"><small>Enter at least four keywords, with each keyword on a new line. Try to use words that are not in your title but will help classify your research.</small></p> 
+		</li>
+		
 		<div id="paperPDF">
 		<li id="li_14" >
 			<label class="description required" for="element_14">Is your paper a pdf? </label>
@@ -164,7 +192,7 @@
 		<div id="convertToPDF">
 		<li>
 			<p>Make sure your paper is in PDF format. Either save it as a pdf, or use <a href="https://www.freepdfconvert.com/">a free online pdf converter</a>.</p>
-			<button id="converted">Ok, it's a pdf now.</button>
+			<input type="button" id="converted" class="button_text" value="Ok, it's a pdf now."></input>
 		</li>
 		</div>
 		<div id="upload">

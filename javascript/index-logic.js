@@ -295,16 +295,6 @@ $(document).ready(function() {
 			$('#element_7').autocomplete({
 				source:schools
 			});
-			
-			$(':radio').click(function() {
-				if ($('input[name="highCol"]:checked').val()=="1"){
-					$('#li_1').slideDown();
-				}
-				else{
-					$('#li_1').slideUp();
-				}
-			
-			})
 	
 	
 	//end register javascript
