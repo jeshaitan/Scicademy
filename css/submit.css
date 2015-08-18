@@ -16,7 +16,15 @@ body
 	background-color: #F7F7F7; 
 }
 
-.required:after { content:" *"; color:red; }
+#form_container .required:after { content:" *"; color:red; }
+
+#element_1-button{
+	padding: 0px;
+}
+
+.ui-icon-circle-triangle-s{
+	padding: 0px;
+}
 
 #li_2 label{
 	margin-top: 10px;

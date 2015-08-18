@@ -71,7 +71,7 @@
 			$('#noPDF').slideUp();
 			$('#paperPDF').slideDown();
 			$('#li_3').hide();
-			$('#li_1').show();
+			$('#paperTitle').show();
 			$('#convertToPDF').slideUp();
 			$('#converted').button();
 			$('#saveForm').button();
@@ -125,8 +125,7 @@
 				authorCount=authorCount-1;
 			}) //end remove click
 			
-			$('.ui-selectmenu-text').remove();
-			$('.ui-selectmenu-button').remove();
+
 		}); //end ready
 	</script>
 	<div class="navigation"></div>
@@ -139,10 +138,10 @@
 		</div>						
 			<ul >
 			
-		<li id="li_1" >
-		<label class="description required" for="element_1">Title </label>
+		<li id="paperTitle" >
+		<label class="description required" for="title">Title </label>
 		<div>
-			<input id="element_1" name="element_1" class="element text large required" type="text" maxlength="255" value=""/> 
+			<input id="title" name="title" class="element text large required" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>		
 		
