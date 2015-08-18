@@ -27,14 +27,13 @@
 	</script>
 	<script>
 		$(document).ready(function() {
-			$('.abstractParagraph').hide();
-			$('.abstractText').click(function(){
+			$('.abstractDiv').click(function(){
 				//slide in abstract text using ajax
 				$('.paperDiv .abstractText .arrowClick').toggleClass('arrowSide');
-				$('.abstractParagraph').slideToggle();
+				<!-- $('.abstractParagraph').slideToggle(); -->
+				$(this).find('.abstractParagraph').slideToggle();
 				return false;
 			}); //end abstractText click
-			
 			$( "#dateOptions" ).position({
 				  my: "left top",
 				  at: "left-3 bottom+10",
@@ -55,16 +54,17 @@
 			</form>
 		</div>
 		<div id="searchTableDiv">
-			<table id="searchTable">
-				<tr>
-					<td class="searchInfo">
+					<div class="searchInfo">
+						<div class="searchBy">
 							<h4>Search In:</h4>
 							<div id="searchOptions">
 								<input type="radio" name="searchOptions" value="All" class="searchBy" checked="checked">All Fields</input><br>
 								<input type="radio" name="searchOptions" value="Title" class="searchBy">Title</input><br>
 								<input type="radio" name="searchOptions" value="Abstract" class="searchBy">Abstract</input><br>
 								<input type="radio" name="searchOptions" value="Author" class="searchBy">Author</input>
-							</div>						
+							</div>
+						</div>
+						<div class="sortBy">
 							<h4>Sort By:</h4>
 							<div id="dates">
 							<h6>Date:</h6>
@@ -74,23 +74,25 @@
 								<input type="checkbox" name="date" value="2015" class="dateButtons">2015</input>
 								</div>
 							</div>
-					</td>
-					<td id="papers">
+						</div>
+					</div>
+					<div class="papers">
 						<!-- paper info here-->
 						<div class="paperDiv" id="firstPaper">
 							<span class="title">
 								<a href="paper.html">Title of Paper</a>
 							</span>
 							<div class="authors"><a href="linkToAramProfile.html">Baghdassarian A</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Smith J</a></div>
-							<a class="abstractText">
-								<span class="arrowClick arrowSide"></span>
-								<span class="preTxt">Abstract</span>
-							</a>
-							<span class="abstractParagraph">
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non. 
-								</p>
-							</span>
+							<div class="abstractDiv">
+								<a class="abstractText">
+									<span class="arrowClick arrowSide"></span>
+									<span class="preTxt">Abstract</span>
+								</a>
+								<div class="abstractParagraph" id="abstract1">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non.
+								</div>
+							</div>
+							
 						</div>
 						<div class="separator"></div>
 						<div class="paperDiv">
@@ -98,9 +100,8 @@
 								<a href="linkToPaper.html">And repeat above process uses JSON and AJAX, accepting server requests</a>
 							</span>
 						</div>
-					</td>
-				</tr>
-			</table>
+					</div>
+
 	</div>
 </body>
 </html>
