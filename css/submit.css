@@ -1,80 +1,23 @@
 body
 {
 	background:gray;
-}
 
-.colorBody{
-	background-color: #C070A0;
 }
+.rired:after { content:" *"; color:red; }
 
-.grid{
-	clear: both;
-    margin: 0 auto;
-    overflow: hidden;
-    text-align: left;
-    width: 100%;
-	background-color: #F7F7F7; 
-}
-
-#form_container .required:after { content:" *"; color:red; }
-
-#element_1-button{
-	padding: 0px;
-}
-
-.ui-icon-circle-triangle-s{
-	padding: 0px;
-}
-
-#li_2 label{
-	margin-top: 10px;
-}
-label{
-	margin-left: 2px;
-}
 .addAuthors, .addImages{
 	font-size: 11px;
 	margin-left:8px;
 }
 
-form input[type=text], form input[type=password], form textarea, #li_4 input{
-/*   -webkit-transition: all 0.30s ease-in-out !important;
-  -moz-transition: all 0.30s ease-in-out !important;
-  -ms-transition: all 0.30s ease-in-out !important;
-  -o-transition: all 0.30s ease-in-out !important; */
-	outline: none !important;
-	padding: 3px 0px 3px 3px;
-	margin: 5px 1px 3px 0px;
-	border: 1px solid #DDDDDD !important;
-	width: 214px !important;
-	font-size: small !important;
-}
- /* blue halo */
-form input[type=text]:focus, form input[type=password]:focus, form textarea:focus {
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
-  padding: 3px 0px 3px 3px;
-  margin: 5px 1px 3px 0px;
-  border: 1px solid rgba(81, 203, 238, 1) !important;
+.grid {
+	/*min-width: 1348px;*/
+	width: 100% !important;
 }
 
-#li_4 input:focus {
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
-  padding: 3px 0px 3px 3px;
-  border: 1px solid rgba(81, 203, 238, 1) !important;
-}
-/* end blue hao */
-
-.text{
-	height: 20px !important;
-}
-
-.text, .textarea{
-	padding: 6px 12px !important;
-}
-
-#form_1039889 input.error, #form_1039889 select.error, textarea.error{
-    /* background: #ffa9b8 none repeat scroll 0 0; */
-    border: 1px solid red !important;
+#form_1039889 input.error, #form_1039889 select.error {
+    background: #ffa9b8 none repeat scroll 0 0;
+    border: 1px solid red;
 }
 
 #form_1039889 input[type="text"], #form_1039889 input[type="password"], #form_1039889 textarea {
@@ -141,18 +84,12 @@ input.text {
 	height:17px;
 }
 
-#converted{
-	height: 40px;
-	width: 145px;
-	font-size: small !important;
-}
-
 #form_container
 {
 	background:#eeeeee;
 	margin:0 auto;
 	text-align:left;
-	width:1333px;
+	/*width:640px;*/
 }
 
 #top
@@ -488,7 +425,7 @@ input.file
 
 textarea.textarea
 {
-	background:#fff url(../images/shadow.gif) repeat-x top;
+	background:#fff url(images/shadow.gif) repeat-x top;
 	border-bottom:1px solid #ddd;
 	border-left:1px solid #c3c3c3;
 	border-right:1px solid #c3c3c3;
@@ -497,7 +434,7 @@ textarea.textarea
 	font-family:Ubuntu, "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	font-size:100%;
 	margin:0;
-	width:99% !important;
+	width:99%;
 }
 
 select.select
@@ -608,6 +545,10 @@ textarea.large
 
 
 /**** Guidelines and Error Highlight ****/
+form li.highlighted
+{
+	background-color:#fff7c0;
+}
 
 form .guidelines
 {
@@ -615,23 +556,15 @@ form .guidelines
 	border:1px solid #e6e6e6;
 	color:#444;
 	font-size:80%;
-	left:105% !important;
+	left:100%;
 	line-height:130%;
 	margin:0 0 0 8px;
 	padding:8px 10px 9px;
 	position:absolute;
+	top:0;
 	visibility:hidden;
 	width:42%;
 	z-index:1000;
-}
-
-#guide_1{ 
-	/* abstract guide */
-	top:39px !important;
-}
-#guide_2{
-	/* keywords guide */
-	top:28px !important;
 }
 
 form .guidelines small
