@@ -20,9 +20,14 @@ p {
 }
 
 #abouttext{
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left:20%;
+    margin-right:20%;
+}
+
+#contacttext {
+	margin-top: 30%;
+	margin-left:20%;
+	margin-right:20%;
 }
 
 body {

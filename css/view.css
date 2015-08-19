@@ -614,9 +614,6 @@ textarea.large
 }
 
 /**** Errors ****/
-
-
-
 table.credentialsTable label.error {
 	font-size: 0.8 em;
 	color: #F00;
