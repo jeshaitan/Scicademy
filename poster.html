@@ -19,7 +19,7 @@
 	<script src="javascript/index-logic.js"></script>
 
 </head>
-<body id="main_body" >
+<body id="main_body" class="colorBody">
 	<script type="text/javascript"> 
 		$(document).ready(function(){
 			$.getScript('javascript/index-logic.js', function(jd){});
@@ -85,8 +85,6 @@
 				authorCount=authorCount-1;
 			})
 			
-			
-			
 			var imageCount=1;
 			$('#addImage').click(function(e){
 				e.preventDefault();
@@ -122,11 +120,7 @@
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
 	
-	
-	<img id="top" src="images/top.png" alt="">
-	<div id="form_container">
-	
-		<h1><a>Submit Your Poster</a></h1>
+	<div id="form_container" class="grid">
 		<form id="form_1039889" class="appnitro" enctype="multipart/form-data" method="post" action="">
 					<div class="form_description">
 			<h2>Submit Your Poster</h2>
@@ -192,6 +186,5 @@
 			</ul>
 		</form>	
 	</div>
-	<img id="bottom" src="images/bottom.png" alt="">
 	</body>
 </html>
