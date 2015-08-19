@@ -83,6 +83,27 @@
     		queueRenderPage(pageNum);
   		}
   		document.getElementById('next').addEventListener('click', onNextPage);
+		
+		$('#editPaper').click(function(event){
+			event.preventDefault();
+			if (($(this).text() === "Edit Paper")){
+				$(this).text("Finished Editing");
+			}
+			else{
+				$(this).text("Edit Paper");
+			}
+			//Title to textbox
+		//	var textArea = $('<textarea>');
+		//	var endTextArea=$('</textarea>');
+		//	var oldText = $('.paper h3').text();
+		//	$('.paper h3').prepend(textArea);
+		//	$('.paper h3').prepend(textArea);
+		//	$('.paper h3').append(endTextArea);
+		//	textArea.val(oldText);
+			//end Title
+			
+			
+		}); //end edit click
 	}); //end ready
 	</script>
 </head>
@@ -94,6 +115,7 @@
 	
 	<div class="grid">
 		<div id="paperTableDiv">
+			<a href='' id="editPaper">Edit Paper</a>
 			<table id="paperTable">
 				<tr>
 					<td class="paperOptions">

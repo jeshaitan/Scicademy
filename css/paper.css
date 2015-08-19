@@ -51,6 +51,12 @@
 	font-size:12px;
 }
 
+#editPaper{
+	position:relative;
+	left: 90%;
+	top:10px;
+}
+
 #paperTable a, #paperTable a:link {
     color: #316c9d;
     text-decoration: none;
