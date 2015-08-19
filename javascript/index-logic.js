@@ -151,14 +151,10 @@ $(document).ready(function() {
 		
 	});
 	
-	$(document).on("submit", ".searchForm", function(event){
+	$(document).on("submit", ".searchForm, .searchBoxSubmit", function(event){
 		event.preventDefault();
-		window.location.href = "results.html";
-	});
-	
-	$(document).on("click", ".searchBoxSubmit", function(event){
-		event.preventDefault();
-		window.location.href = "results.html";
+		query=$('#searchBox').val();
+		window.location.href = "results.html?query="+query;
 	});
 	
 	$('#signInForm').submit(function(event) {
@@ -340,7 +336,7 @@ function readRegisterForm(form) {
 	addUser(firstName, lastname, grade, school, email, password);
 }
 
-function addUser(fnm, lnm, grd, shl, eml, pwd) {
+function *addUser(fnm, lnm, grd, shl, eml, pwd) {
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", "http://localhost:8888/addUser/" + eml + "/" + pwd + "/"
 														 + fnm + "/" + lnm + "/"

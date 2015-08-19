@@ -38,7 +38,91 @@
 				  my: "left top",
 				  at: "left-3 bottom+10",
 				  of: "#dates h6"
-			});		});
+			});	//end position
+			var url= window.location.href;
+			var queryString=url.slice(url.indexOf('?query=')+1); //entire query stuff, after the results.html path
+			var queryNum=url.slice(url.indexOf('?query=')+7); //just the number for the query variable
+			var resultNum=queryString.indexOf('result=');
+			var tempResult; //indicates upperBound. return papers 1-20. If the number was 40, the program would return papers 21-40.
+			if(resultNum==-1){
+				tempResult=20;
+			}
+			else{
+				var resultString=queryString.slice(queryString.indexOf('result='));
+				tempResult=resultString.slice(7);
+			}
+			var searchData={
+				query:queryString,
+				result:tempResult	 //indicates upperBound. return papers 1-20. If the number was 40, the program would return papers 21-40.
+			}
+			$.getJSON('getPapers.js', searchData, addPapers);
+			function addPapers(data){
+			/** format of paper returned in json format
+			
+			data{
+				paper1{
+					'title':'title of paper',
+					'authors':{
+						'author1':{
+							'name':'Larry Page',
+							'userPage':'user.html/userID'
+						},
+						'author2':{
+							'name':'Sergey Brin',
+							'userPage':'user.html/userID'
+						}
+					},
+					'abstract':'asdkfla',
+					'paperLink':'paper.html/paperID'
+				},
+				paper2{
+					'title':'title of paper',
+					'authors':{
+						'author1':{
+							'name':'John Smith',
+							'userPage':'user.html/userID'
+						},
+						'author2':{
+							'name':'Joe Doe',
+							'userPage':'user.html/userID'
+						}
+					},
+					'abstract':'Ipsum Lorum blah blah blah',
+					'paperLink':'paper.html/paperID'
+				}
+				//etc. etc. 20 times max, since only 20 papers on page
+			}
+			
+			**/
+			
+			/**
+			
+			<div class="paperDiv" id="firstPaper">
+							<span class="title">
+								<a href="paper.html">Title of Paper</a>
+							</span>
+							<div class="authors"><a href="linkToAramProfile.html">Baghdassarian A</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Smith J</a></div>
+							<div class="abstractDiv">
+								<a class="abstractText">
+									<span class="arrowClick arrowSide"></span>
+									<span class="preTxt">Abstract</span>
+								</a>
+								<div class="abstractParagraph" id="abstract1">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non.
+								</div>
+							</div>
+							
+						</div>
+			
+			**/
+				var paperHtml='';
+				$.each(data, function(paper, paperInfo){
+					//I'll finish this later
+					$('.papers').append(paperHtml);
+				});
+			
+			} //end addPapers
+		}); //end ready
 	</script>
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
