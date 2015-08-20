@@ -86,54 +86,13 @@
 				//etc. etc. 20 times max, since only 20 papers on page
 			}
 			
-			/**
-			
-			<div class="paperDiv" id="firstPaper">
-							<span class="title">
-								<a href="paper.html">Title of Paper</a>
-							</span>
-							<div class="authors">
-								<a href="linkToAramProfile.html">Baghdassarian A</a>
-								,&nbsp;&nbsp;
-								<a href="linkToJesseProfile.html">Smith J</a>
-							</div>
-							<div class="abstractDiv">
-								<a class="abstractText">
-									<span class="arrowClick arrowSide"></span>
-									<span class="preTxt">Abstract</span>
-								</a>
-								<div class="abstractParagraph" id="abstract1">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non.
-								</div>
-							</div>
-							
-						</div>
-			
-			**/
 			<!-- function addPapers(data){ -->
 				var title='';
 				var authors='';
 				var abstractText='';
 				var paperLink='';
 				var firstAuthor=true;
-				/** original
-				<div class="paperDiv" id="firstPaper">
-							<span class="title">
-								<a href="paper.html">Title of Paper</a>
-							</span>
-							<div class="authors"><a href="linkToAramProfile.html">Baghdassarian A</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Smith J</a></div>
-							<div class="abstractDiv">
-								<a class="abstractText">
-									<span class="arrowClick arrowSide"></span>
-									<span class="preTxt">Abstract</span>
-								</a>
-								<div class="abstractParagraph" id="abstract1">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non.
-								</div>
-							</div>
-							
-						</div>
-						**/
+				
 				var paperHtml='';
 				$.each(data, function(paper, paperInfo){ //iterature through each paper
 					console.log('p: '+paper+'='+paperInfo);
