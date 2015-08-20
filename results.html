@@ -27,13 +27,6 @@
 	</script>
 	<script>
 		$(document).ready(function() {
-			$('.abstractDiv').click(function(){
-				//slide in abstract text using ajax
-				$('.paperDiv .abstractText .arrowClick').toggleClass('arrowSide');
-				<!-- $('.abstractParagraph').slideToggle(); -->
-				$(this).find('.abstractParagraph').slideToggle();
-				return false;
-			}); //end abstractText click
 			$( "#dateOptions" ).position({
 				  my: "left top",
 				  at: "left-3 bottom+10",
@@ -55,49 +48,76 @@
 				query:queryString,
 				result:tempResult	 //indicates upperBound. return papers 1-20. If the number was 40, the program would return papers 21-40.
 			}
-			$.getJSON('getPapers.js', searchData, addPapers);
-			function addPapers(data){
-			/** format of paper returned in json format
+			<!-- $.getJSON('getPapers.js', searchData, addPapers); -->
+ 	
+		<!--format of paper returned in json format. Example -->
 			
-			data{
-				paper1{
-					'title':'title of paper',
-					'authors':{
-						'author1':{
-							'name':'Larry Page',
-							'userPage':'user.html/userID'
+			var data={
+				paper1:{
+					"title":"Title of Paper",
+					"authors":{
+						"author1":{
+							"name":"Larry Page",
+							"userPage":"user.html/userID"
 						},
-						'author2':{
-							'name':'Sergey Brin',
-							'userPage':'user.html/userID'
+						"author2":{
+							"name":"Sergey Brin",
+							"userPage":"user.html/userID"
 						}
 					},
-					'abstract':'asdkfla',
-					'paperLink':'paper.html/paperID'
+					"abstract":"asdkfla",
+					"paperLink":"paper.html/paperID"
 				},
-				paper2{
-					'title':'title of paper',
-					'authors':{
-						'author1':{
-							'name':'John Smith',
-							'userPage':'user.html/userID'
+				paper2:{
+					"title":"Title of Paper",
+					"authors":{
+						"author1":{
+							"name":"John Smith",
+							"userPage":"user.html/userID"
 						},
-						'author2':{
-							'name':'Joe Doe',
-							'userPage':'user.html/userID'
+						"author2":{
+							"name":"Joe Doe",
+							"userPage":"user.html/userID"
 						}
 					},
-					'abstract':'Ipsum Lorum blah blah blah',
-					'paperLink':'paper.html/paperID'
+					"abstract":"Ipsum Lorum blah blah blah",
+					"paperLink":"paper.html/paperID"
 				}
 				//etc. etc. 20 times max, since only 20 papers on page
 			}
 			
-			**/
-			
 			/**
 			
 			<div class="paperDiv" id="firstPaper">
+							<span class="title">
+								<a href="paper.html">Title of Paper</a>
+							</span>
+							<div class="authors">
+								<a href="linkToAramProfile.html">Baghdassarian A</a>
+								,&nbsp;&nbsp;
+								<a href="linkToJesseProfile.html">Smith J</a>
+							</div>
+							<div class="abstractDiv">
+								<a class="abstractText">
+									<span class="arrowClick arrowSide"></span>
+									<span class="preTxt">Abstract</span>
+								</a>
+								<div class="abstractParagraph" id="abstract1">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non.
+								</div>
+							</div>
+							
+						</div>
+			
+			**/
+			<!-- function addPapers(data){ -->
+				var title='';
+				var authors='';
+				var abstractText='';
+				var paperLink='';
+				var firstAuthor=true;
+				/** original
+				<div class="paperDiv" id="firstPaper">
 							<span class="title">
 								<a href="paper.html">Title of Paper</a>
 							</span>
@@ -113,15 +133,66 @@
 							</div>
 							
 						</div>
-			
-			**/
+						**/
 				var paperHtml='';
-				$.each(data, function(paper, paperInfo){
-					//I'll finish this later
+				$.each(data, function(paper, paperInfo){ //iterature through each paper
+					console.log('p: '+paper+'='+paperInfo);
+					$.each(paperInfo, function(infoName, info){ //loop through each piece of info in the paper
+						if(typeof info === 'object'){ //going into the authors
+							//then it's authors
+							$.each(info, function(authorNum, value){
+								if(!firstAuthor){
+									authors+=',&nbsp;&nbsp;';
+								}
+								else{
+									authors+='<div class="authors">';
+									firstAuthor=false;
+								}
+								// value.name gets their name, value.userPage gets their userPage
+								authors+='<a href="'+value.userPage+'">'+value.name+'</a>';
+							}); //end author loop
+							firstAuthor=true;
+						} //end author selection
+						else{ //every piece of info but authors
+							if(infoName == 'title'){
+								console.log(title);
+								title=info;
+							}
+							else if (infoName == 'abstract'){
+								abstractText=info;
+							}
+							else if (infoName == 'paperLink'){
+								paperLink=info;
+							}
+						} //end else for everything but authors
+					}); //end loop through for each piece of info in paper
+					paperHtml='<div class="paperDiv">\
+									<span class="title">\
+										<a href="'+paperLink+'">'+title+'</a>\
+									</span>'+authors+'</div>\
+									<div class="abstractDiv">\
+										<a class="abstractText">\
+											<span class="arrowClick arrowSide"></span>\
+											<span class="preTxt">Abstract</span>\
+										</a>\
+										<div class="abstractParagraph" id="abstract1">'+abstractText+'</div>\
+									</div>\
+								</div>\
+								<div class="separator"></div>'
 					$('.papers').append(paperHtml);
-				});
+					authors='';
+				}); //end loop for each paper
 			
-			} //end addPapers
+			<!-- } --> //end addPapers
+			
+			$('.abstractDiv').click(function(){
+				//slide in abstract text using ajax
+				$(this).find('.arrowClick').toggleClass('arrowSide');
+				<!-- $('.abstractParagraph').slideToggle(); -->
+				$(this).find('.abstractParagraph').slideToggle();
+				return false;
+			}); //end abstractText click
+			
 		}); //end ready
 	</script>
 	<div class="navigation"></div>
@@ -179,11 +250,6 @@
 							
 						</div>
 						<div class="separator"></div>
-						<div class="paperDiv">
-							<span class="title">
-								<a href="linkToPaper.html">And repeat above process uses JSON and AJAX, accepting server requests</a>
-							</span>
-						</div>
 					</div>
 <!-- 					<div class="pagination">
 						<span class="inactive page_link" title="Inactive first page of results"><< First</span>
