@@ -11,8 +11,29 @@
 	background-color: #e1e1e1; /*color for searchbox area */
 }
 
+
+.paperDiv h3 {
+    color: #316c9d;
+    font-size: 1.108em;
+		margin-bottom: 10px;
+}
+
+.paperDiv a {
+    text-decoration: none;
+}
+
 .authors{
 	margin: 7px 0px;
+}
+
+.authors a{
+	color:black !important;
+	text-decoration: none;
+}
+
+.authors a:hover{
+	text-decoration: underline;
+	cursor:ponter;
 }
 
 #searchTable{
