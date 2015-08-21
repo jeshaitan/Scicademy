@@ -8,16 +8,29 @@
     min-width: 1348px;
     overflow: hidden;
     text-align: left;
-    width: 100%;
-	background-color: #e1e1e1; /*color for searchbox area */
+    width: 100% !important;
+	height: auto;
+	/* background-color: #e1e1e1; /*color for searchbox area */
+	background-color: #eeeeee; /* color for results area */
 }
 
 .paperOptions{
-	padding-right:250px;
+	position: relative;
+	width: 20%;
+	height: auto;
+	top: 0px;
+	left: 30px;
+}
+
+.paperOptions div{
+	margin-left:10px;
 }
 
 .paperCol{
-	padding-right: 30px;
+	width:80%;
+	position: relative;
+	left:20%;
+	top: 0px;
 }
 
 .authors a{
@@ -41,14 +54,26 @@
 
 .abstract{
 	position:relative;
+	margin-top: 23px;
 }
 
-.school{
+.school, .date{
 	font-style: italic;
+	margin-top: -9px;
 }
 
 .caption{
 	font-size:12px;
+}
+
+.downloadPDF{
+	position:absolute;
+	top: -5px;
+}
+
+.downloadPDF img{
+	position: relative;
+    top: 4px;
 }
 
 #editPaper{
@@ -57,16 +82,16 @@
 	top:10px;
 }
 
-#paperTable a, #paperTable a:link {
+#paperDiv a, #paperDiv a:link {
     color: #316c9d;
     text-decoration: none;
 }
 
-#paperTable a:hover{
+#paperDiv a:hover{
 	text-decoration: underline;
 	cursor: ponter;
 }
 
-#paperTableDiv{
-	background-color: #eeeeee; /* color for results area */
+#paperDiv{
+	position:relative;
 }
