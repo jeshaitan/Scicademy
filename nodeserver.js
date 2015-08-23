@@ -12,6 +12,7 @@ var uri = "mongodb://jeshaitan:aliro4greatgood@ds036698.mongolab.com:36698/aliro
 var db = mongojs(uri, ["Papers", "Users"]);
 
 app.get('/getUser/:email/:password', function(req, res, next) {
+    console.log("received getUser request")
     var user = db.Users.findOne({
         "email": req.params.email,
         "password": req.params.password
@@ -26,6 +27,7 @@ app.get('/getUser/:email/:password', function(req, res, next) {
 });
 
 app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', function(req, res, next) {
+    console.log("received addUser request")
     db.Users.insert({email:req.params.email, 
                    password:req.params.password, 
                    firstname:req.params.firstname,
