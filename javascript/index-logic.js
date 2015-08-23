@@ -213,7 +213,6 @@ $(document).ready(function() {
 		// of: $("#element_2_2")
 	// });
 	
-	
 	//start register javascript
 	$('#li_1').hide();
 			jQuery.validator.addMethod("isValidEmail", function(value, element) {
@@ -342,7 +341,7 @@ function readRegisterForm(form) {
 	addUser(firstName, lastname, grade, school, email, password);
 }
 
-function *addUser(fnm, lnm, grd, shl, eml, pwd) {
+function addUser(fnm, lnm, grd, shl, eml, pwd) {
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", "http://localhost:8888/addUser/" + eml + "/" + pwd + "/"
 														 + fnm + "/" + lnm + "/"
