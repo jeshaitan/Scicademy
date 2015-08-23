@@ -351,7 +351,7 @@ function requestUser(email, password) {
 	var url = "/getUser/" + email + "/" + password;
 	$.ajax({
 		url: url,
-		dataType: "jsonp",
+		dataType: "json",
 		success: function(json) {
 			console.log("success: " + json);
 			currentUser = JSON.parse(json)
