@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	var currentUser = null;
 	$('.navigation').html(
 		'<ul class="sm sm-simple">\
   			<li><a href="index.html">Home</a></li>\
@@ -108,6 +107,19 @@ $(document).ready(function() {
 	if (currentUser != null) {
 		document.getElementById('#siso').innerHTML("Sign Out");
 	}
+		
+	$('#siso').click(function(event) {
+		event.preventDefault();
+		if(currentUser == null) {
+			$('#signInBox').dialog('open');
+			$('#element_2_1').focus();
+		}
+		else {
+			currentUser = null;
+			location.reload();
+		}
+	});
+	
 
 	$('[title]').tooltip();
 	$('.sm').smartmenus( {
@@ -131,19 +143,7 @@ $(document).ready(function() {
 		show: 'fade', 
 		hide: 'drop'
 	}); //end dialog
-	
-	$('#siso').click(function(event) {
-		event.preventDefault();
-		if(currentUser == null) {
-			$('#signInBox').dialog('open');
-			$('#element_2_1').focus();
-		}
-		else {
-			currentUser = null;
-			location.reload();
-		}
-	});
-	
+
 	$('#registerClick').click(function(event){
 		event.preventDefault();
 		$('#signInBox').dialog('open');

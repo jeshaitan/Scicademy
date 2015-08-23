@@ -21,6 +21,7 @@
 </head>
 <body id="main_body" class="colorBody">
 	<script type="text/javascript"> 
+		var currentUser = null;
 		$(document).ready(function(){
 			$.getScript('javascript/index-logic.js', function(jd){});
 			jQuery.validator.addMethod("isLong", function(value, element) {
