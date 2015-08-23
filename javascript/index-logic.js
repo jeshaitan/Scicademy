@@ -107,7 +107,7 @@ $(document).ready(function() {
 	if (currentUser != null) {
 		document.getElementById('#siso').innerHTML("Sign Out");
 	}
-		
+
 	$('#siso').click(function(event) {
 		event.preventDefault();
 		if(currentUser == null) {
@@ -196,22 +196,11 @@ $(document).ready(function() {
 		$('head').append('<link href="css/view.css" rel="stylesheet">');	
 	}
 	
-	// if (headText.indexOf('signInCss.css')<0){
-		// $('head').append('<link href="css/signInCss.css" rel="stylesheet">');	
-	// }
-	//end add in
-	
 	 $('#separateSignIn').position({
 		 my: "left top",
 		 at: "right+337 top",
 		 of: $("#registerFormDiv")
 	 });
-	
-	// $('#password').position({
-		// my: "left top",
-		// at: "right top",
-		// of: $("#element_2_2")
-	// });
 	
 	//start register javascript
 	$('#li_1').hide();
@@ -360,7 +349,7 @@ function requestUser(email, password) {
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
            user = JSON.parse(xmlhttp.responseText);
-           console.log(user);
+           console.log("returned user: " + user);
            currentUser = user;
         }
 	}
