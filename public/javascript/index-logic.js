@@ -332,17 +332,33 @@ function readRegisterForm(form) {
 }
 
 function addUser(fnm, lnm, grd, shl, eml, pwd) {
-	$.get("/addUser/" + eml + "/" + pwd + "/"
+	var url = "/addUser/" + eml + "/" + pwd + "/"
 							+ fnm + "/" + lnm + "/"
-							+ shl + "/" + grd + "/", function(data, status) {
-		console.log(data);
+							+ shl + "/" + grd + "/";
+	$.ajax({
+		url: url,
+		dataType: "html",
+		success: function(html) {
+			console.log(html);
+		},
+		error: function(error) {
+			console.log(error);
+		},
 	});
 }
 
 function requestUser(email, password) {
-	$.get("/getUser/" + email + "/" + password, function(data, status) {
-		currentUser = JSON.parse(data);
-        console.log("returned user: " + currentUser);
-        localStorage.setItem("currentUser", currentUser);
+	var url = "/getUser/" + email + "/" + password;
+	$.ajax({
+		url: url,
+		dataType: "jsonp",
+		success: function(json) {
+			console.log(json);
+			currentUser = JSON.parse(json)
+			localStorage.setItem("currentUser", currentUser);
+		},
+		error: function(error) {
+			console.log(error);
+		},
 	});
 }

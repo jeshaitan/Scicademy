@@ -23,6 +23,7 @@ app.get('/getUser/:email/:password', function(req, res, next) {
             	res.json({error: 'error retrieving the JSON user' });
         	}
         	else {
+        		console.log("user found: " + doc.school)
             	res.json(doc);
             }
     });
