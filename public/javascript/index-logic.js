@@ -332,28 +332,17 @@ function readRegisterForm(form) {
 }
 
 function addUser(fnm, lnm, grd, shl, eml, pwd) {
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET", "/addUser/" + eml + "/" + pwd + "/"
-														 + fnm + "/" + lnm + "/"
-														 + shl + "/" + grd + "/", true);
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-           console.log(xmlhttp.responseText);
-        }
-	}
-	xmlhttp.send();
+	$.get("/addUser/" + eml + "/" + pwd + "/"
+							+ fnm + "/" + lnm + "/"
+							+ shl + "/" + grd + "/", function(data, status) {
+		console.log(data);
+	});
 }
 
 function requestUser(email, password) {
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET", "/getUser/" + email + "/" + password, true);
-	console.log("requesting user...");
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-           currentUser = JSON.parse(xmlhttp.responseText);
-           console.log("returned user: " + currentUser);
-           localStorage.setItem("currentUser", currentUser);
-        }
-	}
-	xmlhttp.send();
+	$.get("/getUser/" + email + "/" + password, function(data, status) {
+		currentUser = JSON.parse(data);
+        console.log("returned user: " + currentUser);
+        localStorage.setItem("currentUser", currentUser);
+	});
 }

@@ -14,7 +14,7 @@ var uri = "mongodb://jeshaitan:aliro4greatgood@ds036698.mongolab.com:36698/aliro
 var db = mongojs(uri, ["Papers", "Users"]);
 
 app.get('/getUser/:email/:password', function(req, res, next) {
-    console.log("received getUser request")
+    console.log("received getUser request " + req.params.email)
     var user = db.Users.findOne({
         "email": req.params.email,
         "password": req.params.password
