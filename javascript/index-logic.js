@@ -104,18 +104,18 @@ $(document).ready(function() {
 		
 		);
 	
-	if (currentUser != null) {
+	if (localStorage.getItem("currentUser") != null) {
 		document.getElementById('#siso').innerHTML("Sign Out");
 	}
 
 	$('#siso').click(function(event) {
 		event.preventDefault();
-		if(currentUser == null) {
+		if(localStorage.getItem("currentUser") == null) {
 			$('#signInBox').dialog('open');
 			$('#element_2_1').focus();
 		}
 		else {
-			currentUser = null;
+			localStorage.getItem("currentUser") = null;
 			location.reload();
 		}
 	});
@@ -350,9 +350,9 @@ function requestUser(email, password) {
 	console.log("requesting user...");
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-           user = JSON.parse(xmlhttp.responseText);
-           console.log("returned user: " + user);
-           currentUser = user;
+           currentUser = JSON.parse(xmlhttp.responseText);
+           console.log("returned user: " + currentUser);
+           localStorage.setItem("currentUser", currentUser);
         }
 	}
 	xmlhttp.send();
