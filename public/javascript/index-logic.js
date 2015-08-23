@@ -333,7 +333,7 @@ function readRegisterForm(form) {
 
 function addUser(fnm, lnm, grd, shl, eml, pwd) {
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET", "http://localhost:8888/addUser/" + eml + "/" + pwd + "/"
+	xmlhttp.open("GET", "/addUser/" + eml + "/" + pwd + "/"
 														 + fnm + "/" + lnm + "/"
 														 + shl + "/" + grd + "/", true);
 	xmlhttp.onreadystatechange = function() {
@@ -346,7 +346,7 @@ function addUser(fnm, lnm, grd, shl, eml, pwd) {
 
 function requestUser(email, password) {
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET", "http://localhost:8888/getUser/" + email + "/" + password, true);
+	xmlhttp.open("GET", "/getUser/" + email + "/" + password, true);
 	console.log("requesting user...");
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
