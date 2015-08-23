@@ -310,6 +310,7 @@ function readSignInForm(form) {
 	var signinEmail = form.elements["email"].value;
 	var signinPassword = form.elements["password"].value;
 	requestUser(signinEmail, signinPassword);
+
 }
 
 function readRegisterForm(form) {
@@ -346,6 +347,7 @@ function addUser(fnm, lnm, grd, shl, eml, pwd) {
 function requestUser(email, password) {
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", "http://localhost:8888/getUser/" + email + "/" + password, true);
+	console.log("requesting user...");
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
            user = JSON.parse(xmlhttp.responseText);
