@@ -21,6 +21,115 @@
 		$(document).ready(function() {
 			$.getScript('javascript/index-logic.js', function(jd){});
 			var url = "projects/1/Aram_Baghdassarian_Paper.pdf" /*this should be variable*/
+		//start JSON to load paper.
+			<!-- $.getJSON('paperPage.js', paperData, addPaper); -->
+			//JSON data format: (similar to that of results.html, but for onl one paper)
+			var data={
+					"title":"Title of Paper",
+					"date":"May 15, 1999",
+					"school":"Stanford High School",
+					"authors":{
+						"author1":{
+							"name":"Larry Page",
+							"userPage":"user.html/userID"
+						},
+						"author2":{
+							"name":"Sergey Brin",
+							"userPage":"user.html/userID"
+						}
+					},
+					"abstract":"asdkfla",
+					"pdfLoc":"projects/1/Aram_Baghdassarian_Paper.pdf"
+			}
+			var paperHtml='';
+			var title='';
+			var date='';
+			var school='';
+			var authors='';
+			var abstractText='';
+			var pdfLoc='';
+			firstAuthor=true;
+		
+			$.each(data, function(infoName, info){ //loop through each piece of info in the paper
+				if(typeof info === 'object'){ //going into the authors
+					//then it's authors
+					$.each(info, function(authorNum, value){
+						if(!firstAuthor){
+							authors+=',&nbsp;&nbsp;';
+						}
+						else{
+							authors+='<div class="authors">';
+							firstAuthor=false;
+						}
+						// value.name gets their name, value.userPage gets their userPage
+						authors+='<a href="'+value.userPage+'">'+value.name+'</a>';
+					}); //end author loop
+					firstAuthor=true;
+				} //end author selection
+				else{ //every piece of info but authors
+					if(infoName == 'title'){
+						title=info;
+					}
+					else if (infoName == 'abstract'){
+						abstractText=info;
+					}
+					else if (infoName == 'date'){
+						date=info;
+					}
+					else if (infoName == 'school'){
+						school=info;
+					}
+					else if (infoName == 'pdfLoc'){
+						pdfLoc=info;
+					}
+				} //end else for everything but authors
+			}); //end loop through for each piece of info in paper
+		paperHtml='<div id="paperDiv">\
+					Auto-generated. This second paper is here just for now. Will delete both later once server side stuff is done, and JSON brings everything automatically:\
+					<div class="paperOptions">\
+						<div class="downloadPDF">\
+							<a href="'+pdfLoc+'"><img src="images/pdfIcon.png">Download the pdf</a>\
+						</div>\
+					</div>\
+					<div class="paperCol">\
+						<div class="paper">\
+							<h3>'+title+'</h3>'+authors+'</div>\
+							<div class="school">\
+								<p>'+school+'</p>\
+							</div>\
+							<div class="date">\
+								<p>'+date+'</p>\
+							</div>\
+							<div class="abstract">\
+								<span class="abstractHead">\
+									<h4 class="abstractHeadText">Abstract</h4>\
+								</span>\
+								<div class="abstractText">\
+									<p>'+abstractText+'</p>\
+								</div>\
+							</div>\
+							<div id="pdf-container"> \
+								<div>\
+									<button id="prev">Previous</button>\
+  									<button id="next">Next</button>\
+  									&nbsp; &nbsp;\
+ 									<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>\	</div>\
+ 								<div>\
+ 								<canvas id="pdf_canvas" style="border:1px solid black"></canvas>\
+ 								</div>\
+							</div>\
+							<div class="posterPics">\
+								<p>Poster Pictures</p>\
+								<p class="caption">Screenshot of poster used at science fair (we will use a photo viewer plugin here)</p>\
+							</div>\
+						</div>\
+					</div>\
+		</div>'
+		$('.grid').append(paperHtml);
+		
+		//end JSON stuff to load paper
+		
+		
 		var pdfDoc = null,
 			pageNum = 1,
 			pageRendering = null,
@@ -114,20 +223,24 @@
 	<div id="signInBox"></div>
 	
 	<div class="grid">
-		<div id="paperTableDiv">
-			<a href='' id="editPaper">Edit Paper</a>
-			<table id="paperTable">
-				<tr>
-					<td class="paperOptions">
-						<!-- Things like related articles, add to favorites, etc. go here -->
-					</td>
+		<a href='' id="editPaper">Edit Paper</a>
+		<div id="paperDiv">
+					<div class="paperOptions">
+						<div class="downloadPDF">
+							<a href='projects/1/Aram_Baghdassarian_Paper.pdf'><img src="images/pdfIcon.png">Download the pdf</a>
+						</div>
+					</div>
 					
-					<td class="paperCol">
+					<div class="paperCol">
 						<div class="paper">
 							<h3>Title of paper</h3>
-							<span class="authors"><a href="user.html">Baghdassarian A.</a>,&nbsp;&nbsp;<a href="user.html">Smith J.</a></span>
+							<div class="authors">
+								<a href="user.html">Baghdassarian A.</a>
+								,&nbsp;&nbsp;
+								<a href="user.html">Smith J.</a>
+							</div>
 							<div class="school">
-								<p>School</p>
+								<p>Great Neck South High School</p>
 							</div>
 							<div class="date">
 								<p>August 8, 2015</p>
@@ -142,7 +255,7 @@
 									</p>
 								</div>
 							</div>
-							<div id="pdf-container"> <!--display pdf-->
+							<div id="pdf-container">
 								<div>
 									<button id="prev">Previous</button>
   									<button id="next">Next</button>
@@ -156,13 +269,9 @@
 							<div class="posterPics">
 								<p>Poster Pictures</p>
 								<p class="caption">Screenshot of poster used at science fair (we'll use a photo viewer plugin here)</p>
-								<!-- <embed src="projects/1/poster/image-0001.jpg" width="500" height="375"> -->
-								<!-- rename pdf automatically-->
 							</div>
 						</div>
-					</td>
-				</tr>
-			</table>
+					</div>
 		</div>
 	</div>
 </body>

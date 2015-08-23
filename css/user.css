@@ -19,16 +19,32 @@
 }
 
 .separator{
-	margin: 20px 30px 20px 0px !important;
+	margin: 20px 0px 10px 0px;
+	z-index: 50;
+	width: 100%;
+	position:relative;
 }
 
 .separator2{
-	margin: 0px !important;
+	z-index: 50;
+	width:100%;
+	position:relative;
 }
+
+.reputation{
+	z-index: 1;
+	position:relative;
+}
+
+/* #userPubSep{
+	margin-bottom: 10px;
+} */
 
 .authors a{
 	color:black !important;
 	text-decoration: none;
+	position:relative;
+	z-index: 55;
 }
 
 .authors a:hover{
@@ -38,7 +54,9 @@
 
 .publications{
 	margin-left:30px;
+	margin-right: 30px;
 }
+
 
 .userBox{
 	width:100%;
@@ -77,6 +95,7 @@
 
 .publications h3{
 	color: #316c9d;
+	margin-bottom: 10px;
 	font-size: 1.108em;
 }
 
@@ -101,4 +120,5 @@
 	margin-top:-72px;
 	margin-left: -200px;
 	z-index:2;
+	position:relative;
 }
