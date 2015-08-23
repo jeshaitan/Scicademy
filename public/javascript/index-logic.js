@@ -1,6 +1,7 @@
 $(document).ready(function() {
+	var currentUser = localStorage.getItem("user");
 	$('.navigation').html(
-		'<ul class="sm sm-simple">\
+		'<ul id="navlist" class="sm sm-simple">\
   			<li><a href="index.html">Home</a></li>\
 			<li><a href="submit.html">Submit Paper</a></li>\
 			<li><a href="poster.html">Submit Poster</a></li>\
@@ -104,18 +105,18 @@ $(document).ready(function() {
 		
 		);
 	
-	if (localStorage.getItem("currentUser") != null) {
-		document.getElementById('#siso').innerHTML("Sign Out");
+	if (currentUser != null) {
+		document.getElementById('siso').innerHTML = "Sign Out";
 	}
-
+	
 	$('#siso').click(function(event) {
 		event.preventDefault();
-		if(localStorage.getItem("currentUser") == null) {
+		if(currentUser == null) {
 			$('#signInBox').dialog('open');
 			$('#element_2_1').focus();
 		}
-		else {
-			localStorage.getItem("currentUser") = null;
+		else { //sign out
+			localStorage.clear();
 			location.reload();
 		}
 	});
@@ -167,7 +168,6 @@ $(document).ready(function() {
 		event.preventDefault();
 		readSignInForm(document.getElementById('signInForm'));
 		$('#signinBox').dialog('close');
-		location.reload();
 	});
 
 	$('#form_1037235').submit(function(event) {
@@ -335,30 +335,17 @@ function addUser(fnm, lnm, grd, shl, eml, pwd) {
 	var url = "/addUser/" + eml + "/" + pwd + "/"
 							+ fnm + "/" + lnm + "/"
 							+ shl + "/" + grd + "/";
-	$.ajax({
-		url: url,
-		dataType: "html",
-		success: function(html) {
-			console.log("success: " + html);
-		},
-		error: function(error) {
-			console.log("error: " + error);
-		},
+	$.ajax(url).done(function(response) {
+		console.log(response);
+		document.location.href = "/index.html";
 	});
 }
 
 function requestUser(email, password) {
 	var url = "/getUser/" + email + "/" + password;
-	$.ajax({
-		url: url,
-		dataType: "json",
-		success: function(json) {
-			console.log("success: " + json);
-			currentUser = JSON.parse(json)
-			localStorage.setItem("currentUser", currentUser);
-		},
-		error: function(error) {
-			console.log("error: " + error);
-		},
+	$.ajax(url).done(function(response) {
+		user = JSON.stringify(response);
+		localStorage.setItem("user", user);
+		document.location.href = "/index.html";
 	});
 }
