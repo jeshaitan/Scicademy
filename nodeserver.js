@@ -3,6 +3,7 @@ var http = require("http"),
 	express = require('express'),
   	cors = require('cors'),
 	fs = require("fs"),
+  path = require('path'),
 	url = require("url");
 
 app = express();
@@ -44,9 +45,7 @@ app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', functio
     });
 });
 
-app.get('/', function(req, res, next) {
-	res.send("CORS-enabled node response")
-});
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(8888, function() {
 	console.log('CORS-enabled Aliro web server listening on port 8888');

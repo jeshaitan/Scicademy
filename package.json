@@ -1,0 +1,25 @@
+{
+  "name": "jeshaitan.github.io",
+  "version": "0.0.0",
+  "description": "Aliro - Read, Research, Review",
+  "main": "nodeserver.js",
+  "dependencies": {
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "mongojs": "^1.2.1",
+    "mongodb": "^2.0.39"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeshaitan/jeshaitan.github.io.git"
+  },
+  "author": "Jesse Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeshaitan/jeshaitan.github.io/issues"
+  }
+}
