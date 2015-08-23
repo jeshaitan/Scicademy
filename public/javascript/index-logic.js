@@ -339,10 +339,10 @@ function addUser(fnm, lnm, grd, shl, eml, pwd) {
 		url: url,
 		dataType: "html",
 		success: function(html) {
-			console.log(html);
+			console.log("success: " + html);
 		},
 		error: function(error) {
-			console.log(error);
+			console.log("error: " + error);
 		},
 	});
 }
@@ -353,12 +353,12 @@ function requestUser(email, password) {
 		url: url,
 		dataType: "jsonp",
 		success: function(json) {
-			console.log(json);
+			console.log("success: " + json);
 			currentUser = JSON.parse(json)
 			localStorage.setItem("currentUser", currentUser);
 		},
 		error: function(error) {
-			console.log(error);
+			console.log("error: " + error);
 		},
 	});
 }
