@@ -50,7 +50,15 @@ app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', functio
 
 app.post('/getPaper', function(request, response) {
 	console.log(request.body);
-	
+	var papers = db.Papers.find({title: request.body.query}, function(err, curs) {
+		if(err) {
+			console.log("error finding paper!");
+			response.send({});
+		}
+		else {
+			response.send(curs.toArray());
+		}
+	});
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
