@@ -21,7 +21,6 @@
 
 <body class="colorBody">
 	<script type="text/javascript"> 
-	var currentUser = null;
 		$(document).ready(function(){
 		//load the navBar and signIn box.
 			$.getScript('javascript/index-logic.js', function(jd){});
@@ -39,61 +38,66 @@
 			var queryNum=url.slice(url.indexOf('?query=')+7); //just the number for the query variable
 			var resultNum=queryString.indexOf('result=');
 			var tempResult; //indicates upperBound. return papers 1-20. If the number was 40, the program would return papers 21-40.
-			if(resultNum==-1){
-				tempResult=20;
+			if(resultNum == -1) {
+				tempResult = 20;
 			}
 			else{
-				var resultString=queryString.slice(queryString.indexOf('result='));
-				tempResult=resultString.slice(7);
+				var resultString = queryString.slice(queryString.indexOf('result='));
+				tempResult = resultString.slice(7);
 			}
-			var searchData={
-				query:queryString,
-				result:tempResult	 //indicates upperBound. return papers 1-20. If the number was 40, the program would return papers 21-40.
+			var searchPaper = {
+				"query": queryString,
+				"result": tempResult
 			}
-			<!-- $.getJSON('getPapers.js', searchData, addPapers); -->
- 	
-		<!--format of paper returned in json format. Example -->
-			
-			var data={
-				paper1:{
-					"title":"Title of Paper",
-					"authors":{
-						"author1":{
+			$.ajax({
+				url: '/getPaper',
+				type: 'POST',
+				contentType: 'application/json',
+				dat: searchPaper,
+				dataType: 'json',
+				success: addPapers
+			});
+		    //format of paper returned in json format. Example
+			/*
+			var data=[
+					{"title":"Title of Paper",
+					"authors": {
+						"author1": {
 							"name":"Larry Page",
 							"userPage":"user.html/userID"
 						},
-						"author2":{
-							"name":"Sergey Brin",
-							"userPage":"user.html/userID"
+					"author2": {
+						"name":"Sergey Brin",
+						"userPage":"user.html/userID"
 						}
 					},
 					"abstract":"asdkfla",
 					"paperLink":"paper.html/paperID"
-				},
-				paper2:{
-					"title":"Title of Paper",
-					"authors":{
-						"author1":{
-							"name":"John Smith",
-							"userPage":"user.html/userID"
-						},
-						"author2":{
-							"name":"Joe Doe",
-							"userPage":"user.html/userID"
-						}
 					},
-					"abstract":"Ipsum Lorum blah blah blah",
-					"paperLink":"paper.html/paperID"
+					{"title":"Title of Paper",
+						"authors":{
+							"author1":{
+								"name":"John Smith",
+								"userPage":"user.html/userID"
+							},
+							"author2":{
+								"name":"Joe Doe",
+								"userPage":"user.html/userID"
+							}
+						},
+						"abstract":"Ipsum Lorum blah blah blah",
+						"paperLink":"paper.html/paperID"
 				}
-				//etc. etc. 20 times max, since only 20 papers on page
-			}
-			
-			<!-- function addPapers(data){ -->
-				var title='';
-				var authors='';
-				var abstractText='';
-				var paperLink='';
-				var firstAuthor=true;
+			]
+			*/
+
+			function addPapers(data) {
+				console.log("adding data")
+				var title='',
+					authors='',
+					abstractText='',
+					paperLink='',
+					firstAuthor=true;
 				
 				var paperHtml='';
 				$.each(data, function(paper, paperInfo){ //iterature through each paper
@@ -144,9 +148,9 @@
 					authors='';
 				}); //end loop for each paper
 			
-			<!-- } --> //end addPapers
+			}//end addPapers
 			
-			$('.abstractDiv').click(function(){
+			$('.abstractDiv').click(function() {
 				//slide in abstract text using ajax
 				$(this).find('.arrowClick').toggleClass('arrowSide');
 				<!-- $('.abstractParagraph').slideToggle(); -->

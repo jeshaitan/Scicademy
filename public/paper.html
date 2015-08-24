@@ -19,12 +19,19 @@
 	<script type="javascript/compatibility.js"></script>
 	<script src="javascript/pdf.js"></script>
 	<script type="text/javascript"> 
-		var currentUser = null;
 		$(document).ready(function() {
 			$.getScript('javascript/index-logic.js', function(jd){});
 			var url = "projects/1/Aram_Baghdassarian_Paper.pdf" /*this should be variable*/
 		//start JSON to load paper.
-			<!-- $.getJSON('paperPage.js', paperData, addPaper); -->
+			/*$.ajax({
+				url: '/getPaper',
+				type: 'POST',
+				contentType: 'application/json',
+				data: {
+					"title":""
+				}
+			})*/
+			//$.getJSON('paperPage.js', paperData, addPaper);
 			//JSON data format: (similar to that of results.html, but for onl one paper)
 			var data={
 					"title":"Title of Paper",
@@ -86,6 +93,7 @@
 					}
 				} //end else for everything but authors
 			}); //end loop through for each piece of info in paper
+		
 		paperHtml='<div id="paperDiv">\
 					Auto-generated. This second paper is here just for now. Will delete both later once server side stuff is done, and JSON brings everything automatically:\
 					<div class="paperOptions">\

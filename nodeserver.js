@@ -3,9 +3,10 @@ var http = require("http"),
 	express = require('express'),
   	cors = require('cors'),
 	fs = require("fs"),
-  path = require('path'),
+  	path = require('path'),
 	url = require("url"),
-  port = process.env.PORT || 8888;
+	bodyParser = require('body-parser'),
+  	port = process.env.PORT || 8888;
 
 app = express();
 app.use(cors());
@@ -45,6 +46,11 @@ app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', functio
             res.send("inserted new user")
         }
     });
+});
+
+app.post('/getPaper', function(request, response) {
+	console.log(request.body);
+	
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
