@@ -152,14 +152,19 @@
 			
 			}//end addPapers
 			
-			$('.abstractDiv').click(function() {
+	/*		$('.abstractDiv').click(function() {
 				//slide in abstract text using ajax
 				$(this).find('.arrowClick').toggleClass('arrowSide');
 				<!-- $('.abstractParagraph').slideToggle(); -->
 				$(this).find('.abstractParagraph').slideToggle();
 				return false;
-			}); //end abstractText click
-			
+			}); //end abstractText click */
+			$('.papers').on('click', '.abstractDiv', function(){
+				$(this).find('.arrowClick').toggleClass('arrowSide');
+				<!-- $('.abstractParagraph').slideToggle(); -->
+				$(this).find('.abstractParagraph').slideToggle();
+				return false;
+			})//end abstractText click
 		}); //end ready
 	</script>
 	<div class="navigation"></div>
