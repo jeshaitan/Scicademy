@@ -34,10 +34,11 @@
 				  of: "#dates h6"
 			});	//end position
 			var url= window.location.href;
-			var queryString=url.slice(url.indexOf('?query=')+1); //entire query stuff, after the results.html path
+			var queryString=url.slice(url.indexOf('?query=')+7); //entire query stuff, after the results.html path
 			var queryNum=url.slice(url.indexOf('?query=')+7); //just the number for the query variable
 			var resultNum=queryString.indexOf('result=');
 			var tempResult; //indicates upperBound. return papers 1-20. If the number was 40, the program would return papers 21-40.
+			queryString = decodeURI(queryString);
 			if(resultNum == -1) {
 				tempResult = 20;
 			}
@@ -49,11 +50,12 @@
 				"query": queryString,
 				"result": tempResult
 			}
+
 			$.ajax({
 				url: '/getPaper',
 				type: 'POST',
 				contentType: 'application/json',
-				data: searchPaper,
+				data: JSON.stringify(searchPaper),
 				dataType: 'json',
 				success: addPapers
 			});
@@ -168,7 +170,7 @@
 			<form class="form-container" action="">
 				<input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048"  />
 				<div class="submit-container">
-					<input type="submit" value="" class="submit" id="searchBoxSubmit" />
+					<input type="submit" value="" class="submit searchBoxSubmit" />
 					
 				</div>
 			</form>
@@ -197,24 +199,7 @@
 						</div>
 					</div>
 					<div class="papers">
-						<!-- paper info here-->
-						<div class="paperDiv" id="firstPaper">
-							<span class="title">
-								<a href="paper.html">Title of Paper</a>
-							</span>
-							<div class="authors"><a href="linkToAramProfile.html">Baghdassarian A</a>,&nbsp;&nbsp;<a href="linkToJesseProfile.html">Smith J</a></div>
-							<div class="abstractDiv">
-								<a class="abstractText">
-									<span class="arrowClick arrowSide"></span>
-									<span class="preTxt">Abstract</span>
-								</a>
-								<div class="abstractParagraph" id="abstract1">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non.
-								</div>
-							</div>
-							
-						</div>
-						<div class="separator"></div>
+
 					</div>
 <!-- 					<div class="pagination">
 						<span class="inactive page_link" title="Inactive first page of results"><< First</span>

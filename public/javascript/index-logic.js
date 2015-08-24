@@ -152,12 +152,6 @@ $(document).ready(function() {
 		
 	});
 	
-	$(document).on("submit", ".searchForm", function(event){
-		event.preventDefault();
-		query=$('#searchBox').val();
-		window.location.href = "results.html?query="+query;
-	});
-	
 	$(document).on("click", ".searchBoxSubmit", function(event){
 		event.preventDefault();
 		query=$('#searchBox').val();

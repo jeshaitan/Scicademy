@@ -21,35 +21,7 @@
 	<script type="text/javascript"> 
 		$(document).ready(function() {
 			$.getScript('javascript/index-logic.js', function(jd){});
-			var url = "projects/1/Aram_Baghdassarian_Paper.pdf" /*this should be variable*/
-		//start JSON to load paper.
-			/*$.ajax({
-				url: '/getPaper',
-				type: 'POST',
-				contentType: 'application/json',
-				data: {
-					"title":""
-				}
-			})*/
-			//$.getJSON('paperPage.js', paperData, addPaper);
-			//JSON data format: (similar to that of results.html, but for onl one paper)
-			var data={
-					"title":"Title of Paper",
-					"date":"May 15, 1999",
-					"school":"Stanford High School",
-					"authors":{
-						"author1":{
-							"name":"Larry Page",
-							"userPage":"user.html/userID"
-						},
-						"author2":{
-							"name":"Sergey Brin",
-							"userPage":"user.html/userID"
-						}
-					},
-					"abstract":"asdkfla",
-					"pdfLoc":"projects/1/Aram_Baghdassarian_Paper.pdf"
-			}
+			//var url = "projects/1/Aram_Baghdassarian_Paper.pdf"  
 			var paperHtml='';
 			var title='';
 			var date='';
@@ -210,18 +182,6 @@
 			}
 			else{
 				$(this).text("Edit Paper");
-			}
-			//Title to textbox
-		//	var textArea = $('<textarea>');
-		//	var endTextArea=$('</textarea>');
-		//	var oldText = $('.paper h3').text();
-		//	$('.paper h3').prepend(textArea);
-		//	$('.paper h3').prepend(textArea);
-		//	$('.paper h3').append(endTextArea);
-		//	textArea.val(oldText);
-			//end Title
-			
-			
 		}); //end edit click
 	}); //end ready
 	</script>
