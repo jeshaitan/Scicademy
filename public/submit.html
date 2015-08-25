@@ -31,7 +31,7 @@
 				value = value.replace(/[ ]{2,}/gi," ");
 				value = value.replace(/\n /,"\n");
 				counter=value.split(' ').length;
-			return counter>=100;
+			return counter>=200;
 			}, "");
 			var lines; //array that will hold all keywords
 			jQuery.validator.addMethod("isFourWords", function(value, element) {
@@ -60,7 +60,7 @@
 				messages: {
 					element_2: {
 						required: "This field is required",
-						isLong: "Your abstract must be at least 100 words"
+						isLong: "Your abstract must be at least 200 words"
 					},
 					element_9: {
 						required: "This field is required",
@@ -102,30 +102,27 @@
 				$('#convertToPDF').slideUp();
 				$('#li_3').slideDown();
 			})
-			var authorCount=1;
-			$('.add').click(function(e){
+			var authorCount = 1;
+			$('.add').click(function(e) {
 				e.preventDefault();
 				authorCount=authorCount+1;
 				breakText='<br><br><br><br><br>';
-				var idText="<div id='author";
-				idText=idText+authorCount+"'>";
-				$('#li_4').append(idText+breakText+'<span><input name="element_4_1'+authorCount+'"class="element text spawnFiirst required" maxlength="255" size="14" value=""/>\
-					<label class="required">First</label>\
-				</span>\
-				<span>\
-					<input name= "element_4_2'+authorCount+'" class="element text spawnLast required" maxlength="255" size="20" value=""/>\
-					<label class="required">Last</label>\
+				var idText="<div id='author" + authorCount+"'>";
+				$('#li_4').append(idText+breakText+'<span><input name="element_4_1'+authorCount+'"class="element text spawnUserID required" maxlength="255" size="14" value=""/>\
+					<label class="required">Author '+authorCount+'\'s User Id</label>\
 				</span>\
 				</div>'
 				)
-			})
+				localStorage.setItem("authorCount", authorCount);
+			});
 			$('.remove').click(function(e){
 				e.preventDefault();
 				var selector="#author";
 				selector+=authorCount;
 				$(selector).remove();
-				authorCount=authorCount-1;
-			}) //end remove click
+				authorCount-=1;
+				localStorage.setItem("authorCount", authorCount);
+			}); //end remove click
 			
 
 		}); //end ready
@@ -152,12 +149,8 @@
 		<label class="description required" for="element_4">Authors </label>
 		<span>
 			<input id="element_4_1" name= "element_4_1" class="element text required" maxlength="255" size="14" value=""/>
-			<label class="required">First</label>
-		</span>
-		<span>
-			<input id="element_4_2" name= "element_4_2" class="element text required" maxlength="255" size="20" value=""/>
-			<label class="required">Last</label>
-		</span> 
+			<label class="required">Author 1's User Id</label>
+		</span><p class="guidelines" id="guide_2"><small>Your user Id can be found on your user page.</small></p>
 		
 		</li>
 		<div class="addAuthors">
@@ -168,7 +161,7 @@
 		<label class="description required" for="element_2">Abstract </label>
 		<div>
 			<textarea id="element_2" name="element_2" class="element textarea medium"></textarea> 
-		</div><p class="guidelines" id="guide_1"><small>Must be at least 40 characters. This is a short section and is intended to give the potential reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p> 
+		</div><p class="guidelines" id="guide_1"><small>Must be at least 200 words. This is a short section and is intended to give the reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p> 
 		</li>
 		
 		<li id="li_9" >
@@ -207,7 +200,7 @@
 					<li class="buttons">
 			    <input type="hidden" name="form_id" value="1039889" />
 			    
-				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit"/>
 		</li>
 			</ul>
 		</form>	

@@ -160,12 +160,20 @@ $(document).ready(function() {
 	
 	$('#signInForm').submit(function(event) {
 		event.preventDefault();
+		event.stopImmediatePropagation();
 		readSignInForm(document.getElementById('signInForm'));
 		$('#signinBox').dialog('close');
 	});
 
+	$('#form_1039889').submit(function(event) {
+		event.preventDefault();
+		event.stopImmediatePropagation();
+		readSubmitPaperForm(document.getElementById('form_1039889'));
+	});
+
 	$('#form_1037235').submit(function(event) {
 		event.preventDefault();
+		event.stopImmediatePropagation();
 		readRegisterForm(document.getElementById('form_1037235'));
 		window.location.href = "index.html";
 	});
@@ -309,20 +317,41 @@ function readSignInForm(form) {
 
 function readRegisterForm(form) {
 	console.log('read from register');
-	var firstName = $('#element_2_1').val();
-	var lastname = $('#element_2_2').val();
-	var is_highschool = $('#element_6_1').val();
-	var is_undergrad = $('#element_6_2').val();
-	var school = $('#element_7').val();
+	var firstName = $('#element_2_1').val(),
+	    lastname = $('#element_2_2').val(),
+	    is_highschool = $('#element_6_1').val(),
+	    is_undergrad = $('#element_6_2').val(),
+	    school = $('#element_7').val();
 	if(is_highschool) {
 		var grade = $('#element_1').val();
 	}
 	else {
 		var grade = "undergrad"
 	}
-	var email = $('#element_3').val();
-	var password = $('#element_5').val();
+	var email = $('#element_3').val(),
+	    password = $('#element_5').val();
 	addUser(firstName, lastname, grade, school, email, password);
+}
+
+function readSubmitPaperForm(form) {
+	var title = $('#title').val(),
+		abstract = $('#element_2').val(),
+		keywords = $('#element_9').val().split("\n"),
+		authorsid = [$('#element_4_1').val()],
+		pdf = $('#element_3').val();
+		
+		for(var i = 0; i < $('.spawnUserID').length; i++) {
+			authorsid.push($('.spawnUserID')[i].value);
+		}
+		
+		var paperdata = {
+			"title": title,
+			"authors": authorsid,
+			"abstract": abstract,
+			"keywords": keywords
+		}
+		addPaper(paperdata);
+		console.log(JSON.stringify(paperdata));
 }
 
 function addUser(fnm, lnm, grd, shl, eml, pwd) {
@@ -333,6 +362,20 @@ function addUser(fnm, lnm, grd, shl, eml, pwd) {
 		console.log(response);
 		document.location.href = "/index.html";
 	});
+}
+
+function addPaper(newpaper) {
+	console.log("submitting paper to node server");
+	$.ajax({
+				url: '/addPaper',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(newpaper),
+				dataType: 'json',
+				success: function() {
+					document.location.href = "/results.html?query="+newpaper.title;
+				}
+			});
 }
 
 function requestUser(email, password) {

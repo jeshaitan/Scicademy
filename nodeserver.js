@@ -40,11 +40,10 @@ app.get('/addUser/:email/:password/:firstname/:lastname/:school/:grade', functio
                    school:req.params.school,
                    grade:req.params.grade}, function(err, record) {
         if (err) {
-            res.send({error: 'error inserting new user'})
+            console.log({error: 'error inserting new user'});
         }
         else {
-            db.Users.ensureIndex({'email' : 1}, {unique : true, dropDups : true})
-            res.send("inserted new user")
+            console.log("inserted new user");
         }
     });
 });
@@ -62,6 +61,21 @@ app.post('/getPaper', function(request, response) {
 		}
 	});
 });
+
+app.post('/addPaper', function(request, response) {
+	console.log(request.body);
+	db.Papers.insert({title:request.body.title,
+					  authors: request.body.authors,
+					  abstract: request.body.abstract,
+					  keywords: request.body.keywords}, function(err, record) {
+		if(err) {
+			console.log({error: 'error inserting new paper'});
+		}
+		else {
+			console.log("inserted new paper");
+		}
+	});
+})
 
 app.use(express.static(path.join(__dirname, 'public')));
 
