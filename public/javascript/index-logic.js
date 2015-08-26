@@ -9,9 +9,7 @@ $(document).ready(function() {
 			<li><a href="" id="siso">Sign In or Register</a></li>\
 		</ul>'
 	);
-	// <label class="description required">First Name</label>\ old label
-	// <label class="description required" for="element_7">School </label>\
-	//<label class="description required" for="element_5">Confirm Password </label>\	
+
 	$('#signInBox').html(
 		'<table class="credentialsTable">\
 		<tr>\
@@ -304,7 +302,6 @@ $(document).ready(function() {
 			}) //end high school or undergrad click
 	
 	//end register javascript
-	
 }); 
 
 function readSignInForm(form) {
@@ -355,13 +352,18 @@ function readSubmitPaperForm(form) {
 }
 
 function addUser(fnm, lnm, grd, shl, eml, pwd) {
-	var url = "/addUser/" + eml + "/" + pwd + "/"
-							+ fnm + "/" + lnm + "/"
-							+ shl + "/" + grd + "/";
-	$.ajax(url).done(function(response) {
-		console.log(response);
-		document.location.href = "/index.html";
-	});
+	console.log("submitting new user to node server");
+	var newuser = {"fnm": fnm, "lnm": lnm, "grd": grd, "shl": shl, "eml": eml, "pwd": pwd};
+	$.ajax({
+				url: '/addUser',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(newuser),
+				dataType: 'json',
+				success: function() {
+					document.location.href = "/index.html";
+				}
+			});
 }
 
 function addPaper(newpaper) {
@@ -379,10 +381,24 @@ function addPaper(newpaper) {
 }
 
 function requestUser(email, password) {
-	var url = "/getUser/" + email + "/" + password;
-	$.ajax(url).done(function(response) {
+	var requser = {
+		"email": email,
+		"password": password
+	}
+
+	$.ajax({
+		url: '/getUser',
+		type: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify(requser),
+		dataType: 'json',
+		success: loginuser
+	});
+
+	function loginuser(response) {
+		console.log(response);
 		user = JSON.stringify(response);
 		localStorage.setItem("user", user);
 		document.location.href = "/index.html";
-	});
+	}
 }
