@@ -66,7 +66,8 @@ app.post('/addPaper', function(request, response) {
 	db.Papers.insert({title:request.body.title,
 					  authors: request.body.authors,
 					  abstract: request.body.abstract,
-					  keywords: request.body.keywords}, function(err, record) {
+					  keywords: request.body.keywords,
+					  pdf: request.body.pdf}, function(err, record) {
 		if(err) {
 			console.log({error: 'error inserting new paper'});
 		}

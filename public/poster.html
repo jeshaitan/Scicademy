@@ -62,19 +62,14 @@
 			
 			
 			
-			var authorCount=1;
+			var authorCount = 1;
 			$('#addAuthor').click(function(e){
 				e.preventDefault();
-				authorCount=authorCount+1;
-				breakText='<br><br><br>';
-				var idText="<div id='author";
-				idText=idText+authorCount+"'>";
-				$('#li_4').append(idText+breakText+'<span><input name="element_4_1'+authorCount+'"class="element text spawnFiirst required" maxlength="255" size="14" value=""/>\
-					<label class="required">First</label>\
-				</span>\
-				<span>\
-					<input name= "element_4_2'+authorCount+'"class="element text spawnLast required" maxlength="255" size="20" value=""/>\
-					<label class="required">Last</label>\
+				authorCount++;
+				breakText='<br><br><br><br><br>';
+				idText="<div id='author"+ authorCount+"'>";
+				$('#li_4').append(idText+breakText+'<span><input name="element_4_1'+authorCount+'"class="element text spawnFirst required" maxlength="255" size="14" value=""/>\
+					<label class="required">Author '+authorCount+'\'s User Id</label>\
 				</span>\
 				</div>'
 				)
@@ -84,7 +79,7 @@
 				var selector="#author";
 				selector+=authorCount;
 				$(selector).remove();
-				authorCount=authorCount-1;
+				authorCount-=1;
 			})
 			
 			var imageCount=1;
@@ -142,12 +137,8 @@
 		<label class="description required" for="element_4">Authors </label>
 		<span>
 			<input id="element_4_1" name= "element_4_1" class="element text required" maxlength="255" size="14" value=""/>
-			<label class="required">First</label>
+			<label class="required">Author 1's User Id</label>
 		</span>
-		<span>
-			<input id="element_4_2" name= "element_4_2" class="element text required" maxlength="255" size="20" value=""/>
-			<label class="required">Last</label>
-		</span> 
 		</li>
 		<div class="fixOffset">
 		<div class="addAuthors">

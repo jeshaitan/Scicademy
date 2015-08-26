@@ -345,7 +345,8 @@ function readSubmitPaperForm(form) {
 			"title": title,
 			"authors": authorsid,
 			"abstract": abstract,
-			"keywords": keywords
+			"keywords": keywords,
+			"pdf": pdf
 		}
 		addPaper(paperdata);
 		console.log(JSON.stringify(paperdata));
