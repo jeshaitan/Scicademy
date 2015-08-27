@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 var uri = "mongodb://jeshaitan:aliro4greatgood@ds036698.mongolab.com:36698/alirodatabase";
-var db = mongojs(uri, ["Papers", "Users"]);
+var db = mongojs(uri, ["Papers", "Users", "Posters"]);
 
 app.post('/getUser', function(request, response) {
     console.log(request.body);
@@ -73,6 +73,21 @@ app.post('/addPaper', function(request, response) {
 		}
 		else {
 			console.log("inserted new paper");
+		}
+	});
+});
+
+app.post('/addPoster', function(request, response) {
+	console.log(request.body);
+	db.Posters.insert({captions: request.body.captions,
+					  authors: request.body.authors,
+					  abstract: request.body.abstract,
+					  images: request.body.images}, function(err, record) {
+		if(err) {
+			console.log({error: 'error inserting new poster'});
+		}
+		else {
+			console.log("inserted new poster");
 		}
 	});
 });

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	console.log("document readying");
 	var currentUser = localStorage.getItem("user");
 	$('.navigation').html(
 		'<ul id="navlist" class="sm sm-simple">\
@@ -159,20 +160,27 @@ $(document).ready(function() {
 	$('#signInForm').submit(function(event) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
-		readSignInForm(document.getElementById('signInForm'));
+		readSignInForm($('#signInForm'));
 		$('#signinBox').dialog('close');
 	});
 
 	$('#form_1039889').submit(function(event) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
-		readSubmitPaperForm(document.getElementById('form_1039889'));
+		readSubmitPaperForm($('#form_1039889'));
 	});
+
+	$('#submitPoster').click(function(event) {
+		event.preventDefault();
+		event.stopImmediatePropagation();
+		console.log("reading from poster form m9");
+		readSubmitPosterForm();
+	});	
 
 	$('#form_1037235').submit(function(event) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
-		readRegisterForm(document.getElementById('form_1037235'));
+		readRegisterForm($('#form_1037235'));
 		window.location.href = "index.html";
 	});
 
@@ -330,7 +338,8 @@ function readRegisterForm(form) {
 	addUser(firstName, lastname, grade, school, email, password);
 }
 
-function readSubmitPaperForm(form) {
+function readSubmitPaperForm() {
+	console.log('this should print 2');
 	var title = $('#title').val(),
 		abstract = $('#element_2').val(),
 		keywords = $('#element_9').val().split("\n"),
@@ -350,6 +359,35 @@ function readSubmitPaperForm(form) {
 		}
 		addPaper(paperdata);
 		console.log(JSON.stringify(paperdata));
+}
+
+function readSubmitPosterForm() {
+	console.log("reading submit poster form");
+	var captions = [$('#caption').val()],
+		abstract = $('#element_2').val(),
+	    authorsid = [$('#element_4_1').val()],
+	    images = [$('#element_3').val()];
+
+	for(var i = 0; i < $('.spawnedCaption').length; i++) {
+		captions.push($('.spawnedCaption')[i].value);
+	}
+
+	for(var i = 0; i < $('.spawnId').length; i++) {
+		authorsid.push($('.spawnId')[i].value);
+	}
+
+	for(var i = 0; i < $('.spawnedBrowse').length; i++) {
+		images.push($('.spawnedBrowse')[i].value);
+	}
+
+	var posterdata = {
+		"captions": captions,
+		"authors": authorsid,
+		"abstract": abstract,
+		"images": images
+	}
+	addPoster(posterdata);
+	console.log(JSON.stringify(posterdata));
 }
 
 function addUser(fnm, lnm, grd, shl, eml, pwd) {
@@ -377,6 +415,20 @@ function addPaper(newpaper) {
 				dataType: 'json',
 				success: function() {
 					document.location.href = "/results.html?query="+newpaper.title;
+				}
+			});
+}
+
+function addPoster(newposter) {
+	console.log("submitting poster to node server");
+	$.ajax({
+				url: '/addPoster',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(newposter),
+				dataType: 'json',
+				success: function() {
+					document.location.href = "/results.html?query="+newposter.title;
 				}
 			});
 }
