@@ -1,22 +1,21 @@
 $(document).ready(function() {
-	console.log("document readying");
 	var currentUser = localStorage.getItem("user");
 	$('.navigation').html(
 		'<ul id="navlist" class="sm sm-simple">\
   			<li><a href="index.html">Home</a></li>\
-			<li><a href="submit.html">Submit Paper</a></li>\
+			<li><a href="submit.html" id="submitLink">Submit Paper</a></li>\
 			<li><a href="poster.html">Submit Poster</a></li>\
 			<li><a href="about.html">About</a></li>\
 			<li><a href="" id="siso">Sign In or Register</a></li>\
 		</ul>'
 	);
-
-	$('#signInBox').html(
-		'<table class="credentialsTable">\
-		<tr>\
-		<td>\
+	var signInHtml = 		
+	'<table class="credentialsTable">\
+		<tr>';
+	var signInHtmlEnd = 
+	'		<td>\
 		<div id="registerFormDiv">\
-		<h4 class="signInHeader">Register</h4>\
+	<h4 class="signInHeader">Register</h4>\
 		<form id="form_1037235" class="appnitro"  method="post" action="">\
 				<ul >\
 			<li id="li_2" >\
@@ -99,10 +98,15 @@ $(document).ready(function() {
 		</form>\
 		</div>\
 		</td>\
-			</table>'
-		
-		
-		);
+			</table>';
+	var currentLink = window.location.href;
+	if (currentUser == null && currentLink.indexOf('submit.html') != -1){
+		signInHtml = signInHtml + '<center><p style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="display: inline-block">Return to home page</a></center>' +signInHtmlEnd;
+	}
+	else{
+		signInHtml += signInHtmlEnd;
+	}
+	$('#signInBox').html(signInHtml);
 	
 	if (currentUser != null) {
 		document.getElementById('siso').innerHTML = "Sign Out";
@@ -135,7 +139,6 @@ $(document).ready(function() {
 
 	$('#signInBox').dialog({
 		modal: true,
-		draggable:true,
 		resizable:false,
 		minWidth: 800,
 		minHeight: 650,
