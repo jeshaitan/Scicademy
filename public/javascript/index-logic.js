@@ -124,7 +124,6 @@ $(document).ready(function() {
 		}
 	});
 	
-
 	$('[title]').tooltip();
 	$('.sm').smartmenus( {
 		showFunction: function($ul, complete) {
@@ -207,11 +206,11 @@ $(document).ready(function() {
 		$('head').append('<link href="css/view.css" rel="stylesheet">');	
 	}
 	
-	 $('#separateSignIn').position({
-		 my: "left top",
-		 at: "right+337 top",
-		 of: $("#registerFormDiv")
-	 });
+	$('#separateSignIn').position({
+		my: "left top",
+		at: "right+337 top",
+		of: $("#registerFormDiv")
+	});
 	
 	//start register javascript
 	$('#li_1').hide();

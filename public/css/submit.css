@@ -26,6 +26,10 @@ body
 	padding: 0px;
 }
 
+#separateSignIn{
+	top: 0px !important;
+}
+
 .ui-icon-circle-triangle-s{
 	padding: 0px;
 }

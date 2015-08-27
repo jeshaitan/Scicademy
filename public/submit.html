@@ -25,6 +25,25 @@
 		$(document).ready(function(){
 			
 			$.getScript('javascript/index-logic.js', function(jd){});
+			var currentUser = localStorage.getItem("user");
+			if (currentUser == null){
+				$('#signInBox').dialog({
+					closeOnEscape: false,
+					open: function(event, ui) { 
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); 
+						} //end open				 
+				}); //end dialog
+				$('.signInBox').html('You must have an account to submit a paper');
+				$('#signInBox').dialog('open');
+				$('#element_2_1').focus();
+			} //end if currentUser
+			
+		$('#separateSignIn').position({
+			my: "left top",
+			at: "right+337 top",
+			of: $("#registerFormDiv")
+		});
+			
 			jQuery.validator.addMethod("isLong", function(value, element) {
 				var counter = 0;
 				value = value.replace(/(^\s*)|(\s*$)/gi,"");
@@ -69,7 +88,9 @@
 				}
 			})
 			$('#element_1').show();
-			$('#element_1').focus();
+			if (currentUser != null){
+				$('#element_1').focus();
+			}
 			$('#noPDF').slideUp();
 			$('#paperPDF').slideDown();
 			$('#li_3').hide();
@@ -123,8 +144,6 @@
 				authorCount-=1;
 				localStorage.setItem("authorCount", authorCount);
 			}); //end remove click
-			
-
 		}); //end ready
 	</script>
 	<div class="navigation"></div>
