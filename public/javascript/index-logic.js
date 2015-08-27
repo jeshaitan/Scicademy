@@ -100,7 +100,7 @@ $(document).ready(function() {
 		</td>\
 			</table>';
 	var currentLink = window.location.href;
-	if (currentUser == null && currentLink.indexOf('submit.html') != -1){
+	if (currentUser == null && currentLink.indexOf('submit.html') != -1 && currentLink.indexOf('poster.html') != -1){
 		signInHtml = signInHtml + '<center><p style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="display: inline-block">Return to home page</a></center>' +signInHtmlEnd;
 	}
 	else{

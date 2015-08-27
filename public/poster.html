@@ -26,13 +26,26 @@
 		$(document).ready(function(){
 			$.getScript('javascript/index-logic.js', function(jd){});
 			
+			var currentUser = localStorage.getItem("user");
+			if (currentUser == null){
+				$('#signInBox').dialog({
+					closeOnEscape: false,
+					open: function(event, ui) { 
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); 
+						} //end open				 
+				}); //end dialog
+				$('.signInBox').html('You must have an account to submit a paper');
+				$('#signInBox').dialog('open');
+				$('#element_2_1').focus();
+			} //end if currentUser
+			
 			jQuery.validator.addMethod("isLong", function(value, element) {
 				var counter = 0;
 				value = value.replace(/(^\s*)|(\s*$)/gi,"");
 				value = value.replace(/[ ]{2,}/gi," ");
 				value = value.replace(/\n /,"\n");
 				counter=value.split(' ').length;
-			return counter>=200;
+			return counter>=100;
 			}, "");
 			
 			$('#form_1039889').validate({
@@ -44,7 +57,7 @@
 				messages: {
 					element_2: {
 						required: "This field is required",
-						isLong: "Your abstract must be at least 200 words"
+						isLong: "Your abstract must be at least 100 words"
 					}
 				}
 			})
@@ -68,7 +81,7 @@
 				authorCount++;
 				breakText='<br><br><br><br><br>';
 				idText="<div id='author"+ authorCount+"'>";
-				$('#li_4').append(idText+breakText+'<span><input name="element_4_1'+authorCount+'"class="element text spawnId required" maxlength="255" size="14" value=""/>\
+				$('#li_4').append(idText+breakText+'<span><input name="element_4_1'+authorCount+'"class="element text spawnFirst required" maxlength="255" size="14" value=""/>\
 					<label class="required">Author '+authorCount+'\'s User Id</label>\
 				</span>\
 				</div>'
@@ -91,11 +104,11 @@
 				var imageText=imageID+'\
 				<li>\
 				<div class="captionPic">\
-				<input id="caption"'
+				<input id="caption'
 			
-				imageText+=imageCount;
-				$('#li_3').append(imageText+'\
-				" 	name="caption'+imageCount+'"class="element text large spawnedCaption required" type="text" maxlength="255" value="" placeholder="Title your picture">\
+			imageText+=imageCount;
+			$('#li_3').append(imageText+'\
+				" 	name="caption'+imageCount+'"class="element text large spawnedImage required" type="text" maxlength="255" value="" placeholder="Title your picture">\
 				</div>\
 				<div>\
 					<input name="element_3'+imageCount+'"class="element file spawnedBrowse required" type="file"/>\
@@ -150,7 +163,7 @@
 		<label class="description required" for="element_2">Abstract </label>
 		<div>
 			<textarea id="element_2" name="element_2" class="element textarea medium required"></textarea> 
-		</div><p class="guidelines" id="guide_2"><small>Must be at least 200 words. This is a short section and is intended to give the potential reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p> 
+		</div><p class="guidelines" id="guide_2"><small>Must be at least 100 words. This is a short section and is intended to give the potential reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p> 
 		</li>
 		<div class="upload">
 		<li id="li_3" >
@@ -171,9 +184,9 @@
 		</div>
 		</div>
 				<li class="buttons">
-			    <input type="hidden" name="form_id" value="poster1039889" />
+			    <input type="hidden" name="form_id" value="1039889" />
 			    
-				<input id="submitPoster" class="button_text" type="submit" name="submit" value="Submit" />
+				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
 		</li>
 			</ul>
 		</form>	
