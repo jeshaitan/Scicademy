@@ -51,7 +51,7 @@
          		"query": queryString,
          		"searchtype": searchType
          	}
-         
+   /*      
          	$.ajax({
          		url: '/getPaper',
          		type: 'POST',
@@ -59,9 +59,30 @@
          		data: JSON.stringify(searchPaper),
          		dataType: 'json',
          		success: addPapers
-         	});
+         	}); */
          
-         	function addPapers(data) {
+         	<!-- function addPapers(data) { -->
+			var data={
+		"paper1":{
+		"_id": {
+			"$oid": "55e07fc1a47680ca0a18d233"
+		},
+		"title": "music on memeory: not what you think!",
+		"authors": [
+			"sham"
+		],
+		"abstract": "blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg ",
+		"keywords": [
+			"dumb",
+			"music",
+			"on",
+			"memory",
+			"project",
+			""
+		],
+		"pdf": "Unit cells for the simulation of ice 1h.pdf"
+	}
+}
          		console.log("adding data")
          		var title='',
          			authors='',
@@ -70,36 +91,49 @@
          			firstAuthor=true;
          		
          		var paperHtml='';
-         		$.each(data, function(paper, paperInfo){ //iterature through each paper
+         		$.each(data, function(paper, paperInfo){ //iterate through each paper
          			console.log('p: '+paper+'='+paperInfo);
          			$.each(paperInfo, function(infoName, info){ //loop through each piece of info in the paper
-         				if(typeof info === 'object'){ //going into the authors
-         					//then it's authors
-         					$.each(info, function(authorNum, value){
-         						if(!firstAuthor){
-         							authors+=',&nbsp;&nbsp;';
-         						}
-         						else{
-         							authors+='<div class="authors">';
-         							firstAuthor=false;
-         						}
-         						// value.name gets their name, value.userPage gets their userPage
-         						authors+='<a href="'+value.userPage+'">'+value.name+'</a>';
-         					}); //end author loop
-         					firstAuthor=true;
-         				} //end author selection
-         				else{ //every piece of info but authors
-         					if(infoName == 'title'){
-         						console.log(title);
-         						title=info;
-         					}
-         					else if (infoName == 'abstract'){
-         						abstractText=info;
-         					}
-         					else if (infoName == 'paperLink'){
-         						paperLink=info;
-         					}
-         				} //end else for everything but authors
+					if(infoName =='authors'){ //going into the authors
+						//then it's authors
+						authors+='<div class="authors">';
+						for (var i = 0; i<info.length; i++){
+							if(!firstAuthor){
+								authors+=',&nbsp;&nbsp;';
+							}
+							else{
+								firstAuthor=false;
+							}
+							//reverse search info[i]. Returned author object will be called authorObj
+							var authorObj = {
+								"_id": {
+									"$oid": "55ddd5ed5780b30300c55786"
+								},
+								"email": "antranigcoolguy@gmail.com",
+								"password": "Klb1klb1",
+								"firstname": "Antranig",
+								"lastname": "Baghdassarian",
+								"school": "e.m.baker",
+								"grade": "9"
+							}
+							var fullName= authorObj.firstname + ' ' + authorObj.lastname;
+							var userId = authorObj._id.$oid;
+							var userPage = "user.html?id=" + userId;
+							authors += '<a href="' + userPage + '">' + fullName + '</a>';
+						}; //end author loop
+					} //end author if
+					else{ //every piece of info but authors
+						if(infoName == 'title'){
+							console.log(title);
+							title=info;
+						}
+						else if (infoName == 'abstract'){
+							abstractText=info;
+						}
+						else if (infoName == 'paperLink'){
+							paperLink=info;
+						}
+					} //end else for everything but authors
          			}); //end loop through for each piece of info in paper
          			paperHtml='<div class="paperDiv">\
          							<span class="title">\
@@ -118,7 +152,7 @@
          			authors='';
          		}); //end loop for each paper
          	
-         	}//end addPapers
+       <!--   	}//end addPapers -->
          	$('.papers').on('click', '.abstractDiv', function() {
          		$(this).find('.arrowClick').toggleClass('arrowSide');
          		<!-- $('.abstractParagraph').slideToggle(); -->
