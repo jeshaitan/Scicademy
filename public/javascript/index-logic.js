@@ -316,8 +316,8 @@ $(document).ready(function() {
 
 function readSignInForm(form) {
 	console.log('read from sign in');
-	var signinEmail = form.elements["email"].value;
-	var signinPassword = form.elements["password"].value;
+	var signinEmail = $('#email').val();
+	var signinPassword = $("#password").val();
 	requestUser(signinEmail, signinPassword);
 
 }
@@ -448,6 +448,31 @@ function requestUser(email, password) {
 		data: JSON.stringify(requser),
 		dataType: 'json',
 		success: loginuser
+	}).fail(function (jqXHR, textStatus) {
+		if (textStatus == 'parsererror'){
+			if ($('.userPass').length == 0){
+			$('#signInFormDiv').append('<p class="failedSignIn userPass" style="float:left;color:#f00;font-weight: bold;font-size: 9px;line-height: 9px;text-align:center;">The username of password you entered is incorrect</p>');
+				if($('.unknownE').length > 0){
+					$('.unknownE').remove();
+				}
+			}
+			else{
+				$('.userPass').effect('shake');
+			}
+			console.log('combo error');
+		}
+		else{
+			if ($('.unknownE').length == 0){
+			$('#signInFormDiv').append('<p class="failedSignIn unknownE" style="float:left;color:#f00;font-weight: bold;font-size: 9px;line-height: 9px;text-align:center;">Unknown error while loggin in. Try loggin in later</p>');
+				if($('.userPass').length > 0){
+					$('.userPass').remove();
+				}
+			}
+			else{
+				$('.unknownE').effect('shake');
+			}
+			console.log('other error');
+		}
 	});
 
 	function loginuser(response) {
