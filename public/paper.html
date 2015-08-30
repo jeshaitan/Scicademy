@@ -57,12 +57,12 @@
 			$.each(data, function(infoName, info){ //loop through each piece of info in the paper
 				if(infoName =='authors'){ //going into the authors
 					//then it's authors
+					authors+='<div class="authors">';
 					for (var i = 0; i<info.length; i++){
 						if(!firstAuthor){
 							authors+=',&nbsp;&nbsp;';
 						}
 						else{
-							authors+='<div class="authors">';
 							firstAuthor=false;
 						}
 						//reverse search info[i]. Returned author object will be called authorObj
@@ -83,7 +83,6 @@
 						authors += '<a href="' + userPage + '">' + fullName + '</a>';
 					}; //end author loop
 				}//end "if authors"
-				
 				else{ //every piece of info but authors. too lazy to make it a case statement
 					if(infoName == 'title'){
 						title=info;
