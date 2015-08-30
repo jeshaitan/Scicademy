@@ -33,7 +33,22 @@ app.post('/getUser', function(request, response) {
 
 app.post('/getPaper', function(request, response) {
 	console.log(request.body);
-	db.Papers.find({title: request.body.query}, function(err, curs) {
+	var searchObject = {};
+	if(request.body.searchtype == "All") {
+		searchObject = {$and: [{title: request.body.query},
+							   {keywords: request.body.query},
+							   {authors: request.body.query}]};
+	}
+	else if(request.body.searchtype == "Title") {
+		searchObject = {title: request.body.query};	
+	}
+	else if(request.body.searchtype == "Keywords") {
+		searchObject = {keywords: request.body.query};
+	}
+	else if(request.body.searchtype == "Authors") {
+		searchObject = {authors: request.body.query};
+	}
+	db.Papers.find(searchObject, function(err, curs) {
 		if(err) {
 			response.send({error: "error finding paper!"});
 		}
@@ -57,6 +72,7 @@ app.post('/addUser', function(request, response) {
 		}
 		else {
 			console.log("inserted new user");
+			response.send(record);
 		}
 	});
 });
@@ -73,6 +89,7 @@ app.post('/addPaper', function(request, response) {
 		}
 		else {
 			console.log("inserted new paper");
+			response.send(record);
 		}
 	});
 });
@@ -88,6 +105,7 @@ app.post('/addPoster', function(request, response) {
 		}
 		else {
 			console.log("inserted new poster");
+			response.send("success");
 		}
 	});
 });

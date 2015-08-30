@@ -161,7 +161,7 @@ $(document).ready(function() {
 	
 	$('#signInForm').submit(function(event) {
 		event.preventDefault();
-		event.stopImmediatePropagation();
+		event.stopImmediatePropagation();		
 		readSignInForm($('#signInForm'));
 		$('#signinBox').dialog('close');
 	});
@@ -317,9 +317,10 @@ $(document).ready(function() {
 function readSignInForm(form) {
 	console.log('read from sign in');
 	var signinEmail = $('#email').val();
+	console.log('read from sign in!');
+	var signinEmail = $("#email").val();
 	var signinPassword = $("#password").val();
 	requestUser(signinEmail, signinPassword);
-
 }
 
 function readRegisterForm(form) {
@@ -401,10 +402,12 @@ function addUser(fnm, lnm, grd, shl, eml, pwd) {
 				contentType: 'application/json',
 				data: JSON.stringify(newuser),
 				dataType: 'json',
-				success: function() {
-					document.location.href = "/index.html";
-				}
+				success: returntoIndex
 			});
+
+	function returntoIndex(response) {
+		document.location.href = "/index.html";
+	}
 }
 
 function addPaper(newpaper) {
@@ -415,10 +418,13 @@ function addPaper(newpaper) {
 				contentType: 'application/json',
 				data: JSON.stringify(newpaper),
 				dataType: 'json',
-				success: function() {
-					document.location.href = "/results.html?query="+newpaper.title;
-				}
+				success: newsearchpaper
 			});
+
+	function newsearchpaper(response) {
+		console.log("hello");
+		document.location.href = "/results.html?query="+newpaper.title;
+	}
 }
 
 function addPoster(newposter) {
@@ -429,10 +435,13 @@ function addPoster(newposter) {
 				contentType: 'application/json',
 				data: JSON.stringify(newposter),
 				dataType: 'json',
-				success: function() {
-					document.location.href = "/results.html?query="+newposter.title;
-				}
+				success: newsearchposter
 			});
+
+	function newsearchposter(response) {
+		console.log("hello");
+		document.location.href = "/results.html?query="+newposter.title;
+	}
 }
 
 function requestUser(email, password) {
@@ -440,18 +449,21 @@ function requestUser(email, password) {
 		"email": email,
 		"password": password
 	}
-
+	console.log('requesting user');
 	$.ajax({
 		url: '/getUser',
 		type: 'POST',
 		contentType: 'application/json',
 		data: JSON.stringify(requser),
 		dataType: 'json',
-		success: loginuser
-	}).fail(function (jqXHR, textStatus) {
+		success: loginuser,
+		error: giveloginerror
+	});
+
+	function giveloginerror(jqXHR, textStatus) {
 		if (textStatus == 'parsererror'){
 			if ($('.userPass').length == 0){
-			$('#signInFormDiv').append('<p class="failedSignIn userPass" style="float:left;color:#f00;font-weight: bold;font-size: 9px;line-height: 9px;text-align:center;">The username of password you entered is incorrect</p>');
+			$('#signInFormDiv').append('<p class="failedSignIn userPass" style="float:left;color:#f00;font-weight: bold;font-size: 9px;line-height: 9px;text-align:center;">No known user with above login credentials.</p>');
 				if($('.unknownE').length > 0){
 					$('.unknownE').remove();
 				}
@@ -473,7 +485,7 @@ function requestUser(email, password) {
 			}
 			console.log('other error');
 		}
-	});
+	}
 
 	function loginuser(response) {
 		console.log(response);

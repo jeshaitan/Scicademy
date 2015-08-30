@@ -46,9 +46,11 @@
 				var resultString = queryString.slice(queryString.indexOf('result='));
 				tempResult = resultString.slice(7);
 			}
+			searchType = $("input[name=searchTypeOptions]:checked").val();
+			console.log(searchType);
 			var searchPaper = {
 				"query": queryString,
-				"result": tempResult
+				"searchtype": searchType
 			}
 
 			$.ajax({
@@ -144,10 +146,10 @@
 						<div class="searchBy">
 							<h4>Search In:</h4>
 							<div id="searchOptions">
-								<input type="radio" name="searchOptions" value="All" class="searchBy" checked="checked">All Fields</input><br>
-								<input type="radio" name="searchOptions" value="Title" class="searchBy">Title</input><br>
-								<input type="radio" name="searchOptions" value="Abstract" class="searchBy">Abstract</input><br>
-								<input type="radio" name="searchOptions" value="Author" class="searchBy">Author</input>
+								<input type="radio" name="searchTypeOptions" value="All" id="allfields" class="searchBy" checked="checked">All Fields</input><br>
+								<input type="radio" name="searchTypeOptions" value="Title" class="searchBy">Title</input><br>
+								<input type="radio" name="searchTypeOptions" value="Keywords" class="searchBy">Keywords</input><br>
+								<input type="radio" name="searchTypeOptions" value="Author" id="authors" class="searchBy">Authors</input>
 							</div>
 						</div>
 						<div class="sortBy">
