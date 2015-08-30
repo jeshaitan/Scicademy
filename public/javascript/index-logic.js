@@ -337,8 +337,27 @@ function readRegisterForm(form) {
 		var grade = "undergrad"
 	}
 	var email = $('#element_3').val(),
-	    password = $('#element_5').val();
-	addUser(firstName, lastname, grade, school, email, password);
+	password = $('#element_5').val();
+
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1;//jan == 0
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {	
+    	dd='0'+dd
+	} 
+
+	if(mm<10) {
+    	mm='0'+mm
+	} 
+
+	today = mm+'/'+dd+'/'+yyyy;
+
+	var newuser = {"fnm": firstname, "lnm": lastname, "grd": grade,
+				   "shl": school, "eml": email, "pwd": password, 
+				   "dte": today};
+	addUser(newuser);
 }
 
 function readSubmitPaperForm() {
@@ -395,9 +414,9 @@ function readSubmitPosterForm() {
 	console.log(JSON.stringify(posterdata));
 }
 
-function addUser(fnm, lnm, grd, shl, eml, pwd) {
+function addUser(newuser) {
 	console.log("submitting new user to node server");
-	var newuser = {"fnm": fnm, "lnm": lnm, "grd": grd, "shl": shl, "eml": eml, "pwd": pwd};
+	
 	$.ajax({
 				url: '/addUser',
 				type: 'POST',

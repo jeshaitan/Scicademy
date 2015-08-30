@@ -66,7 +66,8 @@ app.post('/addUser', function(request, response) {
 					  firstname: request.body.fnm,
 					  lastname: request.body.lnm,
 					  school: request.body.shl,
-					  grade: request.body.grd}, function(err, record) {
+					  grade: request.body.grd
+					  datejoined: request.body.dte}, function(err, record) {
 		if(err) {
 			console.log({error: 'error inserting new user'});
 		}
