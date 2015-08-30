@@ -30,6 +30,7 @@
 			var abstractText = '';
 			var pdfLoc = '';
 			var paperID = '';
+			var keywords = [];
 			firstAuthor=true;
 		
 			var data= {
@@ -83,7 +84,7 @@
 					}; //end author loop
 				}//end "if authors"
 				
-				else{ //every piece of info but authors
+				else{ //every piece of info but authors. too lazy to make it a case statement
 					if(infoName == 'title'){
 						title=info;
 					}
@@ -102,6 +103,11 @@
 					else if (infoName == '_id'){
 						paperID = info;
 					}
+					else if (infoName == 'keywords'){
+						for (var i = 0; i<info.length; i++){
+							keywords.push(info[i]);
+						} //end for
+					} //end if keywords
 				} //end else for everything but authors
 			}); //end loop through for each piece of info in paper		
 		
