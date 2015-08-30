@@ -172,7 +172,7 @@ $(document).ready(function() {
 		readSubmitPaperForm($('#form_1039889'));
 	});
 
-	$('#submitPoster').click(function(event) {
+	$('#form_1039889_p').submit(function(event) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		console.log("reading from poster form m9");
@@ -366,7 +366,8 @@ function readSubmitPaperForm() {
 
 function readSubmitPosterForm() {
 	console.log("reading submit poster form");
-	var captions = [$('#caption').val()],
+	var title = $('#title').val(),
+		captions = [$('#caption').val()],
 		abstract = $('#element_2').val(),
 	    authorsid = [$('#element_4_1').val()],
 	    images = [$('#element_3').val()];
@@ -384,6 +385,7 @@ function readSubmitPosterForm() {
 	}
 
 	var posterdata = {
+		"title": title,
 		"captions": captions,
 		"authors": authorsid,
 		"abstract": abstract,

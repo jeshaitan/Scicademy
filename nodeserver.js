@@ -96,16 +96,17 @@ app.post('/addPaper', function(request, response) {
 
 app.post('/addPoster', function(request, response) {
 	console.log(request.body);
-	db.Posters.insert({captions: request.body.captions,
-					  authors: request.body.authors,
-					  abstract: request.body.abstract,
-					  images: request.body.images}, function(err, record) {
+	db.Posters.insert({title: request.body.title,
+					   captions: request.body.captions,
+					   authors: request.body.authors,
+					   abstract: request.body.abstract,
+					   images: request.body.images}, function(err, record) {
 		if(err) {
 			console.log({error: 'error inserting new poster'});
 		}
 		else {
 			console.log("inserted new poster");
-			response.send("success");
+			response.send(record);
 		}
 	});
 });
