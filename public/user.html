@@ -114,9 +114,12 @@
          				});
          				console.log(title);
          				paperHtml= '<div class="paper">\
-         					<a href="paper.html/'+pdfLoc+'"><h3>'+title+'</h3></a>'+authors+'</div>\
-         					<div class="separator"></div>\
-         					</div>'
+         					<a href="paper.html/'+pdfLoc+'"><h3>'+title+'</h3></a>'+authors+'</div>'
+							if (i != infolength-1){
+								paperHtml += '<div class="separator"></div>'
+         					}
+							paperHtml += '</div>'
+							
          				finalPaperHtml += paperHtml;
          				authors = '';
          			} //end loop through of publications
