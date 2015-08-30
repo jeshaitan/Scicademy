@@ -54,7 +54,10 @@ $(document).ready(function() {
                 finalPaperHtml = '',
                 authors = '',
                 paperObj = {};
+				var counter = 0;
+				var infoLength = 9999;
             $.each(authorObj, function(infoName, info) {
+				infoLength = info.length;
                 if (infoName == 'publications') {
                     for (var i = 0; i < info.length; i++) { //loop through each of their publications
                         //reverse search info[i]. Returned paper object will be called paperObj
@@ -77,6 +80,7 @@ $(document).ready(function() {
                         });
 
                         function appendPapersHtml() {
+							counter+=1;
                             pdfLoc = paperObj.pdf;
                             title = paperObj.title;
                             //begin add author code
@@ -128,22 +132,28 @@ $(document).ready(function() {
                                     firstAuthor = true;
                                 } //end "if authors"//end add author code
                             });
-                            paperHtml =
-                                '<div class="paper">\
-         					<a href="paper.html/' +
-                                pdfLoc + '"><h3>' + title +
-                                '</h3></a>' + authors + '</div>'
-                            if (i != info.length - 1) {
-                                paperHtml +=
-                                    '<div class="separator"></div>'
-                            }
-                            paperHtml += '</div>'
+							if (counter < infoLength) {
+								paperHtml =
+								'<div class="paper">\
+									<a href="paper.html/' +
+								pdfLoc + '"><h3>' + title +
+								'</h3></a>' + authors + '</div>'
+								paperHtml +=
+									'<div class="separator"></div>'
+							}
+							else{
+								paperHtml =
+								'<div class="paper lastPaper">\
+									<a href="paper.html/' +
+								pdfLoc + '"><h3>' + title +
+								'</h3></a>' + authors + '</div>'
+							}
+							paperHtml += '</div>'
                             finalPaperHtml += paperHtml;
                             authors = '';
                             var userHtml =
                                 '<div class="user">\
          					<div class = "user">\
-         					<div class="prof_pic"><img src="images/johndoe_profpic.jpg"></div>\
          				<div class="userBox">\
          				<h1 class="headerName">' +
                                 fullName +
