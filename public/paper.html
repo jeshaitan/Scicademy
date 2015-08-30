@@ -22,19 +22,41 @@
 		$(document).ready(function() {
 			$.getScript('javascript/index-logic.js', function(jd){});
 			//var url = "projects/1/Aram_Baghdassarian_Paper.pdf"  
-			var paperHtml='';
-			var title='';
-			var date='';
-			var school='';
-			var authors='';
-			var abstractText='';
-			var pdfLoc='';
+			var paperHtml = '';
+			var title = '';
+			var date = '';
+			var school = '';
+			var authors = '';
+			var abstractText = '';
+			var pdfLoc = '';
+			var paperID = '';
 			firstAuthor=true;
 		
+			var data= {
+				"_id": {
+					"$oid": "55e07fc1a47680ca0a18d233"
+				},
+				"title": "music on memeory: not what you think!",
+				"authors": [
+					"sham"
+				],
+				"abstract": "blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg ",
+				"keywords": [
+					"dumb",
+					"music",
+					"on",
+					"memory",
+					"project",
+					""
+				],
+				"pdf": "Unit cells for the simulation of ice 1h.pdf"
+			}
+		
+		
 			$.each(data, function(infoName, info){ //loop through each piece of info in the paper
-				if(typeof info === 'object'){ //going into the authors
+				if(infoName =='authors'){ //going into the authors
 					//then it's authors
-					$.each(info, function(authorNum, value){
+					for (var i = 0; i<info.length; i++){
 						if(!firstAuthor){
 							authors+=',&nbsp;&nbsp;';
 						}
@@ -42,11 +64,25 @@
 							authors+='<div class="authors">';
 							firstAuthor=false;
 						}
-						// value.name gets their name, value.userPage gets their userPage
-						authors+='<a href="'+value.userPage+'">'+value.name+'</a>';
-					}); //end author loop
-					firstAuthor=true;
-				} //end author selection
+						//reverse search info[i]. Returned author object will be called authorObj
+						var authorObj = {
+							"_id": {
+								"$oid": "55ddd5ed5780b30300c55786"
+							},
+							"email": "antranigcoolguy@gmail.com",
+							"password": "Klb1klb1",
+							"firstname": "Antranig",
+							"lastname": "Baghdassarian",
+							"school": "e.m.baker",
+							"grade": "9"
+						}
+						var fullName= authorObj.firstname + ' ' + authorObj.lastname;
+						var userId = authorObj._id.$oid;
+						var userPage = "user.html?id=" + userId;
+						authors += '<a href="' + userPage + '">' + fullName + '</a>';
+					}; //end author loop
+				}//end "if authors"
+				
 				else{ //every piece of info but authors
 					if(infoName == 'title'){
 						title=info;
@@ -60,14 +96,16 @@
 					else if (infoName == 'school'){
 						school=info;
 					}
-					else if (infoName == 'pdfLoc'){
+					else if (infoName == 'pdf'){
 						pdfLoc=info;
 					}
+					else if (infoName == '_id'){
+						paperID = info;
+					}
 				} //end else for everything but authors
-			}); //end loop through for each piece of info in paper
+			}); //end loop through for each piece of info in paper		
 		
 		paperHtml='<div id="paperDiv">\
-					Auto-generated. This second paper is here just for now. Will delete both later once server side stuff is done, and JSON brings everything automatically:\
 					<div class="paperOptions">\
 						<div class="downloadPDF">\
 							<a href="'+pdfLoc+'"><img src="images/pdfIcon.png">Download the pdf</a>\
@@ -90,15 +128,8 @@
 									<p>'+abstractText+'</p>\
 								</div>\
 							</div>\
-							<div id="pdf-container"> \
-								<div>\
-									<button id="prev">Previous</button>\
-  									<button id="next">Next</button>\
-  									&nbsp; &nbsp;\
- 									<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>\	</div>\
- 								<div>\
- 								<canvas id="pdf_canvas" style="border:1px solid black"></canvas>\
- 								</div>\
+							<div id="pdf-container">\
+								<embed src="javascript/projects/1/'+pdfLoc+'" width="98%" height="700" type="application/pdf">\
 							</div>\
 							<div class="posterPics">\
 								<p>Poster Pictures</p>\
@@ -108,73 +139,7 @@
 					</div>\
 		</div>'
 		$('.grid').append(paperHtml);
-		
-		//end JSON stuff to load paper
-		
-		
-		var pdfDoc = null,
-			pageNum = 1,
-			pageRendering = null,
-			scale = 0.8,
-			canvas = document.getElementById('pdf_canvas'),
-			ctx = canvas.getContext('2d');
-		function renderPage(num) {
-    		pageRendering = true;
-    		// Using promise to fetch the page
-		    pdfDoc.getPage(num).then(function(page) {
-      			var viewport = page.getViewport(scale);
-      			canvas.height = viewport.height;
-      			canvas.width = viewport.width;
-
-      			// Render PDF page into canvas context
-      			var renderContext = {
-      			  canvasContext: ctx,
-      			  viewport: viewport
-      			};
-     			var renderTask = page.render(renderContext);
-
-     			// Wait for rendering to finish
-     			renderTask.promise.then(function () {
-      				pageRendering = false;
-      				if (pageNumPending !== null) {
-      			    	// New page rendering is pending
-      			    	renderPage(pageNumPending);
-      			    	pageNumPending = null;
-        			}
-      			});
-    		});
-    		document.getElementById('page_num').textContent = pageNum;
-		}
-		PDFJS.getDocument(url).then(function (pdfDoc_) {
-    		pdfDoc = pdfDoc_;
-    		document.getElementById('page_count').textContent = pdfDoc.numPages;
-    		// Initial/first page rendering
-    		renderPage(pageNum);
-  		});
-		function queueRenderPage(num) {
-    		if (pageRendering) {
-      			pageNumPending = num;
-    		} else {
-      			renderPage(num);
-    		}
-  		}
-  		function onPrevPage() {
-    		if (pageNum <= 1) {
-      			return;
-    		}
-    		pageNum--;
-    		queueRenderPage(pageNum);
-  		}
-	  	document.getElementById('prev').addEventListener('click', onPrevPage);
-	  	function onNextPage() {
-    		if (pageNum >= pdfDoc.numPages) {
-      			return;
-    		}
-    		pageNum++;
-    		queueRenderPage(pageNum);
-  		}
-  		document.getElementById('next').addEventListener('click', onNextPage);
-		
+				
 		$('#editPaper').click(function(event){
 			event.preventDefault();
 			if (($(this).text() === "Edit Paper")){
@@ -182,6 +147,7 @@
 			}
 			else{
 				$(this).text("Edit Paper");
+			}
 		}); //end edit click
 	}); //end ready
 	</script>
@@ -194,7 +160,7 @@
 	
 	<div class="grid">
 		<a href='' id="editPaper">Edit Paper</a>
-		<div id="paperDiv">
+<!-- 		<div id="paperDiv">
 					<div class="paperOptions">
 						<div class="downloadPDF">
 							<a href='projects/1/Aram_Baghdassarian_Paper.pdf'><img src="images/pdfIcon.png">Download the pdf</a>
@@ -234,7 +200,7 @@
 							</div>
 						</div>
 					</div>
-		</div>
+		</div> -->
 	</div>
 </body>
 </html>
