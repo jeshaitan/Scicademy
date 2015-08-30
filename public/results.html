@@ -1,173 +1,170 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Aliro</title>
-	<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
-	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
-	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
-	<link href="css/jquery-ui.min.css" rel="stylesheet">
-	<link href="css/signInCss.css" rel="stylesheet">
-	<link href="css/searchBox.css" rel="stylesheet" type="text/css">
-	<link href="css/results.css" rel="stylesheet" type="text/css">
-	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<!--<script src="libs/jquery-1.11.3.min.js"></script>-->
-	<script src="libs/jquery-ui.min.js"></script>
-	<script src="libs/jquery.smartmenus.min.js"></script>
-	<script src="javascript/index-logic.js"></script>
-</head>
-
-<body class="colorBody">
-	<script type="text/javascript"> 
-		$(document).ready(function(){
-		//load the navBar and signIn box.
-			$.getScript('javascript/index-logic.js', function(jd){});
-		});
-	</script>
-	<script>
-		$(document).ready(function() {
-			$( "#dateOptions" ).position({
-				  my: "left top",
-				  at: "left-3 bottom+10",
-				  of: "#dates h6"
-			});	//end position
-			var url= window.location.href;
-			var queryString=url.slice(url.indexOf('?query=')+7); //entire query stuff, after the results.html path
-			var queryNum=url.slice(url.indexOf('?query=')+7); //just the number for the query variable
-			var resultNum=queryString.indexOf('result=');
-			var tempResult; //indicates upperBound. return papers 1-20. If the number was 40, the program would return papers 21-40.
-			queryString = decodeURI(queryString);
-			if(resultNum == -1) {
-				tempResult = 20;
-			}
-			else{
-				var resultString = queryString.slice(queryString.indexOf('result='));
-				tempResult = resultString.slice(7);
-			}
-			searchType = $("input[name=searchTypeOptions]:checked").val();
-			console.log(searchType);
-			var searchPaper = {
-				"query": queryString,
-				"searchtype": searchType
-			}
-
-			$.ajax({
-				url: '/getPaper',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify(searchPaper),
-				dataType: 'json',
-				success: addPapers
-			});
-
-			function addPapers(data) {
-				console.log("adding data")
-				var title='',
-					authors='',
-					abstractText='',
-					paperLink='',
-					firstAuthor=true;
-				
-				var paperHtml='';
-				$.each(data, function(paper, paperInfo){ //iterature through each paper
-					console.log('p: '+paper+'='+paperInfo);
-					$.each(paperInfo, function(infoName, info){ //loop through each piece of info in the paper
-						if(typeof info === 'object'){ //going into the authors
-							//then it's authors
-							$.each(info, function(authorNum, value){
-								if(!firstAuthor){
-									authors+=',&nbsp;&nbsp;';
-								}
-								else{
-									authors+='<div class="authors">';
-									firstAuthor=false;
-								}
-								// value.name gets their name, value.userPage gets their userPage
-								authors+='<a href="'+value.userPage+'">'+value.name+'</a>';
-							}); //end author loop
-							firstAuthor=true;
-						} //end author selection
-						else{ //every piece of info but authors
-							if(infoName == 'title'){
-								console.log(title);
-								title=info;
-							}
-							else if (infoName == 'abstract'){
-								abstractText=info;
-							}
-							else if (infoName == 'paperLink'){
-								paperLink=info;
-							}
-						} //end else for everything but authors
-					}); //end loop through for each piece of info in paper
-					paperHtml='<div class="paperDiv">\
-									<span class="title">\
-										<a href="'+paperLink+'"><h3>'+title+'</h3></a>\
-									</span>'+authors+'</div>\
-									<div class="abstractDiv">\
-										<a class="abstractText">\
-											<span class="arrowClick arrowSide"></span>\
-											<span class="preTxt">Abstract</span>\
-										</a>\
-										<div class="abstractParagraph" id="abstract1">'+abstractText+'</div>\
-									</div>\
-								</div>\
-								<div class="separator"></div>'
-					$('.papers').append(paperHtml);
-					authors='';
-				}); //end loop for each paper
-			
-			}//end addPapers
-			$('.papers').on('click', '.abstractDiv', function() {
-				$(this).find('.arrowClick').toggleClass('arrowSide');
-				<!-- $('.abstractParagraph').slideToggle(); -->
-				$(this).find('.abstractParagraph').slideToggle();
-				return false;
-			});//end abstractText click
-		}); //end ready
-	</script>
-	<div class="navigation"></div>
-	<div id="signInBox"></div>
-	<div class="grid">
-		<div class="searchBoxDiv" id="search-form">
-			<!--<div id="logo"><img src="images/logo.png"></div>-->
-			<form class="form-container" action="">
-				<input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048"  />
-				<div class="submit-container">
-					<input type="submit" value="" class="submit searchBoxSubmit" />
-					
-				</div>
-			</form>
-		</div>
-		<div id="searchTableDiv">
-					<div class="searchInfo">
-						<div class="searchBy">
-							<h4>Search In:</h4>
-							<div id="searchOptions">
-								<input type="radio" name="searchTypeOptions" value="All" id="allfields" class="searchBy" checked="checked">All Fields</input><br>
-								<input type="radio" name="searchTypeOptions" value="Title" class="searchBy">Title</input><br>
-								<input type="radio" name="searchTypeOptions" value="Keywords" class="searchBy">Keywords</input><br>
-								<input type="radio" name="searchTypeOptions" value="Author" id="authors" class="searchBy">Authors</input>
-							</div>
-						</div>
-						<div class="sortBy">
-							<h4>Sort By:</h4>
-							<div id="dates">
-							<h6>Date:</h6>
-								<div id="dateOptions">
-								<input type="checkbox" name="date" value="2015" class="dateButtons">We will get Current Dates of papers with AJAX from servers</input>
-								<br>
-								<input type="checkbox" name="date" value="2015" class="dateButtons">2015</input>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="papers">
-
-					</div>
-	</div>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <title>Aliro</title>
+      <link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
+      <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
+      <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
+      <link href="css/jquery-ui.min.css" rel="stylesheet">
+      <link href="css/signInCss.css" rel="stylesheet">
+      <link href="css/searchBox.css" rel="stylesheet" type="text/css">
+      <link href="css/results.css" rel="stylesheet" type="text/css">
+      <link href="css/pageStyle.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+      <!--<script src="libs/jquery-1.11.3.min.js"></script>-->
+      <script src="libs/jquery-ui.min.js"></script>
+      <script src="libs/jquery.smartmenus.min.js"></script>
+      <script src="javascript/index-logic.js"></script>
+   </head>
+   <body class="colorBody">
+      <script type="text/javascript"> 
+         $(document).ready(function(){
+         //load the navBar and signIn box.
+         	$.getScript('javascript/index-logic.js', function(jd){});
+         });
+      </script>
+      <script>
+         $(document).ready(function() {
+         	$( "#dateOptions" ).position({
+         		  my: "left top",
+         		  at: "left-3 bottom+10",
+         		  of: "#dates h6"
+         	});	//end position
+         	var url= window.location.href;
+         	var queryString=url.slice(url.indexOf('?query=')+7); //entire query stuff, after the results.html path
+         	var queryNum=url.slice(url.indexOf('?query=')+7); //just the number for the query variable
+         	var resultNum=queryString.indexOf('result=');
+         	var tempResult; //indicates upperBound. return papers 1-20. If the number was 40, the program would return papers 21-40.
+         	queryString = decodeURI(queryString);
+         	if(resultNum == -1) {
+         		tempResult = 20;
+         	}
+         	else{
+         		var resultString = queryString.slice(queryString.indexOf('result='));
+         		tempResult = resultString.slice(7);
+         	}
+         	searchType = $("input[name=searchTypeOptions]:checked").val();
+         	console.log(searchType);
+         	var searchPaper = {
+         		"query": queryString,
+         		"searchtype": searchType
+         	}
+         
+         	$.ajax({
+         		url: '/getPaper',
+         		type: 'POST',
+         		contentType: 'application/json',
+         		data: JSON.stringify(searchPaper),
+         		dataType: 'json',
+         		success: addPapers
+         	});
+         
+         	function addPapers(data) {
+         		console.log("adding data")
+         		var title='',
+         			authors='',
+         			abstractText='',
+         			paperLink='',
+         			firstAuthor=true;
+         		
+         		var paperHtml='';
+         		$.each(data, function(paper, paperInfo){ //iterature through each paper
+         			console.log('p: '+paper+'='+paperInfo);
+         			$.each(paperInfo, function(infoName, info){ //loop through each piece of info in the paper
+         				if(typeof info === 'object'){ //going into the authors
+         					//then it's authors
+         					$.each(info, function(authorNum, value){
+         						if(!firstAuthor){
+         							authors+=',&nbsp;&nbsp;';
+         						}
+         						else{
+         							authors+='<div class="authors">';
+         							firstAuthor=false;
+         						}
+         						// value.name gets their name, value.userPage gets their userPage
+         						authors+='<a href="'+value.userPage+'">'+value.name+'</a>';
+         					}); //end author loop
+         					firstAuthor=true;
+         				} //end author selection
+         				else{ //every piece of info but authors
+         					if(infoName == 'title'){
+         						console.log(title);
+         						title=info;
+         					}
+         					else if (infoName == 'abstract'){
+         						abstractText=info;
+         					}
+         					else if (infoName == 'paperLink'){
+         						paperLink=info;
+         					}
+         				} //end else for everything but authors
+         			}); //end loop through for each piece of info in paper
+         			paperHtml='<div class="paperDiv">\
+         							<span class="title">\
+         								<a href="'+paperLink+'"><h3>'+title+'</h3></a>\
+         							</span>'+authors+'</div>\
+         							<div class="abstractDiv">\
+         								<a class="abstractText">\
+         									<span class="arrowClick arrowSide"></span>\
+         									<span class="preTxt">Abstract</span>\
+         								</a>\
+         								<div class="abstractParagraph" id="abstract1">'+abstractText+'</div>\
+         							</div>\
+         						</div>\
+         						<div class="separator"></div>'
+         			$('.papers').append(paperHtml);
+         			authors='';
+         		}); //end loop for each paper
+         	
+         	}//end addPapers
+         	$('.papers').on('click', '.abstractDiv', function() {
+         		$(this).find('.arrowClick').toggleClass('arrowSide');
+         		<!-- $('.abstractParagraph').slideToggle(); -->
+         		$(this).find('.abstractParagraph').slideToggle();
+         		return false;
+         	});//end abstractText click
+         }); //end ready
+      </script>
+      <div class="navigation"></div>
+      <div id="signInBox"></div>
+      <div class="grid">
+      <div class="searchBoxDiv" id="search-form">
+         <!--<div id="logo"><img src="images/logo.png"></div>-->
+         <form class="form-container" action="">
+            <input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048"  />
+            <div class="submit-container">
+               <input type="submit" value="" class="submit searchBoxSubmit" />
+            </div>
+         </form>
+      </div>
+      <div id="searchTableDiv">
+         <div class="searchInfo">
+            <div class="searchBy">
+               <h4>Search In:</h4>
+               <div id="searchOptions">
+                  <input type="radio" name="searchTypeOptions" value="All" id="allfields" class="searchBy" checked="checked">All Fields</input><br>
+                  <input type="radio" name="searchTypeOptions" value="Title" class="searchBy">Title</input><br>
+                  <input type="radio" name="searchTypeOptions" value="Keywords" class="searchBy">Keywords</input><br>
+                  <input type="radio" name="searchTypeOptions" value="Author" id="authors" class="searchBy">Authors</input>
+               </div>
+            </div>
+            <div class="sortBy">
+               <h4>Sort By:</h4>
+               <div id="dates">
+                  <h6>Date:</h6>
+                  <div id="dateOptions">
+                     <input type="checkbox" name="date" value="2015" class="dateButtons">We will get Current Dates of papers with AJAX from servers</input>
+                     <br>
+                     <input type="checkbox" name="date" value="2015" class="dateButtons">2015</input>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="papers">
+         </div>
+      </div>
+   </body>
 </html>
-	
+

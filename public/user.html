@@ -1,219 +1,183 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Aliro</title>
-	<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
-	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
-	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
-	<link href="css/jquery-ui.min.css" rel="stylesheet">
-	<link href="css/signInCss.css" rel="stylesheet">
-	<link href="css/user.css" rel="stylesheet" type="text/css">
-	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<!--<script src="libs/jquery-1.11.3.min.js"></script>-->
-	<script src="libs/jquery-ui.min.js"></script>
-	<script src="libs/jquery.smartmenus.min.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
-	<script src="javascript/index-logic.js"></script>
-</head>
-
-<body class="colorBody">
-	<script type="text/javascript"> 
-		var currentUser = null;
-		$(document).ready(function() {
-		//load the navBar and signIn box.
-			$.getScript('javascript/index-logic.js', function(jd){});
-		});
-	</script>
-	<script>
-		$(document).ready(function() {
-			var url= window.location.href;
-			var userId=url.slice(url.indexOf('?id=')+4);
-			//reverse search with userId here to get authorObj
-			var firstAuthor=true;
-			var authorObj = {
-				"_id": {
-					"$oid": "55ddd5ed5780b30300c55786"
-				},
-				"email": "antranigcoolguy@gmail.com",
-				"password": "Klb1klb1",
-				"firstname": "Antranig",
-				"lastname": "Baghdassarian",
-				"school": "e.m.baker",
-				"grade": "9",
-				"publications": [
-					"910249129",
-					"190902601",
-				]
-			}
-			var fullName= authorObj.firstname + ' ' + authorObj.lastname;
-			var email = authorObj.email;
-			var school = authorObj.school;
-			var grade = authorObj.grade;
-			var pdfLoc = '';
-			var title = '';
-			var paperHtml = '';
-			var finalPaperHtml = '';
-			var authors = '';
-			$.each(authorObj, function(infoName, info){
-				if (infoName == 'publications'){
-					for (var i = 0; i<info.length; i++){ //loop through each of their publications
-					//reverse search info[i]. Returned paper object will be called paperObj
-						var paperObj= {
-							"_id": {
-								"$oid": "55e07fc1a47680ca0a18d233"
-							},
-							"title": "music on memeory: not what you think!",
-							"authors": [
-								"sham"
-							],
-							"abstract": "blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg ",
-							"keywords": [
-								"dumb",
-								"music",
-								"on",
-								"memory",
-								"project",
-								""
-							],
-							"pdf": "Unit cells for the simulation of ice 1h.pdf"
-						}
-						pdfLoc = paperObj.pdf;
-						title = paperObj.title;
-						//begin add author code
-						$.each(paperObj, function(paperInfoName, paperInfo){ //loop through each piece of info in the paper
-							if(paperInfoName =='authors'){ //going into the authors
-								//then it's authors
-								authors+='<div class="authors">';
-								for (var i = 0; i<paperInfo.length; i++){
-									if(!firstAuthor){
-										authors+=',&nbsp;&nbsp;';
-									}
-									else{
-										firstAuthor=false;
-									}
-									//reverse search paperInfo[i]. Returned author object will be called subAuthorObj
-									var subAuthorObj = {
-										"_id": {
-											"$oid": "55de0b1c0a495a660c7c142c"
-										},
-										"email": "jesse.etan.smith@gmail.com",
-										"password": "superuser1999",
-										"firstname": "Jesse",
-										"lastname": "Smith",
-										"school": "Great Neck South High School",
-										"grade": "11"
-									}
-									var fullName = subAuthorObj.firstname + ' ' + subAuthorObj.lastname;
-									var userId = subAuthorObj._id.$oid;
-									var userPage = "user.html?id=" + userId;
-									authors += '<a href="' + userPage + '">' + fullName + '</a>';
-								}; //end author loop
-								firstAuthor=true;
-							}//end "if authors"//end add author code
-						});
-						
-						paperHtml= '<div class="paper">\
-							<a href="paper.html/'+pdfLoc+'"><h3>'+title+'</h3></a>'+authors+'</div>\
-							<div class="separator"></div>\
-							</div>'
-						finalPaperHtml += paperHtml;
-						authors = '';
-					} //end loop through of publications
-				} //end if statement for if publications
-			}); //end loop through of authorObj
-			var userHtml = '<div class="user">\
-	<div class = "user">\
-	<div class="prof_pic"><img src="images/johndoe_profpic.jpg"></div>\
-	<div class="userBox">\
-		<h1 class="headerName">'+fullName+'</h1>\
-		<div class="details">\
-			<p class="school">'+school+'</p>\
-			<p class="reputation">26 Reputation</p>\
-		</div>\
-		<div class="about" id="about">\
-			<p class="grade">'+grade+'th Grade</p>\
-			<p class="since">Joined on ADD JOIN DATE</p>\
-		</div>\
-	</div>\
-	<div class="separator separator2" id="userPubSep"></div>\
-		<div class="publications" id="publications">\
-			<h1>Publications</h1>'+finalPaperHtml+'\
-		</div>\
-		<div class="separator"></div>\
-		<div class="reputation" id="reputation">\
-		<h1>Reputation</h1>\
-			<div id="piechart" style="width: 1100px; height: 635px;"></div>\
-		</div>\
-	</div>\
-	</div>'
-			$('.grid').append(userHtml);	
-	//		google.load("visualization", "1", {packages:["corechart"]});
-			google.setOnLoadCallback(drawChart);
-			function drawChart() {
-				var data = google.visualization.arrayToDataTable([
-				  ['Source', 'Reputation'],
-				  ['Publishing work',	20],
-				  ['Adding poster',      5],
-				  ['Creating Account',  1]
-				]);
-
-				var options = {
-					  title: 'Reputation Sources (26 Total Reputation)',
-					  backgroundColor:'#F7F7F7'
-				};
-
-				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-				chart.draw(data, options);
-			} //end drawChart
-			
-			$('.about').position({
-				my: "left top",
-				at: "right top",
-				of: ".details"
-			}); //end position
-		}); //end ready
-	</script>
-	
-	<div class="navigation"></div>
-	<div id="signInBox"></div>
-	<div class="grid">
-<!-- 	<div class="user">
-	<div class="prof_pic"><img src="images/johndoe_profpic.jpg"></div>
-	<div class="userBox">
-		<h1 class="headerName">John Doe</h1>
-		<div class="details">
-			<p class="school">Great Neck South High School</p>
-			<p class="reputation">26 Reputation</p>				
-		</div>	
-		<div class="about" id="about">
-			<p class="grade">11th Grade</p>
-			<p class="since">Joined on August 11, 2015</p>	
-		</div>
-	
-	</div>
-	<div class="separator separator2" id="userPubSep"></div>	
-		<div class="publications" id="publications">
-			<h1>Publications</h1>
-			<div id="paper1">
-				<a href="paper.html/paper1"><h3>Title of paper</h3></a>
-				<span class="authors"><a href="user.html">Smith J.</a>,&nbsp;&nbsp;<a href="user.html">Zweigler R.</a></span>
-			</div>
-			<div class="separator"></div>
-			<div id="paper2">
-				<a href="paper.html/paper2"><h3>Title of paper 2</h3></a>
-				<span class="authors"><a href="user.html">Smith J.</a>,&nbsp;&nbsp;<a href="user.html">Trump D.</a></span>
-			</div>
-		</div>
-		<div class="separator"></div>
-		<div class="reputation" id="reputation">	
-		<h1>Reputation</h1>
-			<div id="piechart" style="width: 1100px; height: 635px;"></div>
-		</div>
-	</div> -->
-	</div>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <title>Aliro</title>
+      <link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
+      <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
+      <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
+      <link href="css/jquery-ui.min.css" rel="stylesheet">
+      <link href="css/signInCss.css" rel="stylesheet">
+      <link href="css/user.css" rel="stylesheet" type="text/css">
+      <link href="css/pageStyle.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+      <!--<script src="libs/jquery-1.11.3.min.js"></script>-->
+      <script src="libs/jquery-ui.min.js"></script>
+      <script src="libs/jquery.smartmenus.min.js"></script>
+      <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
+      <script src="javascript/index-logic.js"></script>
+   </head>
+   <body class="colorBody">
+      <script type="text/javascript"> 
+         var currentUser = null;
+         $(document).ready(function() {
+         //load the navBar and signIn box.
+         	$.getScript('javascript/index-logic.js', function(jd){});
+         });
+      </script>
+      <script>
+         $(document).ready(function() {
+         	var url= window.location.href;
+         	var userId=url.slice(url.indexOf('?id=')+4);
+         	//reverse search with userId here to get authorObj
+         	var firstAuthor=true;
+         	var authorObj = {
+         		"_id": {
+         			"$oid": "55ddd5ed5780b30300c55786"
+         		},
+         		"email": "antranigcoolguy@gmail.com",
+         		"password": "Klb1klb1",
+         		"firstname": "Antranig",
+         		"lastname": "Baghdassarian",
+         		"school": "e.m.baker",
+         		"grade": "9",
+         		"publications": [
+         			"55e07fc1a47680ca0a18d233",
+         			"55e3742eeca778030041806f",
+         			"55e3742eeca778030041806f"
+         		]
+         	}
+         	var fullName= authorObj.firstname + ' ' + authorObj.lastname,
+         		email = authorObj.email,
+         		school = authorObj.school,
+         		grade = authorObj.grade,
+         		pdfLoc = '',
+         		title = '',
+         		paperHtml = '',
+         		finalPaperHtml = '',
+         		authors = '',
+         		paperObj = {};
+         	$.each(authorObj, function(infoName, info){
+         		if (infoName == 'publications'){
+         			for (var i = 0; i<info.length; i++){ //loop through each of their publications
+         			//reverse search info[i]. Returned paper object will be called paperObj
+         				var searchPaper = {
+         					"query": info[i],
+         					"searchtype": "id"
+         				}
+         				$.ajax({
+         					url: '/getPaper',
+         					type: 'POST',
+         					contentType: 'application/json',
+         					data: JSON.stringify(searchPaper),
+         					dataType: 'json',
+         					success: function(cursor){
+         						paperObj = cursor[0];
+         						console.log(JSON.stringify(cursor[0]));
+         					}
+         				});
+         				pdfLoc = paperObj.pdf;
+         				title = paperObj.title;
+         				//begin add author code
+         				$.each(paperObj, function(paperInfoName, paperInfo){ //loop through each piece of info in the paper
+         					if(paperInfoName == 'authors'){ //going into the authors
+         						console.log('why is this not printed');
+         						//then it's authors
+         						authors+='<div class="authors">';
+         						for (var i = 0; i<paperInfo.length; i++){
+         							if(!firstAuthor){
+         								authors+=',&nbsp;&nbsp;';
+         							}
+         							else{
+         								firstAuthor=false;
+         							}
+         							//reverse search paperInfo[i]. Returned author object will be called subAuthorObj
+         							var subAuthorObj = {
+         								"_id": {
+         									"$oid": "55de0b1c0a495a660c7c142c"
+         								},
+         								"email": "jesse.etan.smith@gmail.com",
+         								"password": "superuser1999",
+         								"firstname": "Jesse",
+         								"lastname": "Smith",
+         								"school": "Great Neck South High School",
+         								"grade": "11"
+         							}
+         							var fullName = subAuthorObj.firstname + ' ' + subAuthorObj.lastname;
+         							var userId = subAuthorObj._id.$oid;
+         							var userPage = "user.html?id=" + userId;
+         							authors += '<a href="' + userPage + '">' + fullName + '</a>';
+         						}; //end author loop
+         						firstAuthor=true;
+         					}//end "if authors"//end add author code
+         				});
+         				console.log(title);
+         				paperHtml= '<div class="paper">\
+         					<a href="paper.html/'+pdfLoc+'"><h3>'+title+'</h3></a>'+authors+'</div>\
+         					<div class="separator"></div>\
+         					</div>'
+         				finalPaperHtml += paperHtml;
+         				authors = '';
+         			} //end loop through of publications
+         		} //end if statement for if publications
+         	}); //end loop through of authorObj
+         	var userHtml = '<div class="user">\
+         <div class = "user">\
+         <div class="prof_pic"><img src="images/johndoe_profpic.jpg"></div>\
+         <div class="userBox">\
+         <h1 class="headerName">'+fullName+'</h1>\
+         <div class="details">\
+         	<p class="school">'+school+'</p>\
+         	<p class="reputation">26 Reputation</p>\
+         </div>\
+         <div class="about" id="about">\
+         	<p class="grade">'+grade+'th Grade</p>\
+         	<p class="since">Joined on </p>\
+         </div>\
+         </div>\
+         <div class="separator separator2" id="userPubSep"></div>\
+         <div class="publications" id="publications">\
+         	<h1>Publications</h1>'+finalPaperHtml+'\
+         </div>\
+         <div class="separator"></div>\
+         <div class="reputation" id="reputation">\
+         <h1>Reputation</h1>\
+         	<div id="piechart" style="width: 1100px; height: 635px;"></div>\
+         </div>\
+         </div>\
+         </div>'
+         	$('.grid').append(userHtml);	
+         //		google.load("visualization", "1", {packages:["corechart"]});
+         	google.setOnLoadCallback(drawChart);
+         	function drawChart() {
+         		var data = google.visualization.arrayToDataTable([
+         		  ['Source', 'Reputation'],
+         		  ['Publishing work',	20],
+         		  ['Adding poster',      5],
+         		  ['Creating Account',  1]
+         		]);
+         
+         		var options = {
+         			  title: 'Reputation Sources (26 Total Reputation)',
+         			  backgroundColor:'#F7F7F7'
+         		};
+         
+         		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+         
+         		chart.draw(data, options);
+         	} //end drawChart
+         	
+         	$('.about').position({
+         		my: "left top",
+         		at: "right top",
+         		of: ".details"
+         	}); //end position
+         }); //end ready
+      </script>
+      <div class="navigation"></div>
+      <div id="signInBox"></div>
+      <div class="grid">
+      </div>
+   </body>
 </html>

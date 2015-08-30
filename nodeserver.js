@@ -6,7 +6,8 @@ var http = require("http"),
   	path = require('path'),
 	url = require("url"),
 	bodyParser = require('body-parser'),
-  	port = process.env.PORT || 8888;
+  	port = process.env.PORT || 8888,
+  	ObjectID = require('mongodb').ObjectID;
 
 app = express();
 app.use(cors());
@@ -48,9 +49,13 @@ app.post('/getPaper', function(request, response) {
 	else if(request.body.searchtype == "Authors") {
 		searchObject = {authors: request.body.query};
 	}
+	else if(request.body.searchtype == 'id') {
+		console.log("set searchObject -> id");
+		searchObject = {"_id" : ObjectID(request.body.query)};
+	}
 	db.Papers.find(searchObject, function(err, curs) {
 		if(err) {
-			response.send({error: "error finding paper!"});
+			console.log({error: "error finding paper!"});
 		}
 		else {
 			console.log(curs);
@@ -66,7 +71,7 @@ app.post('/addUser', function(request, response) {
 					  firstname: request.body.fnm,
 					  lastname: request.body.lnm,
 					  school: request.body.shl,
-					  grade: request.body.grd
+					  grade: request.body.grd,
 					  datejoined: request.body.dte}, function(err, record) {
 		if(err) {
 			console.log({error: 'error inserting new user'});
