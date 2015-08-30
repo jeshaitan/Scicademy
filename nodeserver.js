@@ -17,16 +17,22 @@ var uri = "mongodb://jeshaitan:aliro4greatgood@ds036698.mongolab.com:36698/aliro
 var db = mongojs(uri, ["Papers", "Users", "Posters"]);
 
 app.post('/getUser', function(request, response) {
-    console.log(request.body);
-    var user = db.Users.findOne({
+    var searchObj = {};
+    if(request.body.searchtype == "id") {
+    	searchObj = {"_id" : ObjectID(request.body.query)};
+    }
+    else {
+    	searchObj = {
         "email": request.body.email,
         "password": request.body.password
-    }, function(err, doc) {
+    	}
+    }
+    var user = db.Users.findOne(searchObj, function(err, doc) {
         	if (err) {
             	response.send({error: 'error retrieving the JSON user' });
         	}
         	else {
-        		console.log("sent user to front end");
+        		console.log("sent user to front end: " + doc);
             	response.send(doc);
             }
     });
@@ -50,7 +56,6 @@ app.post('/getPaper', function(request, response) {
 		searchObject = {authors: request.body.query};
 	}
 	else if(request.body.searchtype == 'id') {
-		console.log("set searchObject -> id");
 		searchObject = {"_id" : ObjectID(request.body.query)};
 	}
 	db.Papers.find(searchObject, function(err, curs) {
