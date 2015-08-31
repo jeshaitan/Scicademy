@@ -34,7 +34,6 @@
 		    	$('.grid').html('<br /><p><center>No user id specified.</center></p><br />');
 		    	return false;
 		    }
-		    var firstAuthor = true;
 		    var searchUser = {
 		        "query": userId,
 		        "searchtype": "id"
@@ -89,29 +88,22 @@
 		                            //begin add author code
 		                            $.each(paperObj, function(paperInfoName, paperInfo) { //loop through each piece of info in the paper
 		                                if (paperInfoName == 'authors') { //going into the authors
-		                                    //then it's authors
 		                                    authors += '<div class="authors">';
 		                                    for (var i = 0; i < paperInfo.length; i++) {
-		                                        if (!firstAuthor) {
-		                                            authors += ',&nbsp;&nbsp;';
-		                                        } else {
-		                                            firstAuthor = false;
-		                                        }
-		                                        //reverse search paperInfo[i]. Returned author object will be called subAuthorObj
 		                                        var subAuthorObj = {};
 		                                        var searchSubUser = {
 		       										"query": paperObj.authors[i],
 		        									"searchtype": "id"
-		    									};
+		    									}
 		                                        $.ajax({
 		                            				url: '/getUser',
 		                            				type: 'POST',
 		                            				contentType: 'application/json',
 		                            				data: JSON.stringify(searchUser),
 		                            				dataType: 'json',
-		                            				success: function(doc2) {
-		                                				subAuthorObj = doc2;
+		                            				success: function(subAuthorObj) {
 		                                				var fullName = subAuthorObj.firstname + ' ' + subAuthorObj.lastname;
+		                                				console.log(fullName);
 		                                       			var userId = subAuthorObj._id;
 		                                       			var pId = paperObj._id;
 		                                       			title = paperObj.title;
@@ -133,7 +125,6 @@
 		                            			});
 
 		                                    }// end author loop
-		                                    firstAuthor = true;
 		                                } //end "if authors"//end add author code
 		                            });
 		                        } 	
