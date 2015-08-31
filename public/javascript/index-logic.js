@@ -371,11 +371,11 @@ function readSubmitPaperForm() {
 			yyyy = today.getFullYear();
 
 		if(dd<10) {	
-    		dd='0'+dd
-		} 
+    		dd='0'+dd;
+		}
 
 		if(mm<10) {
-    		mm='0'+mm
+    		mm='0'+mm;
 		} 
 
 		today = mm+'/'+dd+'/'+yyyy;
@@ -386,7 +386,7 @@ function readSubmitPaperForm() {
 			"abstract": abstract,
 			"keywords": keywords,
 			"pdf": pdf,
-			"date": today;
+			"date": today
 		}
 		addPaper(paperdata);
 		console.log(JSON.stringify(paperdata));
