@@ -69,13 +69,14 @@
                             contentType: 'application/json',
                             data: JSON.stringify(searchPaper),
                             dataType: 'json',
-                            success: function(paperObj) {
-	                            paperObj = paperObj[0];
+                            success: function(paperObjs) {
+	                        for()
 	                            counter+=1;
 	                            pdfLoc = paperObj.pdf;
 	                            title = paperObj.title;
 	                            authors += '<div class="authors">';
 	                            for (var i = 0; i < paperObj.authors.length; i++) {
+	                            	console.log(paperObj.authors.length);
 	                                var searchSubUser = {
 										"query": paperObj.authors[i],
 										"searchtype": "id"
