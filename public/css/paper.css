@@ -5,7 +5,6 @@
 .grid{
 	clear: both;
     margin: 0 auto;
-    min-width: 1348px;
     overflow: hidden;
     text-align: left;
     width: 100% !important;
@@ -43,7 +42,6 @@
 }
 
 .abstractHead{
-	color:#C070A0;
 	font-size:14;
 	font-weight:bold;
 }
