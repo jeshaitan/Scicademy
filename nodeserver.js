@@ -30,9 +30,10 @@ app.post('/getUser', function(request, response) {
     var user = db.Users.findOne(searchObj, function(err, doc) {
         	if (err) {
             	response.send({error: 'error retrieving the JSON user' });
+            	console.log('error recieving user');
         	}
         	else {
-        		console.log("sent user to front end: " + doc);
+        		console.log("sent user to front end: " + JSON.stringify(doc));
             	response.send(doc);
             }
     });

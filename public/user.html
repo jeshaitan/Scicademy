@@ -27,170 +27,139 @@
          });
       </script>
       <script>
-$(document).ready(function() {
-    var url = window.location.href;
-    var userId = url.slice(url.indexOf('?id=') + 4);
-    console.log(userId)
-    var firstAuthor = true;
-    var searchUser = {
-        "query": userId,
-        "searchtype": "id"
-    };
-    $.ajax({
-        url: '/getUser',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(searchUser),
-        dataType: 'json',
-        success: function(doc) {
-            var authorObj = doc;
-            var fullName = authorObj.firstname + ' ' + authorObj.lastname,
-                email = authorObj.email,
-                school = authorObj.school,
-                grade = authorObj.grade,
-                pdfLoc = '',
-                title = '',
-                paperHtml = '',
-                finalPaperHtml = '',
-                authors = '',
-                paperObj = {};
-				var counter = 0;
-				var infoLength = 9999;
-            $.each(authorObj, function(infoName, info) {
-				infoLength = info.length;
-                if (infoName == 'publications') {
-                    for (var i = 0; i < info.length; i++) { //loop through each of their publications
-                        //reverse search info[i]. Returned paper object will be called paperObj
-                        var searchPaper = {
-                            "query": info[i],
-                            "searchtype": "id"
-                        }
-                        $.ajax({
-                            url: '/getPaper',
-                            type: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify(searchPaper),
-                            dataType: 'json',
-                            success: function(cursor) {
-                                paperObj = cursor[0];
-                                console.log(JSON.stringify(
-                                    cursor[0]));
-                                appendPapersHtml();
-                            }
-                        });
+		$(document).ready(function() {
+		    var url = window.location.href;
+		    var userId = url.slice(url.indexOf('?id=') + 4);
+		    console.log(userId)
+		    var firstAuthor = true;
+		    var searchUser = {
+		        "query": userId,
+		        "searchtype": "id"
+		    };
+		    $.ajax({
+		        url: '/getUser',
+		        type: 'POST',
+		        contentType: 'application/json',
+		        data: JSON.stringify(searchUser),
+		        dataType: 'json',
+		        success: function(doc) {
+		            var authorObj = doc;
+		            var fullName = authorObj.firstname + ' ' + authorObj.lastname,
+		                email = authorObj.email,
+		                school = authorObj.school,
+		                grade = authorObj.grade,
+		                pdfLoc = '',
+		                title = '',
+		                paperHtml = '',
+		                finalPaperHtml = '',
+		                authors = '',
+		                paperObj = {};
+						var counter = 0;
+						var infoLength = 9999;
+		            $.each(authorObj, function(infoName, info) {
+						infoLength = info.length;
+		                if (infoName == 'publications') {
+		                    for (var i = 0; i < info.length; i++) { //loop through each of their publications
+		                        //reverse search info[i]. Returned paper object will be called paperObj
+		                        var searchPaper = {
+		                            "query": info[i],
+		                            "searchtype": "id"
+		                        }
+		                        $.ajax({
+		                            url: '/getPaper',
+		                            type: 'POST',
+		                            contentType: 'application/json',
+		                            data: JSON.stringify(searchPaper),
+		                            dataType: 'json',
+		                            success: function(cursor) {
+		                                paperObj = cursor[0];
+		                                console.log(JSON.stringify(
+		                                    cursor[0]));
+		                                appendPapersHtml();
+		                            }
+		                        });
 
-                        function appendPapersHtml() {
-							counter+=1;
-                            pdfLoc = paperObj.pdf;
-                            title = paperObj.title;
-                            //begin add author code
-                            $.each(paperObj, function(paperInfoName,
-                                paperInfo) { //loop through each piece of info in the paper
-                                if (paperInfoName ==
-                                    'authors') { //going into the authors
-                                    //then it's authors
-                                    authors +=
-                                        '<div class="authors">';
-                                    for (var i = 0; i <
-                                        paperInfo.length; i++
-                                    ) {
-                                        if (!firstAuthor) {
-                                            authors +=
-                                                ',&nbsp;&nbsp;';
-                                        } else {
-                                            firstAuthor =
-                                                false;
-                                        }
-                                        //reverse search paperInfo[i]. Returned author object will be called subAuthorObj
-                                        var subAuthorObj = {
-                                            "_id": {
-                                                "$oid": "55de0b1c0a495a660c7c142c"
-                                            },
-                                            "email": "jesse.etan.smith@gmail.com",
-                                            "password": "superuser1999",
-                                            "firstname": "Jesse",
-                                            "lastname": "Smith",
-                                            "school": "Great Neck South High School",
-                                            "grade": "11"
-                                        }
-                                        var fullName =
-                                            subAuthorObj.firstname +
-                                            ' ' +
-                                            subAuthorObj.lastname;
-                                        var userId =
-                                            subAuthorObj._id
-                                            .$oid;
-                                        var userPage =
-                                            "user.html?id=" +
-                                            userId;
-                                        authors +=
-                                            '<a href="' +
-                                            userPage + '">' +
-                                            fullName +
-                                            '</a>';
-                                    }; //end author loop
-                                    firstAuthor = true;
-                                } //end "if authors"//end add author code
-                            });
-							if (counter < infoLength) {
-								paperHtml =
-								'<div class="paper">\
-									<a href="paper.html/' +
-								pdfLoc + '"><h3>' + title +
-								'</h3></a>' + authors + '</div>'
-								paperHtml +=
-									'<div class="separator"></div>'
-							}
-							else{
-								paperHtml =
-								'<div class="paper lastPaper">\
-									<a href="paper.html/' +
-								pdfLoc + '"><h3>' + title +
-								'</h3></a>' + authors + '</div>'
-							}
-							paperHtml += '</div>'
-                            finalPaperHtml += paperHtml;
-                            authors = '';
-                            var userHtml =
-                                '<div class="user">\
-         					<div class = "user">\
-         				<div class="userBox">\
-         				<h1 class="headerName">' +
-                                fullName +
-                                '</h1>\
-         			<div class="details">\
-         			<p class="school">' +
-                                school +
-                                '</p>\
-         			</div>\
-        			<div class="about" id="about">\
-         			<p class="grade">' +
-                                grade +
-                                'th Grade</p>\
-         			<p class="since">Joined on </p>\
-         			</div>\
-         			</div>\
-         			<div class="separator separator2" id="userPubSep"></div>\
-         			<div class="publications" id="publications">\
-         			<h1>Publications</h1>' +
-                                finalPaperHtml +
-                                '\
-         			</div>\
-         			</div>\
-         			</div>'
-                            $('.grid').html(userHtml);
-                        } //end ajax callback	
-                    }
-                }
-            });
-        }
-    });
-
-});
+		                        function appendPapersHtml() {
+									counter+=1;
+		                            pdfLoc = paperObj.pdf;
+		                            title = paperObj.title;
+		                            //begin add author code
+		                            $.each(paperObj, function(paperInfoName, paperInfo) { //loop through each piece of info in the paper
+		                                if (paperInfoName == 'authors') { //going into the authors
+		                                    //then it's authors
+		                                    authors += '<div class="authors">';
+		                                    for (var i = 0; i < paperInfo.length; i++) {
+		                                        if (!firstAuthor) {
+		                                            authors += ',&nbsp;&nbsp;';
+		                                        } else {
+		                                            firstAuthor = false;
+		                                        }
+		                                        //reverse search paperInfo[i]. Returned author object will be called subAuthorObj
+		                                        var subAuthorObj = {};
+		                                        var searchSubUser = {
+		       										"query": paperObj.authors[i],
+		        									"searchtype": "id"
+		    									};
+		                                        $.ajax({
+		                            				url: '/getUser',
+		                            				type: 'POST',
+		                            				contentType: 'application/json',
+		                            				data: JSON.stringify(searchUser),
+		                            				dataType: 'json',
+		                            				success: function(doc) {
+		                            					console.log(JSON.stringify(doc));
+		                                				subAuthorObj = doc;
+		                                				var fullName = subAuthorObj.firstname + ' ' + subAuthorObj.lastname;
+		                                       			var userId = subAuthorObj._id;
+		                                       			var pId = paperObj._id;
+		                                        		authors += '<a href="' + "user.html?id=" + userId + '">' + fullName + '</a>';
+		                                        		if (counter < infoLength) {
+															paperHtml = '<div class="paper">\
+																			<a href="paper.html?id=' + pId + '"><h3>' + title + '</h3></a>' + authors + '</div>'
+															paperHtml += '<div class="separator"></div>'
+														}
+														else {
+															paperHtml = '<div class="paper lastPaper">\
+																			<a href="paper.html?id=' + pId + '"><h3>' + title + '</h3></a>' + authors + '</div>'
+														}
+														paperHtml += '</div>'
+		                            					finalPaperHtml += paperHtml;
+		                            					authors = '';
+		                            					var userHtml = '<div class="user">\
+		         															<div class = "user">\
+		         																<div class="userBox">\
+		         																	<h1 class="headerName">' + fullName + '</h1>\
+		         																		<div class="details">\
+		         																			<p class="school">' + school + '</p>\
+		         																		</div>\
+		        																	<div class="about" id="about">\
+		         																	<p class="grade">' + grade + 'th Grade</p>\
+		         																	<p class="since">Joined on </p>\
+		         																</div>\
+		         															</div>\
+		         															<div class="separator separator2" id="userPubSep"></div>\
+		         															<div class="publications" id="publications">\
+		         															<h1>Publications</h1>' + finalPaperHtml + '\
+		         														</div>\
+		         													</div>\
+		         												</div>'
+		                            					$('.grid').html(userHtml);
+		                            				}
+		                            			});
+		                                    }; //end author loop
+		                                    firstAuthor = true;
+		                                } //end "if authors"//end add author code
+		                            });
+		                        } //end ajax callback	
+		                    }
+		                }
+		            });
+		        }
+		    });
+		});
       </script>
       <div class="navigation"></div>
       <div id="signInBox"></div>
-      <div class="grid">
-      </div>
+      <div class="grid"></div>
    </body>
 </html>

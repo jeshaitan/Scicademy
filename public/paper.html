@@ -22,139 +22,112 @@
 		$(document).ready(function() {
 			$.getScript('javascript/index-logic.js', function(jd){});
 			//var url = "projects/1/Aram_Baghdassarian_Paper.pdf"  
-			var paperHtml = '';
-			var title = '';
-			var date = '';
-			var school = '';
-			var authors = '';
-			var abstractText = '';
-			var pdfLoc = '';
-			var paperID = '';
-			var keywords = [];
-			firstAuthor=true;
-		
-			var data= {
-				"_id": {
-					"$oid": "55e07fc1a47680ca0a18d233"
-				},
-				"title": "music on memeory: not what you think!",
-				"authors": [
-					"sham"
-				],
-				"abstract": "blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg ",
-				"keywords": [
-					"dumb",
-					"music",
-					"on",
-					"memory",
-					"project",
-					""
-				],
-				"pdf": "Unit cells for the simulation of ice 1h.pdf"
+			var paperHtml = '',
+				title = '',
+				date = '',
+				school = '',
+				authors = '',
+				abstractText = '',
+				pdfLoc = '',
+				paperID = '',
+				keywords = [],
+				firstAuthor=true;
+			
+			var searchPaper = {
+				"query": (window.location.href).slice((window.location.href).indexOf('?id=') + 4),
+				"searchtype": "id"
 			}
-		
-		
-			$.each(data, function(infoName, info){ //loop through each piece of info in the paper
-				if(infoName =='authors'){ //going into the authors
-					//then it's authors
-					authors+='<div class="authors">';
-					for (var i = 0; i<info.length; i++){
-						if(!firstAuthor){
-							authors+=',&nbsp;&nbsp;';
-						}
-						else{
-							firstAuthor=false;
-						}
-						//reverse search info[i]. Returned author object will be called authorObj
-						var authorObj = {
-							"_id": {
-								"$oid": "55ddd5ed5780b30300c55786"
-							},
-							"email": "antranigcoolguy@gmail.com",
-							"password": "Klb1klb1",
-							"firstname": "Antranig",
-							"lastname": "Baghdassarian",
-							"school": "e.m.baker",
-							"grade": "9"
-						}
-						var fullName= authorObj.firstname + ' ' + authorObj.lastname;
-						var userId = authorObj._id.$oid;
-						var userPage = "user.html?id=" + userId;
-						authors += '<a href="' + userPage + '">' + fullName + '</a>';
-					}; //end author loop
-				}//end "if authors"
-				else{ //every piece of info but authors. too lazy to make it a case statement
-					if(infoName == 'title'){
-						title=info;
-					}
-					else if (infoName == 'abstract'){
-						abstractText=info;
-					}
-					else if (infoName == 'date'){
-						date=info;
-					}
-					else if (infoName == 'school'){
-						school=info;
-					}
-					else if (infoName == 'pdf'){
-						pdfLoc=info;
-					}
-					else if (infoName == '_id'){
-						paperID = info;
-					}
-					else if (infoName == 'keywords'){
-						for (var i = 0; i<info.length; i++){
-							keywords.push(info[i]);
-						} //end for
-					} //end if keywords
-				} //end else for everything but authors
-			}); //end loop through for each piece of info in paper		
-		
-		paperHtml='<div id="paperDiv">\
-					<div class="paperOptions">\
-						<div class="downloadPDF">\
-							<a href="'+pdfLoc+'"><img src="images/pdfIcon.png">Download the pdf</a>\
-						</div>\
-					</div>\
-					<div class="paperCol">\
-						<div class="paper">\
-							<h3>'+title+'</h3>'+authors+'</div>\
-							<div class="school">\
-								<p>'+school+'</p>\
-							</div>\
-							<div class="date">\
-								<p>'+date+'</p>\
-							</div>\
-							<div class="abstract">\
-								<span class="abstractHead">\
-									<h4 class="abstractHeadText">Abstract</h4>\
-								</span>\
-								<div class="abstractText">\
-									<p>'+abstractText+'</p>\
+
+			$.ajax({
+				url: '/getPaper',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(searchPaper),
+				dataType: 'json',
+				success: function(data) {
+					var pdata = data[0];
+					console.log(JSON.stringify(pdata));
+					$.each(data, function(infoName, info) { //loop through each piece of info in the paper
+						if(infoName =='authors'){ //going into the authors
+							//then it's authors
+							authors+='<div class="authors">';
+							for (var i = 0; i<info.length; i++){
+								if(!firstAuthor){
+									authors+=',&nbsp;&nbsp;';
+								}
+								else {
+									firstAuthor=false;
+								}
+								//reverse search info[i]. Returned author object will be called authorObj
+								var searchAuthor = {
+									"query": info[i],
+									"searchtype": "id"
+								}
+								console.log(info[i])
+								$.ajax({
+									url: '/getUser',
+									type: 'POST',
+									contentType: 'application/json',
+									data: JSON.stringify(searchAuthor),
+									dataType: 'json',
+									success: function(doc) {
+										console.log(JSON.stringify(doc));
+										var fullName= doc.firstname + ' ' + doc.lastname;
+										var userId = doc._id;
+										var userPage = "user.html?id=" + userId;
+										authors += '<a href="' + userPage + '">' + fullName + '</a>';
+									}
+								});
+							}; //end author loop
+						}//end "if authors"
+					}); //end loop through for each piece of info in paper		
+					paperHtml = '<div id="paperDiv">\
+							  		<div class="paperOptions">\
+										<div class="downloadPDF">\
+											<a href="'+pdata.pdf+'"><img src="images/pdfIcon.png">Download the pdf</a>\
+										</div>\
+									</div>\
+									<div class="paperCol">\
+										<div class="paper">\
+											<h3>'+pdata.title+'</h3>'+authors+'</div>\
+										<div class="school">\
+											<p>'+pdata.school+'</p>\
+										</div>\
+										<div class="date">\
+											<p>'+pdata.date+'</p>\
+										</div>\
+										<div class="abstract">\
+											<span class="abstractHead">\
+												<h4 class="abstractHeadText">Abstract</h4>\
+											</span>\
+											<div class="abstractText">\
+											<p>'+pdata.abstract+'</p>\
+										</div>\
+									</div>\
+									<div id="pdf-container">\
+									<embed src="'+data.pdf+'" width="98%" height="700" type="application/pdf">\
+								</div>\
+								<div class="posterPics">\
+									<p>Poster Pictures</p>\
+									<p class="caption">Screenshot of poster used at science fair (we will use a photo viewer plugin here)</p>\
 								</div>\
 							</div>\
-							<div id="pdf-container">\
-								<embed src="javascript/projects/1/'+pdfLoc+'" width="98%" height="700" type="application/pdf">\
-							</div>\
-							<div class="posterPics">\
-								<p>Poster Pictures</p>\
-								<p class="caption">Screenshot of poster used at science fair (we will use a photo viewer plugin here)</p>\
-							</div>\
 						</div>\
-					</div>\
-		</div>'
-		$('.grid').append(paperHtml);
+					</div>'
+					$('.grid').append(paperHtml);
+				}
+			});
 				
-		$('#editPaper').click(function(event){
-			event.preventDefault();
-			if (($(this).text() === "Edit Paper")){
-				$(this).text("Finished Editing");
-			}
-			else{
-				$(this).text("Edit Paper");
-			}
-		}); //end edit click
-	}); //end ready
+			$('#editPaper').click(function(event){
+				event.preventDefault();
+				if (($(this).text() === "Edit Paper")){
+					$(this).text("Finished Editing");
+				}
+				else {
+					$(this).text("Edit Paper");
+				}
+			}); //end edit click
+		}); //end ready
 	</script>
 </head>
 
@@ -165,47 +138,6 @@
 	
 	<div class="grid">
 		<a href='' id="editPaper">Edit Paper</a>
-<!-- 		<div id="paperDiv">
-					<div class="paperOptions">
-						<div class="downloadPDF">
-							<a href='projects/1/Aram_Baghdassarian_Paper.pdf'><img src="images/pdfIcon.png">Download the pdf</a>
-						</div>
-					</div>
-					
-					<div class="paperCol">
-						<div class="paper">
-							<h3>Title of paper</h3>
-							<div class="authors">
-								<a href="user.html">Baghdassarian A.</a>
-								,&nbsp;&nbsp;
-								<a href="user.html">Smith J.</a>
-							</div>
-							<div class="school">
-								<p>Great Neck South High School</p>
-							</div>
-							<div class="date">
-								<p>August 8, 2015</p>
-							</div>
-							<div class="abstract">
-								<span class="abstractHead">
-									<h4 class="abstractHeadText">Abstract</h4>
-								</span>
-								<div class="abstractText">
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra vitae tellus non mattis. Aenean varius tellus erat, ac elementum risus vulputate vel. Quisque laoreet est vel ex pulvinar rutrum. Maecenas in ornare mi. Etiam ut sollicitudin elit, sit amet auctor sapien. Duis a eleifend felis, sollicitudin egestas purus. Cras molestie sapien quis nisl faucibus tempus. Phasellus dignissim suscipit libero eget laoreet. Suspendisse eget est felis. Fusce sodales, arcu at lacinia semper, quam metus fringilla velit, eget hendrerit diam orci elementum dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec suscipit, elit non aliquet malesuada, augue sapien gravida quam, ac feugiat lorem turpis a turpis. Vestibulum erat ipsum, efficitur vel interdum fringilla, vulputate nec neque. Donec aliquet orci lorem, a commodo lectus tristique non.
-									</p>
-								</div>
-							</div>
-							<div id="pdf-container">
-								<embed src="javascript/projects/1/Aram_Baghdassarian_Paper.pdf" width="98%" height="700" type='application/pdf'>
-							</div>
-							<div class="posterPics">
-								<p>Poster Pictures</p>
-								<p class="caption">Screenshot of poster used at science fair (we'll use a photo viewer plugin here)</p>
-							</div>
-						</div>
-					</div>
-		</div> -->
 	</div>
 </body>
-</html>
+</html>	
