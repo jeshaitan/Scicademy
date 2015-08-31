@@ -318,7 +318,7 @@ function readSignInForm(form) {
 
 function readRegisterForm(form) {
 	console.log('read from register');
-	var firstName = $('#element_2_1').val(),
+	var firstname = $('#element_2_1').val(),
 	    lastname = $('#element_2_2').val(),
 	    is_highschool = $('#element_6_1').val(),
 	    is_undergrad = $('#element_6_2').val(),
