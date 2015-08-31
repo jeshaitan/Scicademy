@@ -1,10 +1,10 @@
 $(document).ready(function() {
-	var currentUser = localStorage.getItem("user");
+	var currentUser = JSON.parse(localStorage.getItem("user"));
 	$('.navigation').html(
 		'<ul id="navlist" class="sm sm-simple">\
   			<li><a href="index.html">Home</a></li>\
 			<li><a href="submit.html" id="submitLink">Submit Research</a></li>\
-			<li><a href="about.html">About</a></li>\
+			<li id="aboutli"><a href="about.html">About</a></li>\
 			<li><a href="" id="siso">Sign In or Register</a></li>\
 		</ul>'
 	);
@@ -102,6 +102,7 @@ $(document).ready(function() {
 	
 	if (currentUser != null) {
 		document.getElementById('siso').innerHTML = "Sign Out";
+		$('#aboutli').closest('li').after('<li><a href="user.html?id='+currentUser._id+'">'+currentUser.firstname+'</a></li>');
 	}
 	
 	$('#siso').click(function(event) {
