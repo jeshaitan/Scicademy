@@ -106,9 +106,9 @@
 		                            				contentType: 'application/json',
 		                            				data: JSON.stringify(searchUser),
 		                            				dataType: 'json',
-		                            				success: function(doc) {
-		                            					console.log(JSON.stringify(doc));
-		                                				subAuthorObj = doc;
+		                            				success: function(doc2) {
+		                            					console.log(JSON.stringify(doc2));
+		                                				subAuthorObj = doc2;
 		                                				var fullName = subAuthorObj.firstname + ' ' + subAuthorObj.lastname;
 		                                       			var userId = subAuthorObj._id;
 		                                       			var pId = paperObj._id;
@@ -134,7 +134,7 @@
 		         																		</div>\
 		        																	<div class="about" id="about">\
 		         																	<p class="grade">' + grade + 'th Grade</p>\
-		         																	<p class="since">Joined on </p>\
+		         																	<p class="since">Joined on '+ doc.datejoined +'</p>\
 		         																</div>\
 		         															</div>\
 		         															<div class="separator separator2" id="userPubSep"></div>\
