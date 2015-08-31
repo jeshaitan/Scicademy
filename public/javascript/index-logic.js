@@ -9,12 +9,10 @@ $(document).ready(function() {
 			<li><a href="" id="siso">Sign In or Register</a></li>\
 		</ul>'
 	);
-	var signInHtml = 		
-	'<table class="credentialsTable">\
-		<tr>';
+	var signInHtml = '';
 	var signInHtmlEnd = 
-	'		<td>\
-		<div id="registerFormDiv">\
+	'<div class="credentialsTable">\
+	<div id="registerFormDiv">\
 	<h4 class="signInHeader">Register</h4>\
 		<form id="form_1037235" class="appnitro"  method="post" action="">\
 				<ul >\
@@ -76,11 +74,7 @@ $(document).ready(function() {
 				</ul>\
 			</form>\
 			</div>\
-			</td>\
-			<td>\
 			<div class="verticalSeparator" id="separateSignIn"></div>\
-			</td>\
-			<td>\
 			<div id="signInFormDiv">\
 			<h4 class="signInHeader">Sign In</h4>\
 			<form id="signInForm" method="post" action="">\
@@ -97,8 +91,7 @@ $(document).ready(function() {
 			</div>\
 		</form>\
 		</div>\
-		</td>\
-			</table>';
+		</div>';
 	var currentLink = window.location.href;
 	if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)){
 		signInHtml = signInHtml + '<center><p style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="display: inline-block">Return to home page</a></center>' +signInHtmlEnd;
@@ -206,11 +199,11 @@ $(document).ready(function() {
 		$('head').append('<link href="css/view.css" rel="stylesheet">');	
 	}
 	
-	$('#separateSignIn').position({
-		my: "left top",
-		at: "right+337 top",
-		of: $("#registerFormDiv")
-	});
+	// $('#separateSignIn').position({
+		// my: "left top",
+		// at: "right+337 top",
+		// of: $("#registerFormDiv")
+	// });
 	
 	//start register javascript
 	$('#li_1').hide();
