@@ -95,7 +95,8 @@ app.post('/addPaper', function(request, response) {
 					  authors: request.body.authors,
 					  abstract: request.body.abstract,
 					  keywords: request.body.keywords,
-					  pdf: request.body.pdf}, function(err, record) {
+					  pdf: request.body.pdf,
+					  date: request.body.date}, function(err, record) {
 		if(err) {
 			console.log({error: 'error inserting new paper'});
 		}
