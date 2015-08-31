@@ -198,6 +198,12 @@ $(document).ready(function() {
 	if (headText.indexOf('view.css')<0){
 		$('head').append('<link href="css/view.css" rel="stylesheet">');	
 	}
+	if (headText.indexOf('fancybox.css')<0){
+		$('head').append('<link href="css/jquery.fancybox.css" rel="stylesheet">');	
+	}
+	if (headText.indexOf('jquery.fancybox.pack.js')<0){
+		$('head').append('<link href="javascript/jquery.fancybox.pack.js" rel="stylesheet">');	
+	}
 	
 	// $('#separateSignIn').position({
 		// my: "left top",
