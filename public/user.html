@@ -44,8 +44,7 @@
 		        contentType: 'application/json',
 		        data: JSON.stringify(searchUser),
 		        dataType: 'json',
-		        success: function(doc) {
-		            var authorObj = doc;
+		        success: function(authorObj) {
 		            var fullName = authorObj.firstname + ' ' + authorObj.lastname,
 		                email = authorObj.email,
 		                school = authorObj.school,
@@ -55,82 +54,65 @@
 		                paperHtml = '',
 		                finalPaperHtml = '',
 		                authors = '';
-						var counter = 0;
-						var infoLength = 9999;
-		            $.each(authorObj, function(infoName, info) {
-						infoLength = info.length;
-		                if (infoName == 'publications') {
-		                	console.log(infoLength);
-		                    if (infoLength == 0) {
-		                        finalPaperHtml = '<br /><p>This user has no publications.</p><br /><br />';
-		                    }
-		                    for (var i = 0; i < info.length; i++) { //loop through each of their publication ids
-		                        //reverse search info[i]. Returned paper object will be called paperObj
-		                        var searchPaper = {
-		                            "query": info[i],
-		                            "searchtype": "id"
-		                        }
-		                        $.ajax({
-		                            url: '/getPaper',
-		                            type: 'POST',
-		                            contentType: 'application/json',
-		                            data: JSON.stringify(searchPaper),
-		                            dataType: 'json',
-		                            success: function(cursor) {
-		                                appendPapersHtml(cursor[0]);
-		                            }
-		                        });
-
-		                        function appendPapersHtml(paperObj) {
-									counter+=1;
-		                            pdfLoc = paperObj.pdf;
-		                            title = paperObj.title;
-		                            //begin add author code
-		                            $.each(paperObj, function(paperInfoName, paperInfo) { //loop through each piece of info in the paper
-		                                if (paperInfoName == 'authors') { //going into the authors
-		                                    authors += '<div class="authors">';
-		                                    for (var i = 0; i < paperInfo.length; i++) {
-		                                        var subAuthorObj = {};
-		                                        var searchSubUser = {
-		       										"query": paperObj.authors[i],
-		        									"searchtype": "id"
-		    									}
-		                                        $.ajax({
-		                            				url: '/getUser',
-		                            				type: 'POST',
-		                            				contentType: 'application/json',
-		                            				data: JSON.stringify(searchUser),
-		                            				dataType: 'json',
-		                            				success: function(subAuthorObj) {
-		                                				var fullName = subAuthorObj.firstname + ' ' + subAuthorObj.lastname;
-		                                				console.log(fullName);
-		                                       			var userId = subAuthorObj._id;
-		                                       			var pId = paperObj._id;
-		                                       			title = paperObj.title;
-		                                        		authors += '<a href="' + "user.html?id=" + userId + '">' + fullName + '</a>';
-		                                        		if (counter < infoLength) {
-															paperHtml = '<div class="paper">\
-																			<a href="paper.html?id=' + pId + '"><h3>' + title + '</h3></a>' + authors + '</div>'
-															paperHtml += '<div class="separator"></div>'
-														}
-														else {
-															paperHtml = '<div class="paper lastPaper">\
-																			<a href="paper.html?id=' + pId + '"><h3>' + title + '</h3></a>' + authors + '</div>'
-														}
-														paperHtml += '</div>'
-		                            					finalPaperHtml += paperHtml;
-		                            					authors = '';
-		                            					$('#publications').html(finalPaperHtml);
-		                            				}
-		                            			});
-
-		                                    }// end author loop
-		                                } //end "if authors"//end add author code
-		                            });
-		                        } 	
-		                    }
-		                }
-		            });
+					var counter = 0;
+                    if (authorObj.publications == 0) {
+                        finalPaperHtml = '<br /><p>This user has no publications.</p><br /><br />';
+                    }
+                    for (var i = 0; i < authorObj.publications.length; i++) { 
+                        var searchPaper = {
+                            "query": authorObj.publications[i],
+                            "searchtype": "id"
+                        }
+                        $.ajax({
+                            url: '/getPaper',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(searchPaper),
+                            dataType: 'json',
+                            success: function(paperObj) {
+	                            paperObj = paperObj[0];
+	                            counter+=1;
+	                            pdfLoc = paperObj.pdf;
+	                            title = paperObj.title;
+	                            authors += '<div class="authors">';
+	                            for (var i = 0; i < paperObj.authors.length; i++) {
+	                                var searchSubUser = {
+										"query": paperObj.authors[i],
+										"searchtype": "id"
+									}
+	                                $.ajax({
+	                    				url: '/getUser',
+	                    				type: 'POST',
+	                    				contentType: 'application/json',
+	                    				data: JSON.stringify(searchUser),
+	                    				dataType: 'json',
+	                    				success: function(subAuthorObj) {
+	                    					console.log(subAuthorObj);
+	                        				var fullName = subAuthorObj.firstname + ' ' + subAuthorObj.lastname;
+	                        				console.log(fullName);
+	                               			var userId = subAuthorObj._id;
+	                               			var pId = paperObj._id;
+	                               			title = paperObj.title;
+	                                		authors += '<a href="' + "user.html?id=" + userId + '">' + fullName + '</a>';
+	                                		if (counter < authorObj.publications.length) {
+												paperHtml = '<div class="paper">\
+																<a href="paper.html?id=' + pId + '"><h3>' + title + '</h3></a>' + authors + '</div>'
+												paperHtml += '<div class="separator"></div>'
+											}
+											else {
+												paperHtml = '<div class="paper lastPaper">\
+																<a href="paper.html?id=' + pId + '"><h3>' + title + '</h3></a>' + authors + '</div>'
+											}
+											paperHtml += '</div>'
+	                    					finalPaperHtml += paperHtml;
+	                    					authors = '';
+	                    					$('#publications').html(finalPaperHtml);
+	                    				}
+	                    			});
+                            	}
+                            }
+                        });
+                	}
 					var userHtml = '<div class="user">\
 										<div class = "user">\
 											<div class="userBox">\
@@ -140,8 +122,8 @@
 														<p class="grade">' + grade + 'th Grade</p>\
 													</div>\
 												<div class="about" id="about">\
-														<p class="since">Joined on '+ doc.datejoined +'</p>\
-														<p class="id">User Id: ' + doc._id + '</p>\
+														<p class="since">Joined on '+ authorObj.datejoined +'</p>\
+														<p class="id">User Id: ' + authorObj._id + '</p>\
 													</div>\
 												</div>\
 												<div class="separator separator2" id="userPubSep"></div>\
