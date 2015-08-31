@@ -30,7 +30,10 @@
 		$(document).ready(function() {
 		    var url = window.location.href;
 		    var userId = url.slice(url.indexOf('?id=') + 4);
-		    console.log(userId)
+		    if(url.indexOf('?id=') < 0) {
+		    	$('.grid').html('<br /><p><center>No user id specified.</center></p><br />');
+		    	return false;
+		    }
 		    var firstAuthor = true;
 		    var searchUser = {
 		        "query": userId,
@@ -59,7 +62,10 @@
 		            $.each(authorObj, function(infoName, info) {
 						infoLength = info.length;
 		                if (infoName == 'publications') {
-		                    for (var i = 0; i < info.length; i++) { //loop through each of their publications
+		                    if (info.length == 0) {
+		                        finalPaperHtml = '<br /><p>This user has no publications.</p><br /><br />';
+		                    }
+		                    for (var i = 0; i < info.length; i++) { //loop through each of their publication ids
 		                        //reverse search info[i]. Returned paper object will be called paperObj
 		                        var searchPaper = {
 		                            "query": info[i],
@@ -73,10 +79,8 @@
 		                            dataType: 'json',
 		                            success: function(cursor) {
 		                                paperObj = cursor[0];
-		                                console.log(JSON.stringify(
-		                                    cursor[0]));
 		                                appendPapersHtml();
-		                            }
+		                            },
 		                        });
 
 		                        function appendPapersHtml() {
@@ -107,7 +111,6 @@
 		                            				data: JSON.stringify(searchUser),
 		                            				dataType: 'json',
 		                            				success: function(doc2) {
-		                            					console.log(JSON.stringify(doc2));
 		                                				subAuthorObj = doc2;
 		                                				var fullName = subAuthorObj.firstname + ' ' + subAuthorObj.lastname;
 		                                       			var userId = subAuthorObj._id;
@@ -125,35 +128,41 @@
 														paperHtml += '</div>'
 		                            					finalPaperHtml += paperHtml;
 		                            					authors = '';
-		                            					var userHtml = '<div class="user">\
-		         															<div class = "user">\
-		         																<div class="userBox">\
-		         																	<h1 class="headerName">' + fullName + '</h1>\
-		         																		<div class="details">\
-		         																			<p class="school">' + school + '</p>\
-		         																		</div>\
-		        																	<div class="about" id="about">\
-		         																	<p class="grade">' + grade + 'th Grade</p>\
-		         																	<p class="since">Joined on '+ doc.datejoined +'</p>\
-		         																</div>\
-		         															</div>\
-		         															<div class="separator separator2" id="userPubSep"></div>\
-		         															<div class="publications" id="publications">\
-		         															<h1>Publications</h1>' + finalPaperHtml + '\
-		         														</div>\
-		         													</div>\
-		         												</div>'
-		                            					$('.grid').html(userHtml);
 		                            				}
 		                            			});
-		                                    }; //end author loop
+
+		                                    }// end author loop
 		                                    firstAuthor = true;
 		                                } //end "if authors"//end add author code
 		                            });
 		                        } //end ajax callback	
 		                    }
 		                }
+		                var userHtml = '<div class="user">\
+											<div class = "user">\
+												<div class="userBox">\
+													<h1 class="headerName">' + fullName + '</h1>\
+														<div class="details">\
+															<p class="school">' + school + '</p>\
+															<p class="grade">' + grade + 'th Grade</p>\
+														</div>\
+													<div class="about" id="about">\
+															<p class="since">Joined on '+ doc.datejoined +'</p>\
+															<p class="id">User Id: ' + doc._id + '</p>\
+														</div>\
+													</div>\
+													<div class="separator separator2" id="userPubSep"></div>\
+													<div class="publications" id="publications">\
+														<h1>Publications</h1>' + finalPaperHtml + '\
+													</div>\
+												</div>\
+											</div>'
+						$('.grid').html(userHtml);
 		            });
+		        },
+		        error: function(jqXHR, textStatus) {
+		        	$('.grid').html('<br /><p><center>Sorry, no user is found with the User Id: '+ searchUser.query + '.</center></p><br />')
+		        	return false;
 		        }
 		    });
 		});

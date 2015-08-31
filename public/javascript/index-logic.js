@@ -395,7 +395,6 @@ function readSubmitPaperForm() {
 			"date": today
 		}
 		addPaper(paperdata);
-		console.log(JSON.stringify(paperdata));
 }
 
 function readSubmitPosterForm() {

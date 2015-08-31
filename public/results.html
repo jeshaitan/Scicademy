@@ -51,7 +51,7 @@
          		"query": queryString,
          		"searchtype": searchType
          	}
-   /*      
+     
          	$.ajax({
          		url: '/getPaper',
          		type: 'POST',
@@ -59,30 +59,9 @@
          		data: JSON.stringify(searchPaper),
          		dataType: 'json',
          		success: addPapers
-         	}); */
+         	}); 
          
-         	<!-- function addPapers(data) { -->
-			var data={
-		"paper1":{
-		"_id": {
-			"$oid": "55e07fc1a47680ca0a18d233"
-		},
-		"title": "music on memeory: not what you think!",
-		"authors": [
-			"sham"
-		],
-		"abstract": "blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg blah blorg ",
-		"keywords": [
-			"dumb",
-			"music",
-			"on",
-			"memory",
-			"project",
-			""
-		],
-		"pdf": "Unit cells for the simulation of ice 1h.pdf"
-	}
-}
+         	function addPapers(data) {
          		console.log("adding data")
          		var title='',
          			authors='',
