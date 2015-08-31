@@ -55,14 +55,14 @@
 		                title = '',
 		                paperHtml = '',
 		                finalPaperHtml = '',
-		                authors = '',
-		                paperObj = {};
+		                authors = '';
 						var counter = 0;
 						var infoLength = 9999;
 		            $.each(authorObj, function(infoName, info) {
 						infoLength = info.length;
 		                if (infoName == 'publications') {
-		                    if (info.length == 0) {
+		                	console.log(infoLength);
+		                    if (infoLength == 0) {
 		                        finalPaperHtml = '<br /><p>This user has no publications.</p><br /><br />';
 		                    }
 		                    for (var i = 0; i < info.length; i++) { //loop through each of their publication ids
@@ -78,12 +78,11 @@
 		                            data: JSON.stringify(searchPaper),
 		                            dataType: 'json',
 		                            success: function(cursor) {
-		                                paperObj = cursor[0];
-		                                appendPapersHtml();
-		                            },
+		                                appendPapersHtml(cursor[0]);
+		                            }
 		                        });
 
-		                        function appendPapersHtml() {
+		                        function appendPapersHtml(paperObj) {
 									counter+=1;
 		                            pdfLoc = paperObj.pdf;
 		                            title = paperObj.title;
@@ -115,6 +114,7 @@
 		                                				var fullName = subAuthorObj.firstname + ' ' + subAuthorObj.lastname;
 		                                       			var userId = subAuthorObj._id;
 		                                       			var pId = paperObj._id;
+		                                       			title = paperObj.title;
 		                                        		authors += '<a href="' + "user.html?id=" + userId + '">' + fullName + '</a>';
 		                                        		if (counter < infoLength) {
 															paperHtml = '<div class="paper">\
@@ -128,6 +128,7 @@
 														paperHtml += '</div>'
 		                            					finalPaperHtml += paperHtml;
 		                            					authors = '';
+		                            					$('#publications').html(finalPaperHtml);
 		                            				}
 		                            			});
 
@@ -135,30 +136,30 @@
 		                                    firstAuthor = true;
 		                                } //end "if authors"//end add author code
 		                            });
-		                        } //end ajax callback	
+		                        } 	
 		                    }
 		                }
-		                var userHtml = '<div class="user">\
-											<div class = "user">\
-												<div class="userBox">\
-													<h1 class="headerName">' + fullName + '</h1>\
-														<div class="details">\
-															<p class="school">' + school + '</p>\
-															<p class="grade">' + grade + 'th Grade</p>\
-														</div>\
-													<div class="about" id="about">\
-															<p class="since">Joined on '+ doc.datejoined +'</p>\
-															<p class="id">User Id: ' + doc._id + '</p>\
-														</div>\
+		            });
+					var userHtml = '<div class="user">\
+										<div class = "user">\
+											<div class="userBox">\
+												<h1 class="headerName">' + fullName + '</h1>\
+													<div class="details">\
+														<p class="school">' + school + '</p>\
+														<p class="grade">' + grade + 'th Grade</p>\
 													</div>\
-													<div class="separator separator2" id="userPubSep"></div>\
-													<div class="publications" id="publications">\
-														<h1>Publications</h1>' + finalPaperHtml + '\
+												<div class="about" id="about">\
+														<p class="since">Joined on '+ doc.datejoined +'</p>\
+														<p class="id">User Id: ' + doc._id + '</p>\
 													</div>\
 												</div>\
-											</div>'
-						$('.grid').html(userHtml);
-		            });
+												<div class="separator separator2" id="userPubSep"></div>\
+												<div class="publications" id="publications">\
+													<h1>Publications</h1>\
+												</div>\
+											</div>\
+										</div>'
+					$('.grid').html(userHtml);
 		        },
 		        error: function(jqXHR, textStatus) {
 		        	$('.grid').html('<br /><p><center>Sorry, no user is found with the User Id: '+ searchUser.query + '.</center></p><br />')

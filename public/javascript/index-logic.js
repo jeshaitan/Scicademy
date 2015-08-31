@@ -3,8 +3,7 @@ $(document).ready(function() {
 	$('.navigation').html(
 		'<ul id="navlist" class="sm sm-simple">\
   			<li><a href="index.html">Home</a></li>\
-			<li><a href="submit.html" id="submitLink">Submit Paper</a></li>\
-			<li><a href="poster.html">Submit Poster</a></li>\
+			<li><a href="submit.html" id="submitLink">Submit Research</a></li>\
 			<li><a href="about.html">About</a></li>\
 			<li><a href="" id="siso">Sign In or Register</a></li>\
 		</ul>'
@@ -354,7 +353,7 @@ function readRegisterForm(form) {
 	today = mm+'/'+dd+'/'+yyyy;
 
 	var newuser = {"fnm": firstname, "lnm": lastname, "grd": grade,
-				   "shl": school, "eml": email, "pwd": password, 
+				   "shl": school, "eml": email, "pwd": password, "pub": [],
 				   "dte": today};
 	addUser(newuser);
 }
@@ -397,36 +396,6 @@ function readSubmitPaperForm() {
 		addPaper(paperdata);
 }
 
-function readSubmitPosterForm() {
-	console.log("reading submit poster form");
-	var title = $('#title').val(),
-		captions = [$('#caption').val()],
-		abstract = $('#element_2').val(),
-	    authorsid = [$('#element_4_1').val()],
-	    images = [$('#element_3').val()];
-
-	for(var i = 0; i < $('.spawnedCaption').length; i++) {
-		captions.push($('.spawnedCaption')[i].value);
-	}
-
-	for(var i = 0; i < $('.spawnId').length; i++) {
-		authorsid.push($('.spawnId')[i].value);
-	}
-
-	for(var i = 0; i < $('.spawnedBrowse').length; i++) {
-		images.push($('.spawnedBrowse')[i].value);
-	}
-
-	var posterdata = {
-		"title": title,
-		"captions": captions,
-		"authors": authorsid,
-		"abstract": abstract,
-		"images": images
-	}
-	addPoster(posterdata);
-	console.log(JSON.stringify(posterdata));
-}
 
 function addUser(newuser) {
 	console.log("submitting new user to node server");

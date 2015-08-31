@@ -78,6 +78,7 @@ app.post('/addUser', function(request, response) {
 					  lastname: request.body.lnm,
 					  school: request.body.shl,
 					  grade: request.body.grd,
+					  publications: request.body.pub,
 					  datejoined: request.body.dte}, function(err, record) {
 		if(err) {
 			console.log({error: 'error inserting new user'});
@@ -102,26 +103,33 @@ app.post('/addPaper', function(request, response) {
 		}
 		else {
 			console.log("inserted new paper");
-			response.send(record);
-		}
-	});
-});
+			db.Papers.findOne({abstract: request.body.abstract}, function(err, doc) {
+				if(err) {
+					console.log("error finding self abstract in Papers");
+				}
+				else {
+					console.log("found self")
+					var authorsIdStrings = doc.authors,
+						authorsOId = [];
+					for(var i = 0; i < authorsIdStrings.length; i++) {
+						authorsOId.push(ObjectID(authorsIdStrings[i]));
+					}
 
-app.post('/addPoster', function(request, response) {
-	console.log(request.body);
-	db.Posters.insert({title: request.body.title,
-					   captions: request.body.captions,
-					   authors: request.body.authors,
-					   abstract: request.body.abstract,
-					   images: request.body.images}, function(err, record) {
-		if(err) {
-			console.log({error: 'error inserting new poster'});
-		}
-		else {
-			console.log("inserted new poster");
+					db.Users.update({_id: {$in: authorsOId}}, {$push: {publications: (""+doc._id)}}, {multi:true}, function(err, result) {
+						if(err) {
+							console.log("error updating authors");
+						}
+						else {
+							console.log(JSON.stringify(doc.authors));
+							console.log("added publication data to all authors: " + JSON.stringify(result));
+						}
+					});
+				}
+			});
 			response.send(record);
 		}
 	});
+
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
