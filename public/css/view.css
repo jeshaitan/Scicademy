@@ -7,6 +7,10 @@
 	background-color: #F7F7F7; 
 }
 
+.credentialsTable td{
+	position: static;
+}
+
 td{
 	position:relative;
 }
@@ -14,16 +18,26 @@ td{
 #signInFormDiv, #registerFormDiv{
 	position: absolute;
 	top: 10px;
+	width: 283px;
+}
+
+#registerFormDiv{
+	left: 7.5%; 
 }
 
 #signInFormDiv{
-	left:300px;
-	margin-left: 100px;
+	right: 4.5%;
+}
+
+#separateSignIn{
+	position: absolute;
+	right: 50%;
+}
+.credentialsTable{
 }
 
 .verticalSeparator {
-	height: 600px;
-	left: 350;
+	height: 100%;
 }
 
 #email{
@@ -49,10 +63,10 @@ div.curFocus {
 }
 
 #registerFormDiv h4{
-	margin-left: 30px;
+	margin-left: 11px;
 }
 
-table.credentialsTable form input[type=text], table.credentialsTable form input[type=password], table.credentialsTable form textarea{
+.credentialsTable form input[type=text], .credentialsTable form input[type=password], .credentialsTable form textarea{
 /*   -webkit-transition: all 0.30s ease-in-out !important;
   -moz-transition: all 0.30s ease-in-out !important;
   -ms-transition: all 0.30s ease-in-out !important;
@@ -65,7 +79,7 @@ table.credentialsTable form input[type=text], table.credentialsTable form input[
 	font-size: small !important;
 }
  
-table.credentialsTable form input[type=text]:focus,  table.credentialsTable form input[type=password]:focus, table.credentialsTable form textarea:focus {
+.credentialsTable form input[type=text]:focus,  .credentialsTable form input[type=password]:focus, .credentialsTable form textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
@@ -91,7 +105,7 @@ table.credentialsTable form input[type=text]:focus,  table.credentialsTable form
 
 /* .required:after { content:" *"; color:red; } */
 
-table.credentialsTable input{
+.credentialsTable input{
 	line-height: 20px;
 	background-image: none;
 	border: 1px solid #CCC;
@@ -105,7 +119,7 @@ div.curFocus {
 	background: #fdecb2;
 }
 
-/*   table.credentialsTable input[type=text], table.credentialsTable input[type=password], table.credentialsTable textarea {
+/*   .credentialsTable input[type=text], .credentialsTable input[type=password], .credentialsTable textarea {
   -webkit-transition: all 0.30s ease-in-out 0s;
   -moz-transition: all 0.30s ease-in-out 0s;
   -ms-transition: all 0.30s ease-in-out 0s;
@@ -116,7 +130,7 @@ div.curFocus {
   border: 1px solid #DDDDDD;
 } */
 
-table.credentialsTable input[type="text"], table.credentialsTable input[type="password"], table.credentialsTable textarea {
+.credentialsTable input[type="text"], .credentialsTable input[type="password"], .credentialsTable textarea {
     border: 1px solid #dddddd !important;
     margin: 5px 1px 3px 0;
     outline: medium none !important;
@@ -124,7 +138,7 @@ table.credentialsTable input[type="text"], table.credentialsTable input[type="pa
     transition: all .5s ease-in-out .01s !important;
 }
  
-table.credentialsTable input[type=text]:focus,  table.credentialsTable input[type=password]:focus, table.credentialsTable textarea:focus {
+.credentialsTable input[type=text]:focus,  .credentialsTable input[type=password]:focus, .credentialsTable textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
@@ -203,6 +217,11 @@ form.appnitro
 {
 	margin:20px 20px 0;
 	padding:0 0 20px;
+}
+
+.credentialsTable form.appnitro{
+	margin:0px;
+	padding:0px;
 }
 
 /**** Logo Section  *****/
@@ -615,7 +634,7 @@ textarea.large
 }
 
 /**** Errors ****/
-table.credentialsTable label.error {
+.credentialsTable label.error {
 	font-size: 0.8 em;
 	color: #F00;
 	font-weight: bold;
@@ -623,7 +642,7 @@ table.credentialsTable label.error {
 
 }
 
-table.credentialsTable input.error, table.credentialsTable select.error textarea.error{
+.credentialsTable input.error, .credentialsTable select.error textarea.error{
 	border: 1px solid red !important;
 }
 
