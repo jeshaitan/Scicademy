@@ -4,7 +4,7 @@
     overflow: hidden;
     text-align: left;
     width: 100% !important;
-	background-color: #F7F7F7; 
+	background-color: #F7F7F7;
 }
 
 .credentialsTable td{
@@ -22,16 +22,19 @@ td{
 }
 
 #registerFormDiv{
-	left: 7.5%; 
+	left: 7.5%;
+	margin-top: 25px;
 }
 
 #signInFormDiv{
 	right: 4.5%;
+	margin-top: 25px;
 }
 
 #separateSignIn{
 	position: absolute;
 	right: 50%;
+	margin-top: 70px;
 }
 .credentialsTable{
 }
@@ -51,7 +54,7 @@ td{
 #signInButton{
 	margin-top: 19px;
 }
-	
+
 form input[type=submit]{
 	cursor:pointer;
 	font-size: small !important;
@@ -78,7 +81,7 @@ div.curFocus {
 	width: 214px !important;
 	font-size: small !important;
 }
- 
+
 .credentialsTable form input[type=text]:focus,  .credentialsTable form input[type=password]:focus, .credentialsTable form textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
   padding: 3px 0px 3px 3px;
@@ -137,7 +140,7 @@ div.curFocus {
     padding: 3px 0 3px 3px;
     transition: all .5s ease-in-out .01s !important;
 }
- 
+
 .credentialsTable input[type=text]:focus,  .credentialsTable input[type=password]:focus, .credentialsTable textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
   padding: 3px 0px 3px 3px;
@@ -163,10 +166,16 @@ div.curFocus {
 }
 
 
+#abouttext{
+    margin-left:20%;
+    margin-right:20%;
+		display: inline-block;
+}
+
 body
 {
-	
-/*	background: #FFFFFF;     
+
+/*	background: #FFFFFF;
 	font-family:Ubuntu, "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	font-size:small;
 	margin:8px 0 16px; */
@@ -232,12 +241,12 @@ h1
 	padding:0;
 	text-decoration:none;
 	/*text-indent:-8000px;*/
-	
+
 }
 
 h1 a
 {
-	
+
 	display:block;
 	height:100%;
 	min-height:40px;
@@ -695,7 +704,7 @@ form li:hover .guidelines
 }
 
 /*** Success Message ****/
-.form_success 
+.form_success
 {
 	clear: both;
 	margin: 0;

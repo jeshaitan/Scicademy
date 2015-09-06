@@ -3,7 +3,7 @@ p {
 }
 
 #logo {
-	
+
 	width:304px;
 	height:228px;
 	margin: 0 auto;
@@ -19,9 +19,10 @@ p {
 	height:50px;
 }
 
-#abouttext{
-    margin-left:20%;
-    margin-right:20%;
+#alerttext{
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	display: inline-block;
 }
 
 #contacttext {
@@ -37,13 +38,13 @@ body {
 
 
 .separator {
-	height: 1px; 
-	background: #92948E; 
+	height: 1px;
+	background: #92948E;
 	overflow: hidden;
 }
 
 .verticalSeparator {
-	width: 1px; 
-	background: #92948E; 
+	width: 1px;
+	background: #92948E;
 	overflow: hidden;
 }
