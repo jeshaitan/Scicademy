@@ -18,7 +18,7 @@ var db = mongojs(uri, ["Papers", "Users", "Posters"]);
 
 app.post('/getUser', function(request, response) {
     var searchObj = {};
-		console.log(request);
+		//console.log(request);
     if(request.body.searchtype == "id") {
     	searchObj = {"_id" : ObjectID(request.body.query)};
     }
@@ -36,7 +36,7 @@ app.post('/getUser', function(request, response) {
         	else {
         			console.log("sent user to front end: " + JSON.stringify(doc));
             	response.send(doc);
-            }
+          }
     });
 });
 
@@ -65,7 +65,6 @@ app.post('/getPaper', function(request, response) {
 			console.log({error: "error finding paper!"});
 		}
 		else {
-			console.log(curs);
 			response.send(curs);
 		}
 	});

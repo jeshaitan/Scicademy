@@ -33,20 +33,27 @@
          		  of: "#dates h6"
          	});	//end position
          	var url= window.location.href;
-         	var queryString=url.slice(url.indexOf('?query=')+7); //entire query stuff, after the results.html path
-         	var queryNum=url.slice(url.indexOf('?query=')+7); //just the number for the query variable
-         	var resultNum=queryString.indexOf('result=');
-         	var tempResult; //indicates upperBound. return papers 1-20. If the number was 40, the program would return papers 21-40.
+         	var queryString=url.slice(url.indexOf('query=')+6);
          	queryString = decodeURI(queryString);
-         	if(resultNum == -1) {
-         		tempResult = 20;
-         	}
-         	else{
-         		var resultString = queryString.slice(queryString.indexOf('result='));
-         		tempResult = resultString.slice(7);
-         	}
-         	searchType = $("input[name=searchTypeOptions]:checked").val();
-         	console.log(searchType + ", " + queryString);
+         	var searchType = url.charAt(url.indexOf('type=')+5);
+          console.log(searchType + ", " + queryString);
+          switch(searchType) {
+            case 1:
+              searchType = "All";
+              break;
+            case 2:
+              searchType = "Title";
+              break;
+            case 3:
+              searchType = "Keywords";
+              break;
+            case 4:
+              searchType = "Author";
+              break;
+            default:
+              searchType = "All";
+          }
+          console.log(searchType + ", " + queryString);
          	var searchPaper = {
          		"query": queryString,
          		"searchtype": searchType
@@ -74,8 +81,8 @@
 					if(infoName =='authors') { //going into the authors
 						//then it's authors
 						for (var i = 0; i<info.length; i++) {
-              console.log(info[i]);
 							//reverse search info[i]. Returned author object will be called authorObj
+              console.log("info" + info[i]);
               var authorreq = {
                 "query": info[i],
                 "searchType": "id"
@@ -100,7 +107,6 @@
 					} //end author if
 					else{ //every piece of info but authors
 						if(infoName == 'title'){
-							console.log(title);
 							title=info;
 						}
 						else if (infoName == 'abstract'){
@@ -154,10 +160,10 @@
             <div class="searchBy">
                <h4>Search In:</h4>
                <div id="searchOptions">
-                  <input type="radio" name="searchTypeOptions" value="All" id="allfields" class="searchBy" checked="checked">All Fields</input><br>
+                  <input type="radio" name="searchTypeOptions" value="All" class="searchBy" checked="checked">All Fields</input><br>
                   <input type="radio" name="searchTypeOptions" value="Title" class="searchBy">Title</input><br>
                   <input type="radio" name="searchTypeOptions" value="Keywords" class="searchBy">Keywords</input><br>
-                  <input type="radio" name="searchTypeOptions" value="Author" id="authors" class="searchBy">Authors</input>
+                  <input type="radio" name="searchTypeOptions" value="Author" class="searchBy">Authors</input>
                </div>
             </div>
             <div class="sortBy">

@@ -143,13 +143,31 @@ $(document).ready(function() {
 		event.preventDefault();
 		$('#signInBox').dialog('open');
 		$('#email').focus();
-
 	});
 
 	$(document).on("click", ".searchBoxSubmit", function(event){
 		event.preventDefault();
 		query=$('#searchBox').val();
-		window.location.href = "results.html?query="+query;
+		var searchType = $("input[name=searchTypeOptions]:checked").val();
+		console.log(searchType);
+		switch(searchType) {
+			case "All":
+				var type = 1;
+				break;
+			case "Title":
+				var type = 2;
+				break;
+			case "Keywords":
+				var type = 3;
+				break;
+			case "Author":
+				var type = 4;
+			  break;
+			default:
+				var type = 1;
+		}
+		console.log(type + "TYPE!")
+		window.location.href = "results.html?type="+type+"query="+query;
 	});
 
 	$('#signInForm').submit(function(event) {
