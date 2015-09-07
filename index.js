@@ -1,11 +1,11 @@
 var http = require("http"),
-	mongojs = require("mongojs"),
-	express = require('express'),
-  	cors = require('cors'),
-	fs = require("fs"),
+		mongojs = require("mongojs"),
+		express = require('express'),
+		cors = require('cors'),
+		fs = require("fs"),
   	path = require('path'),
-	url = require("url"),
-	bodyParser = require('body-parser'),
+		url = require("url"),
+		bodyParser = require('body-parser'),
   	port = process.env.PORT || 8888,
   	ObjectID = require('mongodb').ObjectID;
 
@@ -48,7 +48,7 @@ app.post('/getPaper', function(request, response) {
 							   {authors: request.body.query}]};
 	}
 	else if(request.body.searchtype == "Title") {
-		searchObject = {title: request.body.query};	
+		searchObject = {title: request.body.query};
 	}
 	else if(request.body.searchtype == "Keywords") {
 		searchObject = {keywords: request.body.query};

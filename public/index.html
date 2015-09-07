@@ -1,47 +1,49 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>Aliro</title>
-	<link rel= "SHORTCUT ICON" href="images/lambda_16x16.png" />
-	<link href="css/jquery-ui.min.css" rel="stylesheet">
-	<link href="css/view.css" rel="stylesheet">
-	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
-	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
-	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
-	<link href="css/searchBox.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<!--<script src="libs/jquery-1.11.3.min.js"></script>-->
-	<script src="libs/jquery-ui.min.js"></script>
-	<script src="libs/jquery.validate.min.js" type="text/javascript"></script>
-	<script src="javascript/view.js" type="text/javascript"></script>
-	<script src="libs/jquery.smartmenus.min.js"></script>
-	<script type="text/javascript" src="javascript/searchBox.js"></script>
+  <meta charset="UTF-8">
+  <title>Aliro</title>
+  <link rel="SHORTCUT ICON" href="images/lambda_16x16.png" />
+  <link href="css/jquery-ui.min.css" rel="stylesheet">
+  <link href="css/view.css" rel="stylesheet">
+  <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
+  <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
+  <link href="css/pageStyle.css" rel="stylesheet" type="text/css">
+  <link href="css/searchBox.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!--<script src="libs/jquery-1.11.3.min.js"></script>-->
+  <script src="libs/jquery-ui.min.js"></script>
+  <script src="libs/jquery.validate.min.js" type="text/javascript"></script>
+  <script src="javascript/view.js" type="text/javascript"></script>
+  <script src="libs/jquery.smartmenus.min.js"></script>
+  <script type="text/javascript" src="javascript/searchBox.js"></script>
 
 </head>
 
 <body>
-	<div id="backgroundPic"></div>
-	<script type="text/javascript"> 
-		var currentUser = null;
-		$(document).ready(function(){
-			$.getScript('javascript/index-logic.js', function(jd){}); //end ready
-		});
-	</script>
-	<div class="navigation"></div>
-	<div id="signInBox"></div>
-	<div id="logo">
-		<img src="images/logo.png" id="compImage">
-	</div>
-	<!-- Search box form -->
-	<div class="searchBoxDiv" id="search-form">
-		<form class="form-container searchForm" action="">
-			<input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048"  />
-			<div class="submit-container">
-				<input type="submit" value="" class="submit searchBoxSubmit" />
-			</div>
-		</form>
-	</div>
+  <div id="backgroundPic"></div>
+  <script type="text/javascript">
+    var currentUser = null;
+    $(document).ready(function() {
+      $.getScript('javascript/index-logic.js', function(jd) {}); //end ready
+    });
+  </script>
+  <div class="navigation"></div>
+  <div id="signInBox"></div>
+  <div id="logo">
+    <img src="images/logo.png" id="compImage">
+  </div>
+  <!-- Search box form -->
+  <div class="searchBoxDiv" id="search-form">
+    <form class="form-container searchForm" action="">
+      <input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048" />
+      <div class="submit-container">
+        <input type="submit" value="" class="submit searchBoxSubmit" />
+      </div>
+    </form>
+  </div>
 </body>
+
 </html>

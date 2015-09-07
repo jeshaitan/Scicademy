@@ -9,7 +9,7 @@ $(document).ready(function() {
 		</ul>'
 	);
 	var signInHtml = '';
-	var signInHtmlEnd = 
+	var signInHtmlEnd =
 	'<div class="credentialsTable">\
 	<div id="registerFormDiv">\
 	<h4 class="signInHeader">Register</h4>\
@@ -93,18 +93,18 @@ $(document).ready(function() {
 		</div>';
 	var currentLink = window.location.href;
 	if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)){
-		signInHtml = signInHtml + '<center><p style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="display: inline-block">Return to home page</a></center>' +signInHtmlEnd;
+		signInHtml = signInHtml + '<center><div id="alerttext"><p id="alerttext" style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html">Return to home page</a></div></center>' +signInHtmlEnd;
 	}
 	else{
 		signInHtml += signInHtmlEnd;
 	}
 	$('#signInBox').html(signInHtml);
-	
+
 	if (currentUser != null) {
 		document.getElementById('siso').innerHTML = "Sign Out";
 		$('#aboutli').closest('li').after('<li><a href="user.html?id='+currentUser._id+'">'+currentUser.firstname+'</a></li>');
 	}
-	
+
 	$('#siso').click(function(event) {
 		event.preventDefault();
 		if(currentUser == null) {
@@ -116,7 +116,7 @@ $(document).ready(function() {
 			location.reload();
 		}
 	});
-	
+
 	$('[title]').tooltip();
 	$('.sm').smartmenus( {
 		showFunction: function($ul, complete) {
@@ -125,7 +125,7 @@ $(document).ready(function() {
 		hideFunction: function($ul, complete) {
 			$ul.slideUp(250, complete);
 		}
-	}); 
+	});
 	var papers=['The Effect of Music on Memory', 'Music on Time Perception', 'Productivity and Music', 'Not What You Think: Music and Memory', 'Cosmic Radiation and Ice: The Space Miracle'];
 	$('#searchBox').autocomplete({source:papers});
 
@@ -135,7 +135,7 @@ $(document).ready(function() {
 		minWidth: 800,
 		minHeight: 650,
 		autoOpen: false,
-		show: 'fade', 
+		show: 'fade',
 		hide: 'drop'
 	}); //end dialog
 
@@ -143,18 +143,18 @@ $(document).ready(function() {
 		event.preventDefault();
 		$('#signInBox').dialog('open');
 		$('#email').focus();
-		
+
 	});
-	
+
 	$(document).on("click", ".searchBoxSubmit", function(event){
 		event.preventDefault();
 		query=$('#searchBox').val();
 		window.location.href = "results.html?query="+query;
 	});
-	
+
 	$('#signInForm').submit(function(event) {
 		event.preventDefault();
-		event.stopImmediatePropagation();		
+		event.stopImmediatePropagation();
 		readSignInForm($('#signInForm'));
 		$('#signinBox').dialog('close');
 	});
@@ -170,7 +170,7 @@ $(document).ready(function() {
 		event.stopImmediatePropagation();
 		console.log("reading from poster form m9");
 		readSubmitPosterForm();
-	});	
+	});
 
 	$('#form_1037235').submit(function(event) {
 		event.preventDefault();
@@ -180,37 +180,37 @@ $(document).ready(function() {
 	});
 
 	$('#signInButton').button();
-	
+
 	//add in missing files for sign in
 	var headText= $('head').html();
 	if (headText.indexOf('href="css/searchBox.css"')<0){
-		$('head').append('<link rel="stylesheet" href="css/searchBox.css" type="text/css" />');	
+		$('head').append('<link rel="stylesheet" href="css/searchBox.css" type="text/css" />');
 	}
-	
+
 	if (headText.indexOf('jquery.validate.min.js')<0){
-		$('head').append('<script src="libs/jquery.validate.min.js" type="text/javascript"></script>');	
+		$('head').append('<script src="libs/jquery.validate.min.js" type="text/javascript"></script>');
 	}
-	
+
 	if (headText.indexOf('javascript/view.js')<0){
-		$('head').append('<script src="javascript/view.js" type="text/javascript"></script>');	
+		$('head').append('<script src="javascript/view.js" type="text/javascript"></script>');
 	}
-	
+
 	if (headText.indexOf('view.css')<0){
-		$('head').append('<link href="css/view.css" rel="stylesheet">');	
+		$('head').append('<link href="css/view.css" rel="stylesheet">');
 	}
 	if (headText.indexOf('fancybox.css')<0){
-		$('head').append('<link href="css/jquery.fancybox.css" rel="stylesheet">');	
+		$('head').append('<link href="css/jquery.fancybox.css" rel="stylesheet">');
 	}
 	if (headText.indexOf('jquery.fancybox.pack.js')<0){
-		$('head').append('<link href="javascript/jquery.fancybox.pack.js" rel="stylesheet">');	
+		$('head').append('<link href="javascript/jquery.fancybox.pack.js" rel="stylesheet">');
 	}
-	
+
 	// $('#separateSignIn').position({
 		// my: "left top",
 		// at: "right+337 top",
 		// of: $("#registerFormDiv")
 	// });
-	
+
 	//start register javascript
 	$('#li_1').hide();
 			jQuery.validator.addMethod("isValidEmail", function(value, element) {
@@ -218,18 +218,18 @@ $(document).ready(function() {
 			var email=value.match(emailRegex);
 			return this.optional(element) || email;
 			}, "");
-			
+
 			jQuery.validator.addMethod("hasNumber", function(value, element) {
 			var noNums= value.search(/\d/) == -1;  //if true, then no numbers
 			return !noNums;
 			}, "");
-			
+
 			jQuery.validator.addMethod("notJustNums", function(value, element) {
 			var isNum = /^\d+$/;
 			var number=isNum.test(value); //check to see if it's only numbers
 			return !number;
 			}, "");
-			
+
 			$('#element_1').selectmenu({
 				width: 62,
 				icons: {
@@ -240,9 +240,9 @@ $(document).ready(function() {
 			$('#form_1037235').validate({
 				rules: {
 					element_3: { //email
-						isValidEmail : true 
+						isValidEmail : true
 					},
-				
+
 					element_4: { //password
 						minlength: 6,
 						maxlength: 18,
@@ -283,9 +283,9 @@ $(document).ready(function() {
 					}
 				} //end error placement
 			}); //end validate
-			
+
 			$('[title]').tooltip();
-			
+
 			$('.sm').smartmenus({
 				showFunction: function($ul, complete){
 					$ul.slideDown(250,complete);
@@ -294,12 +294,12 @@ $(document).ready(function() {
 					$ul.slideUp(250, complete);
 				}
 			}); //end smartmenus
-			
+
 			var schools=[]; //PUT THE ARRAY OF SCHOOLS HERE *****************************************************************************
 			$('#element_7').autocomplete({
 				source:schools
 			});
-			
+
 			$(':radio').click(function() {
 				if ($('input[name="highCol"]:checked').val()=="1"){
 					$('#li_1').slideDown();
@@ -307,11 +307,11 @@ $(document).ready(function() {
 				else{
 					$('#li_1').slideUp();
 				}
-			
+
 			}) //end high school or undergrad click
-	
+
 	//end register javascript
-}); 
+});
 
 function readSignInForm(form) {
 	console.log('read from sign in');
@@ -343,13 +343,13 @@ function readRegisterForm(form) {
 	var mm = today.getMonth()+1;//jan -> 0 (+1)
 	var yyyy = today.getFullYear();
 
-	if(dd<10) {	
+	if(dd<10) {
     	dd='0'+dd
-	} 
+	}
 
 	if(mm<10) {
     	mm='0'+mm
-	} 
+	}
 
 	today = mm+'/'+dd+'/'+yyyy;
 
@@ -366,23 +366,23 @@ function readSubmitPaperForm() {
 		keywords = $('#element_9').val().split("\n"),
 		authorsid = [$('#element_4_1').val()],
 		pdf = $('#element_3').val();
-		
+
 		for(var i = 0; i < $('.spawnUserID').length; i++) {
 			authorsid.push($('.spawnUserID')[i].value);
 		}
-		
+
 		var today = new Date(),
 		    dd = today.getDate(),
 			mm = today.getMonth()+1,
 			yyyy = today.getFullYear();
 
-		if(dd<10) {	
+		if(dd<10) {
     		dd='0'+dd;
 		}
 
 		if(mm<10) {
     		mm='0'+mm;
-		} 
+		}
 
 		today = mm+'/'+dd+'/'+yyyy;
 
@@ -400,7 +400,7 @@ function readSubmitPaperForm() {
 
 function addUser(newuser) {
 	console.log("submitting new user to node server");
-	
+
 	$.ajax({
 				url: '/addUser',
 				type: 'POST',
