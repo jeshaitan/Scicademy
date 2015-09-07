@@ -19,7 +19,7 @@
       <script src="javascript/index-logic.js"></script>
    </head>
    <body class="colorBody">
-      <script type="text/javascript"> 
+      <script type="text/javascript">
          var currentUser = null;
          $(document).ready(function() {
          //load the navBar and signIn box.
@@ -46,35 +46,35 @@
 		        dataType: 'json',
 		        success: function(userObj) {
 		            var finalPaperHtml = '';
-					var c1 = 0;
-                    if (userObj.publications == 0) {
-                        finalPaperHtml = '<br /><p>This user has no publications.</p><br /><br />';
+					      var c1 = 0;
+                if (userObj.publications == 0) {
+                    finalPaperHtml = '<br /><p>This user has no publications.</p><br /><br />';
+                }
+                for (var i = 0; i < userObj.publications.length; i++) {
+                    var searchPaper = {
+                        "query": userObj.publications[i],
+                        "searchtype": "id"
                     }
-                    for (var i = 0; i < userObj.publications.length; i++) { 
-                        var searchPaper = {
-                            "query": userObj.publications[i],
-                            "searchtype": "id"
+                    $.ajax({
+                        url: '/getPaper',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(searchPaper),
+                        dataType: 'json',
+                        success: function(paperObjcurs) {
+	                    	  var paperObj = paperObjcurs[0];
+	                    	  c1++;
+								          finalPaperHtml += '<div class="paper">\
+									                             <a href="paper.html?id='+paperObj._id+'"><h3>'+paperObj.title+'</h3></a>\
+										                         </div>'
+								          if (c1 < userObj.publications.length) {
+								             finalPaperHtml += '<div class="separator"></div>'
+								          }
+								         $('#publications').html(finalPaperHtml);
                         }
-                        $.ajax({
-                            url: '/getPaper',
-                            type: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify(searchPaper),
-                            dataType: 'json',
-                            success: function(paperObjcurs) {
-	                        	var paperObj = paperObjcurs[0];
-	                        	c1++;
-								finalPaperHtml += '<div class="paper">\
-													<a href="paper.html?id='+paperObj._id+'"><h3>'+paperObj.title+'</h3></a>\
-												  </div>'
-								if (c1 < userObj.publications.length) {
-									finalPaperHtml += '<div class="separator"></div>'
-								}
-								$('#publications').html(finalPaperHtml);
-                            }
-                        });
-                	}
-					var userHtml = '<div class="user">\
+                    });
+                }
+					      var userHtml = '<div class="user">\
 										<div class = "user">\
 											<div class="userBox">\
 												<h1 class="headerName">' + userObj.firstname + ' ' + userObj.lastname + '</h1>\
@@ -94,7 +94,7 @@
 												</div>\
 											</div>\
 										</div>'
-					$('.grid').html(userHtml);
+					      $('.grid').html(userHtml);
 		        },
 		        error: function(jqXHR, textStatus) {
 		        	$('.grid').html('<br /><p><center>Sorry, no user is found with the User Id: '+ searchUser.query + '.</center></p><br />')

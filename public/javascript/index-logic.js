@@ -4,7 +4,7 @@ $(document).ready(function() {
 		'<ul id="navlist" class="sm sm-simple">\
   			<li><a href="index.html">Home</a></li>\
 			<li><a href="submit.html" id="submitLink">Submit Research</a></li>\
-			<li id="aboutli"><a href="about.html">About</a></li>\
+			<li id="aboutli"><a href="about.html">About Us</a></li>\
 			<li><a href="" id="siso">Sign In or Register</a></li>\
 		</ul>'
 	);
@@ -168,7 +168,6 @@ $(document).ready(function() {
 	$('#form_1039889_p').submit(function(event) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
-		console.log("reading from poster form m9");
 		readSubmitPosterForm();
 	});
 

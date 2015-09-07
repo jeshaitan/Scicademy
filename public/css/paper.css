@@ -30,6 +30,7 @@
 	position: relative;
 	left:20%;
 	top: 0px;
+	padding-right: 10px;
 }
 
 .authors a{
@@ -39,6 +40,7 @@
 .abstractText{
 	position:relative;
 	top:-15px;
+	padding-right: 50px;
 }
 
 .abstractHead{
@@ -71,7 +73,7 @@
 
 .downloadPDF img{
 	position: relative;
-    top: 4px;
+  top: 4px;
 }
 
 #editPaper{

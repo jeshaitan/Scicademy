@@ -19,7 +19,7 @@
       <script src="javascript/index-logic.js"></script>
    </head>
    <body class="colorBody">
-      <script type="text/javascript"> 
+      <script type="text/javascript">
          $(document).ready(function(){
          //load the navBar and signIn box.
          	$.getScript('javascript/index-logic.js', function(jd){});
@@ -46,12 +46,12 @@
          		tempResult = resultString.slice(7);
          	}
          	searchType = $("input[name=searchTypeOptions]:checked").val();
-         	console.log(searchType);
+         	console.log(searchType + ", " + queryString);
          	var searchPaper = {
          		"query": queryString,
          		"searchtype": searchType
          	}
-     
+
          	$.ajax({
          		url: '/getPaper',
          		type: 'POST',
@@ -59,46 +59,43 @@
          		data: JSON.stringify(searchPaper),
          		dataType: 'json',
          		success: addPapers
-         	}); 
-         
+         	});
+
          	function addPapers(data) {
-         		console.log("adding data")
-         		var title='',
+            var title='',
          			authors='',
          			abstractText='',
          			paperLink='',
          			firstAuthor=true;
-         		
+
          		var paperHtml='';
          		$.each(data, function(paper, paperInfo){ //iterate through each paper
-         			console.log('p: '+paper+'='+paperInfo);
          			$.each(paperInfo, function(infoName, info){ //loop through each piece of info in the paper
-					if(infoName =='authors'){ //going into the authors
+					if(infoName =='authors') { //going into the authors
 						//then it's authors
-						authors+='<div class="authors">';
-						for (var i = 0; i<info.length; i++){
-							if(!firstAuthor){
-								authors+=',&nbsp;&nbsp;';
-							}
-							else{
-								firstAuthor=false;
-							}
+						for (var i = 0; i<info.length; i++) {
+              console.log(info[i]);
 							//reverse search info[i]. Returned author object will be called authorObj
-							var authorObj = {
-								"_id": {
-									"$oid": "55ddd5ed5780b30300c55786"
-								},
-								"email": "antranigcoolguy@gmail.com",
-								"password": "Klb1klb1",
-								"firstname": "Antranig",
-								"lastname": "Baghdassarian",
-								"school": "e.m.baker",
-								"grade": "9"
-							}
-							var fullName= authorObj.firstname + ' ' + authorObj.lastname;
-							var userId = authorObj._id.$oid;
-							var userPage = "user.html?id=" + userId;
-							authors += '<a href="' + userPage + '">' + fullName + '</a>';
+              var authorreq = {
+                "query": info[i],
+                "searchType": "id"
+              }
+              $.ajax({
+             		url: '/getUser',
+             		type: 'POST',
+             		contentType: 'application/json',
+             		data: JSON.stringify(authorreq),
+             		dataType: 'json',
+             		success: function(doc) {
+                  console.log("doc found" + doc);
+                  var authorObj = doc;
+                  var fullName= authorObj.firstname + ' ' + authorObj.lastname;
+    							var userId = authorObj._id.$oid;
+    							var userPage = "user.html?id=" + userId;
+    							authors += '<a href="' + userPage + '">' + fullName + '</a>';
+                  $('.authors').html(authors);
+                }
+             	});
 						}; //end author loop
 					} //end author if
 					else{ //every piece of info but authors
@@ -117,7 +114,7 @@
          			paperHtml='<div class="paperDiv">\
          							<span class="title">\
          								<a href="'+paperLink+'"><h3>'+title+'</h3></a>\
-         							</span>'+authors+'</div>\
+         							</span><div class="authors"></div></div>\
          							<div class="abstractDiv">\
          								<a class="abstractText">\
          									<span class="arrowClick arrowSide"></span>\
@@ -130,11 +127,11 @@
          			$('.papers').append(paperHtml);
          			authors='';
          		}); //end loop for each paper
-         	
-       <!--   	}//end addPapers -->
+
+       	}//end addPapers
          	$('.papers').on('click', '.abstractDiv', function() {
          		$(this).find('.arrowClick').toggleClass('arrowSide');
-         		<!-- $('.abstractParagraph').slideToggle(); -->
+         		//$('.abstractParagraph').slideToggle();
          		$(this).find('.abstractParagraph').slideToggle();
          		return false;
          	});//end abstractText click
@@ -180,4 +177,3 @@
       </div>
    </body>
 </html>
-

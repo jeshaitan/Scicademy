@@ -18,10 +18,9 @@
 	<script src="javascript/index-logic.js"></script>
 	<script type="javascript/compatibility.js"></script>
 	<script src="javascript/pdf.js"></script>
-	<script type="text/javascript"> 
+	<script type="text/javascript">
 		$(document).ready(function() {
 			$.getScript('javascript/index-logic.js', function(jd){});
-			//var url = "projects/1/Aram_Baghdassarian_Paper.pdf"  
 			var paperHtml = '',
 				title = '',
 				date = '',
@@ -32,7 +31,7 @@
 				paperID = '',
 				keywords = [],
 				firstAuthor=true;
-			
+
 			var searchPaper = {
 				"query": (window.location.href).slice((window.location.href).indexOf('?id=') + 4),
 				"searchtype": "id"
@@ -45,6 +44,7 @@
 				data: JSON.stringify(searchPaper),
 				dataType: 'json',
 				success: function(data) {
+					firstAuthor = true;
 					var pdata = data[0];
 					console.log(JSON.stringify(pdata));
 					$.each(pdata, function(infoName, info) { //loop through each piece of info in the paper
@@ -52,12 +52,6 @@
 							//then it's authors
 							authors+='<div class="authors">';
 							for (var i = 0; i<info.length; i++){
-								if(!firstAuthor){
-									authors+=',&nbsp;&nbsp;';
-								}
-								else {
-									firstAuthor=false;
-								}
 								//reverse search info[i]. Returned author object will be called authorObj
 								var searchAuthor = {
 									"query": info[i],
@@ -75,11 +69,14 @@
 										var fullName= doc.firstname + ' ' + doc.lastname;
 										var userId = doc._id;
 										var userPage = "user.html?id=" + userId;
-										authors += '<a href="' + userPage + '">' + fullName + '</a>';
+										if(firstAuthor == true)
+											authors += '<a href="' + userPage + '">' + fullName + '</a>';
+										else
+											authors += ', <a href="' + userPage + '">' + fullName + '</a>';
 										paperHtml = '<div id="paperDiv">\
 								  		<div class="paperOptions">\
 											<div class="downloadPDF">\
-												<a href="'+pdata.pdf+'"><img src="images/pdfIcon.png">Download the pdf</a>\
+												<a href="'+pdata.pdf+'"><img src="images/pdfIcon.png">Download PDF</a>\
 											</div>\
 										</div>\
 										<div class="paperCol">\
@@ -109,7 +106,8 @@
 								</div>\
 							</div>\
 						</div>'
-						$('.grid').append(paperHtml);
+						$('.grid').html(paperHtml);
+									firstAuthor = false;
 									}
 								});
 							}; //end author loop
@@ -117,27 +115,16 @@
 					}); //end loop through for each piece of info in paper
 				}
 			});
-				
-			$('#editPaper').click(function(event){
-				event.preventDefault();
-				if (($(this).text() === "Edit Paper")){
-					$(this).text("Finished Editing");
-				}
-				else {
-					$(this).text("Edit Paper");
-				}
-			}); //end edit click
 		}); //end ready
 	</script>
 </head>
 
 <body class="colorBody">
-	
+
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
-	
+
 	<div class="grid">
-		<a href='' id="editPaper">Edit Paper</a>
 	</div>
 </body>
-</html>	
+</html>
