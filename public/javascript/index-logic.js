@@ -157,7 +157,7 @@ $(document).ready(function() {
 			case "Title":
 				var type = 2;
 				break;
-			case "Keywords":
+			case "Keyword":
 				var type = 3;
 				break;
 			case "Author":

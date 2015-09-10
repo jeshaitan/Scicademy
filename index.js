@@ -18,7 +18,7 @@ var db = mongojs(uri, ["Papers", "Users", "Posters"]);
 
 app.post('/getUser', function(request, response) {
     var searchObj = {};
-		//console.log(request);
+		console.log("hello" + JSON.stringify(request));
     if(request.body.searchtype == "id") {
     	searchObj = {"_id" : ObjectID(request.body.query)};
     }
@@ -42,23 +42,22 @@ app.post('/getUser', function(request, response) {
 
 app.post('/getPaper', function(request, response) {
 	console.log(request.body);
-	var searchObject = {};
 	if(request.body.searchtype == "All") {
-		searchObject = {$and: [{title: request.body.query},
+		var searchObject = {$and: [{title: request.body.query},
 							   {keywords: request.body.query},
 							   {authors: request.body.query}]};
 	}
 	else if(request.body.searchtype == "Title") {
-		searchObject = {title: request.body.query};
+		var searchObject = {title: request.body.query};
 	}
-	else if(request.body.searchtype == "Keywords") {
-		searchObject = {keywords: request.body.query};
+	else if(request.body.searchtype == "Keyword") {
+		var searchObject = {keywords: request.body.query};
 	}
-	else if(request.body.searchtype == "Authors") {
-		searchObject = {authors: request.body.query};
+	else if(request.body.searchtype == "Author") {
+		var searchObject = {authors: request.body.query};
 	}
 	else if(request.body.searchtype == 'id') {
-		searchObject = {"_id" : ObjectID(request.body.query)};
+		var searchObject = {"_id" : ObjectID(request.body.query)};
 	}
 	db.Papers.find(searchObject, function(err, curs) {
 		if(err) {

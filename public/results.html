@@ -37,22 +37,14 @@
          	queryString = decodeURI(queryString);
          	var searchType = url.charAt(url.indexOf('type=')+5);
           console.log(searchType + ", " + queryString);
-          switch(searchType) {
-            case 1:
-              searchType = "All";
-              break;
-            case 2:
-              searchType = "Title";
-              break;
-            case 3:
-              searchType = "Keywords";
-              break;
-            case 4:
-              searchType = "Author";
-              break;
-            default:
-              searchType = "All";
-          }
+          if(searchType == 1)
+            searchType = "All";
+          else if(searchType == 2)
+            searchType = "Title";
+          else if(searchType == 3)
+            searchType = "Keyword";
+          else if(searchType == 4)
+            searchType = "Author";
           console.log(searchType + ", " + queryString);
          	var searchPaper = {
          		"query": queryString,
@@ -82,11 +74,12 @@
 						//then it's authors
 						for (var i = 0; i<info.length; i++) {
 							//reverse search info[i]. Returned author object will be called authorObj
-              console.log("info" + info[i]);
+              console.log("info " + info[i]);
               var authorreq = {
                 "query": info[i],
                 "searchType": "id"
               }
+              console.log(JSON.stringify(authorreq));
               $.ajax({
              		url: '/getUser',
              		type: 'POST',
@@ -162,8 +155,8 @@
                <div id="searchOptions">
                   <input type="radio" name="searchTypeOptions" value="All" class="searchBy" checked="checked">All Fields</input><br>
                   <input type="radio" name="searchTypeOptions" value="Title" class="searchBy">Title</input><br>
-                  <input type="radio" name="searchTypeOptions" value="Keywords" class="searchBy">Keywords</input><br>
-                  <input type="radio" name="searchTypeOptions" value="Author" class="searchBy">Authors</input>
+                  <input type="radio" name="searchTypeOptions" value="Keyword" class="searchBy">Keyword</input><br>
+                  <input type="radio" name="searchTypeOptions" value="Author" class="searchBy">Author</input>
                </div>
             </div>
             <div class="sortBy">
