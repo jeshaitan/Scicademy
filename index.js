@@ -43,21 +43,21 @@ app.post('/getUser', function(request, response) {
 
 app.post('/getPaper', function(request, response) {
 	console.log(request.body);
-	if(request.body.searchtype == "All") {
+	if(request.body.searchType == "All") {
 		var searchObject = {$and: [{title: request.body.query},
 							   {keywords: request.body.query},
 							   {authors: request.body.query}]};
 	}
-	else if(request.body.searchtype == "Title") {
+	else if(request.body.searchType == "Title") {
 		var searchObject = {title: request.body.query};
 	}
-	else if(request.body.searchtype == "Keyword") {
+	else if(request.body.searchType == "Keyword") {
 		var searchObject = {keywords: request.body.query};
 	}
-	else if(request.body.searchtype == "Author") {
+	else if(request.body.searchType == "Author") {
 		var searchObject = {authors: request.body.query};
 	}
-	else if(request.body.searchtype == 'id') {
+	else if(request.body.searchType == 'id') {
 		var searchObject = {"_id" : ObjectID(request.body.query)};
 	}
 	db.Papers.find(searchObject, function(err, curs) {

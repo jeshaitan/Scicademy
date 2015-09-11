@@ -48,7 +48,7 @@
           console.log(searchType + ", " + queryString);
          	var searchPaper = {
          		"query": queryString,
-         		"searchtype": searchType
+         		"searchType": searchType
          	}
 
          	$.ajax({
@@ -64,14 +64,17 @@
             var title='',
          			authors='',
          			abstractText='',
-         			paperLink='',
-         			firstAuthor=true;
+         			firstAuthor=true,
+              nump = 0,
+              numa = 0;
 
          		var paperHtml='';
          		$.each(data, function(paper, paperInfo){ //iterate through each paper
+              nump++;
          			$.each(paperInfo, function(infoName, info){ //loop through each piece of info in the paper
 					if(infoName =='authors') { //going into the authors
 						//then it's authors
+            var firstAuthor = true;
 						for (var i = 0; i<info.length; i++) {
 							//reverse search info[i]. Returned author object will be called authorObj
               console.log("info " + info[i]);
@@ -90,10 +93,21 @@
                   console.log("doc found" + doc);
                   var authorObj = doc;
                   var fullName= authorObj.firstname + ' ' + authorObj.lastname;
-    							var userId = authorObj._id.$oid;
+    							var userId = authorObj._id;
     							var userPage = "user.html?id=" + userId;
-    							authors += '<a href="' + userPage + '">' + fullName + ' </a>';
-                  $('.authors').html(authors);
+                  if(firstAuthor) {
+                    authors = '<a href="' + userPage + '">' + fullName + '</a>';
+                    firstAuthor = false;
+                    console.log("first!");
+                  }
+    							else {
+                    authors += '<a href="' + userPage + '">, ' + fullName + ' </a>';
+                    console.log("second!");
+                  }
+                  console.log(authors);
+                  $('#authors'+(numa+1)).html(authors);
+                  numa++;
+                  //authors = '';
                 }
              	});
 						}; //end author loop
@@ -105,15 +119,12 @@
 						else if (infoName == 'abstract'){
 							abstractText=info;
 						}
-						else if (infoName == 'paperLink'){
-							paperLink=info;
-						}
 					} //end else for everything but authors
          			}); //end loop through for each piece of info in paper
          			paperHtml='<div class="paperDiv">\
          							<span class="title">\
-         								<a href="'+paperLink+'"><h3>'+title+'</h3></a>\
-         							</span><div class="authors"></div></div>\
+         								<a href="/paper.html?id='+paperInfo._id+'"><h3>'+title+'</h3></a>\
+         							</span><div class="authors" id="authors'+nump+'"></div></div>\
          							<div class="abstractDiv">\
          								<a class="abstractText">\
          									<span class="arrowClick arrowSide"></span>\
@@ -124,7 +135,6 @@
          						</div>\
          						<div class="separator"></div>'
          			$('.papers').append(paperHtml);
-         			authors='';
          		}); //end loop for each paper
 
        	}//end addPapers

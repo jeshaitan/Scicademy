@@ -34,7 +34,7 @@
 
 			var searchPaper = {
 				"query": (window.location.href).slice((window.location.href).indexOf('?id=') + 4),
-				"searchtype": "id"
+				"searchType": "id"
 			}
 
 			$.ajax({
@@ -55,7 +55,7 @@
 								//reverse search info[i]. Returned author object will be called authorObj
 								var searchAuthor = {
 									"query": info[i],
-									"searchtype": "id"
+									"searchType": "id"
 								}
 								console.log(info[i])
 								$.ajax({

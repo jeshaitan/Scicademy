@@ -36,7 +36,7 @@
 		    }
 		    var searchUser = {
 		        "query": userId,
-		        "searchtype": "id"
+		        "searchType": "id"
 		    };
 		    $.ajax({
 		        url: '/getUser',
@@ -53,7 +53,7 @@
                 for (var i = 0; i < userObj.publications.length; i++) {
                     var searchPaper = {
                         "query": userObj.publications[i],
-                        "searchtype": "id"
+                        "searchType": "id"
                     }
                     $.ajax({
                         url: '/getPaper',
