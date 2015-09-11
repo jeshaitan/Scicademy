@@ -13,14 +13,15 @@ app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-var uri = "mongodb://jeshaitan:aliro4greatgood@ds036698.mongolab.com:36698/alirodatabase";
+var uri = "mongodb://Public:passpublic@ds036698.mongolab.com:36698/alirodatabase";
 var db = mongojs(uri, ["Papers", "Users", "Posters"]);
 
 app.post('/getUser', function(request, response) {
     var searchObj = {};
-		console.log("hello" + JSON.stringify(request));
-    if(request.body.searchtype == "id") {
-    	searchObj = {"_id" : ObjectID(request.body.query)};
+		//console.log("hello" + JSON.stringify(request));
+    if(request.body.hasOwnProperty('searchType') && request.body.searchType == "id") {
+			console.log("hey");
+			searchObj = {"_id" : ObjectID(request.body.query)};
     }
     else {
     	searchObj = {
