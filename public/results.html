@@ -79,7 +79,7 @@
               var authorreq = {
                 "query": info[i],
                 "searchType": "id",
-                "nump": nump
+                "meta": meta
               }
               console.log(JSON.stringify(authorreq));
               $.ajax({
@@ -104,7 +104,7 @@
                     console.log("second!");
                   }
                   console.log(authors);
-                  $('#authors'+(docB.nump)).html(authors);
+                  $('#authors'+(docB.meta)).html(authors);
                 }
              	});
 						}; //end author loop

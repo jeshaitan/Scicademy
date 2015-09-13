@@ -36,7 +36,12 @@ app.post('/getUser', function(request, response) {
         	}
         	else {
         			console.log("sent user to front end: " + JSON.stringify(doc));
-            	response.send({"doc": doc, "nump": request.body.nump});
+							if(request.body.hasOwnProperty("meta")) {
+								response.send({"doc": doc, "meta": request.body.meta});
+							}
+							else {
+								response.send(doc);
+							}
           }
     });
 });
