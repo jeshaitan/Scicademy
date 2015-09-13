@@ -65,22 +65,21 @@
          			authors='',
          			abstractText='',
          			firstAuthor=true,
-              nump = 0,
-              numa = 0;
+              nump = 0;
 
          		var paperHtml='';
          		$.each(data, function(paper, paperInfo){ //iterate through each paper
-              nump++;
          			$.each(paperInfo, function(infoName, info){ //loop through each piece of info in the paper
 					if(infoName =='authors') { //going into the authors
 						//then it's authors
             var firstAuthor = true;
-						for (var i = 0; i<info.length; i++) {
+						for (var i = 0; i< info.length; i++) {
 							//reverse search info[i]. Returned author object will be called authorObj
-              console.log("info " + info[i]);
+              console.log(i==info.length-1);
               var authorreq = {
                 "query": info[i],
-                "searchType": "id"
+                "searchType": "id",
+                "nump": nump
               }
               console.log(JSON.stringify(authorreq));
               $.ajax({
@@ -89,9 +88,9 @@
              		contentType: 'application/json',
              		data: JSON.stringify(authorreq),
              		dataType: 'json',
-             		success: function(doc) {
-                  console.log("doc found" + doc);
-                  var authorObj = doc;
+             		success: function(docB) {
+                  console.log("doc found" + docB.doc);
+                  var authorObj = docB.doc;
                   var fullName= authorObj.firstname + ' ' + authorObj.lastname;
     							var userId = authorObj._id;
     							var userPage = "user.html?id=" + userId;
@@ -105,9 +104,7 @@
                     console.log("second!");
                   }
                   console.log(authors);
-                  $('#authors'+(numa+1)).html(authors);
-                  numa++;
-                  //authors = '';
+                  $('#authors'+(docB.nump)).html(authors);
                 }
              	});
 						}; //end author loop
@@ -135,6 +132,7 @@
          						</div>\
          						<div class="separator"></div>'
          			$('.papers').append(paperHtml);
+              nump++;
          		}); //end loop for each paper
 
        	}//end addPapers
