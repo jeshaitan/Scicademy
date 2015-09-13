@@ -21,29 +21,29 @@
 
 </head>
 <body id="main_body" class="colorBody">
-	<script type="text/javascript"> 
+	<script type="text/javascript">
 		$(document).ready(function(){
-			
+
 			$.getScript('javascript/index-logic.js', function(jd){});
 			var currentUser = localStorage.getItem("user");
 			if (currentUser == null){
 				$('#signInBox').dialog({
 					closeOnEscape: false,
-					open: function(event, ui) { 
-						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); 
-						} //end open				 
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+						} //end open
 				}); //end dialog
 				$('.signInBox').html('You must have an account to submit a paper');
 				$('#signInBox').dialog('open');
 				$('#element_2_1').focus();
 			} //end if currentUser
-			
+
 		$('#separateSignIn').position({
 			my: "left top",
 			at: "right+337 top",
 			of: $("#registerFormDiv")
 		});
-			
+
 			jQuery.validator.addMethod("isLong", function(value, element) {
 				var counter = 0;
 				value = value.replace(/(^\s*)|(\s*$)/gi,"");
@@ -63,13 +63,13 @@
 				}
 				return lines.length>=4;
 			}, "");
-			
-			
+
+
 			$('#form_1039889').validate({
 				rules: {
 					element_2: { //abstract
 						required: true,
-						isLong : true 
+						isLong : true
 					},
 					element_9: { //keywords
 						required: true,
@@ -149,47 +149,47 @@
 	<div class="navigation"></div>
 	<div id="signInBox"></div>
 	<div id="form_container" class="grid">
-		<form id="form_1039889" class="appnitro" enctype="multipart/form-data" method="post" action="">
+		<form id="form_1039889" class="appnitro" enctype="multipart/form-data" method="POST", action="/addPdf">
 					<div class="form_description">
 			<h2>Submit Your Research</h2>
 			<p></p>
-		</div>						
+		</div>
 			<ul >
-			
+
 		<li id="paperTitle" >
 		<label class="description required" for="title">Title </label>
 		<div>
-			<input id="title" name="title" class="element text large required" type="text" maxlength="255" value=""/> 
-		</div> 
-		</li>		
-		
+			<input id="title" name="title" class="element text large required" type="text" maxlength="255" value=""/>
+		</div>
+		</li>
+
 		<li id="li_4" >
-		
+
 		<label class="description required" for="element_4">Authors </label>
 		<span>
 			<input id="element_4_1" name= "element_4_1" class="element text required" maxlength="255" size="14" value=""/>
 			<label class="required">Author 1's User Id</label>
 		</span><p class="guidelines" id="guide_2"><small>Your user Id can be found on your user page.</small></p>
-		
+
 		</li>
 		<div class="addAuthors">
 			<a href="" class="add">Add Author</a>&nbsp;/
 			<a href="" class="remove">Remove Author</a>
-		</div>			
+		</div>
 		<li id="li_2" >
 		<label class="description required" for="element_2">Abstract </label>
 		<div>
-			<textarea id="element_2" name="element_2" class="element textarea medium"></textarea> 
-		</div><p class="guidelines" id="guide_1"><small>Must be at least 200 words. This is a short section and is intended to give the reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p> 
+			<textarea id="element_2" name="element_2" class="element textarea medium"></textarea>
+		</div><p class="guidelines" id="guide_1"><small>Must be at least 200 words. This is a short section and is intended to give the reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p>
 		</li>
-		
+
 		<li id="li_9" >
 		<label class="description required" for="element_9">Keywords</label>
 		<div>
-			<textarea id="element_9" name="element_9" class="element textarea medium"></textarea> 
-		</div><p class="guidelines" id="guide_2"><small>Enter at least four keywords, with each keyword on a new line. Try to use words that are not in your title but will help classify your research.</small></p> 
+			<textarea id="element_9" name="element_9" class="element textarea medium"></textarea>
+		</div><p class="guidelines" id="guide_2"><small>Enter at least four keywords, with each keyword on a new line. Try to use words that are not in your title but will help classify your research.</small></p>
 		</li>
-		
+
 		<div id="paperPDF">
 		<li id="li_14" >
 			<label class="description required" for="element_14">Is your paper a pdf? </label>
@@ -199,7 +199,7 @@
 			<input id="element_14_2" name="element_14" class="element radio" type="radio" value="isWord" />
 			<label class="choice" for="element_14_2">No</label>
 
-		</span> 
+		</span>
 		</li>
 		</div>
 		<div id="convertToPDF">
@@ -212,17 +212,17 @@
 		<li id="li_3" >
 		<label class="description required" for="element_3">Upload Your PDF </label>
 		<div>
-			<input id="element_3" name="element_3" class="element file required" accept="application/pdf" type="file"/> 
-		</div>  
+			<input id="element_3" name="element_3" class="element file required" accept="application/pdf" type="file"/>
+		</div>
 		</li>
 		</div>
 					<li class="buttons">
 			    <input type="hidden" name="form_id" value="1039889" />
-			    
-				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit"/>
+
+			   <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit"/>
 		</li>
 			</ul>
-		</form>	
+		</form>
 	</div>
 	</body>
 </html>

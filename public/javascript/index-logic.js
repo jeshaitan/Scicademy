@@ -180,7 +180,20 @@ $(document).ready(function() {
 	$('#form_1039889').submit(function(event) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
-		readSubmitPaperForm($('#form_1039889'));
+		var file = $('#element_3').get(0).files[0];
+		var fd = new FormData();
+		fd.append('pdf', file);
+		$.ajax({
+			url: '/addPdf',
+			data: fd,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function(response) {
+				var pdfid = response;
+				readSubmitPaperForm($('#form_1039889'), pdfid);
+			}
+		});
 	});
 
 	$('#form_1039889_p').submit(function(event) {
@@ -221,12 +234,6 @@ $(document).ready(function() {
 	if (headText.indexOf('jquery.fancybox.pack.js')<0){
 		$('head').append('<link href="javascript/jquery.fancybox.pack.js" rel="stylesheet">');
 	}
-
-	// $('#separateSignIn').position({
-		// my: "left top",
-		// at: "right+337 top",
-		// of: $("#registerFormDiv")
-	// });
 
 	//start register javascript
 	$('#li_1').hide();
@@ -376,13 +383,12 @@ function readRegisterForm(form) {
 	addUser(newuser);
 }
 
-function readSubmitPaperForm() {
+function readSubmitPaperForm(form, pdfid) {
 	console.log('this should print 2');
 	var title = $('#title').val(),
 		abstract = $('#element_2').val(),
 		keywords = $('#element_9').val().split("\n"),
-		authorsid = [$('#element_4_1').val()],
-		pdf = $('#element_3').val();
+		authorsid = [$('#element_4_1').val()];
 
 		for(var i = 0; i < $('.spawnUserID').length; i++) {
 			authorsid.push($('.spawnUserID')[i].value);
@@ -408,7 +414,7 @@ function readSubmitPaperForm() {
 			"authors": authorsid,
 			"abstract": abstract,
 			"keywords": keywords,
-			"pdf": pdf,
+			"pdf": pdfid,
 			"date": today
 		}
 		addPaper(paperdata);
