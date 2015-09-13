@@ -49,7 +49,7 @@ app.post('/getUser', function(request, response) {
 app.post('/getPaper', function(request, response) {
 	console.log(request.body);
 	if(request.body.searchType == "All") {
-		var searchObject = {$and: [{title: request.body.query},
+		var searchObject = {$or: [{title: request.body.query},
 							   {keywords: request.body.query},
 							   {authors: request.body.query}]};
 	}
