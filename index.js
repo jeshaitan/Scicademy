@@ -6,6 +6,7 @@ var http = require("http"),
   	path = require('path'),
 		url = require("url"),
 		FormData = require('form-data'),
+		multer = require('multer'),
 		bodyParser = require('body-parser'),
   	port = process.env.PORT || 8888,
   	ObjectID = require('mongodb').ObjectID;
@@ -138,9 +139,9 @@ app.post('/addPaper', function(request, response) {
 
 });
 
-app.post('/addPdf', function(req, res) {
-	console.log("file: " + req.body.pdf);
-});
+app.post('/addPdf', [multer({dest: "./uploads/"}).single('avatar'), function(req, res) {
+	console.log("file: " + req.file);
+}]);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
