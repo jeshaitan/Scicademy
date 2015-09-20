@@ -180,26 +180,7 @@ $(document).ready(function() {
 	$('#form_1039889').submit(function(event) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
-		var file = $('#element_3').get(0).files[0];
-		var fd = new FormData();
-		fd.append('pdf', file);
-		$.ajax({
-			url: '/addPdf',
-			data: fd,
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			success: function(response) {
-				var pdfid = response;
-				readSubmitPaperForm($('#form_1039889'), pdfid);
-			}
-		});
-	});
-
-	$('#form_1039889_p').submit(function(event) {
-		event.preventDefault();
-		event.stopImmediatePropagation();
-		readSubmitPosterForm();
+		readSubmitPaperForm($('#form_1039889'));
 	});
 
 	$('#form_1037235').submit(function(event) {
@@ -383,8 +364,7 @@ function readRegisterForm(form) {
 	addUser(newuser);
 }
 
-function readSubmitPaperForm(form, pdfid) {
-	console.log('this should print 2');
+function readSubmitPaperForm(form) {
 	var title = $('#title').val(),
 		abstract = $('#element_2').val(),
 		keywords = $('#element_9').val().split("\n"),
@@ -396,8 +376,8 @@ function readSubmitPaperForm(form, pdfid) {
 
 		var today = new Date(),
 		    dd = today.getDate(),
-			mm = today.getMonth()+1,
-			yyyy = today.getFullYear();
+				mm = today.getMonth()+1,
+				yyyy = today.getFullYear();
 
 		if(dd<10) {
     		dd='0'+dd;
@@ -408,16 +388,24 @@ function readSubmitPaperForm(form, pdfid) {
 		}
 
 		today = mm+'/'+dd+'/'+yyyy;
-
-		var paperdata = {
-			"title": title,
-			"authors": authorsid,
-			"abstract": abstract,
-			"keywords": keywords,
-			"pdf": pdfid,
-			"date": today
-		}
-		addPaper(paperdata);
+		$.ajax({
+			url: '/getPdf',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify($(element_3).get(0).files[0]),
+			dataType: 'json',
+			success: function(response) {
+				var paperdata = {
+					"title": title,
+					"authors": authorsid,
+					"abstract": abstract,
+					"keywords": keywords,
+					"pdf": response,
+					"date": today
+				}
+				addPaper(paperdata);
+			}
+		});
 }
 
 
