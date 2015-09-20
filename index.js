@@ -51,17 +51,17 @@ app.post('/getUser', function(request, response) {
 app.post('/getPaper', function(request, response) {
 	console.log(request.body);
 	if(request.body.searchType == "All") {
-		var searchObject = {$or: [{title: request.body.query},
+		var searchObject = {$or: [{$text: {$search: request.body.query}},
 							   {keywords: request.body.query},
 							   {authors: request.body.query}]};
 	}
 	else if(request.body.searchType == "Title") {
-		var searchObject = {title: request.body.query};
+		var searchObject = {$text: {$search: request.body.query}};
 	}
-	else if(request.body.searchType == "Keyword") {
+	else if(request.body.searchType == "Keywords") {
 		var searchObject = {keywords: request.body.query};
 	}
-	else if(request.body.searchType == "Author") {
+	else if(request.body.searchType == "Authors") {
 		var searchObject = {authors: request.body.query};
 	}
 	else if(request.body.searchType == 'id') {
@@ -70,6 +70,7 @@ app.post('/getPaper', function(request, response) {
 	db.Papers.find(searchObject, function(err, curs) {
 		if(err) {
 			console.log({error: "error finding paper!"});
+			console.log(err);
 		}
 		else {
 			response.send(curs);
