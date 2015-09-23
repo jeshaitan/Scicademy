@@ -68,7 +68,7 @@ $(document).ready(function() {
 			</li>\
 						<li class="buttons">\
 					<input type="hidden" name="form_id" value="1037235" />\
-					<input id="saveForm" class="button_text" type="submit" name="submit" value="Register"/>\
+					<input id="saveForm" class="button_text signRegisterBut" type="submit" name="submit" value="Register"/>\
 			</li>\
 				</ul>\
 			</form>\
@@ -86,7 +86,7 @@ $(document).ready(function() {
 			<input type="password" id="password" name="password" maxlength="255" size="16" value="" class="element text medium required email" placeholder="Password">\
 			</div>\
 			<div>\
-			<input type="submit" id="signInButton" name="signInButton" value="Sign In">\
+			<input type="submit" id="signInButton" name="signInButton" class="signRegisterBut" value="Sign In">\
 			</div>\
 		</form>\
 		</div>\
@@ -190,7 +190,7 @@ $(document).ready(function() {
 		window.location.href = "index.html";
 	});
 
-	$('#signInButton').button();
+	$('.signRegisterBut').button();
 
 	//add in missing files for sign in
 	var headText= $('head').html();
