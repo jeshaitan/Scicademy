@@ -93,7 +93,7 @@ $(document).ready(function() {
 		</div>';
 	var currentLink = window.location.href;
 	if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)){
-		signInHtml = signInHtml + '<center><div id="alerttext"><p id="alerttext" style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html">Return to home page</a></div></center>' +signInHtmlEnd;
+		signInHtml = signInHtml + '<center><div id="alerttext"><p id="alerttext" style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' +signInHtmlEnd;
 	}
 	else{
 		signInHtml += signInHtmlEnd;
