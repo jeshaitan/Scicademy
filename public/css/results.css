@@ -16,6 +16,10 @@
     color: #316c9d;
     font-size: 1.108em;
 		margin-bottom: 10px;
+	text-decoration:none;
+}
+.paperDiv h3:hover{
+	text-decoration:underline;
 }
 
 .paperDiv a {
