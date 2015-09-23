@@ -66,7 +66,7 @@ $(document).ready(function() {
 				<input id="element_5" name="element_5" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Confirm Password"> \
 			</div> \
 			</li>\
-						<li class="buttons">\
+			<li class="buttons">\
 					<input type="hidden" name="form_id" value="1037235" />\
 					<input id="saveForm" class="button_text signRegisterBut" type="submit" name="submit" value="Register"/>\
 			</li>\
@@ -288,7 +288,26 @@ $(document).ready(function() {
 					}
 				} //end error placement
 			}); //end validate
-
+			function getvalues(f)
+			{
+				var form=$("#"+f);
+				var str='';
+				$("input:not('input:submit')", form).each(function(i){
+					str+='\n'+$(this).prop('name')+': '+$(this).val();
+				});
+				return str;
+			}
+			$('#saveForm').click(function(e){
+				console.log("I ran");
+				$('#form_1037235').validate();
+				var isvalidate=$("#form_1037235").valid();
+				if(isvalidate == false)
+				{
+					e.preventDefault();
+					$('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid</p>');
+				}
+			});
+			
 			$('[title]').tooltip();
 
 			$('.sm').smartmenus({

@@ -16,6 +16,16 @@ body
 	background-color: #F7F7F7; 
 }
 
+#incompleteSubmit{
+	width: 100px;
+	position:absolute;
+	left:120px;
+	top: 1px;
+	color:black;
+	font-weight:bold;
+	font-size: 10px;
+}
+
 #title{
 	width: 777px !important;
 }
