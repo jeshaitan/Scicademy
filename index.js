@@ -5,8 +5,8 @@ var http = require("http"),
 		fs = require("fs"),
   	path = require('path'),
 		url = require("url"),
-		FormData = require('form-data'),
-		multer = require('multer'),
+		//FormData = require('form-data'),
+		//multer = require('multer'),
 		bodyParser = require('body-parser'),
   	port = process.env.PORT || 8888,
   	ObjectID = require('mongodb').ObjectID;
@@ -15,8 +15,8 @@ app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-var uri = "mongodb://jeshaitan:aliro4greatgood@ds036698.mongolab.com:36698/alirodatabase";
-var db = mongojs(uri, ["Papers", "Pdfs", "Users", "Posters"]);
+var uri = "mongodb://PublicIO:publicpass@ds036698.mongolab.com:36698/alirodatabase";
+var db = mongojs(uri, ["Papers", "Pdfs", "Users"]);
 
 app.post('/getUser', function(request, response) {
     var searchObj = {};
@@ -138,11 +138,11 @@ app.post('/addPaper', function(request, response) {
 	});
 
 });
-
+/*
 app.post('/addPdf', [multer({dest: "./uploads/"}).single('element_3'), function(req, res) {
 	console.log("file: " + req.file);
 }]);
-
+*/
 app.post('/getPdf', function(req, res) {
 	console.log('pdf requested');
 });
