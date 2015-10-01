@@ -126,8 +126,32 @@ $(document).ready(function() {
 			$ul.slideUp(250, complete);
 		}
 	});
-	var papers=['The Effect of Music on Memory', 'Music on Time Perception', 'Productivity and Music', 'Not What You Think: Music and Memory', 'Cosmic Radiation and Ice: The Space Miracle'];
-	$('#searchBox').autocomplete({source:papers});
+
+	if(!localStorage["papers"]) {
+		$.ajax({
+			url: '/getPaper',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({"searchType": "every"}),
+			dataType: 'json',
+			success: function(curs) {
+				var papers = []
+				for (var i = 0; i < curs.length; i++) {
+					papers.push(curs[i].title);
+				}
+				console.log(papers)
+				localStorage["papers"] = JSON.stringify(papers);
+				var fromStorage = "["+localStorage["papers"]+"]";
+				var papers = JSON.parse(fromStorage);
+				$('#searchBox').autocomplete({source:papers[0]});
+			}
+		});
+	}
+	else {
+		var fromStorage = "["+localStorage["papers"]+"]";
+		var papers = JSON.parse(fromStorage);
+		$('#searchBox').autocomplete({source:papers[0]});
+	}
 
 	$('#signInBox').dialog({
 		modal: true,
@@ -307,7 +331,7 @@ $(document).ready(function() {
 					$('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid</p>');
 				}
 			});
-			
+
 			$('[title]').tooltip();
 
 			$('.sm').smartmenus({

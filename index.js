@@ -66,6 +66,9 @@ app.post('/getPaper', function(request, response) {
 	else if(request.body.searchType == 'id') {
 		var searchObject = {"_id" : ObjectID(request.body.query)};
 	}
+	else if(request.body.searchType == 'every') {
+		var searchObject = {}
+	}
 	db.Papers.find(searchObject, function(err, curs) {
 		if(err) {
 			console.log({error: "error finding paper!"});
