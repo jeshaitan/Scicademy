@@ -5,8 +5,8 @@ var http = require("http"),
 		fs = require("fs"),
   	path = require('path'),
 		url = require("url"),
-		//FormData = require('form-data'),
-		//multer = require('multer'),
+		mongoose = require('mongoose'),
+		multer = require('multer'),
 		bodyParser = require('body-parser'),
   	port = process.env.PORT || 8888,
   	ObjectID = require('mongodb').ObjectID;
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 var uri = "mongodb://PublicIO:publicpass@ds036698.mongolab.com:36698/alirodatabase";
-var db = mongojs(uri, ["Papers", "Pdfs", "Users"]);
+var db = mongojs(uri, ["Papers", "Pdfs", "Users"], {authMechanism: 'ScramSHA1'});
 
 app.post('/getUser', function(request, response) {
     var searchObj = {};

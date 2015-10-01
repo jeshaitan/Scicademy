@@ -4,11 +4,11 @@
   "description": "Aliro - Read, Research, Review",
   "main": "nodeserver.js",
   "dependencies": {
-    "body-parser": "1.13.3",
-    "cors": "^2.7.1",
-    "express": "^4.13.3",
-    "mongodb": "^2.0.39",
-    "mongojs": "^1.2.1"
+    "body-parser": "^1.14.1",
+    "cors": "latest",
+    "express": "^5.0.0-alpha.2",
+    "mongodb": "^2.1.0-alpha",
+    "mongojs": "latest"
   },
   "devDependencies": {},
   "scripts": {

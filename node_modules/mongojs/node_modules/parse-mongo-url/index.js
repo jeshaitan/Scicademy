@@ -215,7 +215,7 @@ module.exports = function(url) {
         dbOptions.wtimeout = parseInt(value, 10);
         break;
       case 'readPreference':
-        if (['primary', 'primaryPreferred', 'secondary', 'secondaryPreferred', 'nearest'].indexOf(value) !== -1) 
+        if (['primary', 'primaryPreferred', 'secondary', 'secondaryPreferred', 'nearest'].indexOf(value) === -1) 
           throw new Error("readPreference must be either primary/primaryPreferred/secondary/secondaryPreferred/nearest");
         dbOptions.read_preference = value;
         break;
