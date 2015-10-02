@@ -36,6 +36,10 @@
 				"query": (window.location.href).slice((window.location.href).indexOf('?id=') + 4),
 				"searchType": "id"
 			}
+			if(window.location.href.indexOf('?id=') < 0) {
+				$('.grid').html('<br /><p><center>No Paper id specified.</center></p><br />');
+				return false;
+			}
 
 			$.ajax({
 				url: '/getPaper',
@@ -110,6 +114,10 @@
 							}; //end author loop
 						}//end "if authors"
 					}); //end loop through for each piece of info in paper
+				},
+				error: function(jqXHR, textStatus) {
+					$('.grid').html('<br /><p><center>Sorry, no paper is found with the Paper Id: '+ searchPaper.query + '.</center></p><br />')
+					return false;
 				}
 			});
 		}); //end ready
