@@ -151,7 +151,7 @@ app.post('/getPdf', function(req, res) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', function(req, res){
-  res.status('what???').sendFile(path.join(__dirname + '/public/404.html'));
+  res.sendFile(path.join(__dirname + '/public/404.html'));
 });
 
 app.listen(port, function() {

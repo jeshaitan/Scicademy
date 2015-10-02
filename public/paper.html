@@ -46,7 +46,6 @@
 				success: function(data) {
 					firstAuthor = true;
 					var pdata = data[0];
-					console.log(JSON.stringify(pdata));
 					$.each(pdata, function(infoName, info) { //loop through each piece of info in the paper
 						if(infoName =='authors'){ //going into the authors
 							//then it's authors
@@ -57,7 +56,6 @@
 									"query": info[i],
 									"searchType": "id"
 								}
-								console.log(info[i])
 								$.ajax({
 									url: '/getUser',
 									type: 'POST',
@@ -65,7 +63,6 @@
 									data: JSON.stringify(searchAuthor),
 									dataType: 'json',
 									success: function(doc) {
-										console.log(JSON.stringify(doc));
 										var fullName= doc.firstname + ' ' + doc.lastname;
 										var userId = doc._id;
 										var userPage = "user.html?id=" + userId;

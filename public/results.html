@@ -36,7 +36,6 @@
          	var queryString=url.slice(url.indexOf('query=')+6);
          	queryString = decodeURI(queryString);
          	var searchType = url.charAt(url.indexOf('type=')+5);
-          console.log(searchType + ", " + queryString);
           if(searchType == 1)
             searchType = "All";
           else if(searchType == 2)
@@ -45,7 +44,6 @@
             searchType = "Keyword";
           else if(searchType == 4)
             searchType = "Author";
-          console.log(searchType + ", " + queryString);
          	var searchPaper = {
          		"query": queryString,
          		"searchType": searchType
@@ -61,7 +59,6 @@
          	});
 
          	function addPapers(data) {
-            console.log(data)
             if(data.length == 0) {
               $('.papers').append(
                 '<div class="paperDiv">\
@@ -94,13 +91,11 @@
             var firstAuthor = true;
 						for (var i = 0; i< info.length; i++) {
 							//reverse search info[i]. Returned author object will be called authorObj
-              console.log(i==info.length-1);
               var authorreq = {
                 "query": info[i],
                 "searchType": "id",
                 "meta": nump
               }
-              console.log(JSON.stringify(authorreq));
               $.ajax({
              		url: '/getUser',
              		type: 'POST',
@@ -108,7 +103,6 @@
              		data: JSON.stringify(authorreq),
              		dataType: 'json',
              		success: function(docB) {
-                  console.log("doc found" + docB.doc);
                   var authorObj = docB.doc;
                   var fullName= authorObj.firstname + ' ' + authorObj.lastname;
     							var userId = authorObj._id;
@@ -116,13 +110,10 @@
                   if(firstAuthor) {
                     authors = '<a href="' + userPage + '">' + fullName + '</a>';
                     firstAuthor = false;
-                    console.log("first!");
                   }
     							else {
                     authors += '<a href="' + userPage + '">, ' + fullName + ' </a>';
-                    console.log("second!");
                   }
-                  console.log(authors);
                   $('#authors'+(docB.meta)).html(authors);
                 }
              	});
