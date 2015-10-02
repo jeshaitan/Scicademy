@@ -61,6 +61,25 @@
          	});
 
          	function addPapers(data) {
+            console.log(data)
+            if(data.length == 0) {
+              $('.papers').append(
+                '<div class="paperDiv">\
+           							<span class="title">\
+           								<a href=""><h3>Sorry, nothing matched your search.</h3></a>\
+           							</span><div class="authors"></div></div>\
+           							<div class="abstractDiv">\
+           								<a class="abstractText">\
+           									<span class="arrowClick arrowSide"></span>\
+           									<span class="preTxt">Don\'t lose hope!</span>\
+           								</a>\
+           							<div class="abstractParagraph" id="abstract0">If you are looking for a specific paper and it\'s not here, try searching by Author or Keyword. If you\'re looking to see if your idea is original, you\'re in luck!</div>\
+                        <div class="abstractParagraph" id="abstract0.5"><br /><em>\"Originality is nothing but judicious imitation. the most original writers borrowed one from another\"</em> -Voltaire</div>\
+                      </div>\
+           					</div>\
+           				<div class="separator"></div>'
+              );
+            }
             var title='',
          			authors='',
          			abstractText='',
