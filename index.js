@@ -1,7 +1,6 @@
 var http = require("http"),
 		mongojs = require("mongojs"),
 		express = require('express'),
-		cors = require('cors'),
 		fs = require("fs"),
   	path = require('path'),
 		url = require("url"),
@@ -12,7 +11,6 @@ var http = require("http"),
   	ObjectID = require('mongodb').ObjectID;
 
 app = express();
-app.use(cors());
 app.use(bodyParser.json());
 
 var uri = "mongodb://PublicIO:publicpass@ds036698.mongolab.com:36698/alirodatabase";
@@ -151,6 +149,10 @@ app.post('/getPdf', function(req, res) {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', function(req, res){
+  res.status('what???').sendFile(path.join(__dirname + '/public/404.html'));
+});
 
 app.listen(port, function() {
 	console.log('CORS-enabled Aliro web server listening on port ' + port);
