@@ -278,7 +278,7 @@ form li:after
 	visibility:hidden;
 }
 
-.buttons:after
+.submitButtons:after
 {
 	clear:both;
 	content:".";
@@ -287,7 +287,7 @@ form li:after
 	visibility:hidden;
 }
 
-.buttons
+.submitButtons
 {
 	clear:both;
 	display:block;
@@ -299,7 +299,7 @@ form li:after
 	height:1%;
 }
 
-* html .buttons
+* html .submitButtons
 {
 	height:1%;
 }
@@ -458,7 +458,7 @@ input.button_text
 	width:auto;
 }
 
-.buttons input
+.submitButtons input
 {
 	font-size:120%;
 	margin-right:5px;

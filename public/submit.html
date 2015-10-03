@@ -97,7 +97,7 @@
 			$('#paperTitle').show();
 			$('#convertToPDF').slideUp();
 			$('#converted').button();
-			$('#saveForm').button();
+			$('#submitSaveForm').button();
 			$('.sm').smartmenus({
 				showFunction: function($ul, complete){
 					$ul.slideDown(250,complete);
@@ -118,7 +118,7 @@
 
 			})
 
-		$('#saveForm').click(function(e){
+		$('#submitSaveForm').click(function(e){
 				console.log("I ran");
 				$('#form_1039889').validate();
 				var isvalidate=$("#form_1039889").valid();
@@ -228,9 +228,9 @@
 		</div>
 		</li>
 		</div>
-		<li class="buttons">
+		<li class="submitButtons">
 			    <input type="hidden" name="form_id" value="1039889" />
-			   <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit"/>
+			   <input id="submitSaveForm" class="button_text" type="submit" name="submit" value="Submit"/>
 		</li>
 			</ul>
 		</form>

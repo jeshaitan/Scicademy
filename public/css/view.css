@@ -64,6 +64,7 @@ td{
 
 #signInButton{
 	margin-top: 19px;
+	width: 100px;
 }
 
 form input[type=submit]{
@@ -113,6 +114,11 @@ div.curFocus {
 	width:100px;
 }
 #saveForm{
+	height: 40px;
+	width: 100px;
+}
+
+#submitSaveForm{
 	height: 40px;
 	width: 100px;
 }
