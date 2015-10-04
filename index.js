@@ -4,9 +4,10 @@ var http = require("http"),
 		fs = require("fs"),
   	path = require('path'),
 		url = require("url"),
-		multer = require('multer'),
 		bodyParser = require('body-parser'),
   	port = process.env.PORT || 8888,
+		grid = require('gridfs-stream'),
+		mongo = require('mongodb'),
   	ObjectID = require('mongodb').ObjectID;
 
 app = express();
@@ -149,6 +150,15 @@ app.post('/addPaper', function(request, response) {
 		}
 	});
 
+});
+var gfs = grid(db, mongo);
+
+app.post('/addPdf', function(req, res) {
+	console.log(req);
+	req.pipe(gfs.createWriteStream({
+		filename: 'pdf'
+	}));
+	res.send('success');
 });
 
 app.post('/getPdf', function(req, res) {

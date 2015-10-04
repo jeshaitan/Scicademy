@@ -431,13 +431,16 @@ function readSubmitPaperForm(form) {
 		}
 
 		today = mm+'/'+dd+'/'+yyyy;
+		var formData = new FormData();
+		formData.append('pdf', $(element_3)[0].files[0]);
 		$.ajax({
-			url: '/getPdf',
+			url: '/addPdf',
 			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify($(element_3).get(0).files[0]),
-			dataType: 'json',
+			data: formData,
+			contentType: false,
+			processData: false,
 			success: function(response) {
+				console.log("response " + response)
 				var paperdata = {
 					"title": title,
 					"authors": authorsid,
