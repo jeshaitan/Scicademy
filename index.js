@@ -58,8 +58,28 @@ app.post('/getPaper', function(request, response) {
 	else if(request.body.searchType == "Keywords") {
 		var searchObject = {keywords: request.body.query};
 	}
-	else if(request.body.searchType == "Authors") {
-		var searchObject = {authors: request.body.query};
+	else if(request.body.searchType == "Author") {
+		db.Users.find({$text: {$search: request.body.query}}, function(err, curs) {
+			if(err) {
+				console.log("error finding author for paper")
+			}
+			else {
+				var searchObject = "";
+				for (var i = 0; i < curs.length; i++) {
+					searchObject += "{\"authors\": \"" + curs[i]._id + "\"},"
+				}
+				searchObjectArray = JSON.parse("[" + searchObject.substring(0, searchObject.length - 1) +"]");
+				db.Papers.find({$or: searchObjectArray}, function(err, curs) {
+					if(err) {
+						console.log({error: "error finding paper!"});
+						console.log(err);
+					}
+					else {
+						response.send(curs);
+					}
+				});
+			}
+		});
 	}
 	else if(request.body.searchType == 'id') {
 		var searchObject = {"_id" : ObjectID(request.body.query)};
@@ -67,21 +87,25 @@ app.post('/getPaper', function(request, response) {
 	else if(request.body.searchType == 'every') {
 		var searchObject = {}
 	}
-	db.Papers.find(searchObject, function(err, curs) {
-		if(err) {
-			console.log({error: "error finding paper!"});
-			console.log(err);
-		}
-		else {
-			response.send(curs);
-		}
-	});
+	if(request.body.searchType != "Author") {
+		db.Papers.find(searchObject, function(err, curs) {
+			if(err) {
+				console.log({error: "error finding paper!"});
+				console.log(err);
+			}
+			else {
+				response.send(curs);
+				console.log(curs);
+			}
+		});
+	}
 });
 
 app.post('/addUser', function(request, response) {
 	console.log(request.body);
 	db.Users.insert({email: request.body.eml,
 					  password: request.body.pwd,
+						name: request.body.fnm + request.body.lnm,
 					  firstname: request.body.fnm,
 					  lastname: request.body.lnm,
 					  school: request.body.shl,
