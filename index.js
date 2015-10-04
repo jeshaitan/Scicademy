@@ -18,7 +18,6 @@ var db = mongojs(uri, ["Papers", "Pdfs", "Users"], {authMechanism: 'ScramSHA1'})
 
 app.post('/getUser', function(request, response) {
     var searchObj = {};
-		//console.log("hello" + JSON.stringify(request));
     if(request.body.hasOwnProperty('searchType') && request.body.searchType == "id") {
 			searchObj = {"_id" : ObjectID(request.body.query)};
     }
@@ -34,7 +33,6 @@ app.post('/getUser', function(request, response) {
             	console.log('error recieving user');
         	}
         	else {
-        			console.log("sent user to front end: " + JSON.stringify(doc));
 							if(request.body.hasOwnProperty("meta")) {
 								response.send({"doc": doc, "meta": request.body.meta});
 							}
@@ -46,7 +44,6 @@ app.post('/getUser', function(request, response) {
 });
 
 app.post('/getPaper', function(request, response) {
-	console.log(request.body);
 	if(request.body.searchType == "All") {
 		var searchObject = {$or: [{$text: {$search: request.body.query}},
 							   {keywords: request.body.query},
@@ -61,7 +58,7 @@ app.post('/getPaper', function(request, response) {
 	else if(request.body.searchType == "Author") {
 		db.Users.find({$text: {$search: request.body.query}}, function(err, curs) {
 			if(err) {
-				console.log("error finding author for paper")
+				console.log(err)
 			}
 			else {
 				var searchObject = "";
@@ -71,7 +68,6 @@ app.post('/getPaper', function(request, response) {
 				searchObjectArray = JSON.parse("[" + searchObject.substring(0, searchObject.length - 1) +"]");
 				db.Papers.find({$or: searchObjectArray}, function(err, curs) {
 					if(err) {
-						console.log({error: "error finding paper!"});
 						console.log(err);
 					}
 					else {
@@ -90,19 +86,16 @@ app.post('/getPaper', function(request, response) {
 	if(request.body.searchType != "Author") {
 		db.Papers.find(searchObject, function(err, curs) {
 			if(err) {
-				console.log({error: "error finding paper!"});
 				console.log(err);
 			}
 			else {
 				response.send(curs);
-				console.log(curs);
 			}
 		});
 	}
 });
 
 app.post('/addUser', function(request, response) {
-	console.log(request.body);
 	db.Users.insert({email: request.body.eml,
 					  password: request.body.pwd,
 						name: request.body.fnm + request.body.lnm,
@@ -113,17 +106,15 @@ app.post('/addUser', function(request, response) {
 					  publications: request.body.pub,
 					  datejoined: request.body.dte}, function(err, record) {
 		if(err) {
-			console.log({error: 'error inserting new user'});
+			console.log(err);
 		}
 		else {
-			console.log("inserted new user");
 			response.send(record);
 		}
 	});
 });
 
 app.post('/addPaper', function(request, response) {
-	console.log(request.body);
 	db.Papers.insert({title:request.body.title,
 					  authors: request.body.authors,
 					  abstract: request.body.abstract,
@@ -131,16 +122,14 @@ app.post('/addPaper', function(request, response) {
 					  pdf: request.body.pdf,
 					  date: request.body.date}, function(err, record) {
 		if(err) {
-			console.log({error: 'error inserting new paper'});
+			console.log(err);
 		}
 		else {
-			console.log("inserted new paper");
 			db.Papers.findOne({abstract: request.body.abstract}, function(err, doc) {
 				if(err) {
-					console.log("error finding self abstract in Papers");
+					console.log(err);
 				}
 				else {
-					console.log("found self")
 					var authorsIdStrings = doc.authors,
 						authorsOId = [];
 					for(var i = 0; i < authorsIdStrings.length; i++) {
@@ -149,11 +138,10 @@ app.post('/addPaper', function(request, response) {
 
 					db.Users.update({_id: {$in: authorsOId}}, {$push: {publications: (""+doc._id)}}, {multi:true}, function(err, result) {
 						if(err) {
-							console.log("error updating authors");
+							console.log(err);
 						}
 						else {
 							console.log(JSON.stringify(doc.authors));
-							console.log("added publication data to all authors: " + JSON.stringify(result));
 						}
 					});
 				}
@@ -163,11 +151,7 @@ app.post('/addPaper', function(request, response) {
 	});
 
 });
-/*
-app.post('/addPdf', [multer({dest: "./uploads/"}).single('element_3'), function(req, res) {
-	console.log("file: " + req.file);
-}]);
-*/
+
 app.post('/getPdf', function(req, res) {
 	console.log('pdf requested');
 });
@@ -179,5 +163,5 @@ app.get('*', function(req, res){
 });
 
 app.listen(port, function() {
-	console.log('CORS-enabled Aliro web server listening on port ' + port);
+	console.log('Aliro back-end server listening on port ' + port);
 });
