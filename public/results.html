@@ -59,6 +59,7 @@
          	});
 
          	function addPapers(data) {
+            $('.papers').html('');
             if(data.length == 0) {
               $('.papers').append(
                 '<div class="paperDiv">\
@@ -70,7 +71,7 @@
            									<span class="arrowClick arrowSide"></span>\
            									<span class="preTxt">Don\'t lose hope!</span>\
            								</a>\
-           							<div class="abstractParagraph" id="abstract0">If you are looking for a specific paper and it\'s not here, try searching by Author or Keyword. If you\'re looking to see if your idea is original, you\'re in luck!</div>\
+           							<div class="abstractParagraph" id="abstract0">If you are looking for a specific paper and it\'s not here, try searching by Author (All Fields searches Author by User Id).<br /> If you\'re looking to see if your idea is original, you\'re in luck!</div>\
                         <div class="abstractParagraph" id="abstract0.5"><br /><em>\"Originality is nothing but judicious imitation. The most original writers borrowed one from another\"</em> -Voltaire</div>\
                       </div>\
            					</div>\
@@ -141,7 +142,7 @@
          							</div>\
          						</div>\
          						<div class="separator"></div>'
-         			$('.papers').append(paperHtml);
+              $('.papers').append(paperHtml);
               nump++;
          		}); //end loop for each paper
 
@@ -158,7 +159,6 @@
       <div id="signInBox"></div>
       <div class="grid">
       <div class="searchBoxDiv" id="search-form">
-         <!--<div id="logo"><img src="images/logo.png"></div>-->
          <form class="form-container" action="">
             <input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048"  />
             <div class="submit-container">
@@ -190,6 +190,9 @@
             </div>
          </div>
          <div class="papers">
+           <br />
+           <br />
+           <p><center><em>He that can have patience can have what he will.</em> -Benjamin Franklin</center></p>
          </div>
       </div>
    </body>
