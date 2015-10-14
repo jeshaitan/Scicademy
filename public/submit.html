@@ -50,7 +50,7 @@
 				value = value.replace(/[ ]{2,}/gi," ");
 				value = value.replace(/\n /,"\n");
 				counter=value.split(' ').length;
-			return counter>=100;
+			return counter>=70;
 			}, "");
 			var lines; //array that will hold all keywords
 			jQuery.validator.addMethod("isFourWords", function(value, element) {
@@ -79,7 +79,7 @@
 				messages: {
 					element_2: {
 						required: "This field is required",
-						isLong: "Your abstract must be at least 100 words"
+						isLong: "Your abstract must be at least 70 words"
 					},
 					element_9: {
 						required: "This field is required",
@@ -191,7 +191,7 @@
 		<label class="description required" for="element_2">Abstract </label>
 		<div>
 			<textarea id="element_2" name="element_2" class="element textarea medium"></textarea>
-		</div><p class="guidelines" id="guide_1"><small>Must be at least 200 words. This is a short section and is intended to give the reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p>
+		</div><p class="guidelines" id="guide_1"><small>Must be at least 70 words. This is a short section and is intended to give the reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p>
 		</li>
 
 		<li id="li_9" >
