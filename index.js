@@ -157,13 +157,14 @@ var gfs = grid(db, mongo);
 
 app.post('/addPdf', function(req, res) {
 	var fstream;
+	var rid = randomInt(129, 9999999999999);
 	req.pipe(req.busboy);
 	req.busboy.on('file', function(fieldname, file, filename) {
 		console.log("uploading: " + filename);
-		fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
+		fstream = fs.createWriteStream(__dirname + 'public/uploads/' + rid + ":" + filename);
 		file.pipe(fstream);
 		fstream.on('close', function() {
-			res.send("THIS WILL BE REPLACED BY A PDF ID FOR: " + filename);
+			res.send(rid + ":" + filename);
 			//sign up for aws and implement below -> take ID from insert and send it in response
 			//var s3 = new AWS.S3();
  			//s3.createBucket({Bucket: 'myBucket'}, function() {
@@ -178,6 +179,10 @@ app.post('/addPdf', function(req, res) {
 		});
 	});
 });
+
+function randomInt (low, high) {
+    return Math.floor(Math.random() * (high - low) + low);
+}
 
 app.post('/getPdf', function(req, res) {
 	console.log('pdf requested');
