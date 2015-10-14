@@ -50,7 +50,7 @@
 				value = value.replace(/[ ]{2,}/gi," ");
 				value = value.replace(/\n /,"\n");
 				counter=value.split(' ').length;
-			return counter>=200;
+			return counter>=100;
 			}, "");
 			var lines; //array that will hold all keywords
 			jQuery.validator.addMethod("isFourWords", function(value, element) {
@@ -79,7 +79,7 @@
 				messages: {
 					element_2: {
 						required: "This field is required",
-						isLong: "Your abstract must be at least 200 words"
+						isLong: "Your abstract must be at least 100 words"
 					},
 					element_9: {
 						required: "This field is required",
