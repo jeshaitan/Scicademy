@@ -161,10 +161,11 @@ app.post('/addPdf', function(req, res) {
 	req.pipe(req.busboy);
 	req.busboy.on('file', function(fieldname, file, filename) {
 		console.log("uploading: " + filename);
-		fstream = fs.createWriteStream(__dirname + 'public/uploads/' + rid + ":" + filename);
+		var name = rid + ':' + filename;
+		fstream = fs.createWriteStream(__dirname + 'public/uploads/' + name);
 		file.pipe(fstream);
 		fstream.on('close', function() {
-			res.send(rid + ":" + filename);
+			res.send(name);
 			//sign up for aws and implement below -> take ID from insert and send it in response
 			//var s3 = new AWS.S3();
  			//s3.createBucket({Bucket: 'myBucket'}, function() {
