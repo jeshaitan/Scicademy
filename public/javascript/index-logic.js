@@ -485,24 +485,7 @@ function addPaper(newpaper) {
 			});
 
 	function newsearchpaper(response) {
-		document.location.href = "/results.html?type=1query="+newpaper.title;
-	}
-}
-
-function addPoster(newposter) {
-	console.log("submitting poster to node server");
-	$.ajax({
-				url: '/addPoster',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify(newposter),
-				dataType: 'json',
-				success: newsearchposter
-			});
-
-	function newsearchposter(response) {
-		console.log("hello");
-		document.location.href = "/results.html?type=2query="+newposter.title;
+		document.location.href = "/results.html?type=2query="+newpaper.title;
 	}
 }
 
