@@ -8,11 +8,13 @@ var http = require("http"),
   	port = process.env.PORT || 8888,
 		grid = require('gridfs-stream'),
 		mongo = require('mongodb'),
+		busboy = require('connect-busboy'),
+		aws = require('aws-sdk'),
   	ObjectID = require('mongodb').ObjectID;
 
 app = express();
 app.use(bodyParser.json());
-
+app.use(busboy());
 var uri = "mongodb://PublicIO:publicpass@ds036698.mongolab.com:36698/alirodatabase";
 var db = mongojs(uri, ["Papers", "Pdfs", "Users"], {authMechanism: 'ScramSHA1'});
 
@@ -154,11 +156,27 @@ app.post('/addPaper', function(request, response) {
 var gfs = grid(db, mongo);
 
 app.post('/addPdf', function(req, res) {
-	console.log(req);
-	req.pipe(gfs.createWriteStream({
-		filename: 'pdf'
-	}));
-	res.send('success');
+	var fstream;
+	req.pipe(req.busboy);
+	req.busboy.on('file', function(fieldname, file, filename) {
+		console.log("uploading: " + filename);
+		fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
+		file.pipe(fstream);
+		fstream.on('close', function() {
+			res.send("THIS WILL BE REPLACED BY A PDF ID FOR: " + filename);
+			//sign up for aws and implement below -> take ID from insert and send it in response
+			//var s3 = new AWS.S3();
+ 			//s3.createBucket({Bucket: 'myBucket'}, function() {
+  		//	var params = {Bucket: 'myBucket', Key: 'myKey', Body: 'Hello!'};
+  		//	s3.putObject(params, function(err, data) {
+			//		if (err)
+			//			console.log(err)
+			//		else
+			//		  console.log("Successfully uploaded data to myBucket/myKey");
+   		//	});
+			//});
+		});
+	});
 });
 
 app.post('/getPdf', function(req, res) {

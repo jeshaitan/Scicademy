@@ -204,6 +204,7 @@ $(document).ready(function() {
 	$('#form_1039889').submit(function(event) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
+		console.log("hello there!")
 		readSubmitPaperForm($('#form_1039889'));
 	});
 
@@ -484,8 +485,7 @@ function addPaper(newpaper) {
 			});
 
 	function newsearchpaper(response) {
-		console.log("hello");
-		document.location.href = "/results.html?query="+newpaper.title;
+		document.location.href = "/results.html?type=1query="+newpaper.title;
 	}
 }
 
@@ -501,9 +501,7 @@ function addPoster(newposter) {
 			});
 
 	function newsearchposter(response) {
-		console.log("hello");
-		document.location.href = "/results.html?query="+newposter.title;
-	}
+		document.location.href = "/results.html?type=2query="+newposter.title;
 }
 
 function requestUser(email, password) {
