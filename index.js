@@ -162,7 +162,7 @@ app.post('/addPdf', function(req, res) {
 	req.busboy.on('file', function(fieldname, file, filename) {
 		console.log("uploading: " + filename);
 		var name = rid + ':' + filename;
-		fstream = fs.createWriteStream(__dirname + 'public/uploads/' + name);
+		fstream = fs.createWriteStream(__dirname + '/public/uploads/' + name);
 		file.pipe(fstream);
 		fstream.on('close', function() {
 			res.send(name);
