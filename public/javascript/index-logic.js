@@ -501,7 +501,9 @@ function addPoster(newposter) {
 			});
 
 	function newsearchposter(response) {
+		console.log("hello");
 		document.location.href = "/results.html?type=2query="+newposter.title;
+	}
 }
 
 function requestUser(email, password) {
