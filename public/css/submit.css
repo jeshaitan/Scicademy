@@ -4,7 +4,7 @@ body
 }
 
 .colorBody{
-	background-color: #C070A0;
+	background-color: #5a5699;
 }
 
 .grid{
@@ -13,7 +13,7 @@ body
     overflow: hidden;
     text-align: left;
     width: 100%;
-	background-color: #F7F7F7; 
+	background-color: #F7F7F7;
 }
 
 #incompleteSubmit{
@@ -220,12 +220,12 @@ h1
 	padding:0;
 	text-decoration:none;
 	/*text-indent:-8000px;*/
-	
+
 }
 
 h1 a
 {
-	
+
 	display:block;
 	height:100%;
 	min-height:40px;
@@ -642,7 +642,7 @@ form .guidelines
 	z-index:1000;
 }
 
-#guide_1{ 
+#guide_1{
 	/* abstract guide */
 	top:39px !important;
 }
@@ -682,7 +682,7 @@ form li:hover .guidelines
 }
 
 /*** Success Message ****/
-.form_success 
+.form_success
 {
 	clear: both;
 	margin: 0;
@@ -757,5 +757,5 @@ ul.password{
 .embed form.appnitro
 {
 	margin:0px 0px 0;
-	
+
 }

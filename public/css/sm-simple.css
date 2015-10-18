@@ -21,7 +21,7 @@
   color: white;
 }
 .sm-simple a.disabled {
-  color: #c070a0;
+  color: #5a5699;
 }
 .sm-simple a span.sub-arrow {
   position: absolute;
@@ -99,7 +99,7 @@
     float: right;
   }
 
-  .sm-simple ul li, .sm-simple.sm-rtl ul li, .sm-simple.sm-vertical li {
+  .sm-simple ul li, .sm-simple.sm-rtl ul li, .sm-s5a5699ple.sm-vertical li {
     float: none;
   }
 
@@ -124,7 +124,7 @@
     color: #555555;
   }
   .sm-simple a:hover, .sm-simple a:focus, .sm-simple a:active, .sm-simple a.highlighted {
-    background: #c070a0;
+    background: #5a5699;
     color: #ffffff;
   }
   .sm-simple a.current {
@@ -133,7 +133,7 @@
   }
   .sm-simple a.disabled {
     background: white;
-    color: #c070a0;
+    color: #5a5699;
   }
   .sm-simple a.has-submenu {
     padding-right: 32px;
