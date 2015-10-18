@@ -32,7 +32,8 @@ p {
 }
 
 body {
-	background-color: #FFFFFF;
+	/* background-color: #FFFFFF; */
+    background-image: url("../images/blueBack.jpg");    
 	font-family: Ubuntu, sans-serif !important;
 }
 
