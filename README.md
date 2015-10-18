@@ -1,4 +1,2 @@
 # jeshaitan.github.io
-Aliro - Read, Research, Review
-
-aliro.herokuapp.com
+Scicademy - Read, Research, Review
