@@ -168,22 +168,19 @@ app.post('/addPdf', function(req, res) {
 		file.pipe(fstream);
 		fstream.on('close', function() {
 			fs.readFile(__dirname + '/public/uploads/' + name, function(err, data){
-				console.log('step1')
 				var s3bucket = new aws.S3({params: {Bucket: 'aliro-pdf-assets'}});
 				s3bucket.createBucket(function() {
 					var params = {
 						Key: name,
 						Body: data
 					}
-					console.log('step2')
 					s3bucket.upload(params, function(err, data) {
 						if (err) {
 							console.log(err);
 						}
 						else {
-							console.log('step3')
-							console.log('successfully uploaded file to s3 bucket')
 							res.send(name);
+							fs.unlink(__dirname + '/public/uploads/' + name);
 						}
 					});
 				});
@@ -197,7 +194,7 @@ function randomInt (low, high) {
 }
 
 app.post('/getPdf', function(req, res) {
-	
+
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
