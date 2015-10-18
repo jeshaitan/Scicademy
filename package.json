@@ -1,7 +1,7 @@
 {
   "name": "jeshaitan.github.io",
   "version": "0.0.0",
-  "description": "Aliro - Read, Research, Review",
+  "description": "Scicademy - Read, Research, Review",
   "main": "nodeserver.js",
   "dependencies": {
     "body-parser": "^1.14.1",
