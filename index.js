@@ -154,29 +154,40 @@ app.post('/addPaper', function(request, response) {
 
 });
 var gfs = grid(db, mongo);
+aws.config.region = 'us-east-1';
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
 	var fstream;
 	var rid = randomInt(129, 9999999999999);
 	req.pipe(req.busboy);
 	req.busboy.on('file', function(fieldname, file, filename) {
-		console.log("uploading: " + filename);
 		var name = rid + ':' + filename;
 		fstream = fs.createWriteStream(__dirname + '/public/uploads/' + name);
 		file.pipe(fstream);
 		fstream.on('close', function() {
-			res.send(name);
-			//sign up for aws and implement below -> take ID from insert and send it in response
-			//var s3 = new AWS.S3();
- 			//s3.createBucket({Bucket: 'myBucket'}, function() {
-  		//	var params = {Bucket: 'myBucket', Key: 'myKey', Body: 'Hello!'};
-  		//	s3.putObject(params, function(err, data) {
-			//		if (err)
-			//			console.log(err)
-			//		else
-			//		  console.log("Successfully uploaded data to myBucket/myKey");
-   		//	});
-			//});
+			fs.readFile(__dirname + '/public/uploads/' + name, function(err, data){
+				console.log('step1')
+				var s3bucket = new aws.S3({params: {Bucket: 'aliro-pdf-assets'}});
+				s3bucket.createBucket(function() {
+					var params = {
+						Key: name,
+						Body: data
+					}
+					console.log('step2')
+					s3bucket.upload(params, function(err, data) {
+						if (err) {
+							console.log(err);
+						}
+						else {
+							console.log('step3')
+							console.log('successfully uploaded file to s3 bucket')
+							res.send(name);
+						}
+					});
+				});
+			});
 		});
 	});
 });
@@ -186,7 +197,7 @@ function randomInt (low, high) {
 }
 
 app.post('/getPdf', function(req, res) {
-	console.log('pdf requested');
+	
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
