@@ -54,8 +54,8 @@
 						type: 'POST',
 						contentType: 'application/json',
 						data: JSON.stringify({query: pdata.pdf}),
-						success: function() {
-							console.log('downloaded file to local');
+						success: function(res) {
+							localStorage.setItem('pdf', res);
 						}
 					});
 					firstAuthor = true;
@@ -130,6 +130,18 @@
 				}
 			});
 		}); //end ready
+		window.onbeforeunload = function(e) {
+			$.ajax({
+				url: '/clearPdf',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({query: localStorage.getItem('pdf')}),
+				dataType: 'json',
+				success: function() {
+					localStorage.removeItem('pdf');
+				}
+			});
+		}
 	</script>
 </head>
 

@@ -200,8 +200,8 @@ app.post('/getPdf', function(req, res) {
 	s3.getObject(params).createReadStream().pipe(file);
 });
 
-app.post('/clearPdf', function() {
-
+app.post('/clearPdf', function(req, res) {
+	fs.unlink(__dirname + '/public/uploads/' + req.body.query);
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
