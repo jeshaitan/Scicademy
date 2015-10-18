@@ -190,10 +190,17 @@ app.post('/addPdf', function(req, res) {
 });
 
 function randomInt (low, high) {
-    return Math.floor(Math.random() * (high - low) + low);
+  return Math.floor(Math.random() * (high - low) + low);
 }
 
 app.post('/getPdf', function(req, res) {
+	var s3 = new aws.S3();
+	var params = {Bucket: 'aliro-pdf-assets', Key: req.body.query};
+	var file = require('fs').createWriteStream(__dirname + '/public/uploads/' + req.body.query);
+	s3.getObject(params).createReadStream().pipe(file);
+});
+
+app.post('/clearPdf', function() {
 
 });
 

@@ -48,8 +48,17 @@
 				data: JSON.stringify(searchPaper),
 				dataType: 'json',
 				success: function(data) {
-					firstAuthor = true;
 					var pdata = data[0];
+					$.ajax({
+						url: '/getPdf',
+						type: 'POST',
+						contentType: 'application/json',
+						data: JSON.stringify({query: pdata.pdf}),
+						success: function() {
+							console.log('downloaded file to local');
+						}
+					});
+					firstAuthor = true;
 					$.each(pdata, function(infoName, info) { //loop through each piece of info in the paper
 						if(infoName =='authors'){ //going into the authors
 							//then it's authors
