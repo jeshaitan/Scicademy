@@ -201,7 +201,7 @@ app.post('/getPdf', function(req, res) {
 });
 
 app.post('/clearPdf', function(req, res) {
-	fs.unlink(__dirname + '/public/uploads/' + req.body.query);
+	//fs.unlink(__dirname + '/public/uploads/' + req.body.query);
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
