@@ -2,9 +2,13 @@ center{
 	margin-right:220px;
 }
 
+
 .colorBody{
 	background-color: #C070A0;
-}
+	width: 1225px;
+	margin-left: 65px;
+	margin-right: 8px;
+	}
 
 .grid{
 	clear: both;
