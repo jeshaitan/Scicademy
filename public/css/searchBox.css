@@ -15,12 +15,10 @@ body {
 	padding: 1px 0 0 0;
 	background: url(../images/form-bg.png) top center no-repeat;
 	text-align: center;
-	position:relative;
-	top:172px;
 }
 
 .form-container {
-	width: 458px;
+	width: 471px;
 	height: 49px;
 	margin: 0px auto 0 auto;
 	padding: 0;
