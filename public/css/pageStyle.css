@@ -7,8 +7,8 @@ p {
 	height:228px;
 	margin: 0 auto;
 	padding-top:120px;
-	padding-bottom:150px;
-	padding-right:40px;
+	padding-bottom:200px;
+	padding-right:195px;
 	text-align: center;
 	position:relative;
 	bottom: 86px;
@@ -40,7 +40,10 @@ p {
 body {
 	/* background-color: #FFFFFF; */
     background-image: url("../images/blueBack.jpg");
+<<<<<<< HEAD
 	background-repeat: no-repeat;
+=======
+>>>>>>> 16d7169c1052e4e364451d000b5243e07522ef52
 	font-family: Ubuntu, sans-serif !important;
 }
 
