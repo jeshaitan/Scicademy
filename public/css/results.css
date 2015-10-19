@@ -1,24 +1,21 @@
-center{
+#benFrank{
 	margin-right:220px;
-}
-
-
-.colorBody{
-	background-color: #C070A0;
-	width: 1225px;
-	margin-left: 65px;
-	margin-right: 8px;
-	}
-
-.grid{
+	
+}	
+	
+#grid{
+	width:1225px !important;
 	clear: both;
     margin: 0 auto;
     overflow: hidden;
     text-align: left;
-    width: 100%;
 	background-color: #e1e1e1; /*color for searchbox area */
 }
 
+.navigation{
+	margin: auto;
+    width: 1225px;
+}
 
 .paperDiv h3 {
     color: #316c9d;
