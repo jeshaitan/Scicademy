@@ -10,8 +10,14 @@ p {
 	padding-bottom:150px;
 	padding-right:40px;
 	text-align: center;
+	position:relative;
+	bottom: 86px;
+	right: 100px;
 }
 
+#indexButton{
+	margin-top:10px;
+}
 #topBar{
 	background-color: gray;
 	border-style:solid;
@@ -33,7 +39,8 @@ p {
 
 body {
 	/* background-color: #FFFFFF; */
-    background-image: url("../images/blueBack.jpg");    
+    background-image: url("../images/blueBack.jpg");
+	background-repeat: no-repeat;
 	font-family: Ubuntu, sans-serif !important;
 }
 
