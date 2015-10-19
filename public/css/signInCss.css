@@ -1,4 +1,4 @@
-/* #signInForm input{
+#signInForm input{
 	height: 34px !important;
 	line-height: 20px !important;
 	padding: 6px 12px !important;
@@ -29,13 +29,14 @@ table.credentialsTable form input[type=text], table.credentialsTable form input[
   margin: 5px 1px 3px 0px !important;
   border: 1px solid #DDDDDD !important;
 }
- 
+
 table.credentialsTable form input[type=text]:focus,  table.credentialsTable form input[type=password]:focus, table.credentialsTable form textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
   padding: 3px 0px 3px 3px !important;
   margin: 5px 1px 3px 0px !important;
   border: 1px solid rgba(81, 203, 238, 1) !important;
-} */
+}
+
 
 input.error, select.error textarea.error{
 	border: 1px solid red !important;

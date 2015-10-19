@@ -1,20 +1,14 @@
-#benFrank{
+/*#benFrank{
 	margin-right:220px;
-	
-}	
-	
-#grid{
-	width:1225px !important;
+}*/
+
+.grid{
+	/*width:1225px !important;*/
 	clear: both;
     margin: 0 auto;
     overflow: hidden;
     text-align: left;
 	background-color: #e1e1e1; /*color for searchbox area */
-}
-
-.navigation{
-	margin: auto;
-    width: 1225px;
 }
 
 .paperDiv h3 {
@@ -93,7 +87,7 @@
 #search-form{
 	background: url(../images/bp.png) top center no-repeat;
 	margin: 10px auto 10px;
-	
+
 }
 
 #searchTableDiv{
@@ -123,9 +117,9 @@
 }
 
 .separator {
-	margin-right: 50px; 
- 	height: 1px; 
-	background: gray; 
+	margin-right: 50px;
+ 	height: 1px;
+	background: gray;
 	overflow: hidden;
 }
 
