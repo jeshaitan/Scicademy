@@ -31,7 +31,7 @@ body {
 }
 */
 /* Custom Button Styles */
-/*
+
 .btn-dark {
     border-radius: 0;
     color: #fff;
@@ -57,7 +57,7 @@ body {
     color: #333;
     background-color: rgba(255,255,255,0.8);
 }
-*/
+
 /* Custom Horizontal Rule */
 /*
 hr.small {
@@ -133,6 +133,10 @@ hr.small {
     position: fixed;
     top: 0;
     right: 0;
+}
+
+#indexButton {
+  margin-top: 300px;
 }
 
 #sidebar-wrapper.active {
