@@ -5,7 +5,6 @@
 .grid{
 	/*width:1225px !important;*/
 	clear: both;
-    margin: 0 auto;
     overflow: hidden;
     text-align: left;
 	background-color: #e1e1e1; /*color for searchbox area */

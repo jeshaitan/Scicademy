@@ -117,7 +117,6 @@ $(document).ready(function() {
 		}
 	});
 
-	$('[title]').tooltip();
 	$('.sm').smartmenus( {
 		showFunction: function($ul, complete) {
 			$ul.slideDown(250,complete);
@@ -333,7 +332,6 @@ $(document).ready(function() {
 				}
 			});
 
-			$('[title]').tooltip();
 
 			$('.sm').smartmenus({
 				showFunction: function($ul, complete){

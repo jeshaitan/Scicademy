@@ -2,10 +2,18 @@ p {
 	font-family:Ubuntu, sans-serif;
 }
 
-body{
+.navigation{
 	width: 98%;
 	margin: auto;
 	margin-top: 8px;
+}
+
+.appnitro input{
+	box-sizing: content-box;
+}
+
+#signInForm input{
+	box-sizing: content-box;
 }
 
 #logo {
