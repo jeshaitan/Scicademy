@@ -1,20 +1,9 @@
-/*#benFrank{
-	margin-right:220px;
-}*/
-
-.grid{
-	/*width:1225px !important;*/
-	clear: both;
-    overflow: hidden;
-    text-align: left;
-	background-color: #e1e1e1; /*color for searchbox area */
-}
-
 .paperDiv h3 {
     color: #316c9d;
     font-size: 1.108em;
 		margin-bottom: 10px;
 	text-decoration:none;
+	width: 98%;
 }
 .paperDiv h3:hover{
 	text-decoration:underline;
@@ -22,6 +11,10 @@
 
 .paperDiv a {
     text-decoration: none;
+}
+
+.paperDiv {
+	width: 98% !important;
 }
 
 .authors{
