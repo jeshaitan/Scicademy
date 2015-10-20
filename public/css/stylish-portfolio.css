@@ -120,7 +120,7 @@ hr.small {
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #999;
+    color: #999;f
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
@@ -171,8 +171,8 @@ hr.small {
 
 .about {
     padding: 50px 0;
-	background-color: white;
-    margin-top: 0px;
+	  background-color: white;
+    margin-top: 550px;
 
 }
 
@@ -180,7 +180,7 @@ hr.small {
 
 .services {
     padding: 50px 0;
-	margin-top: 385px;
+	margin-top: 0px;
 }
 
 .service-item {
@@ -246,5 +246,5 @@ hr.small {
 
 footer {
   background: url("../images/blueBack.jpg") no-repeat center center scroll;
-    padding: 100px 0;
+  padding: 75px 0;
 }
