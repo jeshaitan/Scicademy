@@ -2,6 +2,12 @@ p {
 	font-family:Ubuntu, sans-serif;
 }
 
+body{
+	width: 98%;
+	margin: auto;
+	margin-top: 8px;
+}
+
 #logo {
 	width:304px;
 	height:228px;
