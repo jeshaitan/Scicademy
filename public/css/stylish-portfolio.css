@@ -136,7 +136,7 @@ hr.small {
 }
 
 #indexButton {
-  margin-top: 300px;
+  margin-top: 50px;
 }
 
 #sidebar-wrapper.active {
@@ -172,7 +172,7 @@ hr.small {
 .about {
     padding: 50px 0;
 	background-color: white;
-    margin-top: 600px;
+    margin-top: 0px;
 
 }
 
@@ -180,6 +180,7 @@ hr.small {
 
 .services {
     padding: 50px 0;
+	margin-top: 385px;
 }
 
 .service-item {
