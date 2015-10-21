@@ -68,7 +68,7 @@ $(document).ready(function() {
 			</li>\
 			<li class="buttons">\
 					<input type="hidden" name="form_id" value="1037235" />\
-					<input id="saveForm" class="button_text signRegisterBut" type="submit" name="submit" value="Register"/>\
+					<input id="saveForm" class="button_text signRegisterBut btn btn-primary btn-xs" type="submit" name="submit" value="Register"/>\
 			</li>\
 				</ul>\
 			</form>\
@@ -86,7 +86,7 @@ $(document).ready(function() {
 			<input type="password" id="password" name="password" maxlength="255" size="16" value="" class="element text medium required email" placeholder="Password">\
 			</div>\
 			<div>\
-			<input type="submit" id="signInButton" name="signInButton" class="signRegisterBut" value="Sign In">\
+				<input type="submit" id="signInButton" name="signInButton" class="signRegisterBut btn btn-primary btn-xs" value="Sign In">\
 			</div>\
 		</form>\
 		</div>\
@@ -214,7 +214,7 @@ $(document).ready(function() {
 		window.location.href = "index.html";
 	});
 
-	$('.signRegisterBut').button();
+	// $('.signRegisterBut').button();
 
 	//add in missing files for sign in
 	var headText= $('head').html();
@@ -265,7 +265,7 @@ $(document).ready(function() {
 					button: "ui-icon-circle-triangle-s"
 				}//end icons
 			}); //end selectmenu
-			$('#saveForm').button();
+			// $('#saveForm').button();
 			$('#form_1037235').validate({
 				rules: {
 					element_3: { //email
@@ -506,7 +506,7 @@ function requestUser(email, password) {
 	function giveloginerror(jqXHR, textStatus) {
 		if (textStatus == 'parsererror'){
 			if ($('.userPass').length == 0){
-			$('#signInFormDiv').append('<p class="failedSignIn userPass" style="float:left;color:#f00;font-weight: bold;font-size: 9px;line-height: 9px;text-align:center;">No known user with above login credentials.</p>');
+			$('#signInFormDiv').append('<p class="failedSignIn userPass" style="float:left;color:#f00;font-weight: bold;font-size: 12px;line-height: 9px;text-align:center;">No known user with above login credentials.</p>');
 				if($('.unknownE').length > 0){
 					$('.unknownE').remove();
 				}
@@ -518,7 +518,7 @@ function requestUser(email, password) {
 		}
 		else{
 			if ($('.unknownE').length == 0){
-			$('#signInFormDiv').append('<p class="failedSignIn unknownE" style="float:left;color:#f00;font-weight: bold;font-size: 9px;line-height: 9px;text-align:center;">Unknown error while loggin in. Try loggin in later</p>');
+			$('#signInFormDiv').append('<p class="failedSignIn unknownE" style="float:left;color:#f00;font-weight: bold;font-size: 12px;line-height: 9px;text-align:center;">Unknown error. Please try logging in later</p>');
 				if($('.userPass').length > 0){
 					$('.userPass').remove();
 				}

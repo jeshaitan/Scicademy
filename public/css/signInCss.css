@@ -1,4 +1,4 @@
-#signInForm input{
+/* #signInForm input{
 	height: 34px !important;
 	line-height: 20px !important;
 	padding: 6px 12px !important;
@@ -41,3 +41,4 @@ table.credentialsTable form input[type=text]:focus,  table.credentialsTable form
 input.error, select.error textarea.error{
 	border: 1px solid red !important;
 }
+ */

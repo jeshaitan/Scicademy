@@ -12,6 +12,20 @@ p {
 	box-sizing: content-box;
 }
 
+.failedSignIn{
+	margin-top:23px;
+}
+
+#incompleteRegister{
+	margin-left: 15px;
+	margin-top:2px;
+	color:red;
+}
+
+#signInForm{
+	height: 130px;
+}
+
 #signInForm input{
 	box-sizing: content-box;
 }
@@ -44,6 +58,11 @@ p {
 	margin-bottom: 20px;
 	padding-bottom: 20px;
 	display: inline-block;
+}
+
+#alerttext a{
+	color: ##337ab7;
+	text-decoration:underline;
 }
 
 #contacttext {
