@@ -7,6 +7,10 @@ p {
 	margin: auto;
 	margin-top: 8px;
 }
+ .btn.btn-primary {
+	background-color: #5a5699 !important;
+}
+
 
 .appnitro input{
 	box-sizing: content-box;
