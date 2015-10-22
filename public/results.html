@@ -46,6 +46,8 @@
             searchType = "Keyword";
           else if(searchType == 4)
             searchType = "Author";
+          else if(searchType == 5)
+            searchType = "Institution";
          	var searchPaper = {
          		"query": queryString,
          		"searchType": searchType
@@ -177,6 +179,7 @@
                   <input type="radio" name="searchTypeOptions" value="Title" class="searchBy">Title</input><br>
                   <input type="radio" name="searchTypeOptions" value="Keyword" class="searchBy">Keyword</input><br>
                   <input type="radio" name="searchTypeOptions" value="Author" class="searchBy">Author</input>
+                  <input type="radio" name="searchTypeOptions" value="Author" class="searchBy">Institution</input>
                </div>
             </div>
              <div class="sortBy">
