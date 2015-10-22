@@ -58,6 +58,15 @@ p {
 	height:50px;
 }
 
+#closeRegister{
+	margin-left:100px;
+	margin-top:10px;
+}
+
+#registerComplete{
+	font-size: 14px;
+}
+
 #alerttext{
 	margin-bottom: 20px;
 	padding-bottom: 20px;

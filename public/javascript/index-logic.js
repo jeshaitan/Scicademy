@@ -212,6 +212,8 @@ $(document).ready(function() {
 		event.stopImmediatePropagation();
 		readRegisterForm($('#form_1037235'));
 		window.location.href = "index.html";
+		console.log('working');
+		$('#registerComplete').dialog('open');		
 	});
 
 	// $('.signRegisterBut').button();
@@ -342,7 +344,7 @@ $(document).ready(function() {
 				}
 			}); //end smartmenus
 
-			var schools=[]; //PUT THE ARRAY OF SCHOOLS HERE *****************************************************************************
+			var schools=[]; //<--------- PUT THE ARRAY OF SCHOOLS HERE *****************************************************************************
 			$('#element_7').autocomplete({
 				source:schools
 			});
@@ -357,7 +359,7 @@ $(document).ready(function() {
 
 			}) //end high school or undergrad click
 
-	//end register javascript
+	//end register JavaScript
 });
 
 function readSignInForm(form) {

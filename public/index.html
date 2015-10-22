@@ -53,10 +53,22 @@
             }
         });
     });
+	
 
 	$(document).ready(function() {
       $.getScript('javascript/index-logic.js', function(jd) {}); //end ready
-    });
+	  $('#registerComplete').dialog({
+		resizable:false,
+		minWidth: 300,
+		minHeight: 150,
+		autoOpen: false,
+		show: 'fade',
+		hide: 'fold'
+      });
+	  $("#registerComplete").on('click', '#closeRegister', function(){
+			$(this).closest("#registerComplete").dialog('close');
+		});
+	});
   </script>
   <div class="navigation"></div>
   <div id="signInBox"></div>
@@ -74,7 +86,10 @@
 	<br>
 	<a href="#about" class="btn btn-primary btn-lg" id="indexButton">Find Out More</a>
   </div>
-
+  <div id="registerComplete">
+	<center>Thank you for registering and welcome to Scicademy!</center>
+	<button id="closeRegister" class="btn btn-lg btn-primary">Ok</button>
+  </div>
   <section id="about" class="about">
       <div class="container">
           <div class="row">
