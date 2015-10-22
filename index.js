@@ -68,6 +68,7 @@ app.post('/getPaper', function(request, response) {
 					searchObject += "{\"authors\": \"" + curs[i]._id + "\"},"
 				}
 				searchObjectArray = JSON.parse("[" + searchObject.substring(0, searchObject.length - 1) +"]");
+				console.log(searchObjectArray);
 				db.Papers.find({$or: searchObjectArray}, function(err, curs) {
 					if(err) {
 						console.log(err);
@@ -100,7 +101,7 @@ app.post('/getPaper', function(request, response) {
 app.post('/addUser', function(request, response) {
 	db.Users.insert({email: request.body.eml,
 					  password: request.body.pwd,
-						name: request.body.fnm + request.body.lnm,
+						name: request.body.fnm + " " + request.body.lnm,
 					  firstname: request.body.fnm,
 					  lastname: request.body.lnm,
 					  school: request.body.shl,
@@ -155,8 +156,8 @@ app.post('/addPaper', function(request, response) {
 });
 var gfs = grid(db, mongo);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
 	var fstream;
