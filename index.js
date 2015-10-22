@@ -79,9 +79,6 @@ app.post('/getPaper', function(request, response) {
 			}
 		});
 	}
-	else if(requset.body.searchType == 'Institution') {
-		var searchObject = {"School" : ObjectID(request.body.query)};
-	}
 	else if(request.body.searchType == 'id') {
 		var searchObject = {"_id" : ObjectID(request.body.query)};
 	}
