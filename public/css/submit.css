@@ -16,6 +16,11 @@ body
 	background-color: #F7F7F7;
 }
 
+#element_3{
+	width:755px;
+	height:31px;
+}
+
 #incompleteSubmit{
 	width: 100px;
 	position:absolute;
