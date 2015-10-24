@@ -206,15 +206,19 @@ $(document).ready(function() {
 		console.log("hello there!")
 		readSubmitPaperForm($('#form_1039889'));
 	});
-
+	var submitted=false;
 	$('#form_1037235').submit(function(event) {
-		event.preventDefault();
+		// console.log('changed');
+		// submitted=true;
+		event.preventDefault();	
 		event.stopImmediatePropagation();
 		readRegisterForm($('#form_1037235'));
 		window.location.href = "index.html";
 		console.log('working');
-		$('#registerComplete').dialog('open');		
 	});
+	// if (submitted){
+		// $('#registerComplete').dialog('open');	
+	// }
 
 	// $('.signRegisterBut').button();
 
@@ -323,8 +327,11 @@ $(document).ready(function() {
 				});
 				return str;
 			}
+			var isvalidate=false;
+			var submitClicked=false;
 			$('#saveForm').click(function(e){
 				console.log("I ran");
+				submitClicked=true;
 				$('#form_1037235').validate();
 				var isvalidate=$("#form_1037235").valid();
 				if(isvalidate == false)
@@ -333,7 +340,14 @@ $(document).ready(function() {
 					$('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid</p>');
 				}
 			});
-
+			$('#form_1037235').change(function() {	
+				if (isvalidate == false && submitClicked == true){				
+					isvalidate=$("#form_1037235").valid();
+					if(isvalidate == true){
+						$('#incompleteRegister').remove();
+					}				
+				}
+			});
 
 			$('.sm').smartmenus({
 				showFunction: function($ul, complete){
