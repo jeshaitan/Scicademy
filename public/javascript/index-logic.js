@@ -157,7 +157,7 @@ $(document).ready(function() {
 		modal: true,
 		resizable:false,
 		minWidth: 800,
-		minHeight: 700,
+		minHeight: 567,
 		autoOpen: false,
 		show: 'fade',
 		hide: 'drop'

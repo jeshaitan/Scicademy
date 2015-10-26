@@ -23,18 +23,17 @@ td{
 
 #registerFormDiv{
 	left: 7.5%;
-	margin-top: 38px;
 }
+
 
 #signInFormDiv{
 	right: 4.5%;
-	margin-top: 38px;
 }
 
 #separateSignIn{
 	position: absolute;
 	right: 50%;
-	margin-top: 70px;
+	margin-top: 12px;
 }
 
 #incompleteRegister{
@@ -51,7 +50,11 @@ td{
 }
 
 .verticalSeparator {
-	height: 560px;
+	height: 92%;
+}
+
+#signInBox{
+	height: 567px !important;
 }
 
 #email{
@@ -596,6 +599,10 @@ label.choice
 	margin:-1.55em 0 0 25px;
 	padding:4px 0 5px;
 	width:90%;
+}
+
+#form_1037235 label{
+	font-weight:normal;
 }
 
 select.select[class]
