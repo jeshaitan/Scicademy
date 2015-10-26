@@ -58,9 +58,12 @@
 
 .school, .date{
 	font-style: italic;
-	margin-top: -9px;
+	margin-top: 0px;
 }
 
+.date{
+	margin-bottom: 0px !important;
+}
 .caption{
 	font-size:12px;
 }
@@ -68,11 +71,16 @@
 .downloadPDF{
 	position:absolute;
 	top: -5px;
+	border-color: black;
+    border-style: ridge;
+    border-width: 1px;
+    padding: 3px;
 }
 
 .downloadPDF img{
 	position: relative;
-  top: 4px;
+	margin-top: -1px;
+	margin-right: 5px;
 }
 
 #editPaper{
