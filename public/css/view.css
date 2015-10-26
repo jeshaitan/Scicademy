@@ -25,15 +25,26 @@ td{
 	left: 7.5%;
 }
 
+.submitBody #registerFormDiv{
+	margin-top:38px;
+}
 
 #signInFormDiv{
 	right: 4.5%;
+}
+
+.submitBody #signInFormDiv{
+	margin-top:38px;
 }
 
 #separateSignIn{
 	position: absolute;
 	right: 50%;
 	margin-top: 12px;
+}
+
+.submitBody #separateSignIn{
+	margin-top: 70px;
 }
 
 #incompleteRegister{
@@ -55,6 +66,11 @@ td{
 
 #signInBox{
 	height: 567px !important;
+	background-color: #f8f8f8 !important;
+}
+
+.ui-dialog{
+	padding: 0px !important;
 }
 
 #email{
