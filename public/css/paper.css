@@ -77,6 +77,9 @@
     padding: 3px;
 }
 
+.paperOptions a{
+	color:black;
+}
 .downloadPDF img{
 	position: relative;
 	margin-top: -1px;
