@@ -78,7 +78,7 @@
 }
 
 .paperOptions a{
-	color:white;
+	color:white !important;
 	
 }
 .downloadPDF img{
