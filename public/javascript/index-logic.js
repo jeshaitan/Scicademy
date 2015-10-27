@@ -60,7 +60,7 @@ $(document).ready(function() {
 			</li>		<li id="li_4" >\
 			<div>\
 				<input id="element_4" name="element_4" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Password"> \
-			</div><p class="guidelines" id="guide_4"><small>Your password must be between 6 and 18 characters and contain at least one number</small></p> <!-- should passwords be able to contain spaces?-->\
+			</div><p class="guidelines" id="guide_4"><small>Your password must have at least 6 characters and contain at least one number</small></p> <!-- should passwords be able to contain spaces?-->\
 			</li>		<li id="li_5" >\
 			<div>\
 				<input id="element_5" name="element_5" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Confirm Password"> \
@@ -288,7 +288,6 @@ $(document).ready(function() {
 
 					element_4: { //password
 						minlength: 6,
-						maxlength: 18,
 						hasNumber : true,
 						notJustNums: true
 					},
@@ -307,8 +306,7 @@ $(document).ready(function() {
 					element_4: {
 						hasNumber: "Make sure that your password contains at least one number",
 						notJustNums: "Your password cannot contain only numbers",
-						minlength: "Your password must contain at least six characters",
-						maxlength: "Your password must be under 18 characters"
+						minlength: "Your password must contain at least six characters"
 					},
 					element_5: {
 						equalTo: "The passwords do not match"
