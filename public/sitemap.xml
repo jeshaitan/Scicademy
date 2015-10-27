@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+<url>
+  <loc>http://www.scicademy.org/</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/index.html</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/submit.html</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/about.html</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/paper.html</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/user.html</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/results.html</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/404.html</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/'%20+%20userPage%20+%20'</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/uploads/'+pdata.pdf+'</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/paper.html?id='+paperObj._id+'</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://www.scicademy.org/paper.html?id='+paperInfo._id+'</loc>
+  <lastmod>2015-10-26T22:23:53+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+</urlset>
