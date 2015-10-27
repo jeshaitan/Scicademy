@@ -46,7 +46,12 @@
 				$('#signInBox').dialog('open');
 				$('#element_2_1').focus();
 			} //end if currentUser
-
+		//start javascript injectipn prevention
+		$('#form_1039889 :text').change(function(){
+			var inputText = $(this).val();
+			$(this).val($( $.parseHTML(inputText)).text());
+		});
+		//end javascript injectipn prevention
 		$('#separateSignIn').position({
 			my: "left top",
 			at: "right+337 top",

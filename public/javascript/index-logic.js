@@ -217,6 +217,13 @@ $(document).ready(function() {
 		window.location.href = "index.html";
 		console.log('working');
 	});
+	//start html injection prevention
+	$('#form_1037235 :text').change(function(){
+		var inputText = $(this).val();
+		$(this).val($( $.parseHTML(inputText)).text());
+	});
+	//end html detection prevention
+	
 	// if (submitted){
 		// $('#registerComplete').dialog('open');	
 	// }
