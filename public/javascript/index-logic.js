@@ -1,13 +1,5 @@
 $(document).ready(function() {
 	var currentUser = JSON.parse(localStorage.getItem("user"));
-	// $('.navigation').html(
-		// '<ul id="navlist" class="sm sm-simple">\
-  			// <li><a href="index.html">Home</a></li>\
-			// <li><a href="submit.html" id="submitLink">Submit Research</a></li>\
-			// <li id="aboutli"><a href="about.html">About Us</a></li>\
-			// <li><a href="" id="siso">Sign In or Register</a></li>\
-		// </ul>'
-	// );
 	var signInHtml = '';
 	var signInHtmlEnd =
 	'<div class="credentialsTable">\
