@@ -41,7 +41,19 @@
 		width:458px;
 	}
   </style>
-
+	<!-- sitelinks -->
+	<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "url": "https://www.example.com/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://query.example.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+	</script>
 </head>
 
 <body id="indexBody">
@@ -80,23 +92,18 @@
 		});
 	});
   </script>
-  <div class="navigation"></div>
+  <div class="navigation">
+		<ul id="navlist" class="sm sm-simple">
+  			<li><a href="index.html">Home</a></li>
+			<li><a href="submit.html" id="submitLink">Submit Research</a></li>
+			<li id="aboutli"><a href="about.html">About Us</a></li>
+			<li><a href="" id="siso">Sign In or Register</a></li>
+		</ul>
+  </div>
   <div id="signInBox"></div>
   <div id="logo">
     <img src="images/logo.png" id="compImage">
   </div>
-  <div id="siteMapIndex">
-  <ul id="navlist" class="sm sm-simple">
-  			<li><a href="index.html">Home</a></li>
-			<li><a href="submit.html">Submit Research</a></li>
-			<li id="aboutli"><a href="about.html">About Us</a></li>
-			<li><a href="" id="siso">Sign In or Register</a></li>
-			<li><a href="paper.html">Paper</a></li>
-			<li><a href="user.html">user</a></li>
-			<li><a href="results.html">results</a></li>
-			<li><a href="404.html">404</a></li>
-		</ul>
-	</div>
   <!-- Search box form -->
   <div class="searchBoxDiv" id="search-form">
     <form class="form-container searchForm" action="">
