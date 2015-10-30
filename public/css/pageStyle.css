@@ -11,6 +11,9 @@ p {
 	background-color: #5a5699 !important;
 }
 
+.grid{
+	margin-bottom:14px;
+}
 
 .appnitro input{
 	box-sizing: content-box;

@@ -77,6 +77,10 @@
     padding: 3px;
 }
 
+.paperDiv{
+	margin-bottom:19px;
+}
+
 .paperOptions a{
 	color:white !important;
 	
