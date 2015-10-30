@@ -10,6 +10,7 @@
 	height: auto;
 	/* background-color: #e1e1e1; /*color for searchbox area */
 	background-color: #eeeeee; /* color for results area */
+	padding-bottom: 50px !important;
 }
 
 .paperOptions{
@@ -83,12 +84,16 @@
 
 .paperOptions a{
 	color:white !important;
-	
+
 }
 .downloadPDF img{
 	position: relative;
 	margin-top: -1px;
 	margin-right: 5px;
+}
+
+#pdf-container {
+	padding-bottom: 50px !important;
 }
 
 #editPaper{
