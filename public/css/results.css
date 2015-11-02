@@ -1,10 +1,14 @@
 .paperDiv h3 {
-    color: #316c9d;
     font-size: 1.108em;
 		margin-bottom: 10px;
 	text-decoration:none;
 	width: 98%;
 }
+
+.authors{
+	margin: -7px 0px;
+}
+
 .paperDiv h3:hover{
 	text-decoration:underline;
 }
@@ -15,10 +19,6 @@
 
 .paperDiv {
 	width: 98% !important;
-}
-
-.authors{
-	margin: 7px 0px;
 }
 
 .authors a{

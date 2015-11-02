@@ -101,7 +101,7 @@
          			$.each(paperInfo, function(infoName, info){ //loop through each piece of info in the paper
 					if(infoName =='authors') { //going into the authors
 						//then it's authors
-            var firstAuthor = true;
+						var firstAuthor = true;
 						for (var i = 0; i< info.length; i++) {
 							//reverse search info[i]. Returned author object will be called authorObj
               var authorreq = {
@@ -159,10 +159,11 @@
          		}); //end loop for each paper
 
        	}//end addPapers
-         	$('.papers').on('click', '.abstractDiv', function() {
-         		$(this).find('.arrowClick').toggleClass('arrowSide');
-         		//$('.abstractParagraph').slideToggle();
-         		$(this).find('.abstractParagraph').slideToggle();
+         	$('.papers').on('click', '.abstractText', function(e) {
+         		$(this).parent().find('.arrowClick').toggleClass('arrowSide');
+				e.preventDefault();
+				$(this).parent().find('.abstractParagraph').stop().slideToggle();
+         		//$(this).parent().find('.abstractParagraph').slideToggle();
          		return false;
          	});//end abstractText click
          }); //end ready
