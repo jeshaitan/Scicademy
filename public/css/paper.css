@@ -93,7 +93,8 @@
 }
 
 #pdf-container {
-	padding-bottom: 50px !important;
+    padding-bottom: 50px !important;
+    height: 200px !important;
 }
 
 #editPaper{
