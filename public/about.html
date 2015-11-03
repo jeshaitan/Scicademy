@@ -11,11 +11,12 @@
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
 	<link href="css/signInCss.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/submit.css" media="all">
-	  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
 	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
+	  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script> -->
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
 	<script src="libs/jquery.validate.min.js" type="text/javascript"></script>
@@ -29,8 +30,77 @@
 	ga('create', 'UA-69262899-1', 'auto');
 	ga('send', 'pageview');
 	</script>
+	<style>
+	#abouttext{
+		position: absolute; top: 50px; right: 0; bottom: 0; left: 0;
+		width:100%;
+		height:100%;
+	}
+	#abouttext p{
+		margin-left:20%;
+		margin-right:20%;
+		display: inline-block;
+		font-size:20px;
+	}
+	#abouttext .fa{
+		font-size:40px;
+		margin-right:10px;
+		margin-bottom:10px;
+		vertical-align:middle;
+	}
+	#abouttext div{
+		padding-top:10px;
+		width:100%;
+		vertical-align: middle;
+	}
+	#contentDiv div{
+		height:30%;
+	}
+	#sciDiv{
+		height:10%;
+		font-size:50px;
+		font-weight:bold;
+		color:white;
+		text-align:center;
+		vertical-align: middle;
+	}
+	.css3gradient{width:100%;height:100%;
+ background-color:#8D230F;
+ filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#8D230F, endColorstr=#1E434C);
+ background-image:-moz-linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
+background-image:linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
+background-image:-webkit-linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
+background-image:-o-linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
+background-image:-ms-linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
+ background-image:-webkit-gradient(linear, left top, right bottom, color-stop(33%,#8D230F), color-stop(66%,#1E434C),color-stop(99%,#C99E10));}
+
+	#abouttext div p{
+		text-align: center;
+		position: relative;
+		top: 35%;
+		-ms-transform: translateY(-50%);
+		-webkit-transform: translateY(-50%);
+		transform: translateY(-50%);
+	}
+	#pencil{
+		background-color:#8D230F;
+	}
+	#school{
+		background-color:#1E434C;
+	}
+	#users{
+		background-color:#C99E10;
+	}
+	.form_description{
+		margin:0px !important;
+	}
+	body{
+		background-color:white;
+		background-image:none;
+	}
+	</style>
 </head>
-<body id="main_body" class="colorBody">
+<body id="main_body">
 	<script type="text/javascript">
 	var currentUser = null;
 		$(document).ready(function(){
@@ -46,14 +116,16 @@
 		</ul>
 	</div>
 	<div id="signInBox"></div>
-	<div id="form_container" class="grid">
-		<form id="form_1039889" class="appnitro" enctype="multipart/form-data" method="post" action="">
-					<div class="form_description">
-			<h2>About Scicademy</h2>
-			<p id="abouttext">Our goal at Scicademy is to allow students all over the globe to share their hard work and love of science with their peers, potential employers, and colleges. High school and undergraduate research is valuable and shouldn't be discounted, escpecially when students put their time and passion into working with high-level research institutions. Here at Scicademy, we know that the youth of today are the researchers of tomorrow, and we created Scicademy with that in mind. </p>
-			<p id="contacttext">Contact us at admin@scicademy.org</p>
-		</div>
-		</form>
-	</div>
+			<div id="abouttext">
+				<div id="sciDiv" class="css3gradient">Scicademy</div>
+				<span id="contentDiv">
+					<div id="pencil"><p><i class="fa fa-pencil"></i></span>Our goal at Scicademy is to allow students all over the globe to share their hard work 
+					and love of science with their peers, potential employers, and colleges.</p></div> 
+					<div id="school"><p><i class="fa fa-book"></i>High school and undergraduate research is valuable and shouldn't be discounted, regardless 
+					of whether the research was conducted in school or with a high-level research institution.</p></div>
+					<div id="users"><p><i class="fa fa-users"></i>Here at Scicademy, we know that the youth of today are the researchers of tomorrow, and we 
+					created Scicademy with that in mind. </p></div>
+				</span>
+			</div>
 	</body>
 </html>
