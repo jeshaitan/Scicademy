@@ -84,7 +84,7 @@ $(document).ready(function() {
 		</div>\
 		</div>';
 	var currentLink = window.location.href;
-	
+
 	if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)){
 		signInHtml = signInHtml + '<center><div id="alerttext"><p id="alerttext" style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' +signInHtmlEnd;
 	}
@@ -93,9 +93,9 @@ $(document).ready(function() {
 	}
 	$('#signInBox').html(signInHtml);
 
-	if (currentUser != null) {
+	if (currentUser != null && !($("#navlist #nameli").length)) {
 		document.getElementById('siso').innerHTML = "Sign Out";
-		$('#aboutli').closest('li').after('<li><a href="user.html?id='+currentUser._id+'">'+currentUser.firstname+'</a></li>');
+		$('#aboutli').closest('li').after('<li><a href="user.html?id='+currentUser._id+'" id="nameli">'+currentUser.firstname+'</a></li>');
 	}
 
 	$('#siso').click(function(event) {
@@ -203,7 +203,7 @@ $(document).ready(function() {
 	$('#form_1037235').submit(function(event) {
 		// console.log('changed');
 		// submitted=true;
-		event.preventDefault();	
+		event.preventDefault();
 		event.stopImmediatePropagation();
 		readRegisterForm($('#form_1037235'));
 		window.location.href = "index.html";
@@ -215,9 +215,9 @@ $(document).ready(function() {
 		$(this).val($( $.parseHTML(inputText)).text());
 	});
 	//end html detection prevention
-	
+
 	// if (submitted){
-		// $('#registerComplete').dialog('open');	
+		// $('#registerComplete').dialog('open');
 	// }
 
 	// $('.signRegisterBut').button();
@@ -338,12 +338,12 @@ $(document).ready(function() {
 					$('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid</p>');
 				}
 			});
-			$('#form_1037235').change(function() {	
-				if (isvalidate == false && submitClicked == true){				
+			$('#form_1037235').change(function() {
+				if (isvalidate == false && submitClicked == true){
 					isvalidate=$("#form_1037235").valid();
 					if(isvalidate == true){
 						$('#incompleteRegister').remove();
-					}				
+					}
 				}
 			});
 
