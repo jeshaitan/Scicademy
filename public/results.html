@@ -94,6 +94,7 @@
          			authors='',
          			abstractText='',
          			firstAuthor=true,
+					date='',
               nump = 0;
 
          		var paperHtml='';
@@ -136,6 +137,9 @@
 						if(infoName == 'title'){
 							title=info;
 						}
+						else if (infoName == 'date'){
+							date=info;
+						}
 						else if (infoName == 'abstract'){
 							abstractText=info;
 						}
@@ -144,14 +148,17 @@
          			paperHtml='<div class="paperDiv">\
          							<span class="title">\
          								<a href="/paper.html?id='+paperInfo._id+'"><h3>'+title+'</h3></a>\
-         							</span><div class="authors" id="authors'+nump+'"></div></div>\
-         							<div class="abstractDiv">\
-         								<a class="abstractText">\
-         									<span class="arrowClick arrowSide"></span>\
-         									<span class="preTxt">Abstract</span>\
-         								</a>\
-         								<div class="abstractParagraph" id="abstract1">'+abstractText+'</div>\
-         							</div>\
+         							</span>\
+									<div class="authors" id="authors'+nump+'"></div>\
+									<div class="date">'+date+'</div>\
+								</div>\
+								<div class="abstractDiv">\
+									<a class="abstractText">\
+										<span class="arrowClick arrowSide"></span>\
+										<span class="preTxt">Abstract</span>\
+									</a>\
+									<div class="abstractParagraph" id="abstract1">'+abstractText+'</div>\
+								</div>\
          						</div>\
          						<div class="separator"></div>'
               $('.papers').append(paperHtml);

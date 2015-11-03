@@ -1,5 +1,5 @@
 p {
-	font-family:Ubuntu, sans-serif;
+	font-family:Times New Roman, sans-serif;
 }
 
 .navigation{
@@ -95,7 +95,7 @@ body {
 	/* background-color: #FFFFFF; */
 	background-repeat: no-repeat;
     background-image: url("../images/blueBack.jpg");
-	font-family: Ubuntu, sans-serif !important;
+	font-family: Times New Roman, sans-serif !important;
 }
 
 
