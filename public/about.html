@@ -11,145 +11,27 @@
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
 	<link href="css/signInCss.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/submit.css" media="all">
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
 	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script> -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<script src="libs/jquery-ui.min.js"></script>
 	<script src="libs/jquery.smartmenus.min.js"></script>
 	<script async src="libs/jquery.validate.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="javascript/submit.js"></script>
 	<script src="javascript/index-logic.js"></script>
-	<script async>	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	ga('create', 'UA-69262899-1', 'auto');
-	ga('send', 'pageview');
-	</script>
-	<style>
-	#abouttext{
-		position: absolute; top: 50px; right: 0; bottom: 0; left: 0;
-		width:100%;
-		height:100%;
-	}
-	#abouttext p{
-		margin-left:20%;
-		margin-right:20%;
-		display: inline-block;
-		font-size:20px;
-	}
-	#abouttext .fa{
-		font-size:40px;
-		margin-right:10px;
-		margin-bottom:10px;
-		vertical-align:middle;
-	}
-	#abouttext div{
-		padding-top:10px;
-		width:100%;
-		vertical-align: middle;
-	}
-	#contentDiv div{
-		height:25%;
-	}
-	#casualStuff div{
-		height:7.5%;
-		text-align:center;
-		background-color:#1995AD;
-	}
-	#casualStuff a{
-		color:white;
-	}
-	#contact h2{
-		margin-top:0px;
-		color:white;
-	}
-	#sciDiv{
-		height:10%;
-		font-size:50px;
-		font-weight:bold;
-		color:white;
-		text-align:center;
-		vertical-align: middle;
-		background-color:#1995AD;
-	}
-.css3gradient{width:100%;height:100%;
- background-color:#8D230F;
- filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#8D230F, endColorstr=#1E434C);
- background-image:-moz-linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
-background-image:linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
-background-image:-webkit-linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
-background-image:-o-linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
-background-image:-ms-linear-gradient(left top, #8D230F 33%, #1E434C 66%,#C99E10 99%);
- background-image:-webkit-gradient(linear, left top, right bottom, color-stop(33%,#8D230F), color-stop(66%,#1E434C),color-stop(99%,#C99E10));}
-
-	#abouttext div p{
-		text-align: center;
-		position: relative;
-		top: 35%;
-		-ms-transform: translateY(-50%);
-		-webkit-transform: translateY(-50%);
-		transform: translateY(-50%);
-	}
-	#pencil{
-		background-color:#F1F1F2;
-	}
-	#school{
-		background-color:#BCBABE;
-	}
-	#users{
-		background-color:#A1D6E2;
-	}
-	.form_description{
-		margin:0px !important;
-	}
-	body{
-		background-color:white;
-		background-image:none;
-	}
-	</style>
-</head>
-<body id="main_body">
-	<script type="text/javascript">
-	var currentUser = null;
-		$(document).ready(function(){
-			$.getScript('javascript/index-logic.js', function(jd){});
-		});
-	</script>
-	<div class="navigation">
+	<body>
+		<div class="navigation">
 		<ul id="navlist" class="sm sm-simple">
-  			<li><a href="index.html">Home</a></li>
-			<li><a href="submit.html" id="submitLink">Submit Research</a></li>
-			<li id="aboutli"><a href="about.html">About Us</a></li>
-			<li><a href="" id="siso">Sign In or Register</a></li>
-		</ul>
-	</div>
-	<div id="signInBox"></div>
-			<div id="abouttext">
-				<div id="sciDiv" class="">What is Scicademy?</div>
-				<span id="contentDiv">
-					<div id="pencil"><p><i class="fa fa-pencil"></i>Our goal at Scicademy is to allow students all over the globe to share their hard work 
-					and love of science with their peers, potential employers, and colleges.</p></div> 
-					<div id="school"><p><i class="fa fa-book"></i>High school and undergraduate research is valuable and shouldn't be discounted, regardless 
-					of whether the research was conducted in school or with a high-level research institution.</p></div>
-					<div id="users"><p><i class="fa fa-users"></i>Here at Scicademy, we know that the youth of today are the researchers of tomorrow, and we 
-					created Scicademy with that in mind. </p></div>
-				</span>
-				<span id="casualStuff">
-					<div id="contact">
-						<h2>Contact us</h2>
-						<address style="margin-top:-15px;">
-							<a href="mailto:admin@scicademy.org">Admin@Scicademy.org</a>
-						</address>
-					</div>
-					<div id="terms">
-						<h6><a href="terms.html">Terms of Use for Scicademy</a></h6>
-					</div>
-				</span>
-			</div>
+	  			<li><a href="index.html">Home</a></li>
+				<li><a href="submit.html" id="submitLink">Submit Research</a></li>
+				<li id="aboutli"><a href="about.html">About Us</a></li>
+				<li><a href="" id="siso">Sign In or Register</a></li>
+			</ul>
+		</div>
+		<div id="signInBox"></div>
+
+		<div class="grid">
+			<h2 id="titleabout">About Scicademy</h2>
+		</div>
 	</body>
 </html>

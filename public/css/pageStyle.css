@@ -1,5 +1,5 @@
-p {
-	font-family:Times New Roman, sans-serif;
+html * {
+	font-family: 'Open Sans', 'Times' !important;
 }
 
 .navigation{
@@ -38,16 +38,9 @@ p {
 }
 
 #logo {
-	width:304px;
-	height:228px;
+	width: 360px;
 	margin: 0 auto;
-	margin-top: 93px;
-	padding-bottom:200px;
-	padding-right:195px;
-	text-align: center;
-	position:relative;
-	bottom: 86px;
-	right: 100px;
+	padding-top: 200px;
 }
 
 #indexButton{
@@ -91,11 +84,15 @@ margin-left: 83px;
 	margin-right:20%;
 }
 
+#titleabout {
+	margin-left: 100px;
+	font-style: italic;
+}
+
 body {
 	/* background-color: #FFFFFF; */
 	background-repeat: no-repeat;
-    background-image: url("../images/blueBack.jpg");
-	font-family: Times New Roman, sans-serif !important;
+	background-image: url("../images/blueBack.jpg");
 }
 
 
