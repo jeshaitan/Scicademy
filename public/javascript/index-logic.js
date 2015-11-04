@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var currentUser = JSON.parse(localStorage.getItem("user"));
 	var signInHtml = '';
 	var signInHtmlEnd =
-	'<div class="credentialsTable">\
+	'<div class="credentialsTable"w>\
 	<div id="registerFormDiv">\
 	<h4 class="signInHeader">Register</h4>\
 		<form id="form_1037235" class="appnitro"  method="post" action="">\
@@ -86,7 +86,7 @@ $(document).ready(function() {
 	var currentLink = window.location.href;
 
 	if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)){
-		signInHtml = signInHtml + '<center><div id="alerttext"><p id="alerttext" style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' +signInHtmlEnd;
+		signInHtml +='<center><div id="alerttext"><p id="alerttext" style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' +signInHtmlEnd;
 	}
 	else{
 		signInHtml += signInHtmlEnd;
