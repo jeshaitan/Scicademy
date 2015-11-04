@@ -10,7 +10,6 @@
   /* make room for the toggle button (sub indicator) */
   padding-right: 58px;
   color: #555555;
-  font-family: Ubuntu, Lucida Sans Unicode, "Lucida Sans", "Lucida Grande", Arial, sans-serif;
   font-size: 16px;
   font-weight: normal;
   line-height: 17px;
@@ -32,7 +31,7 @@
   width: 34px;
   height: 34px;
   overflow: hidden;
-  font: bold 14px/34px monospace !important;
+  font: bold 14px/34px !important;
   text-align: center;
   text-shadow: none;
   background: rgba(0, 0, 0, 0.08);
@@ -144,7 +143,7 @@
     right: 20px;
     width: 8px;
     height: 16px;
-    font: 14px/16px monospace !important;
+    font: 14px/16px !important;
     background: transparent;
   }
   .sm-simple a.highlighted span.sub-arrow:before {
