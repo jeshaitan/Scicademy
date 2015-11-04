@@ -58,9 +58,6 @@
 		        success: function(userObj) {
 		            var finalPaperHtml = '';
 					      var c1 = 0;
-                if (userObj.publications.length == 0) {
-                    finalPaperHtml = '<br /><p>This user has no publications.</p><br /><br />';
-                }
                 for (var i = 0; i < userObj.publications.length; i++) {
                     var searchPaper = {
                         "query": userObj.publications[i],
@@ -101,7 +98,7 @@
 												<div class="separator separator2" id="userPubSep"></div>\
 												<div class="publications">\
 													<h1>Publications</h1>\
-													<div id="publications"></div>\
+													<div id="publications"><br /><p>This user has no publications.</p><br /><br /></div>\
 												</div>\
 											</div>\
 										</div>'
