@@ -151,10 +151,24 @@ $(document).ready(function() {
 		minWidth: 800,
 		minHeight: 567,
 		autoOpen: false,
+		open: startSchoolCall,
 		show: 'fade',
 		hide: 'drop'
 	}); //end dialog
 
+	function startSchoolCall(){
+		$.ajax({
+			url: '/getSchools',
+			type: 'POST',
+			data:{},
+			dataType: 'json',
+			contentType: 'application/json',
+			success: getSchools
+		});		
+	}
+	function getSchools(data){
+		console.log(data);
+	}
 	$('#registerClick').click(function(event){
 		event.preventDefault();
 		$('#signInBox').dialog('open');

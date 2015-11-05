@@ -98,6 +98,20 @@ app.post('/getPaper', function(request, response) {
 	}
 });
 
+app.post('/getSchools',function(request,response) {
+	console.log('i tried');
+	// var searchObject = {{},{school:1}};
+	// db.Users.find(searchObject,function(err,curs){
+		// if(err){
+			// console.log(err);
+		// }
+		// else{
+			// response.send(curs);
+		// }
+	// });
+	response.send('hello');
+});
+
 app.post('/addUser', function(request, response) {
 	db.Users.insert({email: request.body.eml,
 					  password: request.body.pwd,
