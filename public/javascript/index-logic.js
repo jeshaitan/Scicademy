@@ -191,7 +191,7 @@ $(document).ready(function() {
 		});
 	}
 	else {
-		var fromStorage = "["+localStorage["papers"]+"]";
+		var fromStorage = "["+localStorage["schools"]+"]";
 		var schools = JSON.parse(fromStorage);
 		$('#element_7sc').autocomplete({source:schools[0]});
 	}
