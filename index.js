@@ -98,18 +98,15 @@ app.post('/getPaper', function(request, response) {
 	}
 });
 
-app.post('/getSchools',function(request,response) {
-	console.log('i tried');
-	// var searchObject = {{},{school:1}};
-	// db.Users.find(searchObject,function(err,curs){
-		// if(err){
-			// console.log(err);
-		// }
-		// else{
-			// response.send(curs);
-		// }
-	// });
-	response.send('hello');
+app.post('/getSchools', function(req, res) {
+	db.Users.find({}, {school:1}, function(err, curs) {
+	  if(err) {
+	    console.log(err);
+		}
+		else {
+			res.send(curs);
+		}
+	});
 });
 
 app.post('/addUser', function(request, response) {
@@ -170,8 +167,8 @@ app.post('/addPaper', function(request, response) {
 });
 var gfs = grid(db, mongo);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
 	var fstream;

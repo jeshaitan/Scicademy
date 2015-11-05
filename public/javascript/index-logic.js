@@ -21,7 +21,7 @@ $(document).ready(function() {
 			</li>\
 			<li id="li_7" >\
 			<div>\
-			<input id="element_7" name="element_7" class="element text large required" type="text" maxlength="255" value=""/ placeholder="School">\
+			<input id="element_7sc" name="element_7" class="element text large required" type="text" maxlength="255" value=""/ placeholder="School">\
 			</div>\
 			</li>\
 			<li id="li_6" >\
@@ -151,24 +151,51 @@ $(document).ready(function() {
 		minWidth: 800,
 		minHeight: 567,
 		autoOpen: false,
-		open: startSchoolCall,
 		show: 'fade',
 		hide: 'drop'
 	}); //end dialog
 
-	function startSchoolCall(){
+	function unique_ify(list) {
+    var seen = {};
+    var out = [];
+    var len = list.length;
+    var j = 0;
+    for(var i = 0; i < len; i++) {
+         var item = list[i];
+         if(seen[item] !== 1) {
+               seen[item] = 1;
+               out[j++] = item;
+         }
+    }
+    return out;
+	}
+
+	if(!localStorage["schools"]) {
 		$.ajax({
 			url: '/getSchools',
 			type: 'POST',
-			data:{},
+			data: {},
 			dataType: 'json',
 			contentType: 'application/json',
-			success: getSchools
-		});		
+			success: function(curs) {
+				var schools = []
+				for (var i = 0; i < curs.length; i++) {
+					schools.push(curs[i].school);
+				}
+				schools = unique_ify(schools);
+				localStorage.setItem("schools", JSON.stringify(schools));
+				var fromStorage = "["+localStorage["schools"]+"]";
+				var schools = JSON.parse(fromStorage);
+				$('#element_7sc').autocomplete({source:schools[0]});
+			}
+		});
 	}
-	function getSchools(data){
-		console.log(data);
+	else {
+		var fromStorage = "["+localStorage["papers"]+"]";
+		var schools = JSON.parse(fromStorage);
+		$('#element_7sc').autocomplete({source:schools[0]});
 	}
+
 	$('#registerClick').click(function(event){
 		event.preventDefault();
 		$('#signInBox').dialog('open');
