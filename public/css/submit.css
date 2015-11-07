@@ -1,6 +1,6 @@
 body
 {
-	background:gray;
+	background:white;
 }
 
 .colorBody{
@@ -13,7 +13,7 @@ body
     overflow: hidden;
     text-align: left;
     width: 100%;
-	background-color: #F7F7F7;
+	background-color: white;
 }
 
 #element_3{
@@ -172,8 +172,7 @@ input.text {
 
 #form_container
 {
-	background:#eeeeee;
-	margin:0 auto;
+	background:white;
 	text-align:left;
 	width:1333px;
 }

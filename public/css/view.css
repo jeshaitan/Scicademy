@@ -1,10 +1,11 @@
 .grid{
 	clear: both;
     margin: 0 auto;
+	margin-bottom:10px;
     overflow: hidden;
     text-align: left;
     width: 98%;
-	background-color: #F8F8F8;
+	background-color: white;
 }
 
 .credentialsTable td{
@@ -213,8 +214,7 @@ body
 
 #form_container
 {
-	background:#eeeeee;
-	margin:0 auto;
+	background:white;
 	text-align:left;
 	width:98%;
 }

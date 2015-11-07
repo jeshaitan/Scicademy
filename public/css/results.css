@@ -122,7 +122,9 @@
 	overflow: hidden;
 }
 
-
+#grayBack{
+background-color:#f8f8f8;
+}
 
 .select-style {
     border: 1px solid #ccc;
