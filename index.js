@@ -134,7 +134,8 @@ app.post('/addPaper', function(request, response) {
 					  abstract: request.body.abstract,
 					  keywords: request.body.keywords,
 					  pdf: request.body.pdf,
-					  date: request.body.date}, function(err, record) {
+					  date: request.body.date,
+						published: "false"}, function(err, record) {
 		if(err) {
 			console.log(err);
 		}
