@@ -149,7 +149,7 @@ $(document).ready(function() {
 		modal: true,
 		resizable:false,
 		minWidth: 800,
-		minHeight: 567,
+		minHeight: 'auto',
 		autoOpen: false,
 		show: 'fade',
 		hide: 'drop'
