@@ -1,2 +1,1 @@
-# jeshaitan.github.io
-Scicademy - Read, Research, Review
+# Scicademy - Read, Research, Review

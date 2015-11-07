@@ -1,5 +1,5 @@
 {
-  "name": "jeshaitan.github.io",
+  "name": "Scicademy",
   "version": "0.0.0",
   "description": "Scicademy - Read, Research, Review",
   "main": "nodeserver.js",
@@ -16,11 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jeshaitan/jeshaitan.github.io.git"
+    "url": "https://github.com/jeshaitan/Scicademy.git"
   },
   "author": "Jesse Smith",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jeshaitan/jeshaitan.github.io/issues"
+    "url": "https://github.com/jeshaitan/Scicademy/issues"
   }
 }
