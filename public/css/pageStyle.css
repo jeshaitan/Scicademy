@@ -89,6 +89,10 @@ body {
 	background-image: url("../images/blueBack.jpg");
 	background-size:cover;
 }
+
+#indexBody{
+	background-size:contain;
+}
 #indexBody {
 	background-size: contain;
 }
