@@ -80,7 +80,7 @@
     width: 100%;
     height: 400px;
     color: #fff;
-    background: url("../images/blueBack.jpg") no-repeat center center scroll;
+    /* background: url("../images/blueBack.jpg") no-repeat center center scroll; */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -131,6 +131,6 @@
 /* Footer */
 
 footer {
-  background: url("../images/blueBack.jpg") no-repeat center center scroll;
+  /* background: url("../images/blueBack.jpg") no-repeat center center scroll; */
   padding: 75px 0;
 }

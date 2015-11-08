@@ -86,8 +86,8 @@ margin-left: 83px;
 
 body {
 	/* background-color: #FFFFFF; */
-	background-repeat: no-repeat;
-	background-image: url("../images/blueBack.jpg");
+	background-image: url("../images/01.jpg");
+	background-size:cover;
 }
 
 
