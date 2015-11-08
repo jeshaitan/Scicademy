@@ -90,6 +90,10 @@ body {
 	background-size:cover;
 }
 
+#indexBody{
+	background-size:contain;
+}
+
 
 .separator {
 	height: 1px;
