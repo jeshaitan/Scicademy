@@ -21,10 +21,6 @@
 	left: 30px;
 }
 
-.paperOptions div{
-	margin-left:10px;
-}
-
 .paperCol{
 	width:80%;
 	position: relative;
@@ -83,7 +79,7 @@
 	margin-bottom:19px;
 }
 
-.paperOptions a{
+#pdfDown{
 	color:white !important;
 
 }
