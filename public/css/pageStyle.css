@@ -87,6 +87,7 @@ margin-left: 83px;
 body {
 	/* background-color: #FFFFFF; */
 	background-image: url("../images/blueBack.jpg");
+	background-size: cover;
 }
 
 #indexBody{
