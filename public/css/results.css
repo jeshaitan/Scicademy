@@ -95,6 +95,9 @@
 	height: ;
 }
 
+.form-container{
+	width:456px; //adjust
+}
 .papers{
 	width:80%;
 	position: absolute;
@@ -109,6 +112,8 @@
 	top: 10px;
 	left: 30px;
 	padding-left: 10px;
+	border-right-style:solid;
+	border-width:1px;
 }
 
 .submit-container{
