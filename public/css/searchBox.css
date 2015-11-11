@@ -3,10 +3,10 @@ body {
 }
 
 #search-form {
-	width: 430px;
+	width: 402px;
 	height: 50px;
-	margin: 0px auto 0 auto;
-	padding: 1px 0 0 0;
+	margin: 0 auto;
+	padding: 10px 0 0 0;
 	background: url(../images/form-bg.png) top center no-repeat;
 	text-align: center;
 }

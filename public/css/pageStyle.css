@@ -91,7 +91,7 @@ body {
 }
 
 #indexBody{
-	background-size:contain;
+	--background-size:cover;
 }
 
 .separator {
