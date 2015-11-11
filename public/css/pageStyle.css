@@ -90,8 +90,18 @@ body {
 	background-size: cover;
 }
 
+#footerDiv{
+	background-image: url("../images/blueBack.jpg");
+	background-size: cover;
+}
+
 #indexBody{
+<<<<<<< HEAD
 	--background-size:cover;
+=======
+	background-image: url("../images/blueBack.jpg");
+	background-size:contain;
+>>>>>>> 2e90f574fd058fd0f8d4e8e7b4a6f4d5d0207019
 }
 
 .separator {

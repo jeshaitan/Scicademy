@@ -45,7 +45,8 @@ $(document).ready(function() {
 				<option value="12" selected>12</option>\
 			</select>\
 			</div> \
-			</li>		<li id="li_3" >\
+			</li>\
+			<li id="li_3" >\
 			<div>\
 				<input id="element_3" name="element_3" class="element text medium required email" type="text" maxlength="255" value=""/ placeholder="Email">\
 			</div> \
@@ -57,6 +58,12 @@ $(document).ready(function() {
 			<div>\
 				<input id="element_5" name="element_5" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Confirm Password"> \
 			</div> \
+			</li>\
+			<li id="termsAgree" style="width:100%;">\
+				<div style="display:inline-block;margin-left:1px;">\
+					<input type="checkbox" name="agree" value="agree" id="agree">\
+					<div id="agreeText" style="margin-left:23px;margin-top:-17px;"><p>I agree to the <a href="TermsandConditions.html" target="_blank" style="color:blue;">Terms and Conditions</a></p></div>\
+				</div>\
 			</li>\
 			<li class="buttons">\
 					<input type="hidden" name="form_id" value="1037235" />\
@@ -328,6 +335,9 @@ $(document).ready(function() {
 						equalTo: '#element_4'
 					},
 					element_6: { //radio button for highschool or college
+						required:true
+					},
+					agree:{
 						required:true
 					}
 				},//end rules
