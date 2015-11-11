@@ -91,6 +91,16 @@ body {
 	background-size: cover;
 }
 
+#footerDiv{
+	background-image: url("../images/blueBack.jpg");
+	background-size: cover;
+}
+
+#indexBody{
+	background-image: url("../images/blueBack.jpg");
+	background-size:cover;
+}
+
 .separator {
 	height: 1px;
 	background: #92948E;
