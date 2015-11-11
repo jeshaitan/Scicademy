@@ -112,8 +112,8 @@
 	top: 10px;
 	left: 30px;
 	padding-left: 10px;
-	border-right-style:solid;
-	border-width:1px;
+	--border-right-style:solid;
+	--border-width:1px;
 }
 
 .submit-container{

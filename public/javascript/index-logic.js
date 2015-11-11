@@ -407,11 +407,6 @@ $(document).ready(function() {
 				}
 			}); //end smartmenus
 
-			var schools=[]; //<--------- PUT THE ARRAY OF SCHOOLS HERE *****************************************************************************
-			$('#element_7').autocomplete({
-				source:schools
-			});
-
 			$(':radio').click(function() {
 				if ($('input[name="highCol"]:checked').val()=="1"){
 					$('#li_1').slideDown();
