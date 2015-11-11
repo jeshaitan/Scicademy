@@ -97,7 +97,7 @@ body {
 
 #indexBody{
 	background-image: url("../images/blueBack.jpg");
-	background-size:cover;
+	background-size:contain;
 }
 
 .separator {
