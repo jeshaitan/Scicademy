@@ -58,6 +58,7 @@
 				data: JSON.stringify(searchPaper),
 				dataType: 'json',
 				success: function(data) {
+					$('.grid').html('');
 					var pdata = data[0];
 					$.ajax({
 						url: '/getPdf',
@@ -163,6 +164,7 @@
 	<div id="signInBox"></div>
 
 	<div class="grid" style="margin-bottom:-38px;">
+		<p><center><img src="images/spin.gif"></center></p>
 	</div>
 </body>
 </html>
