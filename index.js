@@ -110,6 +110,18 @@ app.post('/getSchools', function(req, res) {
 });
 
 app.post('/addUser', function(request, response) {
+	var searchObject = {email:request.body.eml};
+	db.Users.find(searchObject, function(err,curs){
+		if(!curs.length){
+			//then the email is unique and we should go on
+		}
+		else if (err){
+			console.log(err);
+		}
+		else{
+			// response.send({error: 'An accouont with this email already exists'});
+		}
+	});
 	db.Users.insert({email: request.body.eml,
 					  password: request.body.pwd,
 						name: request.body.fnm + " " + request.body.lnm,
