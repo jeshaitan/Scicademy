@@ -31,7 +31,7 @@ body
 	font-size: 10px;
 }
 
-#title{
+#title, #instInput{
 	width: 777px !important;
 }
 

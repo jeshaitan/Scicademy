@@ -146,8 +146,9 @@
 			$('#converted').click(function(e) {
 				e.preventDefault();
 				$("#element_14_1").prop("checked", true);
-				$('mongol#convertToPDF').slideUp();
+				$('#convertToPDF').slideUp();
 				$('#li_3').slideDown();
+				
 			})
 			var authorCount = 1;
 			$('.add').click(function(e) {
@@ -212,13 +213,12 @@
 
 		<!-- begin research institution html -->
 		<li>
-			<label class="description required" for="element_2">Outside Research Institutions</label>
+			<label class="description" for="element_2">Outside Research Institutions</label>
 			<div>
-				<input type="text" name="institution" class="element text">
+				<input id="instInput" type="text" name="institution" class="element text" maxlength="255" >
 			</div>
 			<p class="guidelines"><small>If you worked on your project with some research institution/lab outside of school, then feel free to enter the name of it here.</small></p>
 		</li>
-
 		<!-- end research institution html -->
 		<li id="li_2" >
 		<label class="description required" for="element_2">Abstract </label>
