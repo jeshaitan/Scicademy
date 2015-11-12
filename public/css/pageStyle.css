@@ -72,11 +72,16 @@ margin-left: 83px;
 	margin-bottom: 20px;
 	padding-bottom: 20px;
 	display: inline-block;
+	color:black;
 }
 
-#alerttext a{
+#alertDiv a{
 	color: #337ab7;
 	text-decoration:underline;
+}
+#alertDiv{
+	font-size:18px;
+	font-weight:bold;	
 }
 
 #contacttext {

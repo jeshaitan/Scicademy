@@ -91,15 +91,18 @@ $(document).ready(function() {
 		</div>\
 		</div>';
 	var currentLink = window.location.href;
-
+	var shakeSign = false;
 	if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)){
-		signInHtml +='<center><div id="alerttext"><p id="alerttext" style="display: inline-block">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' +signInHtmlEnd;
+		signInHtml +='<center><div id="alertDiv"><p id="alerttext" class="alertP">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' +signInHtmlEnd;
+		shakeSign=true;
 	}
 	else{
 		signInHtml += signInHtmlEnd;
 	}
 	$('#signInBox').html(signInHtml);
-
+	if(shakeSign){
+		$('#alertDiv').effect( "bounce", {times:3}, 1200 );
+	}
 	if (currentUser != null && !($("#navlist #nameli").length)) {
 		document.getElementById('siso').innerHTML = "Sign Out";
 		$('#aboutli').closest('li').after('<li><a href="user.html?id='+currentUser._id+'" id="nameli">'+currentUser.firstname+'</a></li>');
