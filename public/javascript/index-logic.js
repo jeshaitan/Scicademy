@@ -474,6 +474,7 @@ function readSubmitPaperForm(form) {
 		abstract = $('#element_2').val(),
 		keywords = $('#element_9').val().split("\n"),
 		authorsid = [$('#element_4_1').val()];
+		institution = $('#inst').val();
 
 		for(var i = 0; i < $('.spawnUserID').length; i++) {
 			authorsid.push($('.spawnUserID')[i].value);
@@ -508,6 +509,7 @@ function readSubmitPaperForm(form) {
 					"authors": authorsid,
 					"abstract": abstract,
 					"keywords": keywords,
+					"institution": institution,
 					"pdf": response,
 					"date": today
 				}

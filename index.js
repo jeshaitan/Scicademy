@@ -109,50 +109,51 @@ app.post('/getSchools', function(req, res) {
 	});
 });
 
-app.post('/addUser', function(request, response) {
-	var searchObject = {email:request.body.eml};
-	db.Users.find(searchObject, function(err,curs){
-		if(!curs.length){
-			//then the email is unique and we should go on
-		}
-		else if (err){
-			console.log(err);
-		}
-		else{
-			// response.send({error: 'An accouont with this email already exists'});
-		}
-	});
-	db.Users.insert({email: request.body.eml,
-					  password: request.body.pwd,
-						name: request.body.fnm + " " + request.body.lnm,
-					  firstname: request.body.fnm,
-					  lastname: request.body.lnm,
-					  school: request.body.shl,
-					  grade: request.body.grd,
-					  publications: request.body.pub,
-					  datejoined: request.body.dte}, function(err, record) {
-		if(err) {
+app.post('/addUser', function(req, res) {
+	db.Users.find({"email": req.body.eml}, function(err, curs) {
+		if (err) {
 			console.log(err);
 		}
 		else {
-			response.send(record);
+			if(!curs.length) {
+				db.Users.insert({email: req.body.eml,
+									password: req.body.pwd,
+									name: req.body.fnm + " " + req.body.lnm,
+									firstname: req.body.fnm,
+									lastname: req.body.lnm,
+									school: req.body.shl,
+									grade: req.body.grd,
+									publications: req.body.pub,
+									datejoined: req.body.dte}, function(err, record) {
+					if(err) {
+						console.log(err);
+					}
+					else {
+						res.send(record);
+					}
+				});
+			}
+			else {
+				res.send({error: 'An account with this email address already exists.'});
+			}
 		}
 	});
 });
 
-app.post('/addPaper', function(request, response) {
-	db.Papers.insert({title:request.body.title,
-					  authors: request.body.authors,
-					  abstract: request.body.abstract,
-					  keywords: request.body.keywords,
-					  pdf: request.body.pdf,
-					  date: request.body.date,
+app.post('/addPaper', function(req, res) {
+	db.Papers.insert({title:req.body.title,
+					  authors: req.body.authors,
+					  abstract: req.body.abstract,
+					  keywords: req.body.keywords,
+						institution: req.body.institution,
+					  pdf: req.body.pdf,
+					  date: req.body.date,
 						published: "false"}, function(err, record) {
 		if(err) {
 			console.log(err);
 		}
 		else {
-			db.Papers.findOne({abstract: request.body.abstract}, function(err, doc) {
+			db.Papers.findOne({abstract: req.body.abstract}, function(err, doc) {
 				if(err) {
 					console.log(err);
 				}
@@ -179,8 +180,8 @@ app.post('/addPaper', function(request, response) {
 });
 var gfs = grid(db, mongo);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
 	var fstream;
