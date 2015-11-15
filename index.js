@@ -31,8 +31,7 @@ app.post('/getUser', function(request, response) {
     }
     var user = db.Users.findOne(searchObj, function(err, doc) {
         	if (err) {
-            	response.send({error: 'error retrieving the JSON user' });
-            	console.log('error recieving user');
+            	console.log(err);
         	}
         	else {
 							if(request.body.hasOwnProperty("meta")) {
@@ -68,7 +67,6 @@ app.post('/getPaper', function(request, response) {
 					searchObject += "{\"authors\": \"" + curs[i]._id + "\"},"
 				}
 				searchObjectArray = JSON.parse("[" + searchObject.substring(0, searchObject.length - 1) +"]");
-				console.log(searchObjectArray);
 				db.Papers.find({$or: searchObjectArray}, function(err, curs) {
 					if(err) {
 						console.log(err);
@@ -170,7 +168,7 @@ app.post('/addPaper', function(req, res) {
 							console.log(err);
 						}
 						else {
-							console.log(JSON.stringify(doc.authors));
+							//console.log(JSON.stringify(doc.authors));
 						}
 					});
 				}

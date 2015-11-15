@@ -141,7 +141,6 @@ $(document).ready(function() {
 				for (var i = 0; i < curs.length; i++) {
 					papers.push(curs[i].title);
 				}
-				console.log(papers)
 				localStorage["papers"] = JSON.stringify(papers);
 				var fromStorage = "["+localStorage["papers"]+"]";
 				var papers = JSON.parse(fromStorage);
@@ -216,7 +215,6 @@ $(document).ready(function() {
 		event.preventDefault();
 		query=$('#searchBox').val();
 		var searchType = $("input[name=searchTypeOptions]:checked").val();
-		console.log(searchType);
 		switch(searchType) {
 			case "All":
 				var type = 1;
@@ -247,7 +245,6 @@ $(document).ready(function() {
 	$('#form_1039889').submit(function(event) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
-		console.log("hello there!")
 		readSubmitPaperForm($('#form_1039889'));
 	});
 	var submitted=false;
@@ -255,7 +252,6 @@ $(document).ready(function() {
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		readRegisterForm($('#form_1037235'));
-		console.log('working');
 	});
 	//start html injection prevention
 	$('#form_1037235 :text').change(function(){
@@ -379,7 +375,6 @@ $(document).ready(function() {
 			var isvalidate=false;
 			var submitClicked=false;
 			$('#saveForm').click(function(e){
-				console.log("I ran");
 				submitClicked=true;
 				$('#form_1037235').validate();
 				var isvalidate=$("#form_1037235").valid();
@@ -421,16 +416,13 @@ $(document).ready(function() {
 });
 
 function readSignInForm(form) {
-	console.log('read from sign in');
 	var signinEmail = $('#email').val();
-	console.log('read from sign in!');
 	var signinEmail = $("#email").val();
 	var signinPassword = $("#password").val();
 	requestUser(signinEmail, signinPassword);
 }
 
 function readRegisterForm(form) {
-	console.log('read from register');
 	var firstname = $('#element_2_1').val(),
 	    lastname = $('#element_2_2').val(),
 	    is_highschool = ($('#element_6_1').is(':checked')),
@@ -499,7 +491,6 @@ function readSubmitPaperForm(form) {
 			contentType: false,
 			processData: false,
 			success: function(response) {
-				console.log("response " + response)
 				var paperdata = {
 					"title": title,
 					"authors": authorsid,
@@ -538,7 +529,6 @@ function addUser(newuser) {
 }
 
 function addPaper(newpaper) {
-	console.log("submitting paper to node server");
 	$.ajax({
 				url: '/addPaper',
 				type: 'POST',
@@ -558,7 +548,6 @@ function requestUser(email, password) {
 		"email": email,
 		"password": password
 	}
-	console.log('requesting user');
 	$.ajax({
 		url: '/getUser',
 		type: 'POST',
@@ -580,7 +569,6 @@ function requestUser(email, password) {
 			else{
 				$('.userPass').effect('shake');
 			}
-			console.log('combo error');
 		}
 		else{
 			if ($('.unknownE').length == 0){
@@ -592,12 +580,10 @@ function requestUser(email, password) {
 			else{
 				$('.unknownE').effect('shake');
 			}
-			console.log('other error');
 		}
 	}
 
 	function loginuser(response) {
-		console.log(response);
 		user = JSON.stringify(response);
 		localStorage.setItem("user", user);
 		document.location.href = "/index.html";
