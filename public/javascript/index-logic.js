@@ -38,7 +38,7 @@ $(document).ready(function() {
 			<li id="li_1">\
 			<label class="description required" for="element_1">What grade are you in? </label>\
 			<div>\
-			<select class="element select small" id="element_1" name="grade"> \
+			<select class="btn btn-primary btn-xs" id="element_1" name="grade"> \
 				<option value="9" >9</option>\
 				<option value="10" >10</option>\
 				<option value="11" >11</option>\

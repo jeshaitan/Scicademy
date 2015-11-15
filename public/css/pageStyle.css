@@ -10,7 +10,13 @@ html * {
  .btn.btn-primary {
 	background-color: #5a5699 !important;
 }
+#signInButton {
+	color: #FFFFFF !important;
+}
 
+#saveForm {
+	color: #FFFFFF !important;
+}
 .grid{
 	margin-bottom:14px;
 }
@@ -81,7 +87,7 @@ margin-left: 83px;
 }
 #alertDiv{
 	font-size:18px;
-	font-weight:bold;	
+	font-weight:bold;
 }
 
 #contacttext {
