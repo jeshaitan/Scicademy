@@ -111,7 +111,7 @@ app.post('/getSchools', function(req, res) {
 
 app.post('/addUser', function(req, res) {
 	localStorage.setItem("fuckingEmail",req.body.eml);
-	db.Users.find({email: req.body.eml}, function(err, curs) {
+	db.Users.find({"email": req.body.eml}, function(err, curs) {
 		if (err) {
 			console.log(err);
 		}

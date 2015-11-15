@@ -21,7 +21,7 @@ $(document).ready(function() {
 			</li>\
 			<li id="li_7" >\
 			<div>\
-			<input id="element_7sc" name="element_7" class="element text large required" type="text" maxlength="255" value=""/ placeholder="School">\
+			<input id="element_7" name="element_7" class="element text large required" type="text" maxlength="255" value=""/ placeholder="School">\
 			</div>\
 			</li>\
 			<li id="li_6" >\
@@ -433,14 +433,13 @@ function readRegisterForm(form) {
 	console.log('read from register');
 	var firstname = $('#element_2_1').val(),
 	    lastname = $('#element_2_2').val(),
-	    is_highschool = $('#element_6_1').val(),
-	    is_undergrad = $('#element_6_2').val(),
+	    is_highschool = ($('#element_6_1').is(':checked')),
 	    school = $('#element_7').val();
 	if(is_highschool) {
 		var grade = $('#element_1').val();
 	}
 	else {
-		var grade = "undergrad"
+		var grade = "undergrad";
 	}
 	var email = $('#element_3').val(),
 	password = $('#element_5').val();
@@ -531,14 +530,14 @@ function addUser(newuser) {
 	function returntoIndex(response) {
 		console.log(localStorage.getItem('curs'));
 		console.log(localStorage.getItem("fuckingEmail"));
-		if (response.error.indexOf('already exists') > -1) {
+		if (typeof response.error === 'undefined'){
+			document.location.href = "/index.html";
+		}		
+		else if (response.error.indexOf('already exists') > -1) {
 			$('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists</label>')
-			// $('#element_3-error').text('');
-			console.log('same email error');
 		}
 		else{
-			document.location.href = "/index.html";
-			console.log('i succeeded');
+			console.log('email verification went full retard');
 		}
 	}
 	function giveEmailError(jqXHR, textStatus){
