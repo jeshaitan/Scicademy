@@ -141,7 +141,7 @@
 				url: '/clearPdf',
 				type: 'POST',
 				contentType: 'application/json',
-				data: {JSON.stringify({query: localStorage.getItem('pdf')}),}
+				data: {JSON.stringify({query: localStorage.getItem('pdf')})},
 				dataType: 'json',
 				success: function() {
 					localStorage.removeItem('pdf');
