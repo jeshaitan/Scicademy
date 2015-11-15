@@ -231,7 +231,6 @@ $(document).ready(function() {
 			default:
 				var type = 1;
 		}
-		console.log(type + "TYPE!")
 		window.location.href = "results.html?type="+type+"query="+query;
 	});
 
@@ -452,8 +451,7 @@ function readRegisterForm(form) {
 	today = mm+'/'+dd+'/'+yyyy;
 
 	var newuser = {"fnm": firstname, "lnm": lastname, "grd": grade,
-				   "shl": school, "eml": email, "pwd": password, "pub": [],
-				   "dte": today};
+				   "shl": school, "eml": email, "pwd": password, "dte": today};
 	addUser(newuser);
 }
 
@@ -513,17 +511,15 @@ function addUser(newuser) {
 		contentType: 'application/json',
 		data: JSON.stringify(newuser),
 		dataType: 'json',
-		success: checkEmail
+		success: function(res) {
+			if (Object.getOwnPropertyNames(res).length == 0) {
+				$('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>')
+			}
+			else {
+				document.location.href = "/index.html";
+			}
+		}
 	});
-}
-
-function checkEmail(res) {
-		if (res == "Email doesn't exist.") {
-			document.location.href = "/index.html";
-		}
-		else {
-			$('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>')
-		}
 }
 
 function addPaper(newpaper) {

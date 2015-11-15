@@ -121,18 +121,18 @@ app.post('/addUser', function(req, res) {
 									lastname: req.body.lnm,
 									school: req.body.shl,
 									grade: req.body.grd,
-									publications: req.body.pub,
+									publications: [],
 									datejoined: req.body.dte}, function(err, record) {
 					if(err) {
 						console.log(err);
 					}
 					else {
-						res.send("Email doesn't exist.");
+						res.send(record);
 					}
 				});
 			}
 			else {
-				res.send("Email exists.");
+				res.send({});
 			}
 		}
 	});
@@ -234,5 +234,5 @@ app.get('*', function(req, res){
 });
 
 app.listen(port, function() {
-	console.log('Aliro back-end server listening on port ' + port);
+	console.log('Scicademy back-end server listening on port ' + port + '.');
 });
