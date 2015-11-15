@@ -135,7 +135,6 @@ app.post('/addUser', function(req, res) {
 				});
 			}
 			else {
-				localStorage.setItem('curs',curs);
 				res.send({error: 'An account with this email address already exists.'});
 			}
 		}
