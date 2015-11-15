@@ -18,15 +18,15 @@ app.use(busboy());
 var uri = "mongodb://PublicIO:publicpass@ds036698.mongolab.com:36698/alirodatabase";
 var db = mongojs(uri, ["Papers", "Pdfs", "Users"], {authMechanism: 'ScramSHA1'});
 
-app.post('/getUser', function(request, response) {
+app.post('/getUser', function(req, res) {
     var searchObj = {};
-    if(request.body.hasOwnProperty('searchType') && request.body.searchType == "id") {
-			searchObj = {"_id" : ObjectID(request.body.query)};
+    if(req.body.hasOwnProperty('searchType') && req.body.searchType == "id") {
+			searchObj = {"_id" : ObjectID(req.body.query)};
     }
     else {
     	searchObj = {
-        "email": request.body.email,
-        "password": request.body.password
+        "email": req.body.email,
+        "password": req.body.password
     	}
     }
     var user = db.Users.findOne(searchObj, function(err, doc) {
@@ -34,30 +34,30 @@ app.post('/getUser', function(request, response) {
             	console.log(err);
         	}
         	else {
-							if(request.body.hasOwnProperty("meta")) {
-								response.send({"doc": doc, "meta": request.body.meta});
+							if(req.body.hasOwnProperty("meta")) {
+								res.send({"doc": doc, "meta": req.body.meta});
 							}
 							else {
-								response.send(doc);
+								res.send(doc);
 							}
           }
     });
 });
 
-app.post('/getPaper', function(request, response) {
-	if(request.body.searchType == "All") {
-		var searchObject = {$or: [{$text: {$search: request.body.query}},
-							   {keywords: request.body.query},
-							   {authors: request.body.query}]};
+app.post('/getPaper', function(req, res) {
+	if(req.body.searchType == "All") {
+		var searchObject = {$or: [{$text: {$search: req.body.query}},
+							   {keywords: req.body.query},
+							   {authors: req.body.query}]};
 	}
-	else if(request.body.searchType == "Title") {
-		var searchObject = {$text: {$search: request.body.query}};
+	else if(req.body.searchType == "Title") {
+		var searchObject = {$text: {$search: req.body.query}};
 	}
-	else if(request.body.searchType == "Keywords") {
-		var searchObject = {keywords: request.body.query};
+	else if(req.body.searchType == "Keywords") {
+		var searchObject = {keywords: req.body.query};
 	}
-	else if(request.body.searchType == "Author") {
-		db.Users.find({$text: {$search: request.body.query}}, function(err, curs) {
+	else if(req.body.searchType == "Author") {
+		db.Users.find({$text: {$search: req.body.query}}, function(err, curs) {
 			if(err) {
 				console.log(err)
 			}
@@ -72,32 +72,32 @@ app.post('/getPaper', function(request, response) {
 						console.log(err);
 					}
 					else {
-						response.send(curs);
+						res.send(curs);
 					}
 				});
 			}
 		});
 	}
-	else if(request.body.searchType == 'id') {
-		var searchObject = {"_id" : ObjectID(request.body.query)};
+	else if(req.body.searchType == 'id') {
+		var searchObject = {"_id" : ObjectID(req.body.query)};
 	}
-	else if(request.body.searchType == 'every') {
+	else if(req.body.searchType == 'every') {
 		var searchObject = {}
 	}
-	if(request.body.searchType != "Author") {
+	if(req.body.searchType != "Author") {
 		db.Papers.find(searchObject, function(err, curs) {
 			if(err) {
 				console.log(err);
 			}
 			else {
-				response.send(curs);
+				res.send(curs);
 			}
 		});
 	}
 });
 
 app.post('/getSchools', function(req, res) {
-	db.Users.find({}, {school:1}, function(err, curs) {
+	db.Users.find({}, {school : 1}, function(err, curs) {
 	  if(err) {
 	    console.log(err);
 		}
@@ -108,13 +108,12 @@ app.post('/getSchools', function(req, res) {
 });
 
 app.post('/addUser', function(req, res) {
-	localStorage.setItem("fuckingEmail",req.body.eml);
-	db.Users.find({"email": req.body.eml}, function(err, curs) {
+	db.Users.findOne({"email" : req.body.eml}, function(err, doc) {
 		if (err) {
 			console.log(err);
 		}
 		else {
-			if(curs === null) {
+			if(!doc) {
 				db.Users.insert({email: req.body.eml,
 									password: req.body.pwd,
 									name: req.body.fnm + " " + req.body.lnm,
@@ -128,12 +127,12 @@ app.post('/addUser', function(req, res) {
 						console.log(err);
 					}
 					else {
-						res.send(record);
+						res.send("Email doesn't exist.");
 					}
 				});
 			}
 			else {
-				res.send({error: 'An account with this email address already exists.'});
+				res.send("Email exists.");
 			}
 		}
 	});
@@ -173,14 +172,14 @@ app.post('/addPaper', function(req, res) {
 					});
 				}
 			});
-			response.send(record);
+			res.send(record);
 		}
 	});
 });
 var gfs = grid(db, mongo);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
 	var fstream;

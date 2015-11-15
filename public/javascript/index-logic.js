@@ -507,25 +507,23 @@ function readSubmitPaperForm(form) {
 
 
 function addUser(newuser) {
-	console.log("submitting new user to node server");
 	$.ajax({
-				url: '/addUser',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify(newuser),
-				dataType: 'json',
-				success: function() {
-					if (typeof response.error === 'undefined'){
-						document.location.href = "/index.html";
-					}
-					else if (response.error.indexOf('already exists') > -1) {
-						$('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists</label>')
-					}
-					else {
-						console.log('Error with email verification.');
-					}
-				}
-			});
+		url: '/addUser',
+		type: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify(newuser),
+		dataType: 'json',
+		success: checkEmail
+	});
+}
+
+function checkEmail(res) {
+		if (res == "Email doesn't exist.") {
+			document.location.href = "/index.html";
+		}
+		else {
+			$('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>')
+		}
 }
 
 function addPaper(newpaper) {
