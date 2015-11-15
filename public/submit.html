@@ -136,8 +136,7 @@
 		$('#submitSaveForm').click(function(e){
 				$('#form_1039889').validate();
 				var isvalidate=$("#form_1039889").valid();
-				if(isvalidate == false)
-				{
+				if(isvalidate == false){
 					e.preventDefault();
 					$('.buttons').append('<p id="incompleteSubmit">One or more fields are still invalid</p>');
 				}

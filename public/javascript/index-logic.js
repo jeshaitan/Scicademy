@@ -252,12 +252,9 @@ $(document).ready(function() {
 	});
 	var submitted=false;
 	$('#form_1037235').submit(function(event) {
-		// console.log('changed');
-		// submitted=true;
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		readRegisterForm($('#form_1037235'));
-		window.location.href = "index.html";
 		console.log('working');
 	});
 	//start html injection prevention
@@ -520,19 +517,32 @@ function readSubmitPaperForm(form) {
 
 
 function addUser(newuser) {
-	console.log("submitting new user to node server");
-
+	console.log("submitting new user to node server");	
 	$.ajax({
 				url: '/addUser',
 				type: 'POST',
 				contentType: 'application/json',
 				data: JSON.stringify(newuser),
 				dataType: 'json',
-				success: returntoIndex
+				success: returntoIndex,
+				error: giveEmailError
 			});
 
 	function returntoIndex(response) {
-		document.location.href = "/index.html";
+		console.log(localStorage.getItem('curs'));
+		console.log(localStorage.getItem("fuckingEmail"));
+		if (response.error.indexOf('already exists') > -1) {
+			$('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists</label>')
+			// $('#element_3-error').text('');
+			console.log('same email error');
+		}
+		else{
+			document.location.href = "/index.html";
+			console.log('i succeeded');
+		}
+	}
+	function giveEmailError(jqXHR, textStatus){
+		console.log(textStatus);
 	}
 }
 

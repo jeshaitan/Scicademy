@@ -110,12 +110,13 @@ app.post('/getSchools', function(req, res) {
 });
 
 app.post('/addUser', function(req, res) {
-	db.Users.find({"email": req.body.eml}, function(err, curs) {
+	localStorage.setItem("fuckingEmail",req.body.eml);
+	db.Users.find({email: req.body.eml}, function(err, curs) {
 		if (err) {
 			console.log(err);
 		}
 		else {
-			if(!curs.length) {
+			if(curs === null) {
 				db.Users.insert({email: req.body.eml,
 									password: req.body.pwd,
 									name: req.body.fnm + " " + req.body.lnm,
@@ -134,6 +135,7 @@ app.post('/addUser', function(req, res) {
 				});
 			}
 			else {
+				localStorage.setItem('curs',curs);
 				res.send({error: 'An account with this email address already exists.'});
 			}
 		}
@@ -145,10 +147,10 @@ app.post('/addPaper', function(req, res) {
 					  authors: req.body.authors,
 					  abstract: req.body.abstract,
 					  keywords: req.body.keywords,
-						institution: req.body.institution,
+					  institution: req.body.institution,
 					  pdf: req.body.pdf,
 					  date: req.body.date,
-						published: "false"}, function(err, record) {
+					  published: "false"}, function(err, record) {
 		if(err) {
 			console.log(err);
 		}
