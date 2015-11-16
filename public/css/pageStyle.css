@@ -2,6 +2,8 @@ html * {
 	font-family: 'Open Sans', 'Arial';
 }
 
+
+
 .navigation{
 	width: 98%;
 	margin: auto;
@@ -27,6 +29,10 @@ html * {
 
 .failedSignIn{
 	margin-top:23px;
+}
+
+#signInBox{
+	display:none;
 }
 
 #incompleteRegister{

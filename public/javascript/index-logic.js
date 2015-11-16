@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var currentUser = JSON.parse(localStorage.getItem("user"));
 	var signInHtml = '';
 	var signInHtmlEnd =
-	'<div class="credentialsTable"w>\
+	'<div class="credentialsTable">\
 	<div id="registerFormDiv">\
 	<h4 class="signInHeader">Register</h4>\
 		<form id="form_1037235" class="appnitro"  method="post" action="">\
