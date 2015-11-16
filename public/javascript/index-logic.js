@@ -86,6 +86,7 @@ $(document).ready(function() {
 			</div>\
 			<div>\
 				<input type="submit" id="signInButton" name="signInButton" class="signRegisterBut btn btn-primary btn-xs" value="Sign In">\
+				<img src="../images/spinTrans.gif" id="signInSpin" style="margin-top:19px;" />\
 			</div>\
 		</form>\
 		</div>\
@@ -163,7 +164,7 @@ $(document).ready(function() {
 		show: 'fade',
 		hide: 'drop'
 	}); //end dialog
-
+	$('#signInSpin').hide();
 	function unique_ify(list) {
     var seen = {};
     var out = [];
@@ -235,6 +236,9 @@ $(document).ready(function() {
 	});
 
 	$('#signInForm').submit(function(event) {
+		$('#signInButton').hide();
+		$('#signInSpin').show();
+		$('.userPass').remove();
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		readSignInForm($('#signInForm'));
@@ -513,7 +517,7 @@ function addUser(newuser) {
 		dataType: 'json',
 		success: function(res) {
 			if (Object.getOwnPropertyNames(res).length == 0) {
-				$('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>')
+				$('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>');
 			}
 			else {
 				document.location.href = "/index.html";
@@ -553,6 +557,9 @@ function requestUser(email, password) {
 	});
 
 	function giveloginerror(jqXHR, textStatus) {
+		$('#signInButton').show();
+		console.log('ran');
+		$('#signInSpin').hide();
 		if (textStatus == 'parsererror'){
 			if ($('.userPass').length == 0){
 			$('#signInFormDiv').append('<p class="failedSignIn userPass" style="float:left;color:#f00;font-weight: bold;font-size: 12px;line-height: 9px;text-align:center;">No known user with above login credentials.</p>');
