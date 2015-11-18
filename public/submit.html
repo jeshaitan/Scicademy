@@ -58,7 +58,9 @@
 			at: "right+337 top",
 			of: $("#registerFormDiv")
 		});
-
+			jQuery.validator.addMethod("pdfChecked", function(value, element) {
+				return $('#element_14_1').is(':checked');
+			}, "");
 			jQuery.validator.addMethod("isLong", function(value, element) {
 				var counter = 0;
 				value = value.replace(/(^\s*)|(\s*$)/gi,"");
@@ -78,13 +80,23 @@
 				}
 				return lines.length>=4;
 			}, "");
-
-
+			
 			$('#form_1039889').validate({
+				errorPlacement: function(error, element) {
+					if (element.attr("name") == "element_14" ){
+						error.insertBefore(".pdfClass");
+					}
+					else {
+						error.insertAfter(element);
+					}
+				},	
 				rules: {
 					element_2: { //abstract
 						required: true,
 						isLong : true
+					},
+					element_14: {//do you have a pdf
+						pdfChecked: true
 					},
 					element_9: { //keywords
 						required: true,
@@ -95,6 +107,9 @@
 					element_2: {
 						required: "This field is required",
 						isLong: "Your abstract must be at least 70 words"
+					},
+					element_14: {
+						pdfChecked: "Your paper must be a PDF!"
 					},
 					element_9: {
 						required: "This field is required",
@@ -146,7 +161,9 @@
 				document.location.href="/index.html";
 			});
 
-			$('#submitSaveForm').click(function(e){
+			$('#form_1039889').submit(function(e){
+				$('#submitSpin').show();
+				$('#submitSaveForm').hide();
 				$('#form_1039889').validate();
 				var isvalidate=$("#form_1039889").valid();
 				if(isvalidate == false){
@@ -157,6 +174,14 @@
 					else{
 						$('#incompleteSubmit').effect('shake');
 					}
+					$('#submitSpin').hide();
+					$('#submitSaveForm').show();
+				}
+				else{
+					e.preventDefault();
+					e.stopImmediatePropagation();
+					$('#incompleteSubmit').remove();
+					readSubmitPaperForm($('#form_1039889'));
 				}
 			});
 
@@ -260,7 +285,7 @@
 		<div id="paperPDF">
 		<li id="li_14" >
 			<label class="description required" for="element_14">Is your paper a pdf? </label>
-		<span>
+		<span class="pdfClass">
 			<input id="element_14_1" name="element_14" class="element radio" type="radio" value="isPDF" />
 			<label class="choice" for="element_14_1">Yes</label>
 			<input id="element_14_2" name="element_14" class="element radio" type="radio" value="isWord" />
@@ -286,6 +311,7 @@
 		<li class="submitButtons">
 			    <input type="hidden" name="form_id" value="1039889" />
 			   <input id="submitSaveForm" class="button_text btn btn-primary btn-xs" type="submit" name="submit" value="Submit"/>
+			   <img src="../images/spinTrans.gif" id="submitSpin" style="display:none;" />
 		</li>
 			</ul>
 		</form>

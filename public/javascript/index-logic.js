@@ -246,9 +246,9 @@ $(document).ready(function() {
 	});
 
 	$('#form_1039889').submit(function(event) {
-		event.preventDefault();
-		event.stopImmediatePropagation();
-		readSubmitPaperForm($('#form_1039889'));
+		// event.preventDefault();
+		// event.stopImmediatePropagation();
+		// readSubmitPaperForm($('#form_1039889'));
 	});
 	var submitted=false;
 	$('#form_1037235').submit(function(event) {
@@ -537,7 +537,8 @@ function addPaper(newpaper) {
 			});
 
 	function newsearchpaper(response) {
-		// document.location.href = "/results.html?type=2query="+newpaper.title;
+		$('#submitSpin').hide();
+		$('#submitSaveForm').show();
 		$('#submitComplete').dialog('open');
 	}
 }
