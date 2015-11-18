@@ -132,13 +132,31 @@
 				}
 
 			})
+			$('#submitComplete').dialog({
+				resizable:false,
+				minWidth: 300,
+				minHeight: 150,
+				autoOpen: false,
+				show: 'fade',
+				hide: 'fold',
+				modal:true
+			});
+			
+			$("#submitComplete").on('click', '#closeSubmit', function(){
+				document.location.href="/index.html";
+			});
 
-		$('#submitSaveForm').click(function(e){
+			$('#submitSaveForm').click(function(e){
 				$('#form_1039889').validate();
 				var isvalidate=$("#form_1039889").valid();
 				if(isvalidate == false){
 					e.preventDefault();
-					$('.buttons').append('<p id="incompleteSubmit">One or more fields are still invalid</p>');
+					if ($('#incompleteSubmit').length == 0){
+						$('.submitButtons').append('<p id="incompleteSubmit" style = "color:red; margin-left:10px; margin-top: 10px;">One or more fields are still invalid</p>');
+					}
+					else{
+						$('#incompleteSubmit').effect('shake');
+					}
 				}
 			});
 
@@ -181,6 +199,12 @@
 		</ul>
 	</div>
 	<div id="signInBox"></div>
+	<div id="submitComplete">
+		<center>Thank you for submitting a paper to Scicademy! Keep in mind that it may take a day or two for the paper 
+		to be proccessed. (see <a style = "color:blue;" href="about.html">the about page</a> to find out more about this process.)</center>
+		<button style = "margin-left: 107px;margin-top:10px;" id="closeSubmit" class="btn btn-lg btn-primary">Ok</button>
+    </div>
+	
 	<div id="form_container" class="grid">
 		<form id="form_1039889" class="appnitro" enctype="multipart/form-data">
 					<div class="form_description">

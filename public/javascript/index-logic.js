@@ -537,7 +537,8 @@ function addPaper(newpaper) {
 			});
 
 	function newsearchpaper(response) {
-		document.location.href = "/results.html?type=2query="+newpaper.title;
+		// document.location.href = "/results.html?type=2query="+newpaper.title;
+		$('#submitComplete').dialog('open');
 	}
 }
 
