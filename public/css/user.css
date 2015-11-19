@@ -19,15 +19,12 @@
 }
 
 .separator{
-	margin: 20px 0px 10px 0px;
-	z-index: 50;
-	width: 100%;
-	position:relative;
+	margin: 20px auto 10px auto;
 }
 
 .separator2{
 	z-index: 50;
-	width:100%;
+	width:97%;
 	position:relative;
 }
 
