@@ -110,9 +110,8 @@
 	margin-bottom: 20px;
 }
 
-#piechart{
-	margin-top:-72px;
-	margin-left: -200px;
-	z-index:2;
-	position:relative;
+#editUser{
+	float:right;
+	margin-right: 48px;
+	margin-top: -28px;
 }
