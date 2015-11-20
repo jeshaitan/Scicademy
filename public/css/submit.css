@@ -7,6 +7,10 @@ body
 	background-color: #5a5699;
 }
 
+/* no close button for dialog boxes on submit page */
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
 .grid{
 	clear: both;
     margin: 0 auto;

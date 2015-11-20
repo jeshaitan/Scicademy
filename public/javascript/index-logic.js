@@ -86,7 +86,7 @@ $(document).ready(function() {
 			</div>\
 			<div>\
 				<input type="submit" id="signInButton" name="signInButton" class="signRegisterBut btn btn-primary btn-xs" value="Sign In">\
-				<img src="../images/spinTrans.gif" id="signInSpin" style="margin-top:19px;" />\
+				<img src="../images/spinTrans.gif" id="signInSpin" style="margin-top:19px;margin-left:37px;" />\
 			</div>\
 		</form>\
 		</div>\
@@ -161,6 +161,9 @@ $(document).ready(function() {
 		minWidth: 800,
 		minHeight: 'auto',
 		autoOpen: false,
+		close: function (event, ui){
+			$('.failedSignIn').remove();
+		},
 		show: 'fade',
 		hide: 'drop'
 	}); //end dialog
