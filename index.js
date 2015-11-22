@@ -226,6 +226,8 @@ app.post('/clearPdf', function(req, res) {
 	fs.unlink(__dirname + '/public/uploads/' + req.body.query);
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('*', function(req, res){
   res.sendFile(path.join(__dirname + '/public/404.html'));
 });
