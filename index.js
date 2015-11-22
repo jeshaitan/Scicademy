@@ -215,7 +215,6 @@ app.post('/addPdf', function(req, res) {
 function randomInt (low, high) {
   return Math.floor(Math.random() * (high - low) + low);
 }
-
 app.post('/getPdf', function(req, res) {
 	var s3 = new aws.S3();
 	var params = {Bucket: 'aliro-pdf-assets', Key: req.body.query};
@@ -226,8 +225,6 @@ app.post('/getPdf', function(req, res) {
 app.post('/clearPdf', function(req, res) {
 	fs.unlink(__dirname + '/public/uploads/' + req.body.query);
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', function(req, res){
   res.sendFile(path.join(__dirname + '/public/404.html'));
