@@ -62,6 +62,19 @@
 	margin-left: 30px;
 }
 
+.details a{
+	color: #337ab7;
+}
+.originalColor{
+	color: #666 !important;
+}
+
+.originalColor:hover{
+	text-decoration: none;
+}
+
+
+
 .details{
 	float:left;
 	font-size:14px;
