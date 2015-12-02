@@ -108,15 +108,7 @@
 		        	$('.grid').html('<br /><p><center>Sorry, no user is found with the User Id: '+ searchUser.query + '.</center></p><br />')
 		        	return false;
 		        }
-		    });	
-			<!-- $('#editUser').on('click',function(){ -->
-//			$('#grade').editable('activate',
-//				{
-//					type:"text", 
-//					pk:"grade", 
-//					url:"/changeUser", 
-//					title:"Change grade"
-//				});
+		    });
 		});
 		$.fn.editable.defaults.mode = 'inline';
 		var editIt = false;
@@ -131,24 +123,24 @@
 				editIt = true;
 			}
 		});
-		
+
 		$(document).on('click', '#editUser', function(e) {
 			if (firstTime){
 				firstTime = false;
 				$('#grade').removeClass('originalColor');
 				$('#grade').editable({
-					disabled: false,				
+					disabled: false,
 					type: "select",
 					pk: "1",
 					name: "grade",
 					url: "/changeGrade",
 					title: "Enter grade",
-					//defaultValue: "9", make default value their current grade (need serverside)
-					onblur: "ignore", //can be cancel, submit, or ignore. chagne if you want
+					defaultValue: "9",
+					onblur: "ignore",
 					source: [
-							{value: 9, text: "9th"}, 
-							{value: 10, text: "10th"}, 
-							{value: 11, text: "11th"}, 
+							{value: 9, text: "9th"},
+							{value: 10, text: "10th"},
+							{value: 11, text: "11th"},
 							{value: 12, text: "12th"}
 					]
 				});
@@ -160,7 +152,7 @@
 				$('#grade').editable('option', 'disabled', true);
 			}
 		});
-		
+
       </script>
       <div class="navigation">
 	  <ul id="navlist" class="sm sm-simple">
