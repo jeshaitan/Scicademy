@@ -85,7 +85,7 @@
 					      var userHtml = '<div class="user">\
 										<div class = "user">\
 											<div class="userBox">\
-												<h1 class="headerName">' + userObj.firstname + ' ' + userObj.lastname + '</h1><button id="editUser" class = "btn btn-primary btn-sm">Edit page</button>\
+												<h1 class="headerName">' + userObj.firstname + ' ' + userObj.lastname + '</h1><!--<button id="editUser" class = "btn btn-primary btn-sm">Edit page</button>-->\
 													<div class="details">\
 														<p class="school">' + userObj.school + '</p>\
 														<a class="grade originalColor" id="grade">' + userObj.grade + 'th Grade</a>\
@@ -110,12 +110,11 @@
 		        }
 		    });
 		});
+    /*
 		$.fn.editable.defaults.mode = 'inline';
 		var editIt = false;
-		var firstTime = true;
 
 		$(document).on('click', '#editUser' , function(){
-			console.log(editIt)
 			if (editIt){
 				editIt = false;
 			}
@@ -125,34 +124,38 @@
 		});
 
 		$(document).on('click', '#editUser', function(e) {
-			if (firstTime){
-				firstTime = false;
-				$('#grade').removeClass('originalColor');
-				$('#grade').editable({
-					disabled: false,
-					type: "select",
-					pk: "1",
-					name: "grade",
-					url: "/changeGrade",
-					title: "Enter grade",
-					defaultValue: "9",
-					onblur: "ignore",
-					source: [
-							{value: 9, text: "9th"},
-							{value: 10, text: "10th"},
-							{value: 11, text: "11th"},
-							{value: 12, text: "12th"}
-					]
-				});
-			}
-			if (editIt){
-				$('#grade').editable('option', 'disabled', false);
-			}
-			else{
-				$('#grade').editable('option', 'disabled', true);
-			}
+        edit(e, "grade")
 		});
 
+    function edit(e, field) {
+      $('#' + field).removeClass('originalColor');
+      $('#' + field).editable({
+        disabled: false,
+        type: "select",
+        pk: "1",
+        name: field,
+        url: "/editable",
+        title: "Enter " + field,
+        defaultValue: "9",
+        onblur: "ignore",
+        source: [
+            {value: 9, text: "9th"},
+            {value: 10, text: "10th"},
+            {value: 11, text: "11th"},
+            {value: 12, text: "12th"}
+        ],
+        success: function (req, res) {
+          console.log(field + " changed!")
+        }
+      });
+      if (editIt){
+        $('#' + field).editable('option', 'disabled', false);
+      }
+      else{
+        $('#' + field).editable('option', 'disabled', true);
+      }
+    }
+    */
       </script>
       <div class="navigation">
 	  <ul id="navlist" class="sm sm-simple">
