@@ -103,6 +103,9 @@
 											</div>\
 										</div>'
 					      $('.grid').html(userHtml);
+                if(userObj.grade = "undergrad") {
+                  $('#grade').text("Undergraduate Researcher");
+                }
 		        },
 		        error: function(jqXHR, textStatus) {
 		        	$('.grid').html('<br /><p><center>Sorry, no user is found with the User Id: '+ searchUser.query + '.</center></p><br />')
