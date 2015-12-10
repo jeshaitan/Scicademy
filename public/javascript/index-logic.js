@@ -470,8 +470,9 @@ function readRegisterForm(form) {
 
 	today = mm+'/'+dd+'/'+yyyy;
 
+	var isSummer = ($('#element_13_2').is(':checked'));
 	var newuser = {"fnm": firstname, "lnm": lastname, "grd": grade,
-				   "shl": school, "eml": email, "pwd": password, "dte": today};
+				   "shl": school, "eml": email, "pwd": password, "dte": today, "isSum": isSummer};
 	addUser(newuser);
 }
 

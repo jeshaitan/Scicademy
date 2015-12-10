@@ -121,6 +121,7 @@ app.post('/addUser', function(req, res) {
 									lastname: req.body.lnm,
 									school: req.body.shl,
 									grade: req.body.grd,
+									isSummer: req.body.isSum,
 									publications: [],
 									datejoined: req.body.dte}, function(err, record) {
 					if(err) {
