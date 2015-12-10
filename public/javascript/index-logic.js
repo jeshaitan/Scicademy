@@ -28,7 +28,7 @@ $(document).ready(function() {
 				<label class="description required" id="element_6_label" for="element_6">Are you a High School student or an Undergrad? </label>\
 				<span>\
 				<div id="highCol">\
-					<input id="element_6_1" name="highCol" class="element radio highColRadio" type="radio" value="1" />\
+					<input id="element_6_1" name="highCol" class="element radio highColRadio required" type="radio" value="1" />\
 					<label class="choice" for="element_6_1">High School</label>\
 					<input id="element_6_2" name="highCol" class="element radio highColRadio" type="radio" value="2" />\
 					<label class="choice" for="element_6_2">Undergrad</label>\
@@ -51,7 +51,7 @@ $(document).ready(function() {
 				<label class = "description required" id="element_13_label" for = "element_13">Is school currently in session (including during vacations and weekends), or are you on summer break?</label>\
 				<span>\
 				<div id = "schoolSession">\
-					<input id = "element_13_1" name = "schoolSession" class = "element radio" type = "radio" value = "1" />\
+					<input id = "element_13_1" name = "schoolSession" class = "element radio required" type = "radio" value = "1" />\
 					<label class = "choice" for = "element_13_1"> School is still in session</label>\
 					<input id = "element_13_2" name = "schoolSession" class = "element radio" type = "radio" value = "0" />\
 					<label class = "choice" for = "element_13_2"> I am on summer break </label>\
@@ -81,6 +81,7 @@ $(document).ready(function() {
 			<li class="buttons">\
 					<input type="hidden" name="form_id" value="1037235" />\
 					<input id="saveForm" class="button_text signRegisterBut btn btn-primary btn-xs" type="submit" name="submit" value="Register"/>\
+					<img src="../images/spinTrans.gif" id="registerSpin" style="margin-top:19px;margin-left:37px;" />\
 			</li>\
 				</ul>\
 			</form>\
@@ -181,6 +182,7 @@ $(document).ready(function() {
 		hide: 'drop'
 	}); //end dialog
 	$('#signInSpin').hide();
+	$('#registerSpin').hide();
 	function unique_ify(list) {
     var seen = {};
     var out = [];
@@ -268,6 +270,8 @@ $(document).ready(function() {
 	});
 	var submitted=false;
 	$('#form_1037235').submit(function(event) {
+		$('#saveForm').hide();
+		$('#registerSpin').show();
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		readRegisterForm($('#form_1037235'));
@@ -352,6 +356,11 @@ $(document).ready(function() {
 					element_6: { //radio button for highschool or college
 						required:true
 					},
+
+					element_13: {
+						required:true
+					},
+
 					agree:{
 						required:true
 					}
@@ -533,11 +542,14 @@ function addUser(newuser) {
 		data: JSON.stringify(newuser),
 		dataType: 'json',
 		success: function(res) {
+			$('#registerSpin').hide();
+			$('#saveForm').show();
 			if (Object.getOwnPropertyNames(res).length == 0) {
 				$('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>');
 			}
 			else {
 				document.location.href = "/index.html";
+				localStorage.setItem('registerComplete', '1');
 			}
 		}
 	});

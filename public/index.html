@@ -80,14 +80,21 @@
 	$(document).ready(function() {
 	  $('#siteMapIndex').hide();
       $.getScript('javascript/index-logic.js', function(jd) {}); //end ready
-	  <!-- $('#registerComplete').dialog({ -->
-		<!-- resizable:false, -->
-		<!-- minWidth: 300, -->
-		<!-- minHeight: 150, -->
-		<!-- autoOpen: false, -->
-		<!-- show: 'fade', -->
-		<!-- hide: 'fold' -->
-      <!-- }); -->
+	  $('#registerComplete').dialog({
+		resizable:false,
+		minWidth: 300,
+		minHeight: 150,
+		autoOpen: false,
+		show: 'fade',
+		hide: 'fold'
+      });
+        if (localStorage.getItem('registerComplete') == '1'){
+            $('#registerComplete').dialog('open');
+            localStorage.setItem('registerComplete', '0');
+        }
+        $('#closeRegister').click(function(){
+            $('#registerComplete').dialog('close');
+        });
 	});
   </script>
   <div class="navigation">
@@ -114,10 +121,10 @@
 	<br>
 	<a href="#about" class="btn btn-primary btn-lg" id="indexButton">Find Out More</a>
   </div>
-<!--   <div id="registerComplete">
-	<center>Thank you for registering and welcome to Scicademy!</center>
+  <div id="registerComplete">
+	<center>Thank you for registering and welcome to Scicademy! You can sign in to your account through the "Sign in or Register" tab in the menu above.</center>
 	<button id="closeRegister" class="btn btn-lg btn-primary">Ok</button>
-  </div> -->
+  </div>
   </div>
   </div>
   <div id="footerDiv">
