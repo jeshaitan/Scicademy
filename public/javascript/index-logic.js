@@ -45,6 +45,19 @@ $(document).ready(function() {
 				<option value="12" selected>12</option>\
 			</select>\
 			</div> \
+			<p class="guidelines" id="guide_13" style = "width:114px; length: 108px;"><small>If you are currently on summer vacation, then enter the grade that you will be in the upcoming year. Otherwise, enter the grade you are currently in.</small></p>\
+			</li>\
+			<li>\
+				<label class = "description required" id="element_13_label" for = "element_13">Is school currently in session (including during vacations and weekends), or are you on summer break?</label>\
+				<span>\
+				<div id = "schoolSession">\
+					<input id = "element_13_1" name = "schoolSession" class = "element radio" type = "radio" value = "1" />\
+					<label class = "choice" for = "element_13_1"> School is still in session</label>\
+					<input id = "element_13_2" name = "schoolSession" class = "element radio" type = "radio" value = "0" />\
+					<label class = "choice" for = "element_13_2"> I am on summer break </label>\
+				</div>\
+				<p class="guidelines" id="guide_13" style = "width:89px; length: 129px;"><small>This information will be used to update your grade automatically during the summer</small></p>\
+				</span>\
 			</li>\
 			<li id="li_3" >\
 			<div>\
