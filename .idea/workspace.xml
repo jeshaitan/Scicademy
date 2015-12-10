@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84c93c7d-5e70-4d65-b8aa-cfe116da4d2d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascript/index-logic.js" afterPath="$PROJECT_DIR$/public/javascript/index-logic.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/pageStyle.css" afterPath="$PROJECT_DIR$/public/css/pageStyle.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/view.css" afterPath="$PROJECT_DIR$/public/css/view.css" />
     </list>
     <ignored path="Scicademy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,11 +24,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6">
+            <state vertical-scroll-proportion="-15.346154">
               <caret line="94" column="39" selection-start-line="94" selection-start-column="39" selection-end-line="94" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pageStyle.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/css/pageStyle.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-1.6037736">
+              <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/css/view.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.46896553">
+              <caret line="109" column="29" selection-start-line="109" selection-start-column="29" selection-end-line="109" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -47,8 +67,8 @@
       <file leaf-file-name="index-logic.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascript/index-logic.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.481482">
-              <caret line="551" column="54" selection-start-line="551" selection-start-column="54" selection-end-line="551" selection-end-column="54" />
+            <state vertical-scroll-proportion="-2.5185184">
+              <caret line="4" column="33" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="33" />
               <folding>
                 <marker date="1449742284355" expanded="true" signature="166:1496" placeholder="..." />
                 <marker date="1449742284355" expanded="true" signature="195:1496" placeholder="..." />
@@ -85,6 +105,8 @@
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/public/javascript/index-logic.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/public/css/pageStyle.css" />
+        <option value="$PROJECT_DIR$/public/css/view.css" />
       </list>
     </option>
   </component>
@@ -421,10 +443,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.346154">
+          <caret line="94" column="39" selection-start-line="94" selection-start-column="39" selection-end-line="94" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascript/index-logic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.481482">
-          <caret line="551" column="54" selection-start-line="551" selection-start-column="54" selection-end-line="551" selection-end-column="54" />
+        <state vertical-scroll-proportion="-2.5185184">
+          <caret line="4" column="33" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="33" />
           <folding>
             <marker date="1449742284355" expanded="true" signature="166:1496" placeholder="..." />
             <marker date="1449742284355" expanded="true" signature="195:1496" placeholder="..." />
@@ -448,10 +478,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
+    <entry file="file://$PROJECT_DIR$/public/css/pageStyle.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6">
-          <caret line="94" column="39" selection-start-line="94" selection-start-column="39" selection-end-line="94" selection-end-column="39" />
+        <state vertical-scroll-proportion="-1.6037736">
+          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/view.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46896553">
+          <caret line="109" column="29" selection-start-line="109" selection-start-column="29" selection-end-line="109" selection-end-column="29" />
           <folding />
         </state>
       </provider>
