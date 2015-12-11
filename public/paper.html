@@ -60,6 +60,7 @@
 				dataType: 'json',
 				success: function(data) {
 					$('.grid').html('');
+					console.log(data);
 					var pdata = data[0];
 					$.ajax({
 						url: '/getPdf',

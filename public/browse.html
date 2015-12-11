@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="Description" content="The first ever open-access science research database for high school students.">
+    <meta name="Keywords" content="research database school student">
+    <title>Scicademy</title>
+    <link rel= "SHORTCUT ICON" href="images/fav.png" />
+    <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
+    <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/signInCss.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/submit.css" media="all">
+    <link href="css/pageStyle.css" rel="stylesheet" type="text/css">
+    <link href = "css/browse.css" rel = "stylesheet" type = "text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <script src="libs/jquery-ui.min.js"></script>
+    <script src="libs/jquery.smartmenus.min.js"></script>
+    <script async src="libs/jquery.validate.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="javascript/submit.js"></script>
+    <script src="javascript/index-logic.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.getScript('javascript/index-logic.js', function(jd){});
+            var limit = 3;
+            $.ajax({
+                url: '/getRecentPaper',
+                type: 'POST',
+                contentType: 'text/plain',
+                data: '3',
+                dataType: 'text',
+                success: function (data) {
+                    console.log(data[0]);
+                }
+            });
+
+        });
+    </script>
+
+</head>
+
+<body>
+<div class="navigation">
+    <ul id="navlist" class="sm sm-simple">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="submit.html" id="submitLink">Submit Research</a></li>
+        <li id="aboutli"><a href="about.html">About Us</a></li>
+        <li><a href="" id="siso">Sign In or Register</a></li>
+    </ul>
+</div>
+<div id="signInBox"></div>
+
+<div class="grid">
+    <div class = "browseContainer">
+        <div class = "recent">
+            <h3>Recently Submitted Papers</h3>
+            <hr />
+
+            <div class = "miniPaper first">
+
+            </div>
+            <div class = "miniPaper second">
+
+            </div>
+            <div class = "miniPaper third">
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
