@@ -40,9 +40,9 @@
       <script>
          $(document).ready(function() {
          	var url= window.location.href;
-         	var queryString=url.slice(url.indexOf('query=')+6);
+         	var queryString=url.slice(url.indexOf('?query=')+7);
          	queryString = decodeURI(queryString);
-         	var searchType = url.charAt(url.indexOf('type=')+5);
+         	var searchType = url.charAt(url.indexOf('?type=')+6);
           if(searchType == 1)
             searchType = "All";
           else if(searchType == 2)
@@ -51,6 +51,8 @@
             searchType = "Keyword";
           else if(searchType == 4)
             searchType = "Author";
+          else if(searchType == 5)
+            searchType = "Browse"
          	var searchPaper = {
          		"query": queryString,
          		"searchType": searchType

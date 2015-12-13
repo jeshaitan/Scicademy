@@ -87,7 +87,10 @@ app.post('/getPaper', function(req, res) {
 		var searchObject = {"_id" : ObjectID(req.body.query)};
 	}
 	else if(req.body.searchType == 'every') {
-		var searchObject = {}
+		var searchObject = {};
+	}
+	if(req.body.searchType == 'Browse') {
+		var searchObject = {$query: {}, $orderby: ${natural : -1}};
 	}
 	if(req.body.searchType != "Author") {
 		db.Papers.find(searchObject, function(err, curs) {
@@ -184,8 +187,8 @@ app.post('/addPaper', function(req, res) {
 });
 var gfs = grid(db, mongo);
 aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
 	var fstream;
@@ -232,11 +235,7 @@ app.post('/getPdf', function(req, res) {
 app.post('/clearPdf', function(req, res) {
 	fs.unlink(__dirname + '/public/uploads/' + req.body.query);
 });
-/*
-app.post('/editable', function(req, res) {
-	console.log("undefined")
-});
-*/
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', function(req, res){

@@ -250,7 +250,7 @@ $(document).ready(function() {
 			default:
 				var type = 1;
 		}
-		window.location.href = "results.html?type="+type+"query="+query;
+		window.location.href = "results.html?type="+type+"?query="+query;
 	});
 
 	$('#signInForm').submit(function(event) {
