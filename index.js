@@ -45,8 +45,8 @@ app.post('/getUser', function(req, res) {
 });
 
 app.post('/getRecentPaper', function(req, res) {
-	var x = (db.Papers.find().sort({x:-1}).limit(3));
-	res.send(x);
+	var s = (db.Papers.find().sort({x:-1}).limit(3));
+	res.send(s);
 });
 
 app.post('/getPaper', function(req, res) {
