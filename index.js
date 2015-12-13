@@ -68,18 +68,23 @@ app.post('/getPaper', function(req, res) {
 			}
 			else {
 				var searchObject = "";
-				for (var i = 0; i < curs.length; i++) {
+				for(var i = 0; i < curs.length; i++) {
 					searchObject += "{\"authors\": \"" + curs[i]._id + "\"},"
 				}
 				searchObjectArray = JSON.parse("[" + searchObject.substring(0, searchObject.length - 1) +"]");
-				db.Papers.find({$or: searchObjectArray}, function(err, curs) {
-					if(err) {
-						console.log(err);
-					}
-					else {
-						res.send(curs);
-					}
-				});
+				if(searchObjectArray.length == 0) {
+					res.send([]);
+				}
+				else {
+					db.Papers.find({$or: searchObjectArray}, function(err, curs) {
+						if(err) {
+							console.log(err);
+						}
+						else {
+							res.send(curs);
+						}
+					});
+				}
 			}
 		});
 	}
@@ -90,7 +95,7 @@ app.post('/getPaper', function(req, res) {
 		var searchObject = {};
 	}
 	if(req.body.searchType == 'Browse') {
-		var searchObject = {$query: {}, $orderby: ${natural : -1}};
+		var searchObject = {$query: {}, $orderby: {$natural : -1}};
 	}
 	if(req.body.searchType != "Author") {
 		db.Papers.find(searchObject, function(err, curs) {
@@ -187,8 +192,8 @@ app.post('/addPaper', function(req, res) {
 });
 var gfs = grid(db, mongo);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
 	var fstream;
