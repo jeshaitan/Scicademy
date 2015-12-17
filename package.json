@@ -1,8 +1,11 @@
 {
   "name": "Scicademy",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Scicademy - Read, Research, Review",
   "main": "nodeserver.js",
+  "engines": {
+    "node": "5.2.0"
+  }
   "dependencies": {
     "body-parser": "^1.14.1",
     "cors": "latest",
