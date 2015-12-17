@@ -5,7 +5,7 @@
   "main": "nodeserver.js",
   "engines": {
     "node": "5.2.0"
-  }
+  },
   "dependencies": {
     "body-parser": "^1.14.1",
     "cors": "latest",
