@@ -7,12 +7,17 @@
     "node": "5.2.0"
   },
   "dependencies": {
-	
-    "body-parser": "^1.14.1",
-    "cors": "latest",
-    "express": "^5.0.0-alpha.2",
-    "mongodb": "^2.1.0-alpha",
-    "mongojs": "latest"
+    "aws-sdk": "^2.2.23",
+    "body-parser": "latest",
+    "connect-busboy": "0.0.2",
+    "express": "^4.13.3",
+    "fs": "latest",
+    "gridfs-stream": "^1.1.1",
+    "http": "latest",
+    "mongodb": "latest",
+    "mongojs": "latest",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
   },
   "devDependencies": {},
   "scripts": {
