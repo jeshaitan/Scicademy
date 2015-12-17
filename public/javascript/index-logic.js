@@ -52,9 +52,9 @@ $(document).ready(function() {
 				<span>\
 				<div id = "schoolSession">\
 					<input id = "element_13_1" name = "schoolSession" class = "element radio required" type = "radio" value = "1" />\
-					<label class = "choice" for = "element_13_1"> School is still in session</label>\
+					<label class = "choice" for = "element_13_1">School is still in session.</label>\
 					<input id = "element_13_2" name = "schoolSession" class = "element radio" type = "radio" value = "0" />\
-					<label class = "choice" for = "element_13_2"> I am on summer break </label>\
+					<label class = "choice" for = "element_13_2">I am on summer break.</label>\
 				</div>\
 				<p class="guidelines" id="guide_13" style = "width:89px; length: 129px;"><small>This information will be used to update your grade automatically during the summer</small></p>\
 				</span>\
