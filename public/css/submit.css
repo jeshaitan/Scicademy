@@ -35,6 +35,20 @@ body
 	font-size: 10px;
 }
 
+#keywordsDiv ul.tagit input[type="text"]{
+	outline: medium none !important;
+	border: medium none !important;
+	box-shadow: none !important;
+	margin: 0 !important;;
+	padding: 0 !important;
+	width: inherit !important;
+}
+#keywordsDiv ul.tagit li{
+	list-style: outside none disc !important;
+	width: auto !important;
+
+}
+
 #title, #instInput{
 	width: 777px !important;
 }
