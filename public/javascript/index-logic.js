@@ -144,20 +144,6 @@ $(document).ready(function() {
 		}
 	});
 
-	if(!localStorage["papers"]) {
-		if(window.location.pathname.indexOf('/index.html') && document.readyState == 'complete') {
-			getPapers();
-		}
-		else {
-			getPapers();
-		}
-	}
-	else {
-		var fromStorage = "["+localStorage["papers"]+"]";
-		var papers = JSON.parse(fromStorage);
-		$('#searchBox').autocomplete({source:papers[0]});
-	}
-
 	function getPapers() {
 		$.ajax({
 			url: '/getPaper',
@@ -205,32 +191,6 @@ $(document).ready(function() {
          }
     }
     return out;
-	}
-
-	if(!localStorage["schools"] && document.readyState == 'complete') {
-		$.ajax({
-			url: '/getSchools',
-			type: 'POST',
-			data: {},
-			dataType: 'json',
-			contentType: 'application/json',
-			success: function(curs) {
-				var schools = []
-				for (var i = 0; i < curs.length; i++) {
-					schools.push(curs[i].school);
-				}
-				schools = unique_ify(schools);
-				localStorage.setItem("schools", JSON.stringify(schools));
-				var fromStorage = "["+localStorage["schools"]+"]";
-				var schools = JSON.parse(fromStorage);
-				$('#element_7sc').autocomplete({source:schools[0]});
-			}
-		});
-	}
-	else {
-		var fromStorage = "["+localStorage["schools"]+"]";
-		var schools = JSON.parse(fromStorage);
-		$('#element_7sc').autocomplete({source:schools[0]});
 	}
 
 	$('#registerClick').click(function(event){
@@ -450,6 +410,48 @@ $(document).ready(function() {
 			}) //end high school or undergrad click
 
 	//end register JavaScript
+});
+
+$(window).load(function() {
+	if(!localStorage["papers"]) {
+		if(window.location.pathname.indexOf('/index.html')) {
+			getPapers();
+		}
+		else {
+			getPapers();
+		}
+	}
+	else {
+		var fromStorage = "["+localStorage["papers"]+"]";
+		var papers = JSON.parse(fromStorage);
+		$('#searchBox').autocomplete({source:papers[0]});
+	}
+
+	if(!localStorage["schools"]) {
+		$.ajax({
+			url: '/getSchools',
+			type: 'POST',
+			data: {},
+			dataType: 'json',
+			contentType: 'application/json',
+			success: function(curs) {
+				var schools = [];
+				for (var i = 0; i < curs.length; i++) {
+					schools.push(curs[i].school);
+				}
+				schools = unique_ify(schools);
+				localStorage.setItem("schools", JSON.stringify(schools));
+				var fromStorage = "["+localStorage["schools"]+"]";
+				schools = JSON.parse(fromStorage);
+				$('#element_7sc').autocomplete({source:schools[0]});
+			}
+		});
+	}
+	else {
+		var fromStorage = "["+localStorage["schools"]+"]";
+		var schools = JSON.parse(fromStorage);
+		$('#element_7sc').autocomplete({source:schools[0]});
+	}
 });
 
 function readSignInForm(form) {
