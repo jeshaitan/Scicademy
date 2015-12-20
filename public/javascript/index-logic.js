@@ -38,7 +38,7 @@ $(document).ready(function() {
 			<li id="li_1">\
 			<label class="description required" for="element_1">What grade are you in? </label>\
 			<div>\
-			<select class="btn btn-primary btn-xs" id="element_1" name="grade"> \
+			<select class="btn btn-primary dropdown-toggle" id="element_1" name="grade"> \
 				<option value="9" >9</option>\
 				<option value="10" >10</option>\
 				<option value="11" >11</option>\
@@ -56,7 +56,7 @@ $(document).ready(function() {
 					<input id = "element_13_2" name = "schoolSession" class = "element radio" type = "radio" value = "0" />\
 					<label class = "choice" for = "element_13_2">I am on summer break.</label>\
 				</div>\
-				<p class="guidelines" id="guide_13" style = "width:89px; length: 129px;"><small>This information will be used to update your grade automatically during the summer</small></p>\
+				<p class="guidelines" id="guide_13" style = "width:89px; length: 129px;"><small>This information will be used to update your grade automatically during the summer.</small></p>\
 				</span>\
 			</li>\
 			<li id="li_3" >\
@@ -66,7 +66,7 @@ $(document).ready(function() {
 			</li>		<li id="li_4" >\
 			<div>\
 				<input id="element_4" name="element_4" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Password"> \
-			</div><p class="guidelines" id="guide_4"><small>Your password must have at least 6 characters and contain at least one number</small></p> <!-- should passwords be able to contain spaces?-->\
+			</div><p class="guidelines" id="guide_4"><small>Your password must have at least 6 characters and contain at least one number</small></p>\
 			</li>		<li id="li_5" >\
 			<div>\
 				<input id="element_5" name="element_5" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Confirm Password"> \
@@ -145,6 +145,20 @@ $(document).ready(function() {
 	});
 
 	if(!localStorage["papers"]) {
+		if(window.location.pathname.indexOf('/index.html') && document.readyState == 'complete') {
+			getPapers();
+		}
+		else {
+			getPapers();
+		}
+	}
+	else {
+		var fromStorage = "["+localStorage["papers"]+"]";
+		var papers = JSON.parse(fromStorage);
+		$('#searchBox').autocomplete({source:papers[0]});
+	}
+
+	function getPapers() {
 		$.ajax({
 			url: '/getPaper',
 			type: 'POST',
@@ -162,11 +176,6 @@ $(document).ready(function() {
 				$('#searchBox').autocomplete({source:papers[0]});
 			}
 		});
-	}
-	else {
-		var fromStorage = "["+localStorage["papers"]+"]";
-		var papers = JSON.parse(fromStorage);
-		$('#searchBox').autocomplete({source:papers[0]});
 	}
 
 	$('#signInBox').dialog({
@@ -198,7 +207,7 @@ $(document).ready(function() {
     return out;
 	}
 
-	if(!localStorage["schools"]) {
+	if(!localStorage["schools"] && document.readyState == 'complete') {
 		$.ajax({
 			url: '/getSchools',
 			type: 'POST',
