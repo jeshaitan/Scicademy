@@ -145,24 +145,11 @@ $(document).ready(function() {
 	});
 
 	if(!localStorage["papers"]) {
-		if(window.location.pathname.indexOf('/index.html')){
-			$.ajax({
-				url: '/getPaper',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify({"searchType": "every"}),
-				dataType: 'json',
-				success: function(curs) {
-					var papers = []
-					for (var i = 0; i < curs.length; i++) {
-						papers.push(curs[i].title);
-					}
-					localStorage["papers"] = JSON.stringify(papers);
-					var fromStorage = "["+localStorage["papers"]+"]";
-					var papers = JSON.parse(fromStorage);
-					$('#searchBox').autocomplete({source:papers[0]});
-				}
-			});
+		if(window.location.pathname.indexOf('/index.html') && document.readyState == 'complete') {
+			getPapers();
+		}
+		else {
+			getPapers();
 		}
 	}
 	else {
@@ -171,6 +158,26 @@ $(document).ready(function() {
 		$('#searchBox').autocomplete({source:papers[0]});
 	}
 
+	function getPapers() {
+		$.ajax({
+			url: '/getPaper',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({"searchType": "every"}),
+			dataType: 'json',
+			success: function(curs) {
+				var papers = []
+				for (var i = 0; i < curs.length; i++) {
+					papers.push(curs[i].title);
+				}
+				localStorage["papers"] = JSON.stringify(papers);
+				var fromStorage = "["+localStorage["papers"]+"]";
+				var papers = JSON.parse(fromStorage);
+				$('#searchBox').autocomplete({source:papers[0]});
+			}
+		});
+	}
+	
 	$('#signInBox').dialog({
 		modal: true,
 		resizable:false,
