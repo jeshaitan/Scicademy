@@ -164,7 +164,7 @@ $(document).ready(function() {
 		});
 	}
 
-/*	$('#signInBox').dialog({
+	$('#signInBox').dialog({
 		modal: true,
 		resizable:false,
 		minWidth: 800,
@@ -175,7 +175,7 @@ $(document).ready(function() {
 		},
 		show: 'fade',
 		hide: 'drop'
-	}); //end dialog */
+	}); //end dialog
 	$('#signInSpin').hide();
 	$('#registerSpin').hide();
 	function unique_ify(list) {
