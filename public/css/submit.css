@@ -56,6 +56,9 @@ ul.tagit li.tagit-choice .tagit-close .text-icon{
 	display: block !important;
 }
 
+.tagit-label{
+	padding: 0px !important;
+}
 #title, #instInput{
 	width: 777px !important;
 }
