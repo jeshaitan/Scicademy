@@ -49,6 +49,13 @@ body
 
 }
 
+#keywordTags{
+	overflow:hidden !important;
+}
+ul.tagit li.tagit-choice .tagit-close .text-icon{
+	display: block !important;
+}
+
 #title, #instInput{
 	width: 777px !important;
 }

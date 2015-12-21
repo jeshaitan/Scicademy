@@ -119,7 +119,7 @@
 						isFourWords: "You must have at least four keywords, with each keyword on a new line"
 					}
 				}
-			})
+			});
 			$('#element_1').show();
 			if (currentUser != null){
 				$('#element_1').focus();
@@ -288,7 +288,7 @@
 		<li id="li_9" >
 		<label class="description required" for="keywordsDiv">Keywords</label>
 		<div id ="keywordsDiv">
-			<ul class = "tagit" id="keywordTags"></ul>
+			<ul class = "tagit" id="keywordTags" style = "overflow:hidden;"></ul>
 		</div><p class="guidelines" id="guide_2"><small>Enter at least four keywords. Use a commma to automatically separate each keyword. Try to use words that are not in your title but will help classify your research.</small></p>
 		</li>
 

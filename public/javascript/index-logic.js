@@ -499,9 +499,12 @@ function readRegisterForm(form) {
 function readSubmitPaperForm(form) {
 	var title = $('#title').val(),
 		abstract = $('#element_2').val(),
-		keywords = $('#element_9').val().split("\n"),
+		keywords = [],
 		authorsid = [$('#element_4_1').val()];
 		institution = $('#inst').val();
+		keywords= $(".tagit-label").map(function() {
+			return $(this).text();
+		}).get();
 
 		for(var i = 0; i < $('.spawnUserID').length; i++) {
 			authorsid.push($('.spawnUserID')[i].value);
@@ -538,7 +541,7 @@ function readSubmitPaperForm(form) {
 					"institution": institution,
 					"pdf": response,
 					"date": today
-				}
+				};
 				addPaper(paperdata);
 			}
 		});
