@@ -454,6 +454,26 @@ $(window).load(function() {
 	}
 });
 
+function getPapers() {
+	$.ajax({
+		url: '/getPaper',
+		type: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify({"searchType": "every"}),
+		dataType: 'json',
+		success: function(curs) {
+			var papers = []
+			for (var i = 0; i < curs.length; i++) {
+				papers.push(curs[i].title);
+			}
+			localStorage["papers"] = JSON.stringify(papers);
+			var fromStorage = "["+localStorage["papers"]+"]";
+			var papers = JSON.parse(fromStorage);
+			$('#searchBox').autocomplete({source:papers[0]});
+		}
+	});
+}
+
 function readSignInForm(form) {
 	var signinEmail = $('#email').val();
 	var signinEmail = $("#email").val();
