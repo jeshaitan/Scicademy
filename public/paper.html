@@ -98,7 +98,9 @@
 											authors += ', <a href="' + userPage + '">' + fullName + '</a>';
 										paperHtml = '<div id="paperDiv">\
 								  		<div class="paperOptions">\
-												<a id="pdfDown" href="uploads/'+pdata.pdf+'" class= "btn btn-danger btn-sm downloadPDF"><img src="images/pdfIcon.png">Download PDF</a>\
+												<form method="get" action="/uploads/'+pdata.pdf+'">\
+													<button id="pdfDown" class= "btn btn-danger btn-sm downloadPDF"><img src="images/pdfIcon.png">Download PDF</button>\
+												</form>\
 												<div id="copyright" style="position:absolute;top:70px;"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a style="z-index:99999;" rel="license" href="http://creativecommons.org/licenses/by/4.0/"><br />Creative Commons Attribution <br />4.0 International License</a>.</div>\
 										</div>\
 										<div class="paperCol">\
