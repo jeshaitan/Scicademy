@@ -144,26 +144,6 @@ $(document).ready(function() {
 		}
 	});
 
-	function getPapers() {
-		$.ajax({
-			url: '/getPaper',
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify({"searchType": "every"}),
-			dataType: 'json',
-			success: function(curs) {
-				var papers = []
-				for (var i = 0; i < curs.length; i++) {
-					papers.push(curs[i].title);
-				}
-				localStorage["papers"] = JSON.stringify(papers);
-				var fromStorage = "["+localStorage["papers"]+"]";
-				var papers = JSON.parse(fromStorage);
-				$('#searchBox').autocomplete({source:papers[0]});
-			}
-		});
-	}
-
 	$('#signInBox').dialog({
 		modal: true,
 		resizable:false,
@@ -178,20 +158,6 @@ $(document).ready(function() {
 	}); //end dialog
 	$('#signInSpin').hide();
 	$('#registerSpin').hide();
-	function unique_ify(list) {
-    var seen = {};
-    var out = [];
-    var len = list.length;
-    var j = 0;
-    for(var i = 0; i < len; i++) {
-         var item = list[i];
-         if(seen[item] !== 1) {
-               seen[item] = 1;
-               out[j++] = item;
-         }
-    }
-    return out;
-	}
 
 	$('#registerClick').click(function(event){
 		event.preventDefault();
@@ -413,6 +379,42 @@ $(document).ready(function() {
 });
 
 $(window).load(function() {
+
+	function getPapers() {
+		$.ajax({
+			url: '/getPaper',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({"searchType": "every"}),
+			dataType: 'json',
+			success: function(curs) {
+				var papers = []
+				for (var i = 0; i < curs.length; i++) {
+					papers.push(curs[i].title);
+				}
+				localStorage["papers"] = JSON.stringify(papers);
+				var fromStorage = "["+localStorage["papers"]+"]";
+				var papers = JSON.parse(fromStorage);
+				$('#searchBox').autocomplete({source:papers[0]});
+			}
+		});
+	}
+
+	function unique_ify(list) {
+		var seen = {};
+		var out = [];
+		var len = list.length;
+		var j = 0;
+		for(var i = 0; i < len; i++) {
+				 var item = list[i];
+				 if(seen[item] !== 1) {
+							 seen[item] = 1;
+							 out[j++] = item;
+				 }
+		}
+		return out;
+	}
+
 	if(!localStorage["papers"]) {
 		if(window.location.pathname.indexOf('/index.html')) {
 			getPapers();
@@ -453,26 +455,6 @@ $(window).load(function() {
 		$('#element_7sc').autocomplete({source:schools[0]});
 	}
 });
-
-function getPapers() {
-	$.ajax({
-		url: '/getPaper',
-		type: 'POST',
-		contentType: 'application/json',
-		data: JSON.stringify({"searchType": "every"}),
-		dataType: 'json',
-		success: function(curs) {
-			var papers = []
-			for (var i = 0; i < curs.length; i++) {
-				papers.push(curs[i].title);
-			}
-			localStorage["papers"] = JSON.stringify(papers);
-			var fromStorage = "["+localStorage["papers"]+"]";
-			var papers = JSON.parse(fromStorage);
-			$('#searchBox').autocomplete({source:papers[0]});
-		}
-	});
-}
 
 function readSignInForm(form) {
 	var signinEmail = $('#email').val();
