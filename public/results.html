@@ -67,6 +67,18 @@
          		success: addPapers
          	});
 
+/*             $.ajax({
+                 url: '/getRecentPaper',
+                 type: 'POST',
+                 contentType: 'application/json',
+                 data: JSON.stringify(searchPaper),
+                 dataType: 'json',
+                 success: printYay
+             });
+            function printYay(data){
+                console.log('here it is');
+                console.log(data);
+            }*/
           function removeJSONthat(array, property, value) {
             $.each(array, function(index, obj) {
                 if(obj[property] == value) {
