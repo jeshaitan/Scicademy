@@ -144,7 +144,7 @@ $(document).ready(function() {
 		}
 	});
 
-/*	$('#signInBox').dialog({
+	$('#signInBox').dialog({
 		modal: true,
 		resizable:false,
 		minWidth: 800,
@@ -155,7 +155,7 @@ $(document).ready(function() {
 		},
 		show: 'fade',
 		hide: 'drop'
-	}); //end dialog */
+	}); //end dialog
 	$('#signInSpin').hide();
 	$('#registerSpin').hide();
 
@@ -246,6 +246,10 @@ $(document).ready(function() {
 	}
 	if (headText.indexOf('jquery.fancybox.pack.js')<0){
 		$('head').append('<link href="javascript/jquery.fancybox.pack.js" rel="stylesheet">');
+	}
+	if (headText.indexOf('flat/blue.css')<0){
+		$('head').append('<link href="css/flat/blue.css" rel = "stylesheet" type = "text/css">');
+		$('head').append('<script src="libs/icheck.min.js" type = "text/javascript"></script>');
 	}
 
 	//start register javascript
@@ -364,9 +368,15 @@ $(document).ready(function() {
 					$ul.slideUp(250, complete);
 				}
 			}); //end smartmenus
+	$('input').iCheck({
+		checkboxClass:'icheckbox_flat-blue',
+		radioClass: 'iradio_flat-blue'
+	});
 
-			$(':radio').click(function() {
+			$('#highCol').click(function() {
+				$('#li_6').remove();
 				if ($('input[name="highCol"]:checked').val()=="1"){
+					console.log('im dumb');
 					$('#li_1').slideDown();
 				}
 				else{
@@ -374,7 +384,6 @@ $(document).ready(function() {
 				}
 
 			}) //end high school or undergrad click
-
 	//end register JavaScript
 });
 
