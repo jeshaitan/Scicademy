@@ -75,7 +75,7 @@ $(document).ready(function() {
 			<li id="termsAgree" style="width:100%;">\
 				<div style="display:inline-block;margin-left:1px;">\
 					<input type="checkbox" name="agree" value="agree" id="agree">\
-					<div id="agreeText" style="margin-left:23px;margin-top:-17px;"><p>I agree to the <a href="TermsandConditions.html" target="_blank" style="color:blue;">Terms and Conditions</a></p></div>\
+					<div id="agreeText" style="margin-left:23px;margin-top:-17px;"><p style="margin-top:-20px;margin-left:8px;">I agree to the <a href="TermsandConditions.html" target="_blank" style="color:blue;">Terms and Conditions</a></p></div>\
 				</div>\
 			</li>\
 			<li class="buttons">\
@@ -368,13 +368,13 @@ $(document).ready(function() {
 					$ul.slideUp(250, complete);
 				}
 			}); //end smartmenus
-	$('input').iCheck({
-		checkboxClass:'icheckbox_flat-blue',
-		radioClass: 'iradio_flat-blue'
-	});
-
-			$('#highCol').click(function() {
-				$('#li_6').remove();
+			$('input').iCheck({
+				checkboxClass:'icheckbox_flat-blue',
+				radioClass: 'iradio_flat-blue'
+			});
+		/*	$(document).on('click','#highCol',function(){
+			//$('#highCol').click(function() {
+				console.log('hello');
 				if ($('input[name="highCol"]:checked').val()=="1"){
 					console.log('im dumb');
 					$('#li_1').slideDown();
@@ -383,7 +383,16 @@ $(document).ready(function() {
 					$('#li_1').slideUp();
 				}
 
-			}) //end high school or undergrad click
+			}); //end high school or undergrad click */
+			$('input').on('ifChanged',function(event){
+				if ($('input[name="highCol"]:checked').val()=="1"){
+					console.log('im dumb');
+					$('#li_1').slideDown();
+				}
+				else{
+					$('#li_1').slideUp();
+				}
+			});
 	//end register JavaScript
 });
 
