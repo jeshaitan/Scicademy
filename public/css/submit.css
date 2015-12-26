@@ -128,6 +128,10 @@ form input[type=text]:focus, form input[type=password]:focus, form textarea:focu
     border: 1px solid red !important;
 }
 
+#keywordsDiv ul.error{
+	border: 1px solid red !important;
+}
+
 #form_1039889 input[type="text"], #form_1039889 input[type="password"], #form_1039889 textarea {
     margin: 5px 1px 3px 0;
     outline: medium none;

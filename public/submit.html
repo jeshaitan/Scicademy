@@ -74,17 +74,6 @@
 				counter=value.split(' ').length;
 			return counter>=70;
 			}, "");
-			var lines; //array that will hold all keywords
-			jQuery.validator.addMethod("isFourWords", function(value, element) {
-				lines = value.split('\n');
-				//for(var i = 0;i < lines.length;i++){
-					//code here using lines[i] which will give you each line
-				//}
-				if (lines[3]==''){ //without this, they can just have a new line on line 4 with no text
-					return false;
-				}
-				return lines.length>=4;
-			}, "");
 
 			$('#form_1039889').validate({
 				errorPlacement: function(error, element) {
@@ -105,8 +94,7 @@
 					},
 					element_9: { //keywords
 						required: true,
-						isFourWords: true
-					},
+					}
 				},
 				messages: {
 					element_2: {
@@ -118,7 +106,7 @@
 					},
 					element_9: {
 						required: "This field is required",
-						isFourWords: "You must have at least four keywords, with each keyword on a new line"
+						isFourWords: "You must have at least four keywords"
 					}
 				}
 			});
@@ -141,17 +129,7 @@
 					$ul.slideUp(250, complete);
 				}
 			}); //end smartmenus
-			$(':radio').click(function() {
-				if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
-					$('#convertToPDF').slideUp();
-					$('#li_3').slideDown();
-				}
-				else if ($('input[name="element_14"]:checked').val()=="isWord"){
-						$('#li_3').slideUp();
-						$('#convertToPDF').slideDown();
-				}
 
-			})
 			$('#submitComplete').dialog({
 				resizable:false,
 				minWidth: 300,
@@ -170,6 +148,19 @@
 				$('#submitSpin').show();
 				$('#submitSaveForm').hide();
 				$('#form_1039889').validate();
+				var keywordsLength = $('#keywordTags').tagit("assignedTags").length;
+				if(keywordsLength < 4){
+					//too little keywords...
+					$('#keywordTags').addClass('error');
+					var errorExists = $('#keywordError').length;
+					if (errorExists < 1){ //if it's not already there
+						$('#keywordsDiv').append('<label id="keywordError" class="error" for="keywordsDiv" >You must have at least four keywrods</label>');
+					}
+				}
+				else{
+					$('#keywordTags').removeClass('error');
+					$('#keywordError').remove();
+				}
 				var isvalidate=$("#form_1039889").valid();
 				if(isvalidate == false){
 					e.preventDefault();
@@ -189,10 +180,17 @@
 					readSubmitPaperForm($('#form_1039889'));
 				}
 			});
-
+			if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
+				$('#convertToPDF').slideUp();
+				$('#li_3').slideDown();
+			}
+			else if ($('input[name="element_14"]:checked').val()=="isWord"){
+				$('#li_3').slideUp();
+				$('#convertToPDF').slideDown();
+			}
 			$('#converted').click(function(e) {
 				e.preventDefault();
-				$("#element_14_1").prop("checked", true);
+				$("#element_14_1").iCheck('check');
 				$('#convertToPDF').slideUp();
 				$('#li_3').slideDown();
 
@@ -216,10 +214,6 @@
 				tagLimit: 10
 			});
 
-			$('input').iCheck({
-				checkboxClass:'icheckbox_flat-blue',
-				radioClass: 'iradio_flat-blue'
-			});
 			$('.remove').click(function(e){
 				e.preventDefault();
 				var selector="#author";

@@ -75,7 +75,7 @@ $(document).ready(function() {
 			<li id="termsAgree" style="width:100%;">\
 				<div style="display:inline-block;margin-left:1px;">\
 					<input type="checkbox" name="agree" value="agree" id="agree">\
-					<div id="agreeText" style="margin-left:23px;margin-top:-17px;"><p>I agree to the <a href="TermsandConditions.html" target="_blank" style="color:blue;">Terms and Conditions</a></p></div>\
+					<div id="agreeText" style="margin-left:23px;margin-top:-17px;"><p style="margin-top:-20px;margin-left:8px;">I agree to the <a href="TermsandConditions.html" target="_blank" style="color:blue;">Terms and Conditions</a></p></div>\
 				</div>\
 			</li>\
 			<li class="buttons">\
@@ -144,7 +144,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#signInBox').dialog({
+/*	$('#signInBox').dialog({
 		modal: true,
 		resizable:false,
 		minWidth: 800,
@@ -155,7 +155,7 @@ $(document).ready(function() {
 		},
 		show: 'fade',
 		hide: 'drop'
-	}); //end dialog
+	}); //end dialog */
 	$('#signInSpin').hide();
 	$('#registerSpin').hide();
 
@@ -246,6 +246,10 @@ $(document).ready(function() {
 	}
 	if (headText.indexOf('jquery.fancybox.pack.js')<0){
 		$('head').append('<link href="javascript/jquery.fancybox.pack.js" rel="stylesheet">');
+	}
+	if (headText.indexOf('flat/blue.css')<0){
+		$('head').append('<link href="css/flat/blue.css" rel = "stylesheet" type = "text/css">');
+		$('head').append('<script src="libs/icheck.min.js" type = "text/javascript"></script>');
 	}
 
 	//start register javascript
@@ -364,17 +368,38 @@ $(document).ready(function() {
 					$ul.slideUp(250, complete);
 				}
 			}); //end smartmenus
-
-			$(':radio').click(function() {
+			$('input').iCheck({
+				checkboxClass:'icheckbox_flat-blue',
+				radioClass: 'iradio_flat-blue'
+			});
+		/*	$(document).on('click','#highCol',function(){
+			//$('#highCol').click(function() {
+				console.log('hello');
 				if ($('input[name="highCol"]:checked').val()=="1"){
+					console.log('im dumb');
 					$('#li_1').slideDown();
 				}
 				else{
 					$('#li_1').slideUp();
 				}
 
-			}) //end high school or undergrad click
-
+			}); //end high school or undergrad click */
+			$('input').on('ifChanged',function(event){
+				if ($('input[name="highCol"]:checked').val()=="1"){
+					$('#li_1').slideDown();
+				}
+				else{
+					$('#li_1').slideUp();
+				}
+				if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
+					$('#convertToPDF').slideUp();
+					$('#li_3').slideDown();
+				}
+				else if ($('input[name="element_14"]:checked').val()=="isWord"){
+					$('#li_3').slideUp();
+					$('#convertToPDF').slideDown();
+				}
+			});
 	//end register JavaScript
 });
 
