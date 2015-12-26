@@ -44,20 +44,6 @@ app.post('/getUser', function(req, res) {
     });
 });
 
-app.post('/getRecentPaper', function(req, res) {
-//	var s = (db.Papers.find().sort({x:-1}).limit(3));
-	console.log('ran');
-	res.send(db.Papers.find());
-	/*db.Papers.find( {}, function(err,curs){
-		if(err) {
-			console.log(err);
-		}
-		else {
-			res.send(curs);
-		}
-	});*/
-});
-
 app.post('/getPaper', function(req, res) {
 	if(req.body.searchType == "All") {
 		var searchObject = {$or: [{$text: {$search: req.body.query}},
@@ -201,8 +187,8 @@ app.post('/addPaper', function(req, res) {
 });
 var gfs = grid(db, mongo);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
 	var fstream;
