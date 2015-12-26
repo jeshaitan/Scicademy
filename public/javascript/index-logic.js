@@ -386,11 +386,18 @@ $(document).ready(function() {
 			}); //end high school or undergrad click */
 			$('input').on('ifChanged',function(event){
 				if ($('input[name="highCol"]:checked').val()=="1"){
-					console.log('im dumb');
 					$('#li_1').slideDown();
 				}
 				else{
 					$('#li_1').slideUp();
+				}
+				if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
+					$('#convertToPDF').slideUp();
+					$('#li_3').slideDown();
+				}
+				else if ($('input[name="element_14"]:checked').val()=="isWord"){
+					$('#li_3').slideUp();
+					$('#convertToPDF').slideDown();
 				}
 			});
 	//end register JavaScript

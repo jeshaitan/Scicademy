@@ -141,17 +141,7 @@
 					$ul.slideUp(250, complete);
 				}
 			}); //end smartmenus
-			$(':radio').click(function() {
-				if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
-					$('#convertToPDF').slideUp();
-					$('#li_3').slideDown();
-				}
-				else if ($('input[name="element_14"]:checked').val()=="isWord"){
-						$('#li_3').slideUp();
-						$('#convertToPDF').slideDown();
-				}
 
-			})
 			$('#submitComplete').dialog({
 				resizable:false,
 				minWidth: 300,
@@ -189,10 +179,17 @@
 					readSubmitPaperForm($('#form_1039889'));
 				}
 			});
-
+			if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
+				$('#convertToPDF').slideUp();
+				$('#li_3').slideDown();
+			}
+			else if ($('input[name="element_14"]:checked').val()=="isWord"){
+				$('#li_3').slideUp();
+				$('#convertToPDF').slideDown();
+			}
 			$('#converted').click(function(e) {
 				e.preventDefault();
-				$("#element_14_1").prop("checked", true);
+				$("#element_14_1").iCheck('check');
 				$('#convertToPDF').slideUp();
 				$('#li_3').slideDown();
 
@@ -216,10 +213,6 @@
 				tagLimit: 10
 			});
 
-			$('input').iCheck({
-				checkboxClass:'icheckbox_flat-blue',
-				radioClass: 'iradio_flat-blue'
-			});
 			$('.remove').click(function(e){
 				e.preventDefault();
 				var selector="#author";
