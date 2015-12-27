@@ -155,7 +155,7 @@ $(document).ready(function() {
 		},
 		show: 'fade',
 		hide: 'drop'
-	}); //end dialog    
+	}); //end dialog
 	$('#signInSpin').hide();
 	$('#registerSpin').hide();
 

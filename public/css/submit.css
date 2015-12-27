@@ -123,6 +123,10 @@ form input[type=text]:focus, form input[type=password]:focus, form textarea:focu
 	padding: 6px 12px !important;
 }
 
+#element_14-error{
+	font-size:9px;
+}
+
 #form_1039889 input.error, #form_1039889 select.error, textarea.error{
     /* background: #ffa9b8 none repeat scroll 0 0; */
     border: 1px solid red !important;

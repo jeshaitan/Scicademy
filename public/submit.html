@@ -152,15 +152,16 @@
 				if(keywordsLength < 4){
 					//too little keywords...
 					$('#keywordTags').addClass('error');
-					$('#keywordsDiv').append('<p id="keywordError" class="error" style="color:#f00;display:block;font-weight:bold;margin-top:10px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least four keywrods</p>');
+					if ($('#keywordError').length<1) {
+						$('#keywordsDiv').append('<p id="keywordError" class="error" style="color:#f00;display:block;font-weight:bold;margin-top:10px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least four keywrods</p>');
+					}
 				}
 				else{
-					console.log('iffailed');
 					$('#keywordTags').removeClass('error');
 					$('#keywordError').remove();
 				}
 				var isvalidate=$("#form_1039889").valid();
-				if(isvalidate == false){
+				if(isvalidate == false || keywordsLength < 4){
 					e.preventDefault();
 					if ($('#incompleteSubmit').length == 0){
 						$('.submitButtons').append('<p id="incompleteSubmit" style = "color:red; margin-left:10px; margin-top: 10px;">One or more fields are still invalid</p>');
@@ -284,7 +285,12 @@
 			<textarea id="element_2" name="element_2" class="element textarea medium"></textarea>
 		</div><p class="guidelines" id="guide_1"><small>Must be at least 70 words. This is a short section and is intended to give the reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p>
 		</li>
-		<li id="li_9" >
+
+		<li>
+			<label class="description required" for="keywordsDiv">Subject</label>
+		</li>
+
+		<li id="li_9">
 		<label class="description required" for="keywordsDiv">Keywords (10 max)</label>
 		<div id ="keywordsDiv">
 			<ul class = "tagit" id="keywordTags" style = "overflow:hidden;"></ul>
