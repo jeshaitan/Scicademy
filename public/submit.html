@@ -152,12 +152,10 @@
 				if(keywordsLength < 4){
 					//too little keywords...
 					$('#keywordTags').addClass('error');
-					var errorExists = $('#keywordError').length;
-					if (errorExists < 1){ //if it's not already there
-						$('#keywordsDiv').append('<label id="keywordError" class="error" for="keywordsDiv" >You must have at least four keywrods</label>');
-					}
+					$('#keywordsDiv').append('<p id="keywordError" class="error" style="color:#f00;display:block;font-weight:bold;margin-top:10px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least four keywrods</p>');
 				}
 				else{
+					console.log('iffailed');
 					$('#keywordTags').removeClass('error');
 					$('#keywordError').remove();
 				}
@@ -259,7 +257,7 @@
 
 		<li id="li_4" >
 
-		<label class="description required" for="element_4">Authors </label>
+		<label class="description required" for="element_4_1">Authors </label>
 		<span>
 			<input id="element_4_1" name= "element_4_1" class="element text required" maxlength="255" size="14" value=""/>
 			<label class="required">Author 1's User Id</label>
