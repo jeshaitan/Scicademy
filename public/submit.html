@@ -193,7 +193,7 @@
 				$('#convertToPDF').slideUp();
 				$('#li_3').slideDown();
 
-			})
+			});
 			var authorCount = 1;
 			$('.add').click(function(e) {
 				e.preventDefault();
@@ -222,7 +222,22 @@
 				localStorage.setItem("authorCount", authorCount);
 			}); //end remove click
 
-
+			$('.tagit-new input').focus(function(){
+				console.log('ran focus');
+				var blueAura = {
+					'box-shadow':'0 0 5px rgba(81, 203, 238, 1)',
+					'border': '1px solid rgba(81, 203, 238, 1)'
+				};
+				$('#keywordTags').css(blueAura);
+			});
+			$('.tagit-new input').blur(function(){
+				console.log('unfocus');
+				var changeAura = {
+					'box-shadow':'',
+					'border': ''
+				};
+				$('#keywordTags').css(changeAura);
+			});
 		}); //end ready
 	</script>
 	<div class="navigation">

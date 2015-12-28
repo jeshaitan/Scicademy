@@ -101,7 +101,7 @@ form input[type=text], form input[type=password], form textarea, #li_4 input{
 	font-size: small !important;
 }
  /* blue halo */
-form input[type=text]:focus, form input[type=password]:focus, form textarea:focus {
+form input[type=text]:focus, form input[type=password]:focus, form textarea:focus, .tagit-new input:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
