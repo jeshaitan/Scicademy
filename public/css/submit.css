@@ -108,6 +108,23 @@ form input[type=text]:focus, form input[type=password]:focus, form textarea:focu
   border: 1px solid rgba(81, 203, 238, 1) !important;
 }
 
+#subjectTable tr td:empty {
+	width: 50px;
+}
+
+#subjectTable tr td {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#subjectDiv label{
+	font-weight:normal;
+}
+
+.pdfClass label{
+	font-weight: normal;
+}
+
 #li_4 input:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
   padding: 3px 0px 3px 3px;
