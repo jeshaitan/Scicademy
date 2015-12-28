@@ -527,6 +527,7 @@ function readSubmitPaperForm(form) {
 	var title = $('#title').val(),
 		abstract = $('#element_2').val(),
 		keywords = [],
+		subject = $("input[name=subjectArea]:checked").val(),
 		authorsid = [$('#element_4_1').val()];
 		institution = $('#inst').val();
 		keywords= $(".tagit-label").map(function() {
@@ -565,6 +566,7 @@ function readSubmitPaperForm(form) {
 					"authors": authorsid,
 					"abstract": abstract,
 					"keywords": keywords,
+					"subject": subject,
 					"institution": institution,
 					"pdf": response,
 					"date": today
