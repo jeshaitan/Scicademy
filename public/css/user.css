@@ -2,12 +2,16 @@
 	background-color: #5a5699;
 }
 
+body {
+	background-size: auto;
+}
+
 .grid{
 	clear: both;
-    margin: 0 auto;
-    overflow: hidden;
-    text-align: left;
-    width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: left;
+  width: 100%;
 	background-color: #F7F7F7;
 }
 
@@ -25,11 +29,6 @@
 .separator2{
 	z-index: 50;
 	width:97%;
-	position:relative;
-}
-
-.reputation{
-	z-index: 1;
 	position:relative;
 }
 
@@ -55,7 +54,6 @@
 	padding-bottom: 10px;
 }
 
-
 .userBox{
 	width:100%;
 	height: 110px;
@@ -73,18 +71,12 @@
 	text-decoration: none;
 }
 
-
-
 .details{
 	float:left;
 	font-size:14px;
 	color: #666;
 	position:relative;
 	top: 10px;
-}
-
-.ui-widget-header{
-	/* background: white !important; */
 }
 
 .about{
@@ -121,10 +113,4 @@
 
 .lastPaper{
 	margin-bottom: 20px;
-}
-
-#editUser{
-	float:right;
-	margin-right: 48px;
-	margin-top: -28px;
 }
