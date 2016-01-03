@@ -3,7 +3,7 @@
 }
 
 body {
-	background-size: auto;
+	background-size: auto !important; 
 }
 
 .grid{
