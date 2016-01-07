@@ -2,7 +2,6 @@ html * {
 	font-family: 'Open Sans', 'Arial';
 }
 
-
 input.error, select.error, textarea.error {
 	border: 1px solid red !important;
 }
@@ -111,7 +110,7 @@ margin-left: 83px;
 body {
 	/* background-color: #FFFFFF; */
 	background-image: url("../images/blueBack.jpg");
-	background-size: cover;
+	background-size: auto !important;
 }
 
 #footerDiv{

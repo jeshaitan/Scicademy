@@ -1,5 +1,5 @@
 .paperDiv h3 {
-    font-size: 1.108em;
+  font-size: 1.108em;
 	margin-bottom: 10px;
 	text-decoration:none;
 	width: 98%;
@@ -127,15 +127,15 @@
 }
 
 #grayBack{
-background-color:#f8f8f8;
+  background-color:#f8f8f8;
 }
 
 .select-style {
-    border: 1px solid #ccc;
-    width: 120px;
-    border-radius: 3px;
-    overflow: hidden;
-    background: #fafafa url("../images/purpleDownArrow.png") no-repeat 90% 50%;
+  border: 1px solid #ccc;
+  width: 120px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #fafafa url("../images/purpleDownArrow.png") no-repeat 90% 50%;
 }
 
 .select-style select:hover{
@@ -146,13 +146,13 @@ background-color:#f8f8f8;
 }
 
 .select-style select {
-    padding: 5px 8px;
-    width: 130%;
-    border: none;
-    box-shadow: none;
-    background: transparent;
-    background-image: none;
-    -webkit-appearance: none;
+  padding: 5px 8px;
+  width: 130%;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
 }
 
 .select-style select:focus {
