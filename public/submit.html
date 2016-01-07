@@ -37,207 +37,200 @@
 </head>
 <body id="main_body" class="colorBody submitBody">
 	<script type="text/javascript">
-		$(document).ready(function(){
+		$(document).ready(function() {
+				$.getScript('javascript/index-logic.js', function(jd) {});
+				var currentUser = localStorage.getItem("user");
+				if (currentUser == null) {
+						$('#signInBox').dialog({
+								closeOnEscape: false,
+								open: function(event, ui) {
+												$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+										} //end open
+						}); //end dialog
+						$('.signInBox').html('You must have an account to submit a paper');
+						$('#signInBox').dialog('open');
+						$('#element_2_1').focus();
+				} //end if currentUser
+				//start javascript injectipn prevention
+				$('#form_1039889 :text').change(function() {
+						var inputText = $(this).val();
+						$(this).val($($.parseHTML(inputText)).text());
+				});
+				//end javascript injectipn prevention
+				$('#separateSignIn').position({
+						my: "left top",
+						at: "right+337 top",
+						of: $("#registerFormDiv")
+				});
+				jQuery.validator.addMethod("pdfChecked", function(value, element) {
+						return $('#element_14_1').is(':checked');
+				}, "");
+				jQuery.validator.addMethod("isLong", function(value, element) {
+						var counter = 0;
+						value = value.replace(/(^\s*)|(\s*$)/gi, "");
+						value = value.replace(/[ ]{2,}/gi, " ");
+						value = value.replace(/\n /, "\n");
+						counter = value.split(' ').length;
+						return counter >= 70;
+				}, "");
 
-			$.getScript('javascript/index-logic.js', function(jd){});
-			var currentUser = localStorage.getItem("user");
-			if (currentUser == null){
-				$('#signInBox').dialog({
-					closeOnEscape: false,
-					open: function(event, ui) {
-						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-						} //end open
-				}); //end dialog
-				$('.signInBox').html('You must have an account to submit a paper');
-				$('#signInBox').dialog('open');
-				$('#element_2_1').focus();
-			} //end if currentUser
-		//start javascript injectipn prevention
-		$('#form_1039889 :text').change(function(){
-			var inputText = $(this).val();
-			$(this).val($( $.parseHTML(inputText)).text());
-		});
-		//end javascript injectipn prevention
-		$('#separateSignIn').position({
-			my: "left top",
-			at: "right+337 top",
-			of: $("#registerFormDiv")
-		});
-			jQuery.validator.addMethod("pdfChecked", function(value, element) {
-				return $('#element_14_1').is(':checked');
-			}, "");
-			jQuery.validator.addMethod("isLong", function(value, element) {
-				var counter = 0;
-				value = value.replace(/(^\s*)|(\s*$)/gi,"");
-				value = value.replace(/[ ]{2,}/gi," ");
-				value = value.replace(/\n /,"\n");
-				counter=value.split(' ').length;
-			return counter>=70;
-			}, "");
-
-			$('#form_1039889').validate({
-				errorPlacement: function(error, element) {
-					if (element.attr("name") == "element_14" ){
-						error.insertBefore(".pdfClass");
-					}
-					else {
-						error.insertAfter(element);
-					}
-				},
-				rules: {
-					element_2: { //abstract
-						required: true,
-						isLong : true
-					},
-					element_14: {//do you have a pdf
-						pdfChecked: true
-					},
-					element_9: { //keywords
-						required: true,
-					}
-				},
-				messages: {
-					element_2: {
-						required: "This field is required",
-						isLong: "Your abstract must be at least 70 words"
-					},
-					element_14: {
-						pdfChecked: "Your paper must be a PDF!"
-					},
-					element_9: {
-						required: "This field is required",
-						isFourWords: "You must have at least four keywords"
-					}
+				$('#form_1039889').validate({
+						errorPlacement: function(error, element) {
+								if (element.attr("name") == "element_14") {
+										error.insertBefore(".pdfClass");
+								} else {
+										error.insertAfter(element);
+								}
+						},
+						rules: {
+								element_2: { //abstract
+										required: true,
+										isLong: true
+								},
+								element_14: { //do you have a pdf
+										pdfChecked: true
+								},
+								element_9: { //keywords
+										required: true,
+								}
+						},
+						messages: {
+								element_2: {
+										required: "This field is required",
+										isLong: "Your abstract must be at least 70 words"
+								},
+								element_14: {
+										pdfChecked: "Your paper must be a PDF!"
+								},
+								element_9: {
+										required: "This field is required",
+										isFourWords: "You must have at least four keywords"
+								}
+						}
+				});
+				$('#element_1').show();
+				if (currentUser != null) {
+						$('#element_1').focus();
 				}
-			});
-			$('#element_1').show();
-			if (currentUser != null){
-				$('#element_1').focus();
-			}
-			$('#noPDF').slideUp();
-			$('#paperPDF').slideDown();
-			$('#li_3').hide();
-			$('#paperTitle').show();
-			$('#convertToPDF').slideUp();
-			$('#converted').button();
-			<!-- $('#submitSaveForm').button(); -->
-			$('.sm').smartmenus({
-				showFunction: function($ul, complete){
-					$ul.slideDown(250,complete);
-				},
-				hideFunction: function($ul, complete){
-					$ul.slideUp(250, complete);
-				}
-			}); //end smartmenus
-
-			$('#submitComplete').dialog({
-				resizable:false,
-				minWidth: 300,
-				minHeight: 150,
-				autoOpen: false,
-				show: 'fade',
-				hide: 'fold',
-				modal:true
-			});
-
-			$("#submitComplete").on('click', '#closeSubmit', function(){
-				document.location.href="/index.html";
-			});
-
-			$('#form_1039889').submit(function(e){
-				$('#submitSpin').show();
-				$('#submitSaveForm').hide();
-				$('#form_1039889').validate();
-				var keywordsLength = $('#keywordTags').tagit("assignedTags").length;
-				if(keywordsLength < 4){
-					//too little keywords...
-					$('#keywordTags').addClass('error');
-					if ($('#keywordError').length<1) {
-						$('#keywordsDiv').append('<p id="keywordError" class="error" style="color:#f00;display:block;font-weight:bold;margin-top:10px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least four keywrods</p>');
-					}
-				}
-				else{
-					$('#keywordTags').removeClass('error');
-					$('#keywordError').remove();
-				}
-				var isvalidate=$("#form_1039889").valid();
-				if(isvalidate == false || keywordsLength < 4){
-					e.preventDefault();
-					if ($('#incompleteSubmit').length == 0){
-						$('.submitButtons').append('<p id="incompleteSubmit" style = "color:red; margin-left:10px; margin-top: 10px;">One or more fields are still invalid</p>');
-					}
-					else{
-						$('#incompleteSubmit').effect('shake');
-					}
-					$('#submitSpin').hide();
-					$('#submitSaveForm').show();
-				}
-				else{
-					e.preventDefault();
-					e.stopImmediatePropagation();
-					$('#incompleteSubmit').remove();
-					readSubmitPaperForm($('#form_1039889'));
-				}
-			});
-			if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
+				$('#noPDF').slideUp();
+				$('#paperPDF').slideDown();
+				$('#li_3').hide();
+				$('#paperTitle').show();
 				$('#convertToPDF').slideUp();
-				$('#li_3').slideDown();
-			}
-			else if ($('input[name="element_14"]:checked').val()=="isWord"){
-				$('#li_3').slideUp();
-				$('#convertToPDF').slideDown();
-			}
-			$('#converted').click(function(e) {
-				e.preventDefault();
-				$("#element_14_1").iCheck('check');
-				$('#convertToPDF').slideUp();
-				$('#li_3').slideDown();
+				$('#converted').button();
+				<!-- $('#submitSaveForm').button(); -->
+				$('.sm').smartmenus({
+						showFunction: function($ul, complete) {
+								$ul.slideDown(250, complete);
+						},
+						hideFunction: function($ul, complete) {
+								$ul.slideUp(250, complete);
+						}
+				}); //end smartmenus
 
-			});
-			var authorCount = 1;
-			$('.add').click(function(e) {
-				e.preventDefault();
-				authorCount++;
-				breakText='<br><br><br><br><br>';
-				var idText="<div id='author" + authorCount+"'>";
-				$('#li_4').append(idText+breakText+'<span><input name="element_4_1'+authorCount+'"class="element text spawnUserID required" maxlength="255" size="14" value=""/>\
-					<label class="required">Author '+authorCount+'\'s User Id</label>\
+				$('#submitComplete').dialog({
+						resizable: false,
+						minWidth: 300,
+						minHeight: 150,
+						autoOpen: false,
+						show: 'fade',
+						hide: 'fold',
+						modal: true
+				});
+
+				$("#submitComplete").on('click', '#closeSubmit', function() {
+						document.location.href = "/index.html";
+				});
+
+				$('#form_1039889').submit(function(e) {
+						$('#submitSpin').show();
+						$('#submitSaveForm').hide();
+						$('#form_1039889').validate();
+						var keywordsLength = $('#keywordTags').tagit("assignedTags").length;
+						if (keywordsLength < 4) {
+								//too little keywords...
+								$('#keywordTags').addClass('error');
+								if ($('#keywordError').length < 1) {
+										$('#keywordsDiv').append('<p id="keywordError" class="error" style="color:#f00;display:block;font-weight:bold;margin-top:10px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least four keywrods</p>');
+								}
+						} else {
+								$('#keywordTags').removeClass('error');
+								$('#keywordError').remove();
+						}
+						var isvalidate = $("#form_1039889").valid();
+						if (isvalidate == false || keywordsLength < 4) {
+								e.preventDefault();
+								if ($('#incompleteSubmit').length == 0) {
+										$('.submitButtons').append('<p id="incompleteSubmit" style = "color:red; margin-left:10px; margin-top: 10px;">One or more fields are still invalid</p>');
+								} else {
+										$('#incompleteSubmit').effect('shake');
+								}
+								$('#submitSpin').hide();
+								$('#submitSaveForm').show();
+						} else {
+								e.preventDefault();
+								e.stopImmediatePropagation();
+								$('#incompleteSubmit').remove();
+								readSubmitPaperForm($('#form_1039889'));
+						}
+				});
+				if ($('input[name="element_14"]:checked').val() == "isPDF") { //is your file a pdf or word?
+						$('#convertToPDF').slideUp();
+						$('#li_3').slideDown();
+				} else if ($('input[name="element_14"]:checked').val() == "isWord") {
+						$('#li_3').slideUp();
+						$('#convertToPDF').slideDown();
+				}
+				$('#converted').click(function(e) {
+						e.preventDefault();
+						$("#element_14_1").iCheck('check');
+						$('#convertToPDF').slideUp();
+						$('#li_3').slideDown();
+
+				});
+				var authorCount = 1;
+				$('.add').click(function(e) {
+						e.preventDefault();
+						authorCount++;
+						breakText = '<br><br><br><br><br>';
+						var idText = "<div id='author" + authorCount + "'>";
+						$('#li_4').append(idText + breakText + '<span><input name="element_4_1' + authorCount + '"class="element text spawnUserID required" maxlength="255" size="14" value=""/>\
+					<label class="required">Author ' + authorCount + '\'s User Id</label>\
 				</span>\
-				</div>'
-				);
-				localStorage.setItem("authorCount", authorCount);
-			});
-			$('#keywordTags').tagit({
-				allowSpaces: true,
-				caseSensitive: false,
-				tagLimit: 10
-			});
+				</div>');
+						localStorage.setItem("authorCount", authorCount);
+				});
+				$('#keywordTags').tagit({
+						allowSpaces: true,
+						caseSensitive: false,
+						tagLimit: 10
+				});
 
-			$('.remove').click(function(e){
-				e.preventDefault();
-				var selector="#author";
-				selector+=authorCount;
-				$(selector).remove();
-				authorCount-=1;
-				localStorage.setItem("authorCount", authorCount);
-			}); //end remove click
+				$('.remove').click(function(e) {
+						e.preventDefault();
+						var selector = "#author";
+						selector += authorCount;
+						$(selector).remove();
+						authorCount -= 1;
+						localStorage.setItem("authorCount", authorCount);
+				}); //end remove click
 
-			$('.tagit-new input').focus(function(){
-				console.log('ran focus');
-				var blueAura = {
-					'box-shadow':'0 0 5px rgba(81, 203, 238, 1)',
-					'border': '1px solid rgba(81, 203, 238, 1)'
-				};
-				$('#keywordTags').css(blueAura);
-			});
-			$('.tagit-new input').blur(function(){
-				console.log('unfocus');
-				var changeAura = {
-					'box-shadow':'',
-					'border': ''
-				};
-				$('#keywordTags').css(changeAura);
-			});
+				$('.tagit-new input').focus(function() {
+						console.log('ran focus');
+						var blueAura = {
+								'box-shadow': '0 0 5px rgba(81, 203, 238, 1)',
+								'border': '1px solid rgba(81, 203, 238, 1)'
+						};
+						$('#keywordTags').css(blueAura);
+				});
+				$('.tagit-new input').blur(function() {
+						console.log('unfocus');
+						var changeAura = {
+								'box-shadow': '',
+								'border': ''
+						};
+						$('#keywordTags').css(changeAura);
+				});
 		}); //end ready
 	</script>
 	<div class="navigation">

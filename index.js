@@ -48,13 +48,17 @@ app.post('/getPaper', function(req, res) {
 	if(req.body.searchType == "All") {
 		var searchObject = {$or: [{$text: {$search: req.body.query}},
 							   {keywords: req.body.query},
-							   {authors: req.body.query}]};
+							   {authors: req.body.query},
+							 	 {abstract: req.bosy.query}]};
 	}
 	else if(req.body.searchType == "Title") {
 		var searchObject = {$text: {$search: req.body.query}};
 	}
 	else if(req.body.searchType == "Keywords") {
 		var searchObject = {keywords: req.body.query};
+	}
+	else if(req.body.searchType == "Abstract") {
+		var searchObject = {abstract: req.body.query};
 	}
 	else if(req.body.searchType == "Author") {
 		db.Users.find({$text: {$search: req.body.query}}, function(err, curs) {
