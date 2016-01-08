@@ -49,7 +49,7 @@ app.post('/getPaper', function(req, res) {
 		var searchObject = {$or: [{$text: {$search: req.body.query}},
 							   {keywords: req.body.query},
 							   {authors: req.body.query},
-							 	 {abstract: req.bosy.query}]};
+							 	 {abstract: req.body.query}]};
 	}
 	else if(req.body.searchType == "Title") {
 		var searchObject = {$text: {$search: req.body.query}};
@@ -191,8 +191,8 @@ app.post('/addPaper', function(req, res) {
 });
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
 	var fstream;
