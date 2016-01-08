@@ -182,6 +182,9 @@ $(document).ready(function() {
             case "Author":
                 var type = 4;
                 break;
+            case "Abstract":
+                var type = 5;
+                break;
             default:
                 var type = 1;
         }
