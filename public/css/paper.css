@@ -3,6 +3,10 @@
     padding-bottom: 50px;
 }
 
+body {
+    background-size: cover !important;
+}
+
 .grid {
     clear: both;
     margin: 0 auto;
