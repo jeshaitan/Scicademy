@@ -1,88 +1,98 @@
 <!DOCTYPE HTML>
 <html>
-   <head>
-      <meta charset="UTF-8">
-      <title>User</title>
-	  <meta name="Description" content="View the work of a specific user on the site">
-      <link rel= "icon" type="image/x-icon" href="images/favicon.ico"/>
-      <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
-      <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
-      <link href="css/jquery-ui.min.css" rel="stylesheet">
-      <link href="css/signInCss.css" rel="stylesheet">
-      <link href="css/user.css" rel="stylesheet" type="text/css">
-	  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-      <link href="css/pageStyle.css" rel="stylesheet" type="text/css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
-      <script src="libs/jquery-ui.min.js"></script>
-      <script src="libs/jquery.smartmenus.min.js"></script>
-	  <link href="css/bootstrap-editable.css" rel="stylesheet"/>
-	  <script src="libs/bootstrap-editable.min.js"></script>
-      <script src="javascript/index-logic.js"></script>
-      <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-	<script>	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-69262899-1', 'auto');
-	ga('send', 'pageview');
-	</script>
-  </head>
-   <body class="colorBody">
-      <script type="text/javascript">
-         var currentUser = null;
-         $(document).ready(function() {
-         //load the navBar and signIn box.
-         	$.getScript('javascript/index-logic.js', function(jd){});
-         });
-      </script>
-      <script>
-		$(document).ready(function() {
-		    var url = window.location.href;
-		    var userId = url.slice(url.indexOf('?id=') + 4);
-		    if(url.indexOf('?id=') < 0) {
-		    	$('.grid').html('<br /><p><center>No user id specified.</center></p><br />');
-		    	return false;
-		    }
-		    var searchUser = {
-		        "query": userId,
-		        "searchType": "id"
-		    };
-		    $.ajax({
-		        url: '/getUser',
-		        type: 'POST',
-		        contentType: 'application/json',
-		        data: JSON.stringify(searchUser),
-		        dataType: 'json',
-		        success: function(userObj) {
-		            var finalPaperHtml = '';
-					      var c1 = 0;
-                for (var i = 0; i < userObj.publications.length; i++) {
-                    var searchPaper = {
-                        "query": userObj.publications[i],
-                        "searchType": "id"
-                    }
-                    $.ajax({
-                        url: '/getPaper',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify(searchPaper),
-                        dataType: 'json',
-                        success: function(paperObjcurs) {
-	                    	  var paperObj = paperObjcurs[0];
-	                    	  c1++;
-								          finalPaperHtml += '<div class="paper">\
-									                             <a href="paper.html?id='+paperObj._id+'"><h3>'+paperObj.title+'</h3></a>\
-										                         </div>'
-								          if (c1 < userObj.publications.length) {
-								             finalPaperHtml += '<div class="separator"></div>'
-								          }
-								         $('#publications').html(finalPaperHtml);
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <meta name="Description" content="View the work of a specific user on the site">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
+    <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/signInCss.css" rel="stylesheet">
+    <link href="css/user.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/pageStyle.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="libs/jquery-ui.min.js"></script>
+    <script src="libs/jquery.smartmenus.min.js"></script>
+    <link href="css/bootstrap-editable.css" rel="stylesheet" />
+    <script src="libs/bootstrap-editable.min.js"></script>
+    <script src="javascript/index-logic.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-69262899-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+<body class="colorBody">
+    <script type="text/javascript">
+        var currentUser = null;
+        $(document).ready(function() {
+            //load the navBar and signIn box.
+            $.getScript('javascript/index-logic.js', function(jd) {});
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            var url = window.location.href;
+            var userId = url.slice(url.indexOf('?id=') + 4);
+            if (url.indexOf('?id=') < 0) {
+                $('.grid').html('<br /><p><center>No user id specified.</center></p><br />');
+                return false;
+            }
+            var searchUser = {
+                "query": userId,
+                "searchType": "id"
+            };
+            $.ajax({
+                url: '/getUser',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(searchUser),
+                dataType: 'json',
+                success: function(userObj) {
+                    var finalPaperHtml = '';
+                    var c1 = 0;
+                    for (var i = 0; i < userObj.publications.length; i++) {
+                        var searchPaper = {
+                            "query": userObj.publications[i],
+                            "searchType": "id"
                         }
-                    });
-                }
-					      var userHtml = '<div class="user">\
+                        $.ajax({
+                            url: '/getPaper',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(searchPaper),
+                            dataType: 'json',
+                            success: function(paperObjcurs) {
+                                var paperObj = paperObjcurs[0];
+                                c1++;
+                                finalPaperHtml += '<div class="paper">\
+									                             <a href="paper.html?id=' + paperObj._id + '"><h3>' + paperObj.title + '</h3></a>\
+										                         </div>'
+                                if (c1 < userObj.publications.length) {
+                                    finalPaperHtml += '<div class="separator"></div>'
+                                }
+                                $('#publications').html(finalPaperHtml);
+                            }
+                        });
+                    }
+                    var userHtml = '<div class="user">\
 										<div class = "user">\
 											<div class="userBox">\
 												<h1 class="headerName">' + userObj.firstname + ' ' + userObj.lastname + '</h1><!--<button id="editUser" class = "btn btn-primary btn-sm">Edit page</button>-->\
@@ -91,7 +101,7 @@
 														<a class="grade originalColor" id="grade">' + userObj.grade + 'th Grade</a>\
 													</div>\
 												<div class="about" id="about">\
-														<p class="since">Joined on '+ userObj.datejoined +'</p>\
+														<p class="since">Joined on ' + userObj.datejoined + '</p>\
 														<p class="id">User Id: ' + userObj._id + '</p>\
 													</div>\
 												</div>\
@@ -102,18 +112,18 @@
 												</div>\
 											</div>\
 										</div>'
-					      $('.grid').html(userHtml);
-                if(userObj.grade == "undergrad") {
-                  $('#grade').text("Undergraduate Researcher");
+                    $('.grid').html(userHtml);
+                    if (userObj.grade == "undergrad") {
+                        $('#grade').text("Undergraduate Researcher");
+                    }
+                },
+                error: function(jqXHR, textStatus) {
+                    $('.grid').html('<br /><p><center>Sorry, no user is found with the User Id: ' + searchUser.query + '.</center></p><br />')
+                    return false;
                 }
-		        },
-		        error: function(jqXHR, textStatus) {
-		        	$('.grid').html('<br /><p><center>Sorry, no user is found with the User Id: '+ searchUser.query + '.</center></p><br />')
-		        	return false;
-		        }
-		    });
-		});
-    /*
+            });
+        });
+        /*
 		$.fn.editable.defaults.mode = 'inline';
 		var editIt = false;
 
@@ -159,18 +169,21 @@
       }
     }
     */
-      </script>
-      <div class="navigation">
-	  <ul id="navlist" class="sm sm-simple">
-  			<li><a href="index.html">Home</a></li>
-			<li><a href="submit.html" id="submitLink">Submit Research</a></li>
-      <li><a href="results.html?type=Browse?query=">Browse Projects</a></li>
-			<li id="aboutli"><a href="about.html">About Us</a></li>
-			<li><a href="" id="siso">Sign In or Register</a></li>
-		</ul>
-	  </div>
-      <div id="signInBox"></div>
-      <div class="grid">
-		<p><center><img src="images/spin.gif"></center></p>
-	  </div>
+    </script>
+    <div class="navigation">
+        <ul id="navlist" class="sm sm-simple">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="submit.html" id="submitLink">Submit Research</a></li>
+            <li><a href="results.html?type=Browse?query=">Browse Projects</a></li>
+            <li id="aboutli"><a href="about.html">About Us</a></li>
+            <li><a href="" id="siso">Sign In or Register</a></li>
+        </ul>
+    </div>
+    <div id="signInBox"></div>
+    <div class="grid">
+        <p>
+            <center><img src="images/spin.gif"></center>
+        </p>
+    </div>
+
 </html>

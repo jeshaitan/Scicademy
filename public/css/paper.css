@@ -1,114 +1,118 @@
-.colorBody{
-	background-color: #C070A0;
-	padding-bottom: 50px;
+.colorBody {
+    background-color: #C070A0;
+    padding-bottom: 50px;
 }
 
-.grid{
-	clear: both;
+.grid {
+    clear: both;
     margin: 0 auto;
     overflow: hidden;
     text-align: left;
-	height: auto;
-	/* background-color: #e1e1e1; /*color for searchbox area */
-	background-color: #eeeeee; /* color for results area */
+    height: auto;
+    /* background-color: #e1e1e1; /*color for searchbox area */
+    background-color: #eeeeee;
+    /* color for results area */
 }
 
-.paperOptions{
-	position: relative;
-	width: 20%;
-	height: auto;
-	top: 0px;
-	left: 30px;
+.paperOptions {
+    position: relative;
+    width: 20%;
+    height: auto;
+    top: 0px;
+    left: 30px;
 }
 
-.paperCol{
-	width:80%;
-	position: relative;
-	left:20%;
-	top: 0px;
-	padding-right: 10px;
+.paperCol {
+    width: 80%;
+    position: relative;
+    left: 20%;
+    top: 0px;
+    padding-right: 10px;
 }
 
-.authors a{
-	color:black !important;
+.authors a {
+    color: black !important;
 }
 
-.abstractText{
-	position:relative;
-	top:-15px;
-	padding-right: 50px;
+.abstractText {
+    position: relative;
+    top: -15px;
+    padding-right: 50px;
 }
 
-.abstractHead{
-	font-size:14;
-	font-weight:bold;
+.abstractHead {
+    font-size: 14;
+    font-weight: bold;
 }
 
-.abstractHeadText{
-	margin: 9px 0px 14px !important;
+.abstractHeadText {
+    margin: 9px 0px 14px !important;
 }
 
-.abstract{
-	position:relative;
-	margin-top: 23px;
+.abstract {
+    position: relative;
+    margin-top: 23px;
 }
 
-.school, .date{
-	font-style: italic;
-	margin-top: 0px;
+.school,
+.date {
+    font-style: italic;
+    margin-top: 0px;
 }
 
-.date{
-	margin-bottom: 0px !important;
-	margin-top:-9px;
-}
-.caption{
-	font-size:12px;
+.date {
+    margin-bottom: 0px !important;
+    margin-top: -9px;
 }
 
-.downloadPDF{
-	position:absolute;
-	top: -5px;
-	border-color: black;
+.caption {
+    font-size: 12px;
+}
+
+.downloadPDF {
+    position: absolute;
+    top: -5px;
+    border-color: black;
     border-style: ridge;
     border-width: 1px;
     padding: 3px;
 }
 
-.paperDiv{
-	margin-bottom:19px;
+.paperDiv {
+    margin-bottom: 19px;
 }
 
-#pdfDown{
-	color:white !important;
-
+#pdfDown {
+    color: white !important;
 }
-.downloadPDF img{
-	position: relative;
-	margin-top: -1px;
-	margin-right: 5px;
+
+.downloadPDF img {
+    position: relative;
+    margin-top: -1px;
+    margin-right: 5px;
 }
 
 #pdf-container {
     padding-bottom: 50px !important;
 }
 
-#editPaper{
-	position:relative;
-	left: 90%;
-	top:10px;
+#editPaper {
+    position: relative;
+    left: 90%;
+    top: 10px;
 }
 
-#paperDiv a, #paperDiv a:link {
+#paperDiv a,
+#paperDiv a:link {
     color: #316c9d;
     text-decoration: none;
 }
 
-#paperDiv a:hover{
-	text-decoration: underline;
-	cursor: ponter;
+#paperDiv a:hover {
+    text-decoration: underline;
+    cursor: ponter;
 }
 
-#paperDiv{
-	position:relative;
+#paperDiv {
+    position: relative;
 }

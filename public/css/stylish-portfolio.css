@@ -7,27 +7,27 @@
 .btn-dark {
     border-radius: 0;
     color: #fff;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .btn-dark:hover,
 .btn-dark:focus,
 .btn-dark:active {
     color: #fff;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .btn-light {
     border-radius: 0;
     color: #333;
-    background-color: rgb(255,255,255);
+    background-color: rgb(255, 255, 255);
 }
 
 .btn-light:hover,
 .btn-light:focus,
 .btn-light:active {
     color: #333;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 #menu-toggle {
@@ -38,7 +38,7 @@
 }
 
 #indexButton {
-  /* margin-top: 100px; */
+    /* margin-top: 100px; */
 }
 
 #sidebar-wrapper.active {
@@ -57,19 +57,21 @@
 
 .about {
     padding: 50px 0;
-	  background-color: white;
+    background-color: white;
 }
+
 
 /* Services */
 
 .services {
-  padding: 42px 0;
-	margin-top: 0px;
+    padding: 42px 0;
+    margin-top: 0px;
 }
 
 .service-item {
     margin-bottom: 30px;
 }
+
 
 /* Callout */
 
@@ -85,11 +87,11 @@
     -o-background-size: cover;
 }
 
+
 /* Portfolio */
 
 .portfolio {
     padding: 50px 0;
-
 }
 
 .portfolio-item {
@@ -104,6 +106,7 @@
     opacity: 0.8;
 }
 
+
 /* Call to Action */
 
 .call-to-action {
@@ -113,6 +116,7 @@
 .call-to-action .btn {
     margin: 10px;
 }
+
 
 /* Map */
 
@@ -126,9 +130,10 @@
     }
 }
 
+
 /* Footer */
 
 footer {
-  /* background: url("../images/blueBack.jpg") no-repeat center center scroll; */
-  padding: 75px 0;
+    /* background: url("../images/blueBack.jpg") no-repeat center center scroll; */
+    padding: 75px 0;
 }

@@ -1,161 +1,168 @@
-.grid{
-	clear: both;
+.grid {
+    clear: both;
     margin: 0 auto;
-	margin-bottom:10px;
+    margin-bottom: 10px;
     overflow: hidden;
     text-align: left;
     width: 98%;
-	background-color: white;
+    background-color: white;
 }
 
-.credentialsTable td{
-	position: static;
+.credentialsTable td {
+    position: static;
 }
 
-td{
-	position:relative;
+td {
+    position: relative;
 }
 
-#signInFormDiv, #registerFormDiv{
-	position: absolute;
-	top: 10px;
-	width: 283px;
+#signInFormDiv,
+#registerFormDiv {
+    position: absolute;
+    top: 10px;
+    width: 283px;
 }
 
-#registerFormDiv{
-	left: 7.5%;
+#registerFormDiv {
+    left: 7.5%;
 }
 
-.submitBody #registerFormDiv{
-	margin-top:38px;
+.submitBody #registerFormDiv {
+    margin-top: 38px;
 }
 
-#signInFormDiv{
-	right: 4.5%;
+#signInFormDiv {
+    right: 4.5%;
 }
 
-.submitBody #signInFormDiv{
-	margin-top:38px;
+.submitBody #signInFormDiv {
+    margin-top: 38px;
 }
 
-#separateSignIn{
-	position: absolute;
-	right: 50%;
-	margin-top: 12px;
+#separateSignIn {
+    position: absolute;
+    right: 50%;
+    margin-top: 12px;
 }
 
-.submitBody #separateSignIn{
-	margin-top: 70px;
+.submitBody #separateSignIn {
+    margin-top: 70px;
 }
 
-#incompleteRegister{
-	width: 100px;
-	position:absolute;
-	left:120px;
-	top: 1px;
-	font-size: 10px;
+#incompleteRegister {
+    width: 100px;
+    position: absolute;
+    left: 120px;
+    top: 1px;
+    font-size: 10px;
 }
 
-.credentialsTable{
-}
+.credentialsTable {}
 
 .verticalSeparator {
-	height: 139%;
+    height: 139%;
 }
 
-#signInBox{
-	height: 567px !important;
-	background-color: #f8f8f8 !important;
+#signInBox {
+    height: 567px !important;
+    background-color: #f8f8f8 !important;
 }
 
-.ui-dialog{
-	padding: 0px !important;
+.ui-dialog {
+    padding: 0px !important;
 }
 
-#email{
-	margin-top:32px !important;
+#email {
+    margin-top: 32px !important;
 }
 
-#password{
-	margin-top: 17px !important;
+#password {
+    margin-top: 17px !important;
 }
 
-#signInButton{
-	margin-top: 19px;
-	width: 100px;
+#signInButton {
+    margin-top: 19px;
+    width: 100px;
 }
 
-form input[type=submit]{
-	cursor:pointer;
-	font-size: small !important;
-	height: 38px;
+form input[type=submit] {
+    cursor: pointer;
+    font-size: small !important;
+    height: 38px;
 }
 
 div.curFocus {
-	background: #fdecb2;
+    background: #fdecb2;
 }
 
-#registerFormDiv h4{
-	margin-left: 11px;
+#registerFormDiv h4 {
+    margin-left: 11px;
 }
 
-.credentialsTable form input[type=text], .credentialsTable form input[type=password], .credentialsTable form textarea{
-/*   -webkit-transition: all 0.30s ease-in-out !important;
+.credentialsTable form input[type=text],
+.credentialsTable form input[type=password],
+.credentialsTable form textarea {
+    /*   -webkit-transition: all 0.30s ease-in-out !important;
   -moz-transition: all 0.30s ease-in-out !important;
   -ms-transition: all 0.30s ease-in-out !important;
   -o-transition: all 0.30s ease-in-out !important; */
-	outline: none !important;
-	padding: 3px 0px 3px 3px;
-	margin: 5px 1px 3px 0px;
-	border: 1px solid #DDDDDD;
-	width: 214px !important;
-	font-size: small !important;
+    outline: none !important;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #DDDDDD;
+    width: 214px !important;
+    font-size: small !important;
 }
 
-.credentialsTable form input[type=text]:focus,  .credentialsTable form input[type=password]:focus, .credentialsTable form textarea:focus {
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
-  padding: 3px 0px 3px 3px;
-  margin: 5px 1px 3px 0px;
-  border: 1px solid rgba(81, 203, 238, 1);
+.credentialsTable form input[type=text]:focus,
+.credentialsTable form input[type=password]:focus,
+.credentialsTable form textarea:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1);
 }
 
-.colorBody{
-	background-color: #5a5699;
+.colorBody {
+    background-color: #5a5699;
 }
 
-.text{
-	height: 20px !important;
-	padding: 6px 12px !important;
+.text {
+    height: 20px !important;
+    padding: 6px 12px !important;
 }
 
-#element_7{
-	width:100px;
-}
-#saveForm{
-	height: 40px;
-	width: 100px;
+#element_7 {
+    width: 100px;
 }
 
-#submitSaveForm{
-	height: 40px;
-	width: 100px;
+#saveForm {
+    height: 40px;
+    width: 100px;
 }
+
+#submitSaveForm {
+    height: 40px;
+    width: 100px;
+}
+
 
 /* .required:after { content:" *"; color:red; } */
 
-.credentialsTable input{
-	line-height: 20px;
-	background-image: none;
-	border: 1px solid #CCC;
-	border-radius: 4px;
-	box-shadow: 1px 1px 2px -1px rgba(0, 0, 0, 0.15) inset;
-	/* transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s; */
-	display:block;
+.credentialsTable input {
+    line-height: 20px;
+    background-image: none;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    box-shadow: 1px 1px 2px -1px rgba(0, 0, 0, 0.15) inset;
+    /* transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s; */
+    display: block;
 }
 
 div.curFocus {
-	background: #fdecb2;
+    background: #fdecb2;
 }
+
 
 /*   .credentialsTable input[type=text], .credentialsTable input[type=password], .credentialsTable textarea {
   -webkit-transition: all 0.30s ease-in-out 0s;
@@ -168,7 +175,9 @@ div.curFocus {
   border: 1px solid #DDDDDD;
 } */
 
-.credentialsTable input[type="text"], .credentialsTable input[type="password"], .credentialsTable textarea {
+.credentialsTable input[type="text"],
+.credentialsTable input[type="password"],
+.credentialsTable textarea {
     border: 1px solid #dddddd !important;
     margin: 5px 1px 3px 0;
     outline: medium none !important;
@@ -176,415 +185,373 @@ div.curFocus {
     transition: all .5s ease-in-out .01s !important;
 }
 
-.credentialsTable input[type=text]:focus,  .credentialsTable input[type=password]:focus, .credentialsTable textarea:focus {
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
-  padding: 3px 0px 3px 3px;
-  margin: 5px 1px 3px 0px;
-  border: 1px solid rgba(81, 203, 238, 1) !important;
+.credentialsTable input[type=text]:focus,
+.credentialsTable input[type=password]:focus,
+.credentialsTable textarea:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1) !important;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1) !important;
 }
 
-#title{
-	height: 10px;
+#title {
+    height: 10px;
 }
 
-.navigation{
-	background-color: white;
-	margin: auto;
+.navigation {
+    background-color: white;
+    margin: auto;
 }
 
-#highColImg{
-	width:20px;
-	height: auto;
-	line-height: 10em;
-}
-#element_6_label{
-	display: inline-block;
+#highColImg {
+    width: 20px;
+    height: auto;
+    line-height: 10em;
 }
 
-body
-{
+#element_6_label {
+    display: inline-block;
+}
 
-/*	background: #FFFFFF;
+body {
+    /*	background: #FFFFFF;
 	font-family:Ubuntu, "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	font-size:small;
 	margin:8px 0 16px; */
 }
 
-#form_container
-{
-	background:white;
-	text-align:left;
-	width:98%;
+#form_container {
+    background: white;
+    text-align: left;
+    width: 98%;
 }
 
-#top
-{
-	display:block;
-	height:10px;
-	margin:7% auto 0;
-	width:650px;
+#top {
+    display: block;
+    height: 10px;
+    margin: 7% auto 0;
+    width: 650px;
 }
 
-#footer
-{
-	width:640px;
-	clear:both;
-	color:#999999;
-	text-align:center;
-	width:640px;
-	padding-bottom: 15px;
-	font-size: 85%;
+#footer {
+    width: 640px;
+    clear: both;
+    color: #999999;
+    text-align: center;
+    width: 640px;
+    padding-bottom: 15px;
+    font-size: 85%;
 }
 
-#footer a{
-	color:#999999;
-	text-decoration: none;
-	border-bottom: 1px dotted #999999;
+#footer a {
+    color: #999999;
+    text-decoration: none;
+    border-bottom: 1px dotted #999999;
 }
 
-#bottom
-{
-	display:block;
-	height:10px;
-	margin:0 auto;
-	width:650px;
+#bottom {
+    display: block;
+    height: 10px;
+    margin: 0 auto;
+    width: 650px;
 }
 
-form.appnitro
-{
-	margin:20px 20px 0;
-	padding:0 0 20px;
+form.appnitro {
+    margin: 20px 20px 0;
+    padding: 0 0 20px;
 }
 
-.credentialsTable form.appnitro{
-	margin:0px;
-	padding:0px;
+.credentialsTable form.appnitro {
+    margin: 0px;
+    padding: 0px;
 }
+
 
 /**** Logo Section  *****/
-h1
-{
-	margin:0;
-	min-height:0;
-	padding:0;
-	text-decoration:none;
-	/*text-indent:-8000px;*/
 
+h1 {
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+    text-decoration: none;
+    /*text-indent:-8000px;*/
 }
 
-h1 a
-{
-
-	display:block;
-	height:100%;
-	min-height:40px;
-	overflow:hidden;
+h1 a {
+    display: block;
+    height: 100%;
+    min-height: 40px;
+    overflow: hidden;
 }
 
-
-img
-{
-	behavior:url(../images/iepngfix.htc);
-	border:none;
+img {
+    behavior: url(../images/iepngfix.htc);
+    border: none;
 }
 
 
 /**** Form Section ****/
-.appnitro
-{
-	font-size:small;
+
+.appnitro {
+    font-size: small;
 }
 
-.appnitro li
-{
-	width:61%;
+.appnitro li {
+    width: 61%;
 }
 
-form ul
-{
-	font-size:100%;
-	list-style-type:none;
-	margin:0;
-	padding:0;
-	width:100%;
+form ul {
+    font-size: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
-form li
-{
-	display:block;
-	margin:0;
-	padding:4px 5px 2px 9px;
-	position:relative;
+form li {
+    display: block;
+    margin: 0;
+    padding: 4px 5px 2px 9px;
+    position: relative;
 }
 
-form li:after
-{
-	clear:both;
-	content:".";
-	display:block;
-	height:0;
-	visibility:hidden;
+form li:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
 }
 
-.buttons:after
-{
-	clear:both;
-	content:".";
-	display:block;
-	height:0;
-	visibility:hidden;
+.buttons:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
 }
 
-.buttons
-{
-	clear:both;
-	display:block;
-	margin-top:10px;
+.buttons {
+    clear: both;
+    display: block;
+    margin-top: 10px;
 }
 
-* html form li
-{
-	height:1%;
+* html form li {
+    height: 1%;
 }
 
-* html .buttons
-{
-	height:1%;
+* html .buttons {
+    height: 1%;
 }
 
-* html form li div
-{
-	display:inline-block;
+* html form li div {
+    display: inline-block;
 }
 
-form li div
-{
-	color:#444;
-	margin:0 4px 0 0;
-	padding:0 0 8px;
+form li div {
+    color: #444;
+    margin: 0 4px 0 0;
+    padding: 0 0 8px;
 }
 
-form li span
-{
-	color:#444;
-	float:left;
-	margin:0 4px 0 0;
+form li span {
+    color: #444;
+    float: left;
+    margin: 0 4px 0 0;
 }
 
-form li div.left
-{
-	display:inline;
-	float:left;
-	width:48%;
+form li div.left {
+    display: inline;
+    float: left;
+    width: 48%;
 }
 
-form li div.right
-{
-	display:inline;
-	float:right;
-	width:48%;
+form li div.right {
+    display: inline;
+    float: right;
+    width: 48%;
 }
 
-form li div.left .medium
-{
-	width:100%;
+form li div.left .medium {
+    width: 100%;
 }
 
-form li div.right .medium
-{
-	width:100%;
+form li div.right .medium {
+    width: 100%;
 }
 
-.clear
-{
-	clear:both;
+.clear {
+    clear: both;
 }
 
-form li div label
-{
-	clear:both;
-	color:#444;
-	display:block;
-	font-size:9px;
-	line-height:9px;
-	margin:0;
-	padding-top:3px;
+form li div label {
+    clear: both;
+    color: #444;
+    display: block;
+    font-size: 9px;
+    line-height: 9px;
+    margin: 0;
+    padding-top: 3px;
 }
 
-form li span label
-{
-	clear:both;
-	color:#444;
-	display:block;
-	font-size:9px;
-	line-height:9px;
-	margin:0;
-	padding-top:3px;
+form li span label {
+    clear: both;
+    color: #444;
+    display: block;
+    font-size: 9px;
+    line-height: 9px;
+    margin: 0;
+    padding-top: 3px;
 }
 
-form li .datepicker
-{
-	cursor:pointer !important;
-	float:left;
-	height:16px;
-	margin:.1em 5px 0 0;
-	padding:0;
-	width:16px;
+form li .datepicker {
+    cursor: pointer !important;
+    float: left;
+    height: 16px;
+    margin: .1em 5px 0 0;
+    padding: 0;
+    width: 16px;
 }
 
-.form_description
-{
-	border-bottom:1px dotted #ccc;
-	clear:both;
-	display:inline-block;
-	margin:0 0 1em;
+.form_description {
+    border-bottom: 1px dotted #ccc;
+    clear: both;
+    display: inline-block;
+    margin: 0 0 1em;
 }
 
-.form_description[class]
-{
-	display:block;
+.form_description[class] {
+    display: block;
 }
 
-.form_description h2
-{
-	clear:left;
-	font-size:160%;
-	font-weight:400;
-	margin:0 0 3px;
+.form_description h2 {
+    clear: left;
+    font-size: 160%;
+    font-weight: 400;
+    margin: 0 0 3px;
 }
 
-.form_description p
-{
-	font-size:95%;
-	line-height:130%;
-	margin:0 0 12px;
+.form_description p {
+    font-size: 95%;
+    line-height: 130%;
+    margin: 0 0 12px;
 }
 
-form hr
-{
-	display:none;
+form hr {
+    display: none;
 }
 
-form li.section_break
-{
-	border-top:1px dotted #ccc;
-	margin-top:9px;
-	padding-bottom:0;
-	padding-left:9px;
-	padding-top:13px;
-	width:97% !important;
+form li.section_break {
+    border-top: 1px dotted #ccc;
+    margin-top: 9px;
+    padding-bottom: 0;
+    padding-left: 9px;
+    padding-top: 13px;
+    width: 97% !important;
 }
 
-form ul li.first
-{
-	border-top:none !important;
-	margin-top:0 !important;
-	padding-top:0 !important;
+form ul li.first {
+    border-top: none !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
 }
 
-form .section_break h3
-{
-	font-size:110%;
-	font-weight:400;
-	line-height:130%;
-	margin:0 0 2px;
+form .section_break h3 {
+    font-size: 110%;
+    font-weight: 400;
+    line-height: 130%;
+    margin: 0 0 2px;
 }
 
-form .section_break p
-{
-	font-size:85%;
-
-	margin:0 0 10px;
+form .section_break p {
+    font-size: 85%;
+    margin: 0 0 10px;
 }
+
 
 /**** Buttons ****/
-input.button_text
-{
-	overflow:visible;
-	padding:0 7px;
-	width:auto;
+
+input.button_text {
+    overflow: visible;
+    padding: 0 7px;
+    width: auto;
 }
 
-.buttons input
-{
-	font-size:120%;
-	margin-right:5px;
+.buttons input {
+    font-size: 120%;
+    margin-right: 5px;
 }
+
 
 /**** Inputs and Labels ****/
-label.description
-{
-	border:none;
-	color:#222;
-	display:block;
-	font-size:95%;
-	font-weight:700;
-	line-height:150%;
-	padding:0 0 1px;
+
+label.description {
+    border: none;
+    color: #222;
+    display: block;
+    font-size: 95%;
+    font-weight: 700;
+    line-height: 150%;
+    padding: 0 0 1px;
 }
 
-span.symbol
-{
-	font-size:115%;
-	line-height:130%;
+span.symbol {
+    font-size: 115%;
+    line-height: 130%;
 }
 
-input.text
-{
-	background:#fff url(../images/shadow.gif) repeat-x top;
-	border-bottom:1px solid #ddd;
-	border-left:1px solid #c3c3c3;
-	border-right:1px solid #c3c3c3;
-	border-top:1px solid #7c7c7c;
-	color:#333;
-	font-size:100%;
-	margin:0;
-	padding:2px 0;
+input.text {
+    background: #fff url(../images/shadow.gif) repeat-x top;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #c3c3c3;
+    border-right: 1px solid #c3c3c3;
+    border-top: 1px solid #7c7c7c;
+    color: #333;
+    font-size: 100%;
+    margin: 0;
+    padding: 2px 0;
 }
 
-input.file
-{
-	color:#333;
-	font-size:100%;
-	margin:0;
-	padding:2px 0;
+input.file {
+    color: #333;
+    font-size: 100%;
+    margin: 0;
+    padding: 2px 0;
 }
 
-textarea.textarea
-{
-	background:#fff url(../images/shadow.gif) repeat-x top;
-	border-bottom:1px solid #ddd;
-	border-left:1px solid #c3c3c3;
-	border-right:1px solid #c3c3c3;
-	border-top:1px solid #7c7c7c;
-	color:#333;
-	font-size:100%;
-	margin:0;
-	width:99%;
+textarea.textarea {
+    background: #fff url(../images/shadow.gif) repeat-x top;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #c3c3c3;
+    border-right: 1px solid #c3c3c3;
+    border-top: 1px solid #7c7c7c;
+    color: #333;
+    font-size: 100%;
+    margin: 0;
+    width: 99%;
 }
 
-select.select
-{
-	color:#333;
-	font-size:100%;
-	margin:1px 0;
-	padding:1px 0 0;
-	background:#fff url(../images/shadow.gif) repeat-x top;
-	border-bottom:1px solid #ddd;
-	border-left:1px solid #c3c3c3;
-	border-right:1px solid #c3c3c3;
-	border-top:1px solid #7c7c7c;
+select.select {
+    color: #333;
+    font-size: 100%;
+    margin: 1px 0;
+    padding: 1px 0 0;
+    background: #fff url(../images/shadow.gif) repeat-x top;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #c3c3c3;
+    border-right: 1px solid #c3c3c3;
+    border-top: 1px solid #7c7c7c;
 }
 
-
-input.checkbox
-{
-	display:block;
-	height:13px;
-	line-height:1.4em;
-	margin:6px 0 0 3px;
-	width:13px;
+input.checkbox {
+    display: block;
+    height: 13px;
+    line-height: 1.4em;
+    margin: 6px 0 0 3px;
+    width: 13px;
 }
+
 
 /* input.radio
 {
@@ -595,156 +562,141 @@ input.checkbox
 	width:13px;
 } */
 
-label.choice
-{
-	color:#444;
-	display:block;
-	font-size:100%;
-	line-height:1.4em;
-	margin:-1.55em 0 0 25px;
-	padding:4px 0 5px;
-	width:90%;
+label.choice {
+    color: #444;
+    display: block;
+    font-size: 100%;
+    line-height: 1.4em;
+    margin: -1.55em 0 0 25px;
+    padding: 4px 0 5px;
+    width: 90%;
 }
 
-#form_1037235 label{
-	font-weight:normal;
+#form_1037235 label {
+    font-weight: normal;
 }
 
-select.select[class]
-{
-	margin:0;
-	padding:1px 0;
+select.select[class] {
+    margin: 0;
+    padding: 1px 0;
 }
 
-*:first-child+html select.select[class]
-{
-	margin:1px 0;
+*:first-child+html select.select[class] {
+    margin: 1px 0;
 }
 
-.safari select.select
-{
-	font-size:120% !important;
-	margin-bottom:1px;
+.safari select.select {
+    font-size: 120% !important;
+    margin-bottom: 1px;
 }
 
-input.small
-{
-	width:25%;
+input.small {
+    width: 25%;
 }
 
-select.small
-{
-	width:25%;
+select.small {
+    width: 25%;
 }
 
-input.medium
-{
-	width:50%;
+input.medium {
+    width: 50%;
 }
 
-select.medium
-{
-	width:50%;
+select.medium {
+    width: 50%;
 }
 
-input.large
-{
-	width:99%;
+input.large {
+    width: 99%;
 }
 
-select.large
-{
-	width:100%;
+select.large {
+    width: 100%;
 }
 
-textarea.small
-{
-	height:5.5em;
+textarea.small {
+    height: 5.5em;
 }
 
-textarea.medium
-{
-	height:10em;
+textarea.medium {
+    height: 10em;
 }
 
-textarea.large
-{
-	height:20em;
+textarea.large {
+    height: 20em;
 }
+
 
 /**** Errors ****/
+
 .credentialsTable label.error {
-	font-size: 0.8 em;
-	color: #F00;
-	font-weight: bold;
-	display:block;
-
+    font-size: 0.8 em;
+    color: #F00;
+    font-weight: bold;
+    display: block;
 }
 
-.credentialsTable input.error, .credentialsTable select.error textarea.error{
-	border: 1px solid red !important;
+.credentialsTable input.error,
+.credentialsTable select.error textarea.error {
+    border: 1px solid red !important;
 }
+
 
 /**** Guidelines and Error Highlight ****/
-form .guidelines
-{
-	background:#f5f5f5;
-	border:1px solid #e6e6e6;
-	color:#444;
-	font-size:80%;
-	left:100%;
-	line-height:130%;
-	margin:0 0 0 8px;
-	padding:8px 10px 9px;
-	position:absolute;
-	top:0;
-	visibility:hidden;
-	width:42%;
-	z-index:1000;
+
+form .guidelines {
+    background: #f5f5f5;
+    border: 1px solid #e6e6e6;
+    color: #444;
+    font-size: 80%;
+    left: 100%;
+    line-height: 130%;
+    margin: 0 0 0 8px;
+    padding: 8px 10px 9px;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    width: 42%;
+    z-index: 1000;
 }
 
-form .guidelines small
-{
-	font-size:105%;
+form .guidelines small {
+    font-size: 105%;
 }
 
-form li.highlighted .guidelines
-{
-	visibility:visible;
+form li.highlighted .guidelines {
+    visibility: visible;
 }
 
-form li:hover .guidelines
-{
-	visibility:visible;
+form li:hover .guidelines {
+    visibility: visible;
 }
 
-.no_guidelines .guidelines
-{
-	display:none !important;
+.no_guidelines .guidelines {
+    display: none !important;
 }
 
-.no_guidelines form li
-{
-	width:97%;
+.no_guidelines form li {
+    width: 97%;
 }
 
-.no_guidelines li.section
-{
-	padding-left:9px;
+.no_guidelines li.section {
+    padding-left: 9px;
 }
+
 
 /*** Success Message ****/
-.form_success
-{
-	clear: both;
-	margin: 0;
-	padding: 90px 0pt 100px;
-	text-align: center
+
+.form_success {
+    clear: both;
+    margin: 0;
+    padding: 90px 0pt 100px;
+    text-align: center
 }
 
 .form_success h2 {
-    clear:left;
-    font-size:160%;
-    font-weight:normal;
-    margin:0pt 0pt 3px;
+    clear: left;
+    font-size: 160%;
+    font-weight: normal;
+    margin: 0pt 0pt 3px;
 }

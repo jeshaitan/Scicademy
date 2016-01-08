@@ -1,0 +1,15 @@
+module.exports = function(grunt) {
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    jsbeautifier : {
+        files : [ "public/**/*.js"
+                , "public/**/*.html"
+                , "public/**/*.css"
+                , "!public/css/bootstrap.min.css"
+                , "!public/css/font-awesome.min.css"],
+        options : { }
+    }
+  });
+  grunt.loadNpmTasks("grunt-jsbeautifier");
+  grunt.registerTask('default', ['jsbeautifier'])
+}

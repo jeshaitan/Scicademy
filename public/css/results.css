@@ -1,22 +1,22 @@
 .paperDiv h3 {
-  font-size: 1.108em;
-	margin-bottom: 10px;
-	text-decoration:none;
-	width: 98%;
+    font-size: 1.108em;
+    margin-bottom: 10px;
+    text-decoration: none;
+    width: 98%;
 }
 
-.date{
-	margin-top:4px;
-	color:gray;
-	font-size:13px;
+.date {
+    margin-top: 4px;
+    color: gray;
+    font-size: 13px;
 }
 
-.authors{
-	margin: -7px 0px;
+.authors {
+    margin: -7px 0px;
 }
 
-.paperDiv h3:hover{
-	text-decoration:underline;
+.paperDiv h3:hover {
+    text-decoration: underline;
 }
 
 .paperDiv a {
@@ -24,135 +24,143 @@
 }
 
 .paperDiv {
-	width: 98% !important;
+    width: 98% !important;
 }
 
-.authors a{
-	color:black !important;
-	text-decoration: none;
+.authors a {
+    color: black !important;
+    text-decoration: none;
 }
 
-.authors a:hover{
-	text-decoration: underline;
-	cursor:ponter;
+.authors a:hover {
+    text-decoration: underline;
+    cursor: ponter;
 }
 
-#searchTable{
-	margin: 0px 8px;
+#searchTable {
+    margin: 0px 8px;
 }
+
 #searchTable .title {
-	font-size: 1.108em;
+    font-size: 1.108em;
 }
 
-#searchTable a, #searchTable a:link {
+#searchTable a,
+#searchTable a:link {
     color: #316c9d;
     text-decoration: none;
 }
 
-#searchTable a:hover{
-	text-decoration: underline;
-	cursor:ponter;
+#searchTable a:hover {
+    text-decoration: underline;
+    cursor: ponter;
 }
 
-.arrowClick:before {content:url("../images/purpleDownArrow.png");}
-.arrowSide:before {content:url("../images/purpleRightArrow.png");}
-
-.authors a{
-	color:black !important;
+.arrowClick:before {
+    content: url("../images/purpleDownArrow.png");
 }
 
-.abstractText:hover{
-	cursor:pointer;
+.arrowSide:before {
+    content: url("../images/purpleRightArrow.png");
 }
 
-.abstractParagraph{
-	margin-top: 5px;
-	display: none;
+.authors a {
+    color: black !important;
 }
 
-.paperDiv{
-	margin: 10px 15px 10px 0px;
+.abstractText:hover {
+    cursor: pointer;
 }
 
-.sortBy h4{
-	margin-bottom: 0px;
+.abstractParagraph {
+    margin-top: 5px;
+    display: none;
 }
 
-#dates h6{
-	margin-top: 14px;
+.paperDiv {
+    margin: 10px 15px 10px 0px;
 }
 
-#search-form{
-	background: url(../images/bp.png) top center no-repeat;
-	margin: 10px auto 10px;
-
+.sortBy h4 {
+    margin-bottom: 0px;
 }
 
-#searchTableDiv{
-	margin-top: 24px;
-	position: relative;
-	background-color: white; /* color for results area */
+#dates h6 {
+    margin-top: 14px;
 }
 
-.form-container{
-	width:456px; //adjust
-}
-.papers{
-	width:80%;
-	position: absolute;
-	left:20%;
-	top: 0px;
+#search-form {
+    background: url(../images/bp.png) top center no-repeat;
+    margin: 10px auto 10px;
 }
 
-.searchInfo{
-	position: relative;
-	width: 15%;
-	height:600px;
-	top: 10px;
-	left: 30px;
-	padding-left: 10px;
-	--border-right-style:solid;
-	--border-width:1px;
+#searchTableDiv {
+    margin-top: 24px;
+    position: relative;
+    background-color: white;
+    /* color for results area */
 }
 
-.submit-container{
-	position:relative;
+.form-container {
+    width: 456px; //adjust
+}
+
+.papers {
+    width: 80%;
+    position: absolute;
+    left: 20%;
+    top: 0px;
+}
+
+.searchInfo {
+    position: relative;
+    width: 15%;
+    height: 600px;
+    top: 10px;
+    left: 30px;
+    padding-left: 10px;
+    --border-right-style: solid;
+    --border-width: 1px;
+}
+
+.submit-container {
+    position: relative;
 }
 
 .separator {
-	margin-right: 50px;
- 	height: 1px;
-	background: gray;
-	overflow: hidden;
+    margin-right: 50px;
+    height: 1px;
+    background: gray;
+    overflow: hidden;
 }
 
-#grayBack{
-  background-color:#f8f8f8;
+#grayBack {
+    background-color: #f8f8f8;
 }
 
 .select-style {
-  border: 1px solid #ccc;
-  width: 120px;
-  border-radius: 3px;
-  overflow: hidden;
-  background: #fafafa url("../images/purpleDownArrow.png") no-repeat 90% 50%;
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("../images/purpleDownArrow.png") no-repeat 90% 50%;
 }
 
-.select-style select:hover{
-	cursor:pointer;
-	border-style: solid;
-	border-color: #C070A0;
-	border-width: 1px;
+.select-style select:hover {
+    cursor: pointer;
+    border-style: solid;
+    border-color: #C070A0;
+    border-width: 1px;
 }
 
 .select-style select {
-  padding: 5px 8px;
-  width: 130%;
-  border: none;
-  box-shadow: none;
-  background: transparent;
-  background-image: none;
-  -webkit-appearance: none;
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
 }
 
 .select-style select:focus {
@@ -160,5 +168,5 @@
 }
 
 #logo {
-	float:left;
+    float: left;
 }

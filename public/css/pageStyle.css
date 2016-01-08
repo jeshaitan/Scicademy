@@ -1,136 +1,142 @@
 html * {
-	font-family: 'Open Sans', 'Arial';
+    font-family: 'Open Sans', 'Arial';
 }
 
-input.error, select.error, textarea.error {
-	border: 1px solid red !important;
+input.error,
+select.error,
+textarea.error {
+    border: 1px solid red !important;
 }
 
-.navigation{
-	width: 98%;
-	margin: auto;
-	margin-top: 8px !important;
+.navigation {
+    width: 98%;
+    margin: auto;
+    margin-top: 8px !important;
 }
- .btn.btn-primary {
-	background-color: #5a5699 !important;
+
+.btn.btn-primary {
+    background-color: #5a5699 !important;
 }
+
 #signInButton {
-	color: #FFFFFF !important;
+    color: #FFFFFF !important;
 }
 
 #saveForm {
-	color: #FFFFFF !important;
-}
-.grid{
-	margin-bottom:14px;
-	-webkit-box-shadow: 0px 7px 5px -3px rgba(0,0,0,0.57);
-	-moz-box-shadow: 0px 7px 5px -3px rgba(0,0,0,0.57);
-	box-shadow: 0px 7px 5px -3px rgba(0,0,0,0.57);
+    color: #FFFFFF !important;
 }
 
-.appnitro input{
-	box-sizing: content-box;
+.grid {
+    margin-bottom: 14px;
+    -webkit-box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.57);
+    -moz-box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.57);
+    box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.57);
 }
 
-.failedSignIn{
-	margin-top:23px;
+.appnitro input {
+    box-sizing: content-box;
 }
 
-#signInBox{
-	display:none;
+.failedSignIn {
+    margin-top: 23px;
 }
 
-#incompleteRegister{
-	margin-left: 15px;
-	margin-top:2px;
-	color:red;
+#signInBox {
+    display: none;
 }
 
-#signInForm{
-	height: 130px;
+#incompleteRegister {
+    margin-left: 15px;
+    margin-top: 2px;
+    color: red;
 }
 
-#signInForm input{
-	box-sizing: content-box;
+#signInForm {
+    height: 130px;
+}
+
+#signInForm input {
+    box-sizing: content-box;
 }
 
 #logo {
-	width: 360px;
-	margin: 0 auto;
-	padding-top: 200px;
-	padding-bottom: 50px;
+    width: 360px;
+    margin: 0 auto;
+    padding-top: 200px;
+    padding-bottom: 50px;
 }
 
-#indexButton{
-	margin-top:10px;
+#indexButton {
+    margin-top: 10px;
 }
 
-#registerFormDiv #guide_4{
-margin-left: 83px;
+#registerFormDiv #guide_4 {
+    margin-left: 83px;
 }
 
-#topBar{
-	background-color: gray;
-	border-style:solid;
-	border-color:gray;
-	height:50px;
+#topBar {
+    background-color: gray;
+    border-style: solid;
+    border-color: gray;
+    height: 50px;
 }
 
-#closeRegister{
-	margin-left:100px;
-	margin-top:10px;
+#closeRegister {
+    margin-left: 100px;
+    margin-top: 10px;
 }
 
-#registerComplete{
-	font-size: 14px;
+#registerComplete {
+    font-size: 14px;
 }
 
-#alerttext{
-	margin-bottom: 20px;
-	padding-bottom: 20px;
-	display: inline-block;
-	color:black;
+#alerttext {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    display: inline-block;
+    color: black;
 }
 
-#alertDiv a{
-	color: #337ab7;
-	text-decoration:underline;
+#alertDiv a {
+    color: #337ab7;
+    text-decoration: underline;
 }
-#alertDiv{
-	font-size:18px;
-	font-weight:bold;
+
+#alertDiv {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #contacttext {
-	margin-top: 30%;
-	margin-left:20%;
-	margin-right:20%;
+    margin-top: 30%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 body {
-	/* background-color: #FFFFFF; */
-	background-image: url("../images/blueBack.jpg");
-	background-size: auto !important;
+    /* background-color: #FFFFFF; */
+    background-image: url("../images/blueBack.jpg");
+    background-size: auto !important;
 }
 
-#footerDiv{
-	background-image: url("../images/blueBack.jpg");
-	background-size: cover;
+#footerDiv {
+    background-image: url("../images/blueBack.jpg");
+    background-size: cover;
 }
 
-#indexBody{
-	background-image: url("../images/blueBack.jpg");
-	background-size:cover;
+#indexBody {
+    background-image: url("../images/blueBack.jpg");
+    background-size: cover;
 }
 
 .separator {
-	height: 1px;
-	background: #92948E;
-	overflow: hidden;
+    height: 1px;
+    background: #92948E;
+    overflow: hidden;
 }
 
 .verticalSeparator {
-	width: 1px;
-	background: #92948E;
-	overflow: hidden;
+    width: 1px;
+    background: #92948E;
+    overflow: hidden;
 }

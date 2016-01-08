@@ -1,112 +1,114 @@
-.colorBody{
-	background-color: #5a5699;
+.colorBody {
+    background-color: #5a5699;
 }
 
-.grid{
-	clear: both;
-  margin: 0 auto;
-  overflow: hidden;
-  text-align: left;
-  width: 100%;
-	background-color: #F7F7F7;
+.grid {
+    clear: both;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+    background-color: #F7F7F7;
 }
 
-.headerName{
-	margin-top: 30px;
-	font-size: 24px;
-	color: #444;
-	font-weight: normal;
+.headerName {
+    margin-top: 30px;
+    font-size: 24px;
+    color: #444;
+    font-weight: normal;
 }
 
-.separator{
-	margin: 20px auto 10px auto;
+.separator {
+    margin: 20px auto 10px auto;
 }
 
-.separator2{
-	z-index: 50;
-	width:97%;
-	position:relative;
+.separator2 {
+    z-index: 50;
+    width: 97%;
+    position: relative;
 }
+
 
 /* #userPubSep{
 	margin-bottom: 10px;
 } */
 
-.authors a{
-	color:black !important;
-	text-decoration: none;
-	position:relative;
-	z-index: 55;
+.authors a {
+    color: black !important;
+    text-decoration: none;
+    position: relative;
+    z-index: 55;
 }
 
-.authors a:hover{
-	text-decoration: underline;
-	cursor:ponter;
+.authors a:hover {
+    text-decoration: underline;
+    cursor: ponter;
 }
 
-.publications{
-	margin-left:30px;
-	margin-right: 30px;
-	padding-bottom: 10px;
+.publications {
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-bottom: 10px;
 }
 
-.userBox{
-	width:100%;
-	height: 110px;
-	margin-left: 30px;
+.userBox {
+    width: 100%;
+    height: 110px;
+    margin-left: 30px;
 }
 
-.details a{
-	color: #337ab7;
-}
-.originalColor{
-	color: #666 !important;
+.details a {
+    color: #337ab7;
 }
 
-.originalColor:hover{
-	text-decoration: none;
+.originalColor {
+    color: #666 !important;
 }
 
-.details{
-	float:left;
-	font-size:14px;
-	color: #666;
-	position:relative;
-	top: 10px;
+.originalColor:hover {
+    text-decoration: none;
 }
 
-.about{
-	font-size:14px;
-	color: #666;
-	position: relative;
-	top: 10px;
-	left: 100px;
-	float:left;
+.details {
+    float: left;
+    font-size: 14px;
+    color: #666;
+    position: relative;
+    top: 10px;
 }
 
-.publications h3{
-	color: #316c9d;
-	margin-bottom: 10px;
-	font-size: 1.108em;
+.about {
+    font-size: 14px;
+    color: #666;
+    position: relative;
+    top: 10px;
+    left: 100px;
+    float: left;
 }
 
-.publications a{
-	text-decoration:none;
+.publications h3 {
+    color: #316c9d;
+    margin-bottom: 10px;
+    font-size: 1.108em;
 }
 
-.publications a:hover{
-	text-decoration:underline;
+.publications a {
+    text-decoration: none;
 }
 
-.reputation{
-	margin-left: 30px;
+.publications a:hover {
+    text-decoration: underline;
 }
 
-.reputation h1{
-	position:relative;
-	z-index: 999;
+.reputation {
+    margin-left: 30px;
 }
 
-.lastPaper{
-	margin-bottom: 20px;
+.reputation h1 {
+    position: relative;
+    z-index: 999;
+}
+
+.lastPaper {
+    margin-bottom: 20px;
 }

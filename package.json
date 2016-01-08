@@ -19,7 +19,10 @@
     "path": "^0.12.7",
     "url": "^0.11.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-jsbeautifier": "^0.2.10"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
