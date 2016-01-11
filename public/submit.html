@@ -1,390 +1,656 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="Description" content="Don't let your research fade away into oblivion—submit it so the rest of the world can learn from it">
-    <title>Submit Paper</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-    <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
-    <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
-    <link href="css/jquery-ui.min.css" rel="stylesheet">
-    <link href="css/signInCss.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/submit.css" media="all">
-    <link rel="stylesheet" type="text/css" href="css/tagit.ui-zendesk.css" media="all">
-    <link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">
-    <link href="css/flat/blue.css" rel="stylesheet" type="text/css">
-    <link href="css/pageStyle.css" rel="stylesheet" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="libs/jquery-ui.min.js"></script>
-    <script src="libs/jquery.smartmenus.min.js"></script>
-    <script src="libs/jquery.validate.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="javascript/submit.js"></script>
-    <script src="javascript/index-logic.js"></script>
-    <script src="libs/tag-it.min.js" type="text/javascript"></script>
-    <script src="libs/icheck.min.js" type="text/javascript"></script>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="Description" content="Don't let your research fade away into oblivion—submit it so the rest of the world can learn from it">
+	<title>Submit Paper</title>
+	<link rel= "icon" type="image/x-icon" href="images/favicon.ico"/>
+	<link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
+	<link href="css/sm-simple.css" rel="stylesheet" type="text/css">
+	<link href="css/jquery-ui.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/submit.css" media="all">
+	<link rel="stylesheet" type="text/css" href="css/tagit.ui-zendesk.css" media="all">
+	<link href = "css/jquery.tagit.css" rel = "stylesheet" type = "text/css">
+	<link href = "css/flat/blue.css" rel = "stylesheet" type = "text/css">
+	<link href="css/pageStyle.css" rel="stylesheet" type="text/css">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="libs/jquery-ui.min.js"></script>
+	<script src="libs/jquery.smartmenus.min.js"></script>
+	<script src="libs/jquery.validate.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="javascript/submit.js"></script>
+	<script src="javascript/index-logic.js"></script>
+	<script src = "libs/tag-it.min.js" type = "text/javascript"></script>
+	<script src = "libs/icheck.min.js" type = "text/javascript"></script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	<script>	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-69262899-1', 'auto');
-        ga('send', 'pageview');
-    </script>
+	ga('create', 'UA-69262899-1', 'auto');
+	ga('send', 'pageview');
+	</script>
 </head>
-
 <body id="main_body" class="colorBody submitBody">
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $.getScript('javascript/index-logic.js', function(jd) {});
-            var currentUser = localStorage.getItem("user");
-            if (currentUser == null) {
-                $('#signInBox').dialog({
-                    closeOnEscape: false,
-                    open: function(event, ui) {
-                            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                        } //end open
-                }); //end dialog
-                $('.signInBox').html('You must have an account to submit a paper');
-                $('#signInBox').dialog('open');
-                $('#element_2_1').focus();
-            } //end if currentUser
-            //start javascript injectipn prevention
-            $('#form_1039889 :text').change(function() {
-                var inputText = $(this).val();
-                $(this).val($($.parseHTML(inputText)).text());
-            });
-            //end javascript injectipn prevention
-            $('#separateSignIn').position({
-                my: "left top",
-                at: "right+337 top",
-                of: $("#registerFormDiv")
-            });
-            jQuery.validator.addMethod("pdfChecked", function(value, element) {
-                return $('#element_14_1').is(':checked');
-            }, "");
-            jQuery.validator.addMethod("isLong", function(value, element) {
-                var counter = 0;
-                value = value.replace(/(^\s*)|(\s*$)/gi, "");
-                value = value.replace(/[ ]{2,}/gi, " ");
-                value = value.replace(/\n /, "\n");
-                counter = value.split(' ').length;
-                return counter >= 70;
-            }, "");
+<script type="text/javascript">
+	$(document).ready(function(){
 
-            $('#form_1039889').validate({
-                errorPlacement: function(error, element) {
-                    if (element.attr("name") == "element_14") {
-                        error.insertBefore(".pdfClass");
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
-                rules: {
-                    element_2: { //abstract
-                        required: true,
-                        isLong: true
-                    },
-                    element_14: { //do you have a pdf
-                        pdfChecked: true
-                    },
-                    element_9: { //keywords
-                        required: true,
-                    }
-                },
-                messages: {
-                    element_2: {
-                        required: "This field is required",
-                        isLong: "Your abstract must be at least 70 words"
-                    },
-                    element_14: {
-                        pdfChecked: "Your paper must be a PDF!"
-                    },
-                    element_9: {
-                        required: "This field is required",
-                        isFourWords: "You must have at least four keywords"
-                    }
-                }
-            });
-            $('#element_1').show();
-            if (currentUser != null) {
-                $('#element_1').focus();
-            }
-            $('#noPDF').slideUp();
-            $('#paperPDF').slideDown();
-            $('#li_3').hide();
-            $('#paperTitle').show();
-            $('#convertToPDF').slideUp();
-            $('#converted').button();
-            <!-- $('#submitSaveForm').button(); -->
-            $('.sm').smartmenus({
-                showFunction: function($ul, complete) {
-                    $ul.slideDown(250, complete);
-                },
-                hideFunction: function($ul, complete) {
-                    $ul.slideUp(250, complete);
-                }
-            }); //end smartmenus
+		$.getScript('javascript/index-logic.js', function(jd){});
+		var currentUser = localStorage.getItem("user");
+		if (currentUser == null){
+			$('#signInBox').dialog({
+				closeOnEscape: false,
+				open: function(event, ui) {
+					$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+				} //end open
+			}); //end dialog
+			$('.signInBox').html('You must have an account to submit a paper');
+			$('#signInBox').dialog('open');
+			$('#element_2_1').focus();
+		} //end if currentUser
+		//start javascript injectipn prevention
+		$('#form_1039889 :text').change(function(){
+			var inputText = $(this).val();
+			$(this).val($( $.parseHTML(inputText)).text());
+		});
+		//end javascript injectipn prevention
+		$('#separateSignIn').position({
+			my: "left top",
+			at: "right+337 top",
+			of: $("#registerFormDiv")
+		});
+		jQuery.validator.addMethod("pdfChecked", function(value, element) {
+			return $('#element_14_1').is(':checked');
+		}, "");
+		jQuery.validator.addMethod("isLong", function(value, element) {
+			var counter = 0;
+			value = value.replace(/(^\s*)|(\s*$)/gi,"");
+			value = value.replace(/[ ]{2,}/gi," ");
+			value = value.replace(/\n /,"\n");
+			counter=value.split(' ').length;
+			return counter>=70;
+		}, "");
 
-            $('#submitComplete').dialog({
-                resizable: false,
-                minWidth: 300,
-                minHeight: 150,
-                autoOpen: false,
-                show: 'fade',
-                hide: 'fold',
-                modal: true
-            });
+		$('#form_1039889').validate({
+			errorPlacement: function(error, element) {
+				if (element.attr("name") == "element_14" ){
+					error.insertBefore(".pdfClass");
+				}
+				else {
+					error.insertAfter(element);
+				}
+			},
+			rules: {
+				element_2: { //abstract
+					required: true,
+					isLong : true
+				},
+				element_14: {//do you have a pdf
+					pdfChecked: true
+				},
+				element_9: { //keywords
+					required: true
+				}
+			},
+			messages: {
+				element_2: {
+					required: "This field is required",
+					isLong: "Your abstract must be at least 70 words"
+				},
+				element_14: {
+					pdfChecked: "Your paper must be a PDF"
+				},
+				element_9: {
+					required: "This field is required",
+					isFourWords: "You must have at least four keywords"
+				}
+			}
+		});
+		$('#element_1').show();
+		if (currentUser != null){
+			$('#element_1').focus();
+		}
+		$('#noPDF').slideUp();
+		$('#paperPDF').slideDown();
+		$('#li_3').hide();
+		$('#paperTitle').show();
+		$('#convertToPDF').slideUp();
+		$('#converted').button();
+		<!-- $('#submitSaveForm').button(); -->
+		$('.sm').smartmenus({
+			showFunction: function($ul, complete){
+				$ul.slideDown(250,complete);
+			},
+			hideFunction: function($ul, complete){
+				$ul.slideUp(250, complete);
+			}
+		}); //end smartmenus
 
-            $("#submitComplete").on('click', '#closeSubmit', function() {
-                document.location.href = "/index.html";
-            });
+		$('#submitComplete').dialog({
+			resizable:false,
+			minWidth: 300,
+			minHeight: 150,
+			autoOpen: false,
+			show: 'fade',
+			hide: 'fold',
+			modal:true,
+			closeOnEscape: false,
+			open: function(event, ui) {
+				$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+			}
+		});
 
-            $('#form_1039889').submit(function(e) {
-                $('#submitSpin').show();
-                $('#submitSaveForm').hide();
-                $('#form_1039889').validate();
-                var keywordsLength = $('#keywordTags').tagit("assignedTags").length;
-                if (keywordsLength < 4) {
-                    //too little keywords...
-                    $('#keywordTags').addClass('error');
-                    if ($('#keywordError').length < 1) {
-                        $('#keywordsDiv').append('<p id="keywordError" class="error" style="color:#f00;display:block;font-weight:bold;margin-top:10px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least four keywrods</p>');
-                    }
-                } else {
-                    $('#keywordTags').removeClass('error');
-                    $('#keywordError').remove();
-                }
-                var isvalidate = $("#form_1039889").valid();
-                if (isvalidate == false || keywordsLength < 4) {
-                    e.preventDefault();
-                    if ($('#incompleteSubmit').length == 0) {
-                        $('.submitButtons').append('<p id="incompleteSubmit" style = "color:red; margin-left:10px; margin-top: 10px;">One or more fields are still invalid</p>');
-                    } else {
-                        $('#incompleteSubmit').effect('shake');
-                    }
-                    $('#submitSpin').hide();
-                    $('#submitSaveForm').show();
-                } else {
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                    $('#incompleteSubmit').remove();
-                    readSubmitPaperForm($('#form_1039889'));
-                }
-            });
-            if ($('input[name="element_14"]:checked').val() == "isPDF") { //is your file a pdf or word?
-                $('#convertToPDF').slideUp();
-                $('#li_3').slideDown();
-            } else if ($('input[name="element_14"]:checked').val() == "isWord") {
-                $('#li_3').slideUp();
-                $('#convertToPDF').slideDown();
-            }
-            $('#converted').click(function(e) {
-                e.preventDefault();
-                $("#element_14_1").iCheck('check');
-                $('#convertToPDF').slideUp();
-                $('#li_3').slideDown();
+		$("#submitComplete").on('click', '#closeSubmit', function(){
+			document.location.href="/index.html";
+		});
 
-            });
-            var authorCount = 1;
-            $('.add').click(function(e) {
-                e.preventDefault();
-                authorCount++;
-                breakText = '<br><br><br><br><br>';
-                var idText = "<div id='author" + authorCount + "'>";
-                $('#li_4').append(idText + breakText + '<span><input name="element_4_1' + authorCount + '"class="element text spawnUserID required" maxlength="255" size="14" value=""/>\
-					<label class="required">Author ' + authorCount + '\'s User Id</label>\
+		$('#form_1039889').submit(function(e){
+			$('#submitSpin').show();
+			$('#submitSaveForm').hide();
+			$('#form_1039889').validate();
+			var keywordsLength = $('#keywordTags').tagit('assignedTags').length;
+			var authorLength = $('#authorTags').tagit('assignedTags').length;
+			if(keywordsLength < 4){
+				//too little keywords...
+				$('#keywordTags').addClass('error');
+				if ($('#keywordError').length<1) {
+					$('#keywordsDiv').append('<p id="keywordError" class="error" style="color:#f00;display:block;font-weight:bold;margin-top:10px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least four keywrods</p>');
+				}
+			}
+			else{
+				$('#keywordTags').removeClass('error');
+				$('#keywordError').remove();
+			}
+			console.log('here author length, here boy!');
+			console.log(authorLength);
+			if (authorLength < 1){
+				$('#authorTags').addClass('error');
+				if ($('#authorError').length < 1){
+					$('#authorsDiv').append('<p id="authorError" class="error" style="color:#f00;display:block;font-weight:bold;margin-bottom:0px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least one author</p>');
+				}
+			}
+			else{
+				$('#authorTags').removeClass('error');
+				$('#authorError').remove();
+			}
+
+			var isvalidate=$("#form_1039889").valid();
+			if(isvalidate == false || keywordsLength < 4 || authorLength < 1){
+				e.preventDefault();
+				if ($('#incompleteSubmit').length == 0){
+					$('.submitButtons').append('<p id="incompleteSubmit" style = "color:red; margin-left:10px; margin-top: 10px;">One or more fields are still invalid</p>');
+				}
+				else{
+					$('#incompleteSubmit').effect('shake');
+				}
+				$('#submitSpin').hide();
+				$('#submitSaveForm').show();
+			}
+			else{
+				e.preventDefault();
+				e.stopImmediatePropagation();
+				$('#incompleteSubmit').remove();
+				readSubmitPaperForm($('#form_1039889'));
+			}
+		});
+		if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
+			$('#convertToPDF').slideUp();
+			$('#li_3').slideDown();
+		}
+		else if ($('input[name="element_14"]:checked').val()=="isWord"){
+			$('#li_3').slideUp();
+			$('#convertToPDF').slideDown();
+		}
+		$('#converted').click(function(e) {
+			e.preventDefault();
+			$("#element_14_1").iCheck('check');
+			$('#convertToPDF').slideUp();
+			$('#li_3').slideDown();
+
+		});
+		var authorCount = 1;
+		$('.add').click(function(e) {
+			e.preventDefault();
+			authorCount++;
+			var idTexth = ' id = element_4_'+authorCount+'h';
+			breakText='<br><br><br><br><br>';
+			var idText="<div id='author" + authorCount+"'>";
+			var hiddenInput = '<input type="hidden" '+idTexth+' value="0" class="spawnUserIDh">';
+			$('#li_4').append(idText+breakText+'<span>'+hiddenInput+'<input id="element_4_'+authorCount+'" name="element_4_'+authorCount+'" class="element text spawnUserID author required" maxlength="255" size="14" value=""/>\
+					<label class="required">Author '+authorCount+'\'s User Id</label>\
 				</span>\
-				</div>');
-                localStorage.setItem("authorCount", authorCount);
-            });
-            $('#keywordTags').tagit({
-                allowSpaces: true,
-                caseSensitive: false,
-                tagLimit: 10
-            });
+				</div>'
+			);
+			localStorage.setItem("authorCount", authorCount);
+		});
+		$('#authorDialog').dialog({
+			modal: true,
+			resizable:false,
+			minWidth: 'auto',
+			minHeight: 'auto',
+			autoOpen: false,
+			show: 'fade',
+			hide: 'drop',
+			open: function(event, ui) {
+				$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+			}
+		});
 
-            $('.remove').click(function(e) {
-                e.preventDefault();
-                var selector = "#author";
-                selector += authorCount;
-                $(selector).remove();
-                authorCount -= 1;
-                localStorage.setItem("authorCount", authorCount);
-            }); //end remove click
+		//tagit plugin for authors
+		var bigAuthorList = [];
+		var currentAuthors = [];
+		var createNew = false;
+		var fullName = '';
+		var bypass = false;
+		var noAuthor = false;
+		$('#authorTags').tagit({
+			allowSpaces: true,
+			placeholderText: "Author names",
+			autocomplete: {
+				source: function (req, resp){
+					$.ajax({
+						url: '/completeAuthor',
+						type: 'POST',
+						contentType: 'application/json',
+						data: JSON.stringify({letters:req}),
+						dataType: 'json',
+						error: function(jqXhR, textStatus){
+							alert('Error processing your request. Please try again later. \n Specific error: '+textStatus);
+						},
+						success: function(doc) {
+							var authorList = [];
+							for (var i = 0; i<doc.length; i++){
+								console.log(doc[i].firstname + ' ' + doc[i].lastname + ' (' + doc[i].school + ')');
+								var authorObj = {
+									label: doc[i].firstname + ' ' + doc[i].lastname + ' (' + doc[i].school + ')'                                                                                                          ,
+									value: doc[i].firstname + ' ' + doc[i].lastname,
+									school: doc[i].school,
+									id: doc[i]._id
+								};
+								authorList.push(authorObj);
+							}
+							authorList.push({
+								label: 'The person I\'m looking for isn\'t showing up',
+								value: 'Author does not have account yet',
+								id: '0'
+							});
+							bigAuthorList = authorList;
+							resp(authorList);
+						}
+					});
+				}
+			},
+			beforeTagAdded: function(event, ui) {
+				//TODO: Fix issue of authors with same name... this wouldn't work
+				var currentlyValidTags = [];
+				for (var i = 0; i < bigAuthorList.length; i++){
+					currentlyValidTags.push(bigAuthorList[i].value);
+				}
+				if ($.inArray(ui.tagLabel, currentlyValidTags) == -1 && bypass === false) {
+					return false;
+				} //TODO cmment this out see if it works
 
-            $('.tagit-new input').focus(function() {
-                console.log('ran focus');
-                var blueAura = {
-                    'box-shadow': '0 0 5px rgba(81, 203, 238, 1)',
-                    'border': '1px solid rgba(81, 203, 238, 1)'
-                };
-                $('#keywordTags').css(blueAura);
-            });
-            $('.tagit-new input').blur(function() {
-                console.log('unfocus');
-                var changeAura = {
-                    'box-shadow': '',
-                    'border': ''
-                };
-                $('#keywordTags').css(changeAura);
-            });
-        }); //end ready
-    </script>
-    <div class="navigation">
-        <ul id="navlist" class="sm sm-simple">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-            <li><a href="results.html?type=6?query=">Browse Projects</a></li>
-            <li id="aboutli"><a href="about.html">About Us</a></li>
-            <li><a href="" id="siso">Sign In or Register</a></li>
-        </ul>
-    </div>
-    <div id="signInBox"></div>
-    <div id="submitComplete">
-        <center>Thank you for submitting a paper to Scicademy! Keep in mind that it may take a day or two for the paper to be proccessed. (see <a style="color:blue;" href="about.html">the about page</a> to find out more about this process.)</center>
-        <button style="margin-left: 107px;margin-top:10px;" id="closeSubmit" class="btn btn-lg btn-primary">Ok</button>
-    </div>
+				if (noAuthor === true){
+					var searchTerm = 'Author does not have account yet';
+				}
+				else{
+					var searchTerm = ui.tagLabel;
+				}
+				var idObj = $.grep(bigAuthorList, function (e) {
+					return e.value === searchTerm;
+				});
+				console.log('big author: '+bigAuthorList);
+				console.log(idObj);
+				var specificId = idObj[0].id;
+				var currentAuthor = {
+					name: ui.tagLabel,
+					id: specificId,
+					school: idObj[0].school
+				};
 
-    <div id="form_container" class="grid">
-        <form id="form_1039889" class="appnitro" enctype="multipart/form-data">
-            <div class="form_description">
-                <h2>Submit Your Research</h2>
-                <p></p>
-            </div>
-            <ul>
+				currentAuthors.push(currentAuthor);
+				if (ui.tagLabel === 'Author does not have account yet'){
+					noAuthor = true;
+					$('#authorDialog').dialog('open');
+					console.log("reached it");
+					$('#authorSpin').hide();
+					$('#submitAuthorForm').show();
+				}
+				//TODO remove duplicates and entries with "Author does not have account yet" when submitting
+				for (var i = 0; i<currentAuthors.length; i++) {
+					console.log('cur auth: ' + currentAuthors[i].name);
+					console.log('cur authid: ' + currentAuthors[i].id);
+				}
+			},
+			beforeTagRemoved: function (event, ui){
+				var foundIt = 0;
+				console.log(currentAuthors.length);
+				if (currentAuthors.length>0) {
+					console.log('current uathors beforetag: '+currentAuthors);
+					for (var i = 0; i < currentAuthors.length; i++) {
+						if (currentAuthors[i].name === ui.tagLabel) {
+							foundIt = i;
+							break;
+						}
+					}
+					console.log('found index: '+foundIt);
+					currentAuthors = currentAuthors.splice(foundIt,1);
+					console.log('new currentAuthors after splcie: '+currentAuthors);
+				}
+			}
+		});
 
-                <li id="paperTitle">
-                    <label class="description required" for="title">Title </label>
-                    <div>
-                        <input id="title" name="title" class="element text large required" type="text" maxlength="255" value="" />
-                    </div>
-                </li>
+		$('#authorCancel').click(function(){ //this dialog box only pops up if there isn't a valid author
+			$('#authorTags').tagit('removeTagByLabel','Author does not have account yet');
+			$('#authorDialog').dialog('close');
+			$('#authorSpin').hide();
+			$('#submitAuthorForm').show();
+		});
 
-                <li id="li_4">
+		//making tag area look nice
+		$('#keywordTags').tagit({
+			allowSpaces: true,
+			caseSensitive: false,
+			tagLimit: 10,
+			placeholderText: "Relevant keywords"
+		});
 
-                    <label class="description required" for="element_4_1">Authors </label>
-                    <span>
-			                   <input id="element_4_1" name= "element_4_1" class="element text required" maxlength="255" size="14" value=""/>
-			                   <label class="required">Author 1's User Id</label>
-		                </span>
-                    <p class="guidelines" id="guide_2"><small>Your user Id can be found on your user page.</small></p>
+		$('#keywordsDiv input').focus(function(){
+			console.log('ran focus');
+			var blueAura = {
+				'box-shadow':'0 0 5px rgba(81, 203, 238, 1)',
+				'border': '1px solid rgba(81, 203, 238, 1)'
+			};
+			$('#keywordTags').css(blueAura);
+		});
 
-                </li>
-                <div class="addAuthors">
-                    <a href="" class="add">Add Author</a>&nbsp;/
-                    <a href="" class="remove">Remove Author</a>
-                </div>
 
-                <!-- begin research institution html -->
-                <li>
-                    <label class="description" for="element_2">Other Research Institution</label>
-                    <div>
-                        <input id="inst" type="text" name="institution" class="element text" maxlength="255">
-                    </div>
-                    <p class="guidelines"><small>If you worked on your project in a research institution outside of school, enter the name of it here.</small></p>
-                </li>
-                <!-- end research institution html -->
-                <li id="li_2">
-                    <label class="description required" for="element_2">Abstract </label>
-                    <div>
-                        <textarea id="element_2" name="element_2" class="element textarea medium"></textarea>
-                    </div>
-                    <p class="guidelines" id="guide_1"><small>Must be at least 70 words. This is a short section and is intended to give the reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p>
-                </li>
+		$('#keywordsDiv input').blur(function(){
+			console.log('unfocus');
+			var changeAura = {
+				'box-shadow':'',
+				'border': ''
+			};
+			$('#keywordTags').css(changeAura);
 
-                <li>
-                    <label class="description required" for="keywordsDiv">Subject</label>
-                    <div id="subjectDiv">
-                        <table id="subjectTable">
-                            <tr>
-                                <td>
-                                    <!--Comp Sci-->
-                                    <input id="compSci" name="subjectArea" class="element radio" type="radio" value="compSci" />
-                                    <label class="choice" for="compSci">Computer Science and Modeling</label>
-                                    <!--Biochemistry and Molecular Biology-->
-                                    <input id="bioChem" name="subjectArea" class="element radio" type="radio" value="bioChem" />
-                                    <label class="choice" for="bioChem">Biochemistry and Molecular Biology</label>
-                                    <!--General Biology-->
-                                    <input id="bio" name="subjectArea" class="element radio" type="radio" value="bio" />
-                                    <label class="choice" for="bio">General Biology</label>
-                                    <!--Behavioral and Social Sciences-->
-                                    <input id="psych" name="subjectArea" class="element radio" type="radio" value="psych" />
-                                    <label class="choice" for="psych">Behavioral and Social Science</label>
-                                </td>
-                                <td></td>
-                                <td style="column-gap:40px;-moz-column-gap:40px;">
-                                    <!--Chemistry-->
-                                    <input id="chem" name="subjectArea" class="element radio" type="radio" value="chem" />
-                                    <label class="choice" for="chem">Chemistry</label>
-                                    <!--Earth and Environmental Science-->
-                                    <input id="earth" name="subjectArea" class="element radio" type="radio" value="earth" />
-                                    <label class="choice" for="earth">Earth and Environmental Science</label>
-                                    <!--Physics and Astonomy-->
-                                    <input id="phys" name="subjectArea" class="element radio" type="radio" value="phys" />
-                                    <label class="choice" for="phys">Physics and Astronomy</label>
-                                    <!--Prototype Engineering-->
-                                    <input id="engineer" name="subjectArea" class="element radio" type="radio" value="engineer" />
-                                    <label class="choice" for="engineer">Prototype Engineering</label>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </li>
+		});
+		$('#authorsDiv input').focus(function(){
+			var blueAura = {
+				'box-shadow':'0 0 5px rgba(81, 203, 238, 1)',
+				'border': '1px solid rgba(81, 203, 238, 1)'
+			};
+			$('#authorTags').css(blueAura);
+		});
 
-                <li id="li_9">
-                    <label class="description required" for="keywordsDiv">Keywords (10 max)</label>
-                    <div id="keywordsDiv">
-                        <ul class="tagit" id="keywordTags" style="overflow:hidden;"></ul>
-                    </div>
-                    <p class="guidelines" id="guide_2"><small>Enter at least four keywords. Use a commma to automatically separate each keyword. Try to use words that are not in your title but will help classify your research.</small></p>
-                </li>
 
-                <div id="paperPDF">
-                    <li id="li_14">
-                        <label class="description required" for="element_14">Is your paper a pdf? </label>
-                        <span class="pdfClass">
+		$('#authorsDiv input').blur(function(){
+			var changeAura = {
+				'box-shadow':'',
+				'border': ''
+			};
+			$('#authorTags').css(changeAura);
+		});
+
+		$('#noAuthorForm').submit(function(e){
+			$('#authorSpin').show();
+			$('#submitAuthorForm').hide();
+			$('#noAuthorForm').validate();
+			var isvalidate=$("#noAuthorForm").valid();
+			if(isvalidate == false){
+				e.preventDefault();
+				$('#authorSpin').hide();
+				$('#submitAuthorForm').show();
+			}
+			else{
+				e.preventDefault();
+				e.stopImmediatePropagation();
+				$('#authorTags').tagit('removeTagByLabel','Author does not have account yet');
+				fullName = $('#authorfname').val() + ' ' + $('#authorlname').val();
+				console.log('full name: ' + fullName);
+				createNew = true;
+				bypass = true;
+				currentAuthor = {
+					name: fullName,
+					id: 0,
+					label: 'fakeAuthor',
+					value: fullName,
+					school: $('#authorSchool').val()
+				};
+				currentAuthors.push(currentAuthor);
+				$('#authorTags').tagit('createTag',fullName);
+				//add class with "notRealAuthor and school"
+				$('#authorDialog').dialog('close');
+				$('#authorSpin').hide();
+				$('#submitAuthorForm').show();
+			}
+		});
+
+		//Autocomplete for schools
+		function unique_ify(list) {
+			var seen = {};
+			var out = [];
+			var len = list.length;
+			var j = 0;
+			for(var i = 0; i < len; i++) {
+				var item = list[i];
+				if(seen[item] !== 1) {
+					seen[item] = 1;
+					out[j++] = item;
+				}
+			}
+			return out;
+		}
+
+		if(!localStorage["schools"]) {
+			$.ajax({
+				url: '/getSchools',
+				type: 'POST',
+				data: {},
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function(curs) {
+					var schools = [];
+					for (var i = 0; i < curs.length; i++) {
+						schools.push(curs[i].school);
+					}
+					schools = unique_ify(schools);
+					localStorage.setItem("schools", JSON.stringify(schools));
+					var fromStorage = "["+localStorage["schools"]+"]";
+					schools = JSON.parse(fromStorage);
+					$('#authorSchool').autocomplete({source:schools[0]});
+				}
+			});
+		}
+		else {
+			var fromStorage = "["+localStorage["schools"]+"]";
+			var schools = JSON.parse(fromStorage);
+			$('#authorSchool').autocomplete({source:schools[0]});
+		}
+
+	}); //end ready
+</script>
+<div class="navigation">
+	<div id = "authorDialog">
+		<p>One of your co-authors doesn't have an account? If you tell us their name, we'll be able to link their account to this paper and include it in their
+			publications if they ever make an account!</p>
+		<form id="noAuthorForm" class="appnitro credentialsTable"  method="post" action="" style="margin-left: 4px;">
+			<ul>
+				<li id="authorName">
+					<span>
+						<div>
+							<input type="text" id="authorfname" name= "authorfname" class="element text required" maxlength="255" size="21" value="" placeholder="First Name">
+						</div>
+					</span>
+					<span>
+						<div>
+							<input type="text" id="authorlname" name= "authorlname" class="element text required" maxlength="255" size="21" value="" placeholder="Last Name">
+						</div>
+					</span>
+				</li>
+				<li>
+					<div>
+						<input id="authorSchool" name="authorSchool" class="element text large required" type="text" maxlength="255" value="" placeholder="School">
+					</div>
+				</li>
+				<li class="buttons">
+					<input type="hidden" name="form_id" value="noAuthorForm" />
+					<table>
+						<tr>
+							<td>
+								<input id="submitAuthorForm" class="button_text btn btn-primary btn.-xs" type="submit" name="submitAuthorForm" value="Ok" style="width:102px;"/>
+								<img src="../images/spinTrans.gif" id="authorSpin" style="margin-top:19px;margin-bottom:19px;margin-right:37px;margin-left:37px;display:none;" />
+							</td>
+							<td>
+								<input id ="authorCancel" class="button_text btn btn-primary btn.-xs" type="button" style="width:102px;height:38px;font-size:small;" value="Cancel">
+							</td>
+						</tr>
+					</table>
+				</li>
+			</ul>
+		</form>
+	</div>
+	<ul id="navlist" class="sm sm-simple">
+		<li><a href="index.html">Home</a></li>
+		<li><a href="submit.html" id="submitLink">Submit Research</a></li>
+		<li><a href="results.html?type=Browse?query=">Browse Projects</a></li>
+		<li id="aboutli"><a href="about.html">About Us</a></li>
+		<li><a href="" id="siso">Sign In or Register</a></li>
+	</ul>
+</div>
+<div id="signInBox"></div>
+<div id="submitComplete">
+	<center>Thank you for submitting a paper to Scicademy! Keep in mind that it may take a day or two for the paper
+		to be proccessed. (see <a style = "color:blue;" href="about.html">the about page</a> to find out more about this process.)</center>
+	<button style = "margin-left: 107px;margin-top:10px;" id="closeSubmit" class="btn btn-lg btn-primary">Ok</button>
+</div>
+
+<div id="form_container" class="grid">
+	<form id="form_1039889" class="appnitro" enctype="multipart/form-data">
+		<div class="form_description">
+			<h2>Submit Your Research</h2>
+			<p></p>
+		</div>
+		<ul >
+
+			<li id="paperTitle" >
+				<label class="description required" for="title">Title </label>
+				<div>
+					<input id="title" name="title" class="element text large required" type="text" maxlength="255" value=""/>
+				</div>
+			</li>
+
+			<li id="li_4" >
+
+				<!--<label class="description required" for="element_4_1">Search for and select your authors here</label>-->
+				<div id = "authorsDiv">
+					<label style="font-size:95%;margin-bottom:5px;" class="description required">Authors of paper (each author is one tag) </label>
+					<div>
+						<ul class = "tagit" id="authorTags" style = "overflow:hidden;width:803px;"></ul>
+					</div>
+				</div>
+			</li>
+			<!--		<div class="addAuthors">
+                        <a href="" class="add">Add Author</a>&nbsp;/
+                        <a href="" class="remove">Remove Author</a>
+                    </div>-->
+
+			<!-- begin research institution html -->
+			<li>
+				<label class="description" for="element_2">Other Research Institution</label>
+				<div>
+					<input id="inst" type="text" name="institution" class="element text" maxlength="255" >
+				</div>
+				<p class="guidelines"><small>If you worked on your project in a research institution outside of school, enter the name of it here.</small></p>
+			</li>
+			<!-- end research institution html -->
+			<li id="li_2" >
+				<label class="description required" for="element_2">Abstract </label>
+				<div>
+					<textarea id="element_2" name="element_2" class="element textarea medium"></textarea>
+				</div><p class="guidelines" id="guide_1"><small>Must be at least 70 words. This is a short section and is intended to give the reader an overall view of your paper. It is one of the most important sections in that it describes the not only the purpose of the paper, but how the work was carried out, the results, and the conclusions.</small></p>
+			</li>
+
+			<li>
+				<label class="description required" for="keywordsDiv">Subject</label>
+				<div id="subjectDiv">
+					<table id="subjectTable">
+						<tr>
+							<td>
+								<!--Comp Sci-->
+								<input id="compSci" name="subjectArea" class="element radio" type="radio" value="compSci" />
+								<label class="choice" for="compSci">Computer Science and Modeling</label>
+								<!--Biochemistry and Molecular Biology-->
+								<input id="bioChem" name="subjectArea" class="element radio" type="radio" value="bioChem" />
+								<label class="choice" for="bioChem">Biochemistry and Molecular Biology</label>
+								<!--General Biology-->
+								<input id="bio" name="subjectArea" class="element radio" type="radio" value="bio" />
+								<label class="choice" for="bio">General Biology</label>
+								<!--Behavioral and Social Sciences-->
+								<input id="psych" name="subjectArea" class="element radio" type="radio" value="psych" />
+								<label class="choice" for="psych">Behavioral and Social Science</label>
+							</td>
+							<td></td>
+							<td style="column-gap:40px;-moz-column-gap:40px;">
+								<!--Chemistry-->
+								<input id="chem" name="subjectArea" class="element radio" type="radio" value="chem" />
+								<label class="choice" for="chem">Chemistry</label>
+								<!--Earth and Environmental Science-->
+								<input id="earth" name="subjectArea" class="element radio" type="radio" value="earth" />
+								<label class="choice" for="earth">Earth and Environmental Science</label>
+								<!--Physics and Astonomy-->
+								<input id="phys" name="subjectArea" class="element radio" type="radio" value="phys" />
+								<label class="choice" for="phys">Physics and Astronomy</label>
+								<!--Prototype Engineering-->
+								<input id="engineer" name="subjectArea" class="element radio" type="radio" value="engineer" />
+								<label class="choice" for="engineer">Prototype Engineering</label>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</li>
+
+			<li id="li_9">
+				<label class="description required" for="keywordsDiv">Keywords (10 max)</label>
+				<div id ="keywordsDiv">
+					<ul class = "tagit" id="keywordTags" style = "overflow:hidden;"></ul>
+				</div><p class="guidelines" id="guide_2"><small>Enter at least four keywords. Use a commma to automatically separate each keyword. Try to use words that are not in your title but will help classify your research.</small></p>
+			</li>
+
+			<div id="paperPDF">
+				<li id="li_14" >
+					<label class="description required" for="element_14">Is your paper a pdf? </label>
+		<span class="pdfClass">
 			<input id="element_14_1" name="element_14" class="element radio" type="radio" value="isPDF" />
 			<label class="choice" for="element_14_1">Yes</label>
 			<input id="element_14_2" name="element_14" class="element radio" type="radio" value="isWord" />
 			<label class="choice" for="element_14_2">No</label>
 		</span>
-                    </li>
-                </div>
-                <div id="convertToPDF">
-                    <li>
-                        <p>Make sure your paper is in PDF format. Either save it as a pdf, or use <a href="https://www.freepdfconvert.com/">a free online pdf converter</a>.</p>
-                        <input type="button" id="converted" class="button_text btn btn-primary btn-xs" value="Ok, it's a pdf now."></input>
-                    </li>
-                </div>
-                <div id="upload">
-                    <li id="li_3">
-                        <label class="description required" for="element_3">Upload Your PDF </label>
-                        <div>
-                            <input id="element_3" name="element_3" class="element file required" accept="application/pdf" type="file" />
-                        </div>
-                    </li>
-                </div>
-                <li class="submitButtons">
-                    <input type="hidden" name="form_id" value="1039889" />
-                    <input id="submitSaveForm" class="button_text btn btn-primary btn-xs" type="submit" name="submit" value="Submit" />
-                    <img src="../images/spinTrans.gif" id="submitSpin" style="display:none;margin-left:37px;" />
-                </li>
-            </ul>
-        </form>
-    </div>
+				</li>
+			</div>
+			<div id="convertToPDF">
+				<li>
+					<p>Make sure your paper is in PDF format. Either save it as a pdf, or use <a href="https://www.freepdfconvert.com/">a free online pdf converter</a>.</p>
+					<input type="button" id="converted" class="button_text btn btn-primary btn-xs" value="Ok, it's a pdf now."></input>
+				</li>
+			</div>
+			<div id="upload">
+				<li id="li_3" >
+					<label class="description required" for="element_3">Upload Your PDF </label>
+					<div>
+						<input id="element_3" name="element_3" class="element file required" accept="application/pdf" type="file"/>
+					</div>
+				</li>
+			</div>
+			<li class="submitButtons">
+				<input type="hidden" name="form_id" value="1039889" />
+				<input id="submitSaveForm" class="button_text btn btn-primary btn-xs" type="submit" name="submit" value="Submit"/>
+				<img src="../images/spinTrans.gif" id="submitSpin" style="display:none;margin-left:37px;" />
+			</li>
+		</ul>
+	</form>
+</div>
 </body>
-
 </html>
