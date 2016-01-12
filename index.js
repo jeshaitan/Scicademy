@@ -10,15 +10,13 @@ var http = require("http"),
     mongo = require('mongodb'),
     busboy = require('connect-busboy'),
     aws = require('aws-sdk'),
-<<<<<<< HEAD
+
     ObjectID = require('mongodb').ObjectID,
     //mailgun = require('mailgun-js')({
     //    apiKey: /*api_key*/ ,
     //    domain: /*domain*/
     //});
-=======
     ObjectID = require('mongodb').ObjectID;
->>>>>>> a3823d076253983952c1c3d4cf985fcd5dfc277d
 
     app = express();
 app.use(bodyParser.json());
@@ -207,8 +205,8 @@ app.post('/addPaper', function(req, res) {
 });
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
     var fstream;
