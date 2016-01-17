@@ -118,8 +118,13 @@
                     }
                 },
                 error: function(jqXHR, textStatus) {
-                    $('.grid').html('<br /><p><center>Sorry, no user is found with the User Id: ' + searchUser.query + '.</center></p><br />')
-                    return false;
+                    if (searchUser.query == '0' || searchUser.query == 0){
+                        $('.grid').html('<br /><p><center>Sorry, this user doesn\'t have an account yet.</center></p><br />')
+                    }
+                    else {
+                        $('.grid').html('<br /><p><center>Sorry, no user is found with the User Id: ' + searchUser.query + '.</center></p><br />')
+                        return false;
+                    }
                 }
             });
         });
