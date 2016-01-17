@@ -69,6 +69,8 @@ app.post('/getUser', function(req, res) {
 app.post('/getPaper', function(req, res) {
     if (req.body.filter == '')
         var filter = /.*?/;
+    else
+        var filter = req.body.filter;
 
     if (req.body.searchType == "All") {
         var searchObject = {
@@ -90,16 +92,16 @@ app.post('/getPaper', function(req, res) {
                 $search: req.body.query
             }
         };
-    } else if (req.body.searchType == "Keywords") {
+    } else if (req.body.searchType == "Keyword") {
         var searchObject = {
             keywords: req.body.query
         };
     } else if (req.body.searchType == "Author") {
-        db.Users.find($and [{
+        db.Users.find({
             $text: {
                 $search: req.body.query
             }
-        }], function(err, curs) {
+        }, function(err, curs) {
             if (err) {
                 console.log(err)
             } else {
@@ -112,14 +114,11 @@ app.post('/getPaper', function(req, res) {
                     res.send([]);
                 } else {
                     db.Papers.find({
-                      $and: [
-                        {
-                          $or: searchObjectArray
-                        },
-                        {
-                          subject: req.body.filter
-                        }
-                      ]
+                        $and: [{
+                            $or: searchObjectArray
+                        }, {
+                            subject: filter
+                        }]
                     }, function(err, curs) {
                         if (err) {
                             console.log(err);
@@ -138,20 +137,18 @@ app.post('/getPaper', function(req, res) {
         var searchObject = {};
     }
     if (req.body.searchType == 'Browse') {
-        var searchObject = {
-            $query: {},
-            $orderby: {
-                $natural: -1
-            }
-        };
+        var searchObject = {};
     }
     if (req.body.searchType != "Author") {
-        db.Papers.find({$and: [searchObject, {subject: req.body.filter}]}, function(err, curs) {
+        db.Papers.find({
+            $and: [searchObject, {
+                subject: filter
+            }]
+        }, function(err, curs) {
             if (err) {
                 console.log(err);
             } else {
                 res.send(curs);
-                console.log(searchObject);
             }
         });
     }

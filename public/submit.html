@@ -48,14 +48,13 @@
             var j = 0;
             for (var i = 0; i < list.length; i++) {
                 var item = list[i].name;
-                if ($.inArray(item, seen) === -1 && typeof list[i].school !== undefined){ //have to add undefined bit because one copy has school undefinded
+                if ($.inArray(item, seen) === -1 && typeof list[i].school !== undefined) { //have to add undefined bit because one copy has school undefinded
                     seen.push(item);
                     out.push(list[i]);
                 }
             }
             return out;
         }
-
     </script>
 </head>
 
@@ -174,15 +173,15 @@
 
             $('#form_1039889').submit(function(e) {
                 currentAuthors = unique_ifyObj(currentAuthors);
-                for (var i = 0; i < currentAuthors.length; i++){
-                    if (currentAuthors[i].name == "No author found."){
-                        currentAuthors.splice(i,1);
-                        i = i-1;
+                for (var i = 0; i < currentAuthors.length; i++) {
+                    if (currentAuthors[i].name == "No author found.") {
+                        currentAuthors.splice(i, 1);
+                        i = i - 1;
                     }
                 }
                 console.log('final: ');
                 console.log(currentAuthors);
-                for (var i = 0; i < currentAuthors.length; i++){
+                for (var i = 0; i < currentAuthors.length; i++) {
                     console.log(currentAuthors[i].name);
                 }
 
