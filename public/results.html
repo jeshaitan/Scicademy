@@ -121,6 +121,7 @@
                     abstractText = '',
                     firstAuthor = true,
                     date = '',
+                    getTemps = false,
                     nump = 0;
 
                 var paperHtml = '';
@@ -131,11 +132,16 @@
                             var firstAuthor = true;
                             for (var i = 0; i < info.length; i++) {
                                 //reverse search info[i]. Returned author object will be called authorObj
+                                if (info[i] == 0){
+                                    getTemps = true;
+                                    console.log('0ed');
+                                    continue;
+                                }
                                 var authorreq = {
                                     "query": info[i],
                                     "searchType": "id",
                                     "meta": nump
-                                }
+                                };
                                 $.ajax({
                                     url: '/getUser',
                                     type: 'POST',
@@ -156,7 +162,34 @@
                                         $('#authors' + (docB.meta)).html(authors);
                                     }
                                 });
-                            }; //end author loop
+
+                            } //end author loop
+
+                            var authorreq2 = {
+                                "meta": nump,
+                                "paperId": paperInfo._id
+                            };
+                            console.log('id: '+authorreq2.paperId);
+                            if (getTemps){
+                                getTemps = false;
+                                $.ajax({
+                                    url: '/getTemps',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(authorreq2),
+                                    dataType: 'json',
+                                    success: function(docB) {
+                                        var tempAuthorObj = docB.temps;
+                                        for (var i = 0; i < tempAuthorObj.length; i++){
+                                            var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
+                                            var userId = '0';
+                                        }
+                                        var userPage = "user.html?id=" + userId;
+                                        authors += '<a href="' + userPage + '">, ' + fullName + ' </a>';
+                                        $('#authors' + (docB.meta)).html(authors);
+                                    }
+                                });
+                            }
                         } //end author if
                         else { //every piece of info but authors
                             if (infoName == 'title') {
@@ -183,7 +216,7 @@
       									<div class="abstractParagraph" id="abstract1">' + abstractText + '</div>\
       								</div>\
                						</div>\
-               						<div class="separator"></div>'
+               						<div class="separator"></div>';
                     $('.papers').append(paperHtml);
                     nump++;
                 }); //end loop for each paper
@@ -195,7 +228,7 @@
                 //$(this).parent().find('.abstractParagraph').slideToggle();
                 return false;
             }); //end abstractText click
-        }); //end ready
+        }) //end ready
     </script>
     <div class="navigation">
         <ul id="navlist" class="sm sm-simple">
