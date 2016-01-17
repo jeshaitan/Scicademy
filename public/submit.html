@@ -278,8 +278,8 @@
                                     authorList.push(authorObj);
                                 }
                                 authorList.push({
-                                    label: 'The person I\'m looking for isn\'t showing up',
-                                    value: 'Author does not have account yet',
+                                    label: 'Author not found.',
+                                    value: 'No author found.',
                                     id: '0'
                                 });
                                 bigAuthorList = authorList;
@@ -296,10 +296,10 @@
                     }
                     if ($.inArray(ui.tagLabel, currentlyValidTags) == -1 && bypass === false) {
                         return false;
-                    } //TODO cmment this out see if it works
+                    } //TODO comment this out see if it works
 
                     if (noAuthor === true) {
-                        var searchTerm = 'Author does not have account yet';
+                        var searchTerm = 'No author found.';
                     } else {
                         var searchTerm = ui.tagLabel;
                     }
@@ -316,7 +316,7 @@
                     };
 
                     currentAuthors.push(currentAuthor);
-                    if (ui.tagLabel === 'Author does not have account yet') {
+                    if (ui.tagLabel === 'No author found.') {
                         noAuthor = true;
                         $('#authorDialog').dialog('open');
                         console.log("reached it");
@@ -348,7 +348,7 @@
             });
 
             $('#authorCancel').click(function() { //this dialog box only pops up if there isn't a valid author
-                $('#authorTags').tagit('removeTagByLabel', 'Author does not have account yet');
+                $('#authorTags').tagit('removeTagByLabel', 'No author found.');
                 $('#authorDialog').dialog('close');
                 $('#authorSpin').hide();
                 $('#submitAuthorForm').show();
@@ -410,7 +410,7 @@
                 } else {
                     e.preventDefault();
                     e.stopImmediatePropagation();
-                    $('#authorTags').tagit('removeTagByLabel', 'Author does not have account yet');
+                    $('#authorTags').tagit('removeTagByLabel', 'No author found.');
                     fullName = $('#authorfname').val() + ' ' + $('#authorlname').val();
                     console.log('full name: ' + fullName);
                     createNew = true;
@@ -480,7 +480,7 @@
     </script>
     <div class="navigation">
         <div id="authorDialog">
-            <p>One of your co-authors doesn't have an account? If you tell us their name, we'll be able to link their account to this paper and include it in their publications if they ever make an account!</p>
+            <p>One of your co-authors doesn't have an account? If you tell us their name, we'll be able to link their account to this paper and include it in their publications if they ever make an account.</p>
             <form id="noAuthorForm" class="appnitro credentialsTable" method="post" action="" style="margin-left: 4px;">
                 <ul>
                     <li id="authorName">
@@ -527,7 +527,7 @@
     </div>
     <div id="signInBox"></div>
     <div id="submitComplete">
-        <center>Thank you for submitting a paper to Scicademy! Keep in mind that it may take a day or two for the paper to be proccessed. (see <a style="color:blue;" href="about.html">the about page</a> to find out more about this process.)</center>
+        <center>Thank you for submitting a paper to Scicademy! Keep in mind that it may take a day or two for the paper to be proccessed and published. (see <a style="color:blue;" href="about.html">the about page</a> to find out more about this process.)</center>
         <button style="margin-left: 107px;margin-top:10px;" id="closeSubmit" class="btn btn-lg btn-primary">Ok</button>
     </div>
 

@@ -20,7 +20,7 @@ app = express();
 app.use(bodyParser.json());
 app.use(busboy());
 var uri = "mongodb://PublicIO:publicpass@ds036698.mongolab.com:36698/alirodatabase";
-var db = mongojs(uri, ["Papers", "Pdfs", "Users"], {
+var db = mongojs(uri, ["Papers", "Users"], {
     authMechanism: 'ScramSHA1'
 });
 
@@ -33,8 +33,8 @@ app.post('/completeAuthor', function(req, res) {
             $regex: req.body.letters.term.toLowerCase()
         }
     };
-    db.Users.find(searchObj, function(err, doc) {
-        res.send(doc);
+    db.Users.find(searchObj, function(err, curs) {
+        res.send(curs);
     })
 });
 
