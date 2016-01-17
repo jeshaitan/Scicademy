@@ -42,31 +42,6 @@
 
 <body class="colorBody">
     <script>
-        $('#compSci').on('ifChecked', function(event) {
-          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=compSci?query='+url.slice(url.indexOf('?query=') + 7);
-        });
-        $('#bioChem').on('ifChecked', function(event) {
-          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=bioChem?query='+url.slice(url.indexOf('?query=') + 7);
-        });
-        $('#genBio').on('ifChecked', function(event) {
-          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=genBio?query='+url.slice(url.indexOf('?query=') + 7);
-        });
-        $('#psych').on('ifChecked', function(event) {
-          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=psych?query='+url.slice(url.indexOf('?query=') + 7);
-        });
-        $('#genChem').on('ifChecked', function(event) {
-          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=genChem?query='+url.slice(url.indexOf('?query=') + 7);
-        });
-        $('#earth').on('ifChecked', function(event) {
-          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=earth?query='+url.slice(url.indexOf('?query=') + 7);
-        });
-        $('#physAstro').on('ifChecked', function(event) {
-          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=physAstro?query='+url.slice(url.indexOf('?query=') + 7);
-        });
-        $('#proto').on('ifChecked', function(event) {
-          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=proto?query='+url.slice(url.indexOf('?query=') + 7);
-        });
-
         $(document).ready(function() {
             $.getScript('javascript/index-logic.js', function(jd) {});
 
@@ -96,7 +71,11 @@
                 "query": queryString,
                 "searchType": searchType,
                 "filter": filter
-            };console.log(filter)
+            };
+            $('#'+filter).iCheck('check');
+            $('.filterBy').on('ifChecked', function(event) {
+                window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter='+ event.target.id +'?query=' + url.slice(url.indexOf('?query=') + 7);
+            });
 
             $.ajax({
                 url: '/getPaper',
@@ -222,7 +201,7 @@
         <ul id="navlist" class="sm sm-simple">
             <li><a href="index.html">Home</a></li>
             <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-            <li><a href="results.html?type=Browse?filter=?query=">Browse Projects</a></li>
+            <li><a href="results.html?type=6?filter=?query=">Browse Projects</a></li>
             <li id="aboutli"><a href="about.html">About Us</a></li>
             <li><a href="" id="siso">Sign In or Register</a></li>
         </ul>
@@ -257,22 +236,22 @@
                 <div class="filterBy">
                     <h4>Filter By:</h4>
                     <div id="filterOptions">
-                      <input type="radio" onClick="filterToSubject('compSci');" name="filterByOptions" id="compSci" class="filterBy">Computer Science and Modelling</input>
-                      <br>
-                      <input type="radio" onClick="filterToSubject('bioChem');" name="filterByOptions" id="bioChem" class="filterBy">Biochemistry and Molecular Biology</input>
-                      <br>
-                      <input type="radio" onClick="filterToSubject('genBio');" name="filterByOptions" id="genBio" class="filterBy">General Biology</input>
-                      <br>
-                      <input type="radio" onClick="filterToSubject('psych');" name="filterByOptions" id="psych" class="filterBy">Behavioral and Social Science</input>
-                      <br>
-                      <input type="radio" onClick="filterToSubject('genChem');" name="filterByOptions" id="genChem" class="filterBy">General Chemistry</input>
-                      <br>
-                      <input type="radio" onClick="filterToSubject('earth');" name="filterByOptions" id="earth" class="filterBy">Earth and Environmental Science</input>
-                      <br>
-                      <input type="radio" onClick="filterToSubject('physAstro');" name="filterByOptions" id="physAstro" class="filterBy">Physics and Astronomy</input>
-                      <br>
-                      <input type="radio" onClick="filterToSubject('proto');" name="filterByOptions" id="proto" class="filterBy">Prototype Engineering</input>
-                      <br>
+                        <input type="radio" name="filterByOptions" id="compSci" class="filterBy">Computer Science and Modelling</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="bioChem" class="filterBy">Biochemistry and Molecular Biology</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="genBio" class="filterBy">General Biology</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="psych" class="filterBy">Behavioral and Social Science</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="genChem" class="filterBy">General Chemistry</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="earth" class="filterBy">Earth and Environmental Science</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="physAstro" class="filterBy">Physics and Astronomy</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="proto" class="filterBy">Prototype Engineering</input>
+                        <br>
                     </div>
                 </div>
             </div>
