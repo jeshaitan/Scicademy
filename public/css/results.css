@@ -32,6 +32,10 @@
     text-decoration: none;
 }
 
+.iradio_flat-blue {
+  margin-right: 5px !important;
+}
+
 .authors a:hover {
     text-decoration: underline;
     cursor: ponter;
