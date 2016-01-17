@@ -107,37 +107,37 @@ $(document).ready(function() {
             </div>';
     var currentLink = window.location.href;
     var shakeSign = false;
-    if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)){
-        signInHtml +='<center><div id="alertDiv"><p id="alerttext" class="alertP">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' +signInHtmlEnd;
-        shakeSign=true;
-    }
-    else{
+    if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)) {
+        signInHtml += '<center><div id="alertDiv"><p id="alerttext" class="alertP">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' + signInHtmlEnd;
+        shakeSign = true;
+    } else {
         signInHtml += signInHtmlEnd;
     }
     $('#signInBox').html(signInHtml);
-    if(shakeSign){
-        $('#alertDiv').effect( "bounce", {times:3}, 1200 );
+    if (shakeSign) {
+        $('#alertDiv').effect("bounce", {
+            times: 3
+        }, 1200);
     }
     if (currentUser != null && !($("#navlist #nameli").length)) {
         document.getElementById('siso').innerHTML = "Sign Out";
-        $('#aboutli').closest('li').after('<li><a href="user.html?id='+currentUser._id+'" id="nameli">'+currentUser.firstname+'</a></li>');
+        $('#aboutli').closest('li').after('<li><a href="user.html?id=' + currentUser._id + '" id="nameli">' + currentUser.firstname + '</a></li>');
     }
 
     $('#siso').click(function(event) {
         event.preventDefault();
-        if(currentUser == null) {
+        if (currentUser == null) {
             $('#signInBox').dialog('open');
             $('#element_2_1').focus();
-        }
-        else { //sign out
+        } else { //sign out
             localStorage.clear();
             location.reload();
         }
     });
 
-    $('.sm').smartmenus( {
+    $('.sm').smartmenus({
         showFunction: function($ul, complete) {
-            $ul.slideDown(250,complete);
+            $ul.slideDown(250, complete);
         },
         hideFunction: function($ul, complete) {
             $ul.slideUp(250, complete);
@@ -146,11 +146,11 @@ $(document).ready(function() {
 
     $('#signInBox').dialog({
         modal: true,
-        resizable:false,
+        resizable: false,
         minWidth: 800,
         minHeight: 'auto',
         autoOpen: false,
-        close: function (event, ui){
+        close: function(event, ui) {
             $('.failedSignIn').remove();
         },
         show: 'fade',
@@ -159,17 +159,17 @@ $(document).ready(function() {
     $('#signInSpin').hide();
     $('#registerSpin').hide();
 
-    $('#registerClick').click(function(event){
+    $('#registerClick').click(function(event) {
         event.preventDefault();
         $('#signInBox').dialog('open');
         $('#email').focus();
     });
 
-    $(document).on("click", ".searchBoxSubmit", function(event){
+    $(document).on("click", ".searchBoxSubmit", function(event) {
         event.preventDefault();
-        query=$('#searchBox').val();
+        query = $('#searchBox').val();
         var searchType = $("input[name=searchTypeOptions]:checked").val();
-        switch(searchType) {
+        switch (searchType) {
             case "All":
                 var type = 1;
                 break;
@@ -185,7 +185,7 @@ $(document).ready(function() {
             default:
                 var type = 1;
         }
-        window.location.href = "results.html?type="+type+"?query="+query;
+        window.location.href = "results.html?type=" + type + "?query=" + query;
     });
 
     $('#signInForm').submit(function(event) {
@@ -203,7 +203,7 @@ $(document).ready(function() {
         // event.stopImmediatePropagation();
         // readSubmitPaperForm($('#form_1039889'));
     });
-    var submitted=false;
+    var submitted = false;
     $('#form_1037235').submit(function(event) {
         $('#saveForm').hide();
         $('#registerSpin').show();
@@ -212,9 +212,9 @@ $(document).ready(function() {
         readRegisterForm($('#form_1037235'));
     });
     //start html injection prevention
-    $(':text').change(function(){
+    $(':text').change(function() {
         var inputText = $(this).val();
-        $(this).val($( $.parseHTML(inputText)).text());
+        $(this).val($($.parseHTML(inputText)).text());
     });
     //end html detection prevention
 
@@ -225,29 +225,29 @@ $(document).ready(function() {
     // $('.signRegisterBut').button();
 
     //add in missing files for sign in
-    var headText= $('head').html();
-    if (headText.indexOf('href="css/searchBox.css"')<0){
+    var headText = $('head').html();
+    if (headText.indexOf('href="css/searchBox.css"') < 0) {
         $('head').append('<link rel="stylesheet" href="css/searchBox.css" type="text/css" />');
     }
 
-    if (headText.indexOf('jquery.validate.min.js')<0){
+    if (headText.indexOf('jquery.validate.min.js') < 0) {
         $('head').append('<script src="libs/jquery.validate.min.js" type="text/javascript"></script>');
     }
 
-    if (headText.indexOf('javascript/view.js')<0){
+    if (headText.indexOf('javascript/view.js') < 0) {
         $('head').append('<script src="javascript/view.js" type="text/javascript"></script>');
     }
 
-    if (headText.indexOf('view.css')<0){
+    if (headText.indexOf('view.css') < 0) {
         $('head').append('<link href="css/view.css" rel="stylesheet">');
     }
-    if (headText.indexOf('fancybox.css')<0){
+    if (headText.indexOf('fancybox.css') < 0) {
         $('head').append('<link href="css/jquery.fancybox.css" rel="stylesheet">');
     }
-    if (headText.indexOf('jquery.fancybox.pack.js')<0){
+    if (headText.indexOf('jquery.fancybox.pack.js') < 0) {
         $('head').append('<link href="javascript/jquery.fancybox.pack.js" rel="stylesheet">');
     }
-    if (headText.indexOf('flat/blue.css')<0){
+    if (headText.indexOf('flat/blue.css') < 0) {
         $('head').append('<link href="css/flat/blue.css" rel = "stylesheet" type = "text/css">');
         $('head').append('<script src="libs/icheck.min.js" type = "text/javascript"></script>');
     }
@@ -255,19 +255,19 @@ $(document).ready(function() {
     //start register javascript
     $('#li_1').hide();
     jQuery.validator.addMethod("isValidEmail", function(value, element) {
-        var emailRegex= /(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*:(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)(?:,\s*(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*))*)?;\s*)/
-        var email=value.match(emailRegex);
+        var emailRegex = /(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*:(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)(?:,\s*(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*))*)?;\s*)/
+        var email = value.match(emailRegex);
         return this.optional(element) || email;
     }, "");
 
     jQuery.validator.addMethod("hasNumber", function(value, element) {
-        var noNums= value.search(/\d/) == -1;  //if true, then no numbers
+        var noNums = value.search(/\d/) == -1; //if true, then no numbers
         return !noNums;
     }, "");
 
     jQuery.validator.addMethod("notJustNums", function(value, element) {
         var isNum = /^\d+$/;
-        var number=isNum.test(value); //check to see if it's only numbers
+        var number = isNum.test(value); //check to see if it's only numbers
         return !number;
     }, "");
 
@@ -275,37 +275,37 @@ $(document).ready(function() {
         width: 62,
         icons: {
             button: "ui-icon-circle-triangle-s"
-        }//end icons
+        } //end icons
     }); //end selectmenu
     // $('#saveForm').button();
     $('#form_1037235').validate({
         rules: {
             element_3: { //email
-                isValidEmail : true
+                isValidEmail: true
             },
 
             element_4: { //password
                 minlength: 6,
-                hasNumber : true,
+                hasNumber: true,
                 notJustNums: true
             },
             element_5: { //confirm password
                 equalTo: '#element_4'
             },
             element_6: { //radio button for highschool or college
-                required:true
+                required: true
             },
 
             element_13: {
-                required:true
+                required: true
             },
 
-            agree:{
-                required:true
+            agree: {
+                required: true
             }
-        },//end rules
+        }, //end rules
         messages: {
-            element_3:{ //email
+            element_3: { //email
                 required: "This field is required",
                 isValidEmail: "Please enter a valid email address"
             },
@@ -320,56 +320,53 @@ $(document).ready(function() {
             element_6: { //radio button for highschool or college
                 required: "Please choose either High School or Undergrad"
             }
-        },//end messages
+        }, //end messages
         errorPlacement: function(error, element) {
-            if (element.is(":radio") || element.is(":checkbox")){
-                error.appendTo(element.parent().parent());
-            }
-            else{
-                error.insertAfter(element);
-            }
-        } //end error placement
+                if (element.is(":radio") || element.is(":checkbox")) {
+                    error.appendTo(element.parent().parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            } //end error placement
     }); //end validate
-    function getvalues(f)
-    {
-        var form=$("#"+f);
-        var str='';
-        $("input:not('input:submit')", form).each(function(i){
-            str+='\n'+$(this).prop('name')+': '+$(this).val();
+    function getvalues(f) {
+        var form = $("#" + f);
+        var str = '';
+        $("input:not('input:submit')", form).each(function(i) {
+            str += '\n' + $(this).prop('name') + ': ' + $(this).val();
         });
         return str;
     }
-    var isvalidate=false;
-    var submitClicked=false;
-    $('#saveForm').click(function(e){
-        submitClicked=true;
+    var isvalidate = false;
+    var submitClicked = false;
+    $('#saveForm').click(function(e) {
+        submitClicked = true;
         $('#form_1037235').validate();
-        var isvalidate=$("#form_1037235").valid();
-        if(isvalidate == false)
-        {
+        var isvalidate = $("#form_1037235").valid();
+        if (isvalidate == false) {
             e.preventDefault();
             $('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid</p>');
         }
     });
     $('#form_1037235').change(function() {
-        if (isvalidate == false && submitClicked == true){
-            isvalidate=$("#form_1037235").valid();
-            if(isvalidate == true){
+        if (isvalidate == false && submitClicked == true) {
+            isvalidate = $("#form_1037235").valid();
+            if (isvalidate == true) {
                 $('#incompleteRegister').remove();
             }
         }
     });
 
     $('.sm').smartmenus({
-        showFunction: function($ul, complete){
-            $ul.slideDown(250,complete);
+        showFunction: function($ul, complete) {
+            $ul.slideDown(250, complete);
         },
-        hideFunction: function($ul, complete){
+        hideFunction: function($ul, complete) {
             $ul.slideUp(250, complete);
         }
     }); //end smartmenus
     $('input').iCheck({
-        checkboxClass:'icheckbox_flat-blue',
+        checkboxClass: 'icheckbox_flat-blue',
         radioClass: 'iradio_flat-blue'
     });
     /*	$(document).on('click','#highCol',function(){
@@ -384,18 +381,16 @@ $(document).ready(function() {
      }
 
      }); //end high school or undergrad click */
-    $('input').on('ifChanged',function(event){
-        if ($('input[name="highCol"]:checked').val()=="1"){
+    $('input').on('ifChanged', function(event) {
+        if ($('input[name="highCol"]:checked').val() == "1") {
             $('#li_1').slideDown();
-        }
-        else{
+        } else {
             $('#li_1').slideUp();
         }
-        if($('input[name="element_14"]:checked').val()=="isPDF"){ //is your file a pdf or word?
+        if ($('input[name="element_14"]:checked').val() == "isPDF") { //is your file a pdf or word?
             $('#convertToPDF').slideUp();
             $('#li_3').slideDown();
-        }
-        else if ($('input[name="element_14"]:checked').val()=="isWord"){
+        } else if ($('input[name="element_14"]:checked').val() == "isWord") {
             $('#li_3').slideUp();
             $('#convertToPDF').slideDown();
         }
@@ -410,7 +405,9 @@ $(window).load(function() {
             url: '/getPaper',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({"searchType": "every"}),
+            data: JSON.stringify({
+                "searchType": "every"
+            }),
             dataType: 'json',
             success: function(curs) {
                 var papers = []
@@ -418,9 +415,11 @@ $(window).load(function() {
                     papers.push(curs[i].title);
                 }
                 localStorage["papers"] = JSON.stringify(papers);
-                var fromStorage = "["+localStorage["papers"]+"]";
+                var fromStorage = "[" + localStorage["papers"] + "]";
                 var papers = JSON.parse(fromStorage);
-                $('#searchBox').autocomplete({source:papers[0]});
+                $('#searchBox').autocomplete({
+                    source: papers[0]
+                });
             }
         });
     }
@@ -430,9 +429,9 @@ $(window).load(function() {
         var out = [];
         var len = list.length;
         var j = 0;
-        for(var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             var item = list[i];
-            if(seen[item] !== 1) {
+            if (seen[item] !== 1) {
                 seen[item] = 1;
                 out[j++] = item;
             }
@@ -440,21 +439,21 @@ $(window).load(function() {
         return out;
     }
 
-    if(!localStorage["papers"]) {
-        if(window.location.pathname.indexOf('/index.html')) {
+    if (!localStorage["papers"]) {
+        if (window.location.pathname.indexOf('/index.html')) {
+            getPapers();
+        } else {
             getPapers();
         }
-        else {
-            getPapers();
-        }
-    }
-    else {
-        var fromStorage = "["+localStorage["papers"]+"]";
+    } else {
+        var fromStorage = "[" + localStorage["papers"] + "]";
         var papers = JSON.parse(fromStorage);
-        $('#searchBox').autocomplete({source:papers[0]});
+        $('#searchBox').autocomplete({
+            source: papers[0]
+        });
     }
 
-    if(!localStorage["schools"]) {
+    if (!localStorage["schools"]) {
         $.ajax({
             url: '/getSchools',
             type: 'POST',
@@ -468,16 +467,19 @@ $(window).load(function() {
                 }
                 schools = unique_ify(schools);
                 localStorage.setItem("schools", JSON.stringify(schools));
-                var fromStorage = "["+localStorage["schools"]+"]";
+                var fromStorage = "[" + localStorage["schools"] + "]";
                 schools = JSON.parse(fromStorage);
-                $('#element_7').autocomplete({source:schools[0]});
+                $('#element_7').autocomplete({
+                    source: schools[0]
+                });
             }
         });
-    }
-    else {
-        var fromStorage = "["+localStorage["schools"]+"]";
+    } else {
+        var fromStorage = "[" + localStorage["schools"] + "]";
         var schools = JSON.parse(fromStorage);
-        $('#element_7').autocomplete({source:schools[0]});
+        $('#element_7').autocomplete({
+            source: schools[0]
+        });
     }
 });
 
@@ -493,10 +495,9 @@ function readRegisterForm(form) {
         lastname = $('#element_2_2').val(),
         is_highschool = ($('#element_6_1').is(':checked')),
         school = $('#element_7').val();
-    if(is_highschool) {
+    if (is_highschool) {
         var grade = $('#element_1').val();
-    }
-    else {
+    } else {
         var grade = "undergrad";
     }
     var email = $('#element_3').val(),
@@ -504,22 +505,30 @@ function readRegisterForm(form) {
 
     var today = new Date();
     var dd = today.getDate();
-    var mm = today.getMonth()+1;//jan -> 0 (+1)
+    var mm = today.getMonth() + 1; //jan -> 0 (+1)
     var yyyy = today.getFullYear();
 
-    if(dd<10) {
-        dd='0'+dd
+    if (dd < 10) {
+        dd = '0' + dd
     }
 
-    if(mm<10) {
-        mm='0'+mm
+    if (mm < 10) {
+        mm = '0' + mm
     }
 
-    today = mm+'/'+dd+'/'+yyyy;
+    today = mm + '/' + dd + '/' + yyyy;
 
     var isSummer = ($('#element_13_2').is(':checked'));
-    var newuser = {"fnm": firstname, "lnm": lastname, "grd": grade,
-        "shl": school, "eml": email, "pwd": password, "dte": today, "isSum": isSummer};
+    var newuser = {
+        "fnm": firstname,
+        "lnm": lastname,
+        "grd": grade,
+        "shl": school,
+        "eml": email,
+        "pwd": password,
+        "dte": today,
+        "isSum": isSummer
+    };
     addUser(newuser);
 }
 
@@ -530,32 +539,32 @@ function readSubmitPaperForm(form) {
         subject = $("input[name=subjectArea]:checked").val(),
         authorsid = [$('#element_4_1h').val()],
         institution = $('#inst').val();
-    keywords= $(".tagit-label").map(function() {
+    keywords = $(".tagit-label").map(function() {
         return $(this).text();
     }).get();
 
-    $('#authorsDiv .tagit-choice').each(function(){
+    $('#authorsDiv .tagit-choice').each(function() {
         //TODO look for the notRealAuthor class, school:lipsum to get school, and go to this.span .val() to get name
     });
 
-    for(var i = 0; i < $('.spawnUserID').length; i++) {
+    for (var i = 0; i < $('.spawnUserID').length; i++) {
         authorsid.push($('.spawnUserIDh')[i].value);
     }
 
     var today = new Date(),
         dd = today.getDate(),
-        mm = today.getMonth()+1,
+        mm = today.getMonth() + 1,
         yyyy = today.getFullYear();
 
-    if(dd<10) {
-        dd='0'+dd;
+    if (dd < 10) {
+        dd = '0' + dd;
     }
 
-    if(mm<10) {
-        mm='0'+mm;
+    if (mm < 10) {
+        mm = '0' + mm;
     }
 
-    today = mm+'/'+dd+'/'+yyyy;
+    today = mm + '/' + dd + '/' + yyyy;
     var formData = new FormData();
     formData.append('pdf', $(element_3)[0].files[0]);
     $.ajax({
@@ -593,8 +602,7 @@ function addUser(newuser) {
             $('#saveForm').show();
             if (Object.getOwnPropertyNames(res).length == 0) {
                 $('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>');
-            }
-            else {
+            } else {
                 document.location.href = "/index.html";
                 localStorage.setItem('registerComplete', '1');
             }
@@ -638,25 +646,22 @@ function requestUser(email, password) {
         $('#signInButton').show();
         console.log('ran');
         $('#signInSpin').hide();
-        if (textStatus == 'parsererror'){
-            if ($('.userPass').length == 0){
+        if (textStatus == 'parsererror') {
+            if ($('.userPass').length == 0) {
                 $('#signInFormDiv').append('<p class="failedSignIn userPass" style="float:left;color:#f00;font-weight: bold;font-size: 12px;line-height: 9px;text-align:center;">No known user with above login credentials.</p>');
-                if($('.unknownE').length > 0){
+                if ($('.unknownE').length > 0) {
                     $('.unknownE').remove();
                 }
-            }
-            else{
+            } else {
                 $('.userPass').effect('shake');
             }
-        }
-        else{
-            if ($('.unknownE').length == 0){
+        } else {
+            if ($('.unknownE').length == 0) {
                 $('#signInFormDiv').append('<p class="failedSignIn unknownE" style="float:left;color:#f00;font-weight: bold;font-size: 12px;line-height: 9px;text-align:center;">Unknown error. Please try logging in later</p>');
-                if($('.userPass').length > 0){
+                if ($('.userPass').length > 0) {
                     $('.userPass').remove();
                 }
-            }
-            else{
+            } else {
                 $('.unknownE').effect('shake');
             }
         }
