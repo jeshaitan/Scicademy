@@ -185,7 +185,7 @@ $(document).ready(function() {
             default:
                 var type = 1;
         }
-        window.location.href = "results.html?type=" + type + "?query=" + query;
+        window.location.href = "results.html?type=" + type + "?filter=?query=" + query;
     });
 
     $('#signInForm').submit(function(event) {
@@ -203,6 +203,7 @@ $(document).ready(function() {
         // event.stopImmediatePropagation();
         // readSubmitPaperForm($('#form_1039889'));
     });
+
     var submitted = false;
     $('#form_1037235').submit(function(event) {
         $('#saveForm').hide();
@@ -218,13 +219,6 @@ $(document).ready(function() {
     });
     //end html detection prevention
 
-    // if (submitted){
-    // $('#registerComplete').dialog('open');
-    // }
-
-    // $('.signRegisterBut').button();
-
-    //add in missing files for sign in
     var headText = $('head').html();
     if (headText.indexOf('href="css/searchBox.css"') < 0) {
         $('head').append('<link rel="stylesheet" href="css/searchBox.css" type="text/css" />');
@@ -306,19 +300,19 @@ $(document).ready(function() {
         }, //end rules
         messages: {
             element_3: { //email
-                required: "This field is required",
-                isValidEmail: "Please enter a valid email address"
+                required: "This field is required.",
+                isValidEmail: "Please enter a valid email address."
             },
             element_4: {
-                hasNumber: "Make sure that your password contains at least one number",
-                notJustNums: "Your password cannot contain only numbers",
-                minlength: "Your password must contain at least six characters"
+                hasNumber: "Make sure that your password contains at least one number.",
+                notJustNums: "Your password cannot contain only numbers.",
+                minlength: "Your password must contain at least six characters."
             },
             element_5: {
-                equalTo: "The passwords do not match"
+                equalTo: "The passwords do not match."
             },
             element_6: { //radio button for highschool or college
-                required: "Please choose either High School or Undergrad"
+                required: "Please choose either High School or Undergrad."
             }
         }, //end messages
         errorPlacement: function(error, element) {
@@ -345,7 +339,7 @@ $(document).ready(function() {
         var isvalidate = $("#form_1037235").valid();
         if (isvalidate == false) {
             e.preventDefault();
-            $('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid</p>');
+            $('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid.</p>');
         }
     });
     $('#form_1037235').change(function() {

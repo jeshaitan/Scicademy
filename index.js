@@ -67,6 +67,9 @@ app.post('/getUser', function(req, res) {
 });
 
 app.post('/getPaper', function(req, res) {
+    if (req.body.filter == '')
+        var filter = /.*?/;
+
     if (req.body.searchType == "All") {
         var searchObject = {
             $or: [{
@@ -77,6 +80,8 @@ app.post('/getPaper', function(req, res) {
                 keywords: req.body.query
             }, {
                 authors: req.body.query
+            }, {
+                abstract: req.body.query
             }]
         };
     } else if (req.body.searchType == "Title") {
@@ -90,11 +95,11 @@ app.post('/getPaper', function(req, res) {
             keywords: req.body.query
         };
     } else if (req.body.searchType == "Author") {
-        db.Users.find({
+        db.Users.find($and [{
             $text: {
                 $search: req.body.query
             }
-        }, function(err, curs) {
+        }], function(err, curs) {
             if (err) {
                 console.log(err)
             } else {
@@ -107,7 +112,14 @@ app.post('/getPaper', function(req, res) {
                     res.send([]);
                 } else {
                     db.Papers.find({
-                        $or: searchObjectArray
+                      $and: [
+                        {
+                          $or: searchObjectArray
+                        },
+                        {
+                          subject: req.body.filter
+                        }
+                      ]
                     }, function(err, curs) {
                         if (err) {
                             console.log(err);
@@ -134,11 +146,12 @@ app.post('/getPaper', function(req, res) {
         };
     }
     if (req.body.searchType != "Author") {
-        db.Papers.find(searchObject, function(err, curs) {
+        db.Papers.find({$and: [searchObject, {subject: req.body.filter}]}, function(err, curs) {
             if (err) {
                 console.log(err);
             } else {
                 res.send(curs);
+                console.log(searchObject);
             }
         });
     }
@@ -251,8 +264,8 @@ app.post('/addPaper', function(req, res) {
 });
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
     var fstream;

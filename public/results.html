@@ -42,12 +42,37 @@
 
 <body class="colorBody">
     <script>
+        $('#compSci').on('ifChecked', function(event) {
+          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=compSci?query='+url.slice(url.indexOf('?query=') + 7);
+        });
+        $('#bioChem').on('ifChecked', function(event) {
+          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=bioChem?query='+url.slice(url.indexOf('?query=') + 7);
+        });
+        $('#genBio').on('ifChecked', function(event) {
+          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=genBio?query='+url.slice(url.indexOf('?query=') + 7);
+        });
+        $('#psych').on('ifChecked', function(event) {
+          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=psych?query='+url.slice(url.indexOf('?query=') + 7);
+        });
+        $('#genChem').on('ifChecked', function(event) {
+          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=genChem?query='+url.slice(url.indexOf('?query=') + 7);
+        });
+        $('#earth').on('ifChecked', function(event) {
+          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=earth?query='+url.slice(url.indexOf('?query=') + 7);
+        });
+        $('#physAstro').on('ifChecked', function(event) {
+          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=physAstro?query='+url.slice(url.indexOf('?query=') + 7);
+        });
+        $('#proto').on('ifChecked', function(event) {
+          window.location.href = '/results.html?type='+url.charAt(url.indexOf('?type=') + 6) + '?filter=proto?query='+url.slice(url.indexOf('?query=') + 7);
+        });
+
         $(document).ready(function() {
             $.getScript('javascript/index-logic.js', function(jd) {});
 
             var url = window.location.href;
-            var queryString = url.slice(url.indexOf('?query=') + 7);
-            queryString = decodeURI(queryString);
+            var queryString = decodeURI(url.slice(url.indexOf('?query=') + 7));
+            var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?query='));
             var searchType = url.charAt(url.indexOf('?type=') + 6);
             if (searchType == 1) {
                 searchType = "All";
@@ -66,10 +91,12 @@
                 $('#abstract').iCheck('check');
             } else if (searchType == 6)
                 searchType = "Browse";
+
             var searchPaper = {
                 "query": queryString,
-                "searchType": searchType
-            };
+                "searchType": searchType,
+                "filter": filter
+            };console.log(filter)
 
             $.ajax({
                 url: '/getPaper',
@@ -80,18 +107,6 @@
                 success: addPapers
             });
 
-            /*             $.ajax({
-                             url: '/getRecentPaper',
-                             type: 'POST',
-                             contentType: 'application/json',
-                             data: JSON.stringify(searchPaper),
-                             dataType: 'json',
-                             success: printYay
-                         });
-                        function printYay(data){
-                            console.log('here it is');
-                            console.log(data);
-                        }*/
             function removeJSONthat(array, property, value) {
                 $.each(array, function(index, obj) {
                     if (obj[property] == value) {
@@ -113,7 +128,7 @@
                  							<div class="abstractDiv">\
                  								<a class="abstractText">\
                  									<span class="arrowClick arrowSide"></span>\
-                 									<span class="preTxt">Don\'t lose hope!</span>\
+                 									<span class="preTxt">See below for more info.</span>\
                  								</a>\
                  							<div class="abstractParagraph" id="abstract0">If you are looking for a specific paper and it\'s not here, try searching by Author (All Fields searches Author by User Id).<br /> If you\'re looking to see if your idea is original, you\'re in luck!</div>\
                               <div class="abstractParagraph" id="abstract0.5"><br /><em>\"Originality is nothing but judicious imitation. The most original writers borrowed one from another\"</em> -Voltaire</div>\
@@ -207,7 +222,7 @@
         <ul id="navlist" class="sm sm-simple">
             <li><a href="index.html">Home</a></li>
             <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-            <li><a href="results.html?type=Browse?query=">Browse Projects</a></li>
+            <li><a href="results.html?type=Browse?filter=?query=">Browse Projects</a></li>
             <li id="aboutli"><a href="about.html">About Us</a></li>
             <li><a href="" id="siso">Sign In or Register</a></li>
         </ul>
@@ -237,7 +252,27 @@
                         <br>
                         <input type="radio" name="searchTypeOptions" value="Abstract" id="abstract" class="searchBy">Abstract</input>
                         <br>
-                        <!--<input type="radio" name="searchTypeOptions" value="Author" class="searchBy">Institution</input>-->
+                    </div>
+                </div>
+                <div class="filterBy">
+                    <h4>Filter By:</h4>
+                    <div id="filterOptions">
+                      <input type="radio" onClick="filterToSubject('compSci');" name="filterByOptions" id="compSci" class="filterBy">Computer Science and Modelling</input>
+                      <br>
+                      <input type="radio" onClick="filterToSubject('bioChem');" name="filterByOptions" id="bioChem" class="filterBy">Biochemistry and Molecular Biology</input>
+                      <br>
+                      <input type="radio" onClick="filterToSubject('genBio');" name="filterByOptions" id="genBio" class="filterBy">General Biology</input>
+                      <br>
+                      <input type="radio" onClick="filterToSubject('psych');" name="filterByOptions" id="psych" class="filterBy">Behavioral and Social Science</input>
+                      <br>
+                      <input type="radio" onClick="filterToSubject('genChem');" name="filterByOptions" id="genChem" class="filterBy">General Chemistry</input>
+                      <br>
+                      <input type="radio" onClick="filterToSubject('earth');" name="filterByOptions" id="earth" class="filterBy">Earth and Environmental Science</input>
+                      <br>
+                      <input type="radio" onClick="filterToSubject('physAstro');" name="filterByOptions" id="physAstro" class="filterBy">Physics and Astronomy</input>
+                      <br>
+                      <input type="radio" onClick="filterToSubject('proto');" name="filterByOptions" id="proto" class="filterBy">Prototype Engineering</input>
+                      <br>
                     </div>
                 </div>
             </div>
