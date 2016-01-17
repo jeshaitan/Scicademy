@@ -16,6 +16,7 @@ body {
 .grid {
     clear: both;
 }
+
 .grid {
     clear: both;
     margin: 0 auto;
@@ -40,18 +41,20 @@ body {
     font-size: 10px;
 }
 
-#ui-id-4{
-	width: 600px;
+#ui-id-4 {
+    width: 600px;
 }
 
 #keywordsDiv ul.tagit input[type="text"] {
     outline: medium none !important;
     border: medium none !important;
     box-shadow: none !important;
-    margin: 0 !important;;
+    margin: 0 !important;
+    ;
     padding: 0 !important;
     width: inherit !important;
 }
+
 #keywordsDiv ul.tagit input[type="text"] {
     outline: medium none !important;
     border: medium none !important;
@@ -84,29 +87,33 @@ ul.tagit li.tagit-choice .tagit-close .text-icon {
     width: 777px !important;
 }
 
-#authorsDiv ul.tagit input[type="text"]{
-	outline: medium none !important;
-	border: medium none !important;
-	box-shadow: none !important;
-	margin: 0 !important;;
-	padding: 0 !important;
-	width: inherit !important;
-}
-#authorsDiv ul.tagit li{
-	list-style: outside none disc !important;
-	width: auto !important;
-
+#authorsDiv ul.tagit input[type="text"] {
+    outline: medium none !important;
+    border: medium none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    ;
+    padding: 0 !important;
+    width: inherit !important;
 }
 
-#authorsDiv td label{
-	color: #222222 !important;
+#authorsDiv ul.tagit li {
+    list-style: outside none disc !important;
+    width: auto !important;
 }
 
-#authorTags{
-	overflow:hidden !important;
+#authorsDiv td label {
+    color: #222222 !important;
 }
 
-#form_container .required:after { content:" *"; color:red; }
+#authorTags {
+    overflow: hidden !important;
+}
+
+#form_container .required:after {
+    content: " *";
+    color: red;
+}
 
 #form_container .required:after {
     content: " *";
@@ -218,12 +225,16 @@ textarea.error {
     border: 1px solid red !important;
 }
 
-#authorsDiv ul.error{
-	border: 1px solid red !important;
+#authorsDiv ul.error {
+    border: 1px solid red !important;
 }
 
+
 /*#form_1039889 input[type="text"], #form_1039889 input[type="password"], #form_1039889 textarea {*/
+
+
 /*=======*/
+
 #form_1039889 input[type="text"],
 #form_1039889 input[type="password"],
 #form_1039889 textarea {
