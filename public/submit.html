@@ -41,11 +41,27 @@
 
         ga('create', 'UA-69262899-1', 'auto');
         ga('send', 'pageview');
+
+        function unique_ifyObj(list) {
+            var seen = [];
+            var out = [];
+            var j = 0;
+            for (var i = 0; i < list.length; i++) {
+                var item = list[i].name;
+                if ($.inArray(item, seen) === -1 && typeof list[i].school !== undefined){ //have to add undefined bit because one copy has school undefinded
+                    seen.push(item);
+                    out.push(list[i]);
+                }
+            }
+            return out;
+        }
+
     </script>
 </head>
 
 <body id="main_body" class="colorBody submitBody">
     <script type="text/javascript">
+        var currentAuthors = [];
         $(document).ready(function() {
 
             $.getScript('javascript/index-logic.js', function(jd) {});
@@ -157,6 +173,33 @@
             });
 
             $('#form_1039889').submit(function(e) {
+                currentAuthors = unique_ifyObj(currentAuthors);
+                for (var i = 0; i < currentAuthors.length; i++){
+                    if (currentAuthors[i].name == "No author found."){
+                        currentAuthors.splice(i,1);
+                        i = i-1;
+                    }
+                }
+                console.log('final: ');
+                console.log(currentAuthors);
+                for (var i = 0; i < currentAuthors.length; i++){
+                    console.log(currentAuthors[i].name);
+                }
+
+                for (var i = 0; i < currentAuthors.length; i++) {
+                    var authId = currentAuthors[i].id;
+                    if (authId === 0 || authId === '0') {
+                        var tempAuthor = {
+                            firstName: currentAuthors[i].firstName,
+                            lastName: currentAuthors[i].lastName,
+                            school: currentAuthors[i].school,
+                            name: currentAuthors[i].name
+                        };
+                        console.log(tempAuthor);
+                    }
+
+                }
+
                 $('#submitSpin').show();
                 $('#submitSaveForm').hide();
                 $('#form_1039889').validate();
@@ -172,8 +215,6 @@
                     $('#keywordTags').removeClass('error');
                     $('#keywordError').remove();
                 }
-                console.log('here author length, here boy!');
-                console.log(authorLength);
                 if (authorLength < 1) {
                     $('#authorTags').addClass('error');
                     if ($('#authorError').length < 1) {
@@ -244,7 +285,6 @@
 
             //tagit plugin for authors
             var bigAuthorList = [];
-            var currentAuthors = [];
             var createNew = false;
             var fullName = '';
             var bypass = false;
@@ -300,9 +340,11 @@
 
                     if (noAuthor === true) {
                         var searchTerm = 'No author found.';
+                        noAuthor = false;
                     } else {
                         var searchTerm = ui.tagLabel;
                     }
+                    console.log('serach term: ' + searchTerm);
                     var idObj = $.grep(bigAuthorList, function(e) {
                         return e.value === searchTerm;
                     });
@@ -316,6 +358,8 @@
                     };
 
                     currentAuthors.push(currentAuthor);
+                    console.log('after 355');
+                    console.log(currentAuthors);
                     if (ui.tagLabel === 'No author found.') {
                         noAuthor = true;
                         $('#authorDialog').dialog('open');
@@ -341,7 +385,7 @@
                             }
                         }
                         console.log('found index: ' + foundIt);
-                        currentAuthors = currentAuthors.splice(foundIt, 1);
+                        currentAuthors.splice(foundIt, 1);
                         console.log('new currentAuthors after splcie: ' + currentAuthors);
                     }
                 }
@@ -363,7 +407,6 @@
             });
 
             $('#keywordsDiv input').focus(function() {
-                console.log('ran focus');
                 var blueAura = {
                     'box-shadow': '0 0 5px rgba(81, 203, 238, 1)',
                     'border': '1px solid rgba(81, 203, 238, 1)'
@@ -373,7 +416,6 @@
 
 
             $('#keywordsDiv input').blur(function() {
-                console.log('unfocus');
                 var changeAura = {
                     'box-shadow': '',
                     'border': ''
@@ -420,7 +462,9 @@
                         id: 0,
                         label: 'fakeAuthor',
                         value: fullName,
-                        school: $('#authorSchool').val()
+                        school: $('#authorSchool').val(),
+                        firstName: $('#authorfname').val(),
+                        lastName: $('#authorlname').val()
                     };
                     currentAuthors.push(currentAuthor);
                     $('#authorTags').tagit('createTag', fullName);

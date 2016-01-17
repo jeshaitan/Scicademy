@@ -537,20 +537,31 @@ function readSubmitPaperForm(form) {
         abstract = $('#element_2').val(),
         keywords = [],
         subject = $("input[name=subjectArea]:checked").val(),
-        authorsid = [$('#element_4_1h').val()],
+        authorsid = [],
+        tempAuthors = [],
         institution = $('#inst').val();
     keywords = $(".tagit-label").map(function() {
         return $(this).text();
     }).get();
 
-    $('#authorsDiv .tagit-choice').each(function() {
-        //TODO look for the notRealAuthor class, school:lipsum to get school, and go to this.span .val() to get name
-    });
-
     for (var i = 0; i < $('.spawnUserID').length; i++) {
         authorsid.push($('.spawnUserIDh')[i].value);
     }
 
+    for (var i = 0; i < currentAuthors.length; i++) {
+        var authId = currentAuthors[i].id;
+        authorsid.push(authId);
+        if (authId === 0 || authId === '0') {
+            var tempAuthor = {
+                firstName: currentAuthors[i].firstName,
+                lastName: currentAuthors[i].lastName,
+                school: currentAuthors[i].school,
+                name: currentAuthors[i].name
+            };
+            tempAuthors.push(tempAuthor);
+        }
+
+    }
     var today = new Date(),
         dd = today.getDate(),
         mm = today.getMonth() + 1,
@@ -581,7 +592,7 @@ function readSubmitPaperForm(form) {
                 "keywords": keywords,
                 "subject": subject,
                 "institution": institution,
-                //TODO add tempAuthor
+                "tempAuthors": tempAuthors,
                 "pdf": response,
                 "date": today
             };
