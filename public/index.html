@@ -88,7 +88,41 @@
                     show: 'fade',
                     hide: 'fold'
                 });
+                var authInfo = {
+                    "firstName": 'dick',
+                    "lastName": 'butt',
+                    "school": '6969'
+                };
+                //TODO: uncomment below when ready to go public and you want test, delete the above
+//                var authInfo = {
+//                    "firstName": localstorage.getItem('fName'),
+//                    "lastName": localstorage.getItem('lName'),
+//                    "school": localstorage.getItem('school')
+//                };
+                $.ajax({
+                    url: '/getAllTemps',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(authInfo),
+                    dataType: 'json',
+                    success: function(docB) {
+                        console.log('all temps here you go');
+                        console.log(docB);
+                    }
+                });
                 if (localStorage.getItem('registerComplete') == '1') {
+                    var excludes = {};
+                    $.ajax({
+                        url: '/getAllTemps',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(excludes),
+                        dataType: 'json',
+                        success: function(docB) {
+                            console.log('all temps here you go');
+                            console.log(docB);
+                        }
+                    });
                     $('#registerComplete').dialog('open');
                     localStorage.setItem('registerComplete', '0');
                 }

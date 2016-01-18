@@ -484,7 +484,9 @@ function readSignInForm(form) {
     var signinPassword = $("#password").val();
     requestUser(signinEmail, signinPassword);
 }
-
+var searchFName = '';
+var searchLName = '';
+var searchSchool = '';
 function readRegisterForm(form) {
     var firstname = $('#element_2_1').val(),
         lastname = $('#element_2_2').val(),
@@ -524,6 +526,9 @@ function readRegisterForm(form) {
         "dte": today,
         "isSum": isSummer
     };
+    searchFName = firstname;
+    searchLName = lastname;
+    searchSchool = school;
     addUser(newuser);
 }
 
@@ -611,6 +616,9 @@ function addUser(newuser) {
             } else {
                 document.location.href = "/index.html";
                 localStorage.setItem('registerComplete', '1');
+                localStorage.setItem('fName', searchFName);
+                localStorage.setItem('lName', searchLName);
+                localStorage.setItem('school', searchSchool);
             }
         }
     });
