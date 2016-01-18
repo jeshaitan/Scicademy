@@ -80,6 +80,37 @@ app.post('/getTemps', function(req, res) {
     });
 });
 
+app.post('/getAllTemps', function(req, res) {
+    var papers = db.Papers.find(function(err, doc) { //doc has all the papers in the "Papers" collection
+        if (err) {
+            console.log(err);
+        } else {
+            var allTemps = [];
+            for (var i = 0; i < doc.length; i++){
+                allTemps.push({
+                    "temps":doc[i].tempAuthors,
+                    "paperID":doc[i]._id
+                });
+            }
+            var testArray = [];
+            for (var i = 0; i < allTemps.length; i++){ //iterate through an array of objects for all the "tempAuthors" arrays and their ids in each paper
+                for (var j = 0; j < allTemps[i].temps.length; j++){ //iterate through an array of all the objects in a tempAuthor array
+                    var curArray = allTemps[i].temps;
+                    var curObj = curArray[j]; //actual tempAuthor object
+                        testArray.push({
+                            "tempObj":curObj,
+                            "respectivePaper":allTemps[i].paperID //the id of the paper for the above tempauthor object
+                        }); //so now this is an array with a tempautthor object and the id for the paper that the tempauthor object belongs to
+                }
+            }
+            for (var i = 0; i < testArray.length; i++){
+                var fNName = testArray[i].temp;
+            }
+            res.send(testArray);
+        }
+    });
+});
+
 app.post('/getPaper', function(req, res) {
     if (req.body.filter == '')
         var filter = /.*?/;
@@ -147,6 +178,13 @@ app.post('/getPaper', function(req, res) {
         var searchObject = {
             "_id": ObjectID(req.body.query)
         };
+        db.Papers.find(searchObject, function(err, curs) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(curs);
+            }
+        });
     } else if (req.body.searchType == 'every') {
         var searchObject = {};
     }
@@ -211,7 +249,7 @@ app.post('/addUser', function(req, res) {
                             to: req.body.eml,
                             subject: 'Welcome to Scicademy!',
                             text: 'You have just created an account with Scicademy. Add some publications to show the world your passion for science!'
-                        }
+                        };
                         mailgun.messages().send(data, function(error, body) {
                             console.log(body);
                         });
