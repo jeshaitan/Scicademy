@@ -66,6 +66,20 @@ app.post('/getUser', function(req, res) {
     });
 });
 
+app.post('/getTemps', function(req, res) {
+    var searchObj = { "_id" : ObjectID(req.body.paperId) };
+    var paper = db.Papers.findOne(searchObj, function(err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send({
+                "temps":doc.tempAuthors,
+                "meta": req.body.meta
+            });
+        }
+    });
+});
+
 app.post('/getPaper', function(req, res) {
     if (req.body.filter == '')
         var filter = /.*?/;
