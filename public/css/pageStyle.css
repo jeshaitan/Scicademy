@@ -86,6 +86,11 @@ textarea.error {
     margin-top: 10px;
 }
 
+#closeFind {
+    margin-left: 0%;
+    margin-top: 10px;
+}
+
 #registerComplete {
     font-size: 14px;
 }

@@ -1,0 +1,161 @@
+.paperDiv h6 {
+    font-size: 1.108em;
+    margin-bottom: 10px;
+    text-decoration: none;
+    width: 98%;
+}
+
+.date {
+    margin-top: 4px;
+    color: gray;
+    font-size: 13px;
+}
+
+.authors {
+    margin: -7px 0px;
+}
+
+.paperDiv h6:hover {
+    text-decoration: underline;
+}
+
+.paperDiv a {
+    text-decoration: none;
+}
+
+.paperDiv {
+    width: 98% !important;
+}
+
+.authors a {
+    color: black !important;
+    text-decoration: none;
+}
+
+.iradio_flat-blue {
+    margin-right: 5px !important;
+}
+
+.authors a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+#findMyPapers a,
+#findMyPapers a:link {
+    color: #316c9d;
+    text-decoration: none;
+}
+
+#findMyPapers a:hover {
+    text-decoration: underline;
+}
+
+.arrowClick:before {
+    content: url("../images/purpleDownArrow.png");
+}
+
+.arrowSide:before {
+    content: url("../images/purpleRightArrow.png");
+}
+
+.authors a {
+    color: black !important;
+}
+
+.abstractText:hover {
+    cursor: pointer;
+}
+
+.abstractParagraph {
+    margin-top: 5px;
+    display: none;
+}
+
+/*.paperDiv {*/
+    /*margin: 10px 15px 10px 0px;*/
+/*}*/
+
+.sortBy h4 {
+    margin-bottom: 0px;
+}
+
+#dates h6 {
+    margin-top: 14px;
+}
+
+/*#search-form {*/
+    /*background: url(../images/bp.png) top center no-repeat;*/
+    /*margin: 10px auto 10px;*/
+/*}*/
+
+/*#searchTableDiv {*/
+    /*margin-top: 24px;*/
+    /*position: relative;*/
+    /*background-color: white;*/
+    /*!* color for results area *!*/
+/*}*/
+
+/*.form-container {*/
+    /*width: 456px; //adjust*/
+/*}*/
+
+.papers {
+    width: 80%;
+    position: absolute;
+    left: 20%;
+    top: 0px;
+}
+
+.searchInfo {
+    position: relative;
+    width: 15%;
+    height: 600px;
+    top: 10px;
+    left: 30px;
+    padding-left: 10px;
+    --border-right-style: solid;
+    --border-width: 1px;
+}
+
+.separator {
+    margin-right: 50px;
+    height: 1px;
+    background: gray;
+    overflow: hidden;
+}
+
+#grayBack {
+    background-color: #f8f8f8;
+}
+
+.select-style {
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("../images/purpleDownArrow.png") no-repeat 90% 50%;
+}
+
+.select-style select:hover {
+    cursor: pointer;
+    border-style: solid;
+    border-color: #C070A0;
+    border-width: 1px;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}

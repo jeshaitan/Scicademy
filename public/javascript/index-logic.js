@@ -405,7 +405,7 @@ $(window).load(function() {
             }),
             dataType: 'json',
             success: function(curs) {
-                var papers = []
+                var papers = [];
                 for (var i = 0; i < curs.length; i++) {
                     papers.push(curs[i].title);
                 }
@@ -619,6 +619,7 @@ function addUser(newuser) {
                 localStorage.setItem('fName', searchFName);
                 localStorage.setItem('lName', searchLName);
                 localStorage.setItem('school', searchSchool);
+                localStorage.setItem('curID',res[0]._id);
             }
         }
     });

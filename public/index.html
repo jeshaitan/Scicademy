@@ -11,6 +11,8 @@
     <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
     <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
     <link href="css/pageStyle.css" rel="stylesheet" type="text/css">
+    <link href="css/flat/blue.css" rel = "stylesheet" type = "text/css">
+    <link href="css/indexResults.css" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/stylish-portfolio.css" rel="stylesheet" type="text/css">
     <link href="css/searchBox.css" rel="stylesheet" type="text/css">
@@ -19,6 +21,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="libs/icheck.min.js" type = "text/javascript"></script>
     <script src="libs/jquery-ui.min.js" type="text/javascript"></script>
     <script async src="libs/jquery.validate.min.js" type="text/javascript"></script>
     <script async src="javascript/view.js" type="text/javascript"></script>
@@ -88,47 +91,236 @@
                     show: 'fade',
                     hide: 'fold'
                 });
-                var authInfo = {
-                    "firstName": 'dick',
-                    "lastName": 'butt',
-                    "school": '6969'
-                };
-                //TODO: uncomment below when ready to go public and you want test, delete the above
-//                var authInfo = {
-//                    "firstName": localstorage.getItem('fName'),
-//                    "lastName": localstorage.getItem('lName'),
-//                    "school": localstorage.getItem('school')
-//                };
-                $.ajax({
-                    url: '/getAllTemps',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(authInfo),
-                    dataType: 'json',
-                    success: function(docB) {
-                        console.log('all temps here you go');
-                        console.log(docB);
-                    }
+
+                $('#findMyPapers').dialog({
+                    resizable: true,
+                    minWidth: 1000,
+                    minHeight: 200,
+                    autoOpen: false,
+                    show: 'fade',
+                    hide: 'fold'
                 });
+                //TO TEST, DO NOT DELETE
+//                var authInfo = {
+//                    "firstName": 'Rubin',
+//                    "lastName": 'Smith',
+//                    "school": 'William A. shine Great neck South high School'
+//                };
+                //TODO: uncomment below when ready to go public and you want test, delete the above
+                var authInfo = {
+                    "firstName": localStorage.getItem('fName'),
+                    "lastName": localStorage.getItem('lName'),
+                    "school": localStorage.getItem('school')
+                };
+                //TO TEST, DO NOT DELETE
+//                $.ajax({
+//                    url: '/getAllTemps',
+//                    type: 'POST',
+//                    contentType: 'application/json',
+//                    data: JSON.stringify(authInfo),
+//                    dataType: 'json',
+//                    success: function(docB) {
+//                        console.log('all temps here you go');
+//                        console.log(docB);
+//                        if (docB.length >= 1){
+//                            console.log('ddi you make it?');
+//                            retrievePapers(docB);
+//                        }
+//                    }
+//                });
+
+                function retrievePapers(data){
+                    console.log('retrieve papers data');
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var searchIndexPapers = {
+                            "query": data[i].respectivePaper,
+                            "searchType": 'id'
+                        };
+                        $.ajax({
+                            url: '/getPaper',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(searchIndexPapers),
+                            dataType: 'json',
+                            success: addIndexPapers
+                        });
+                    }
+                    $('#findMyPapers').dialog('open');
+                }
+
+                function addIndexPapers(data) {
+                    console.log('data from addindexpapers');
+                    console.log(data);
+                    $('#myPapers').html('');
+                    var title = '',
+                            authors = '',
+                            abstractText = '',
+                            firstAuthor = true,
+                            date = '',
+                            getTemps = false,
+                            nump = 0;
+
+                    var paperHtml = '';
+                    $.each(data, function(paper, paperInfo) { //iterate through each paper
+                        $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
+                            if (infoName == 'authors') { //going into the authors
+                                //then it's authors
+                                var firstAuthor = true;
+                                for (var i = 0; i < info.length; i++) {
+                                    //reverse search info[i]. Returned author object will be called authorObj
+                                    if (info[i] == 0){
+                                        getTemps = true;
+                                        console.log('0ed');
+                                        continue;
+                                    }
+                                    var authorreq = {
+                                        "query": info[i],
+                                        "searchType": "id",
+                                        "meta": nump
+                                    };
+                                    $.ajax({
+                                        url: '/getUser',
+                                        type: 'POST',
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(authorreq),
+                                        dataType: 'json',
+                                        success: function(docB) {
+                                            var authorObj = docB.doc;
+                                            var fullName = authorObj.firstname + ' ' + authorObj.lastname;
+                                            var userId = authorObj._id;
+                                            var userPage = "user.html?id=" + userId;
+                                            if (firstAuthor) {
+                                                authors = '<a href="' + userPage + '">' + fullName + '</a>';
+                                                firstAuthor = false;
+                                            } else {
+                                                authors += '<a href="' + userPage + '">, ' + fullName + ' </a>';
+                                            }
+                                            $('#authors' + (docB.meta)).html(authors);
+                                        }
+                                    });
+
+                                } //end author loop
+
+                                var authorreq2 = {
+                                    "meta": nump,
+                                    "paperId": paperInfo._id
+                                };
+                                console.log('id: '+authorreq2.paperId);
+                                if (getTemps){
+                                    getTemps = false;
+                                    $.ajax({
+                                        url: '/getTemps',
+                                        type: 'POST',
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(authorreq2),
+                                        dataType: 'json',
+                                        success: function(docB) {
+                                            var tempAuthorObj = docB.temps;
+                                            for (var i = 0; i < tempAuthorObj.length; i++){
+                                                var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
+                                                var userId = '0';
+                                            }
+                                            var userPage = "user.html?id=" + userId;
+                                            authors += ', <a href="' + userPage + '">' + fullName + ' </a>';
+                                            $('#authors' + (docB.meta)).html(authors);
+                                        }
+                                    });
+                                }
+                            } //end author if
+                            else { //every piece of info but authors
+                                if (infoName == 'title') {
+                                    title = info;
+                                } else if (infoName == 'date') {
+                                    date = info;
+                                } else if (infoName == 'abstract') {
+                                    abstractText = info;
+                                }
+                            } //end else for everything but authors
+                        }); //end loop through for each piece of info in paper
+                        paperHtml = '<div class="paperDiv">\
+                        <div style="margin-bottom: -12px;"><input style="margin-bottom:8px;" type="checkbox" class="selectMyPapers icheckbox_flat-blue" name="myPapers" value=' + paperInfo._id + '>This is also my paper</div>\
+               							<span class="title">\
+               								<a href="/paper.html?id=' + paperInfo._id + '"><h6>' + title + '</h6></a>\
+               							</span>\
+      									<div class="authors" id="authors' + nump + '"></div>\
+      									<div class="date">' + date + '</div>\
+      								</div>\
+      								<div class="abstractDiv">\
+      									<a class="abstractText">\
+      										<span class="arrowClick arrowSide"></span>\
+      										<span class="preTxt">Abstract</span>\
+      									</a>\
+      									<div class="abstractParagraph" id="abstract1">' + abstractText + '</div>\
+      								</div>\
+               						</div>\
+               						<div class="separator"></div>';
+                        $('#myPapers').append(paperHtml);
+                        nump++;
+                    }); //end loop for each paper
+                } //end addPapers
+
                 if (localStorage.getItem('registerComplete') == '1') {
-                    var excludes = {};
                     $.ajax({
                         url: '/getAllTemps',
                         type: 'POST',
                         contentType: 'application/json',
-                        data: JSON.stringify(excludes),
+                        data: JSON.stringify(authInfo),
                         dataType: 'json',
                         success: function(docB) {
                             console.log('all temps here you go');
                             console.log(docB);
+                            if (docB.length >= 1){
+                                console.log('ddi you make it?');
+                                retrievePapers(docB);
+                            }
+                            else{
+                                $('#registerComplete').dialog('open');
+                            }
                         }
                     });
-                    $('#registerComplete').dialog('open');
                     localStorage.setItem('registerComplete', '0');
                 }
                 $('#closeRegister').click(function() {
                     $('#registerComplete').dialog('close');
                 });
+                $('#closeFind').click(function(){
+                    var checkedValues = $('input:checkbox:checked').map(function() {
+                        return this.value;
+                    }).get();
+                    console.log('checked values: ');
+                    console.log(checkedValues);
+                    //checkedValues is array of all checked papers
+                    var currentAuthorID = localStorage.getItem('curID');
+                    var personInfo = {
+                        "id": currentAuthorID,
+                        "paperIDs":checkedValues,
+                        "firstName": localStorage.getItem('fName'),
+                        "lastName": localStorage.getItem('lName'),
+                        "school": localStorage.getItem('school')
+                    };
+                    $.ajax({
+                        url: '/updatePapers',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(personInfo),
+                        dataType: 'json',
+                        success: function(docB) {
+                        }
+                    });
+                    $('#findMyPapers').dialog('close');
+                });
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_flat-blue',
+                    radioClass: 'iradio_flat-blue'
+                });
+                $(document).on('click', '.abstractText', function(e) {
+                    $(this).parent().find('.arrowClick').toggleClass('arrowSide');
+                    e.preventDefault();
+                    $(this).parent().find('.abstractParagraph').stop().slideToggle();
+                    //$(this).parent().find('.abstractParagraph').slideToggle();
+                    return false;
+            }); //end abstractText click
             });
         </script>
         <div class="navigation">
@@ -159,6 +351,14 @@
             <div id="registerComplete">
                 <center>Thank you for registering and welcome to Scicademy! You can sign in to your account through the "Sign in or Register" tab in the menu above.</center>
                 <button id="closeRegister" class="btn btn-lg btn-primary">Ok</button>
+            </div>
+            <div id = "findMyPapers">
+                <p>Welcome to Scicademy! Some of your research partners may have submitted papers before you created an account here and listed you as a partner.
+                Are any of these your works? If they are, click the check button that is to the left of the paper</p>
+                <div id="myPapers">
+
+                </div>
+                <button id="closeFind" class="btn btn-lg btn-primary">Ok, I've checkmarked all my papers (if any)</button>
             </div>
         </div>
     </div>

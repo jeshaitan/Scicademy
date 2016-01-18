@@ -80,6 +80,42 @@ app.post('/getTemps', function(req, res) {
     });
 });
 
+var soundex = function (s) {
+    var a = s.toLowerCase().split(''),
+        f = a.shift(),
+        r = '',
+        codes = {
+            a: '', e: '', i: '', o: '', u: '',
+            b: 1, f: 1, p: 1, v: 1,
+            c: 2, g: 2, j: 2, k: 2, q: 2, s: 2, x: 2, z: 2,
+            d: 3, t: 3,
+            l: 4,
+            m: 5, n: 5,
+            r: 6
+        };
+
+    r = f +
+        a
+            .map(function (v, i, a) { return codes[v] })
+            .filter(function (v, i, a) {
+                return ((i === 0) ? v !== codes[f] : v !== a[i - 1]);
+            })
+            .join('');
+
+    return (r + '000').slice(0, 4).toUpperCase();
+};
+
+var difference = function(first, second) {
+    var res = 0;
+    for (var i = 0; i < first.length; i++) {
+        if (first.charAt(i) == second.charAt(i)) {
+            res++;
+        }
+    }
+    return res;
+};
+
+
 app.post('/getAllTemps', function(req, res) {
     var papers = db.Papers.find(function(err, doc) { //doc has all the papers in the "Papers" collection
         if (err) {
@@ -93,8 +129,8 @@ app.post('/getAllTemps', function(req, res) {
                 });
             }
             var testArray = [];
-            for (var i = 0; i < allTemps.length; i++){ //iterate through an array of objects for all the "tempAuthors" arrays and their ids in each paper
-                for (var j = 0; j < allTemps[i].temps.length; j++){ //iterate through an array of all the objects in a tempAuthor array
+            for (var i = 0; i < allTemps.length; i++) { //iterate through an array of objects for all the "tempAuthors" arrays and their ids in each paper
+                for (var j = 0; j < allTemps[i].temps.length; j++) { //iterate through an array of all the objects in a tempAuthor array
                     var curArray = allTemps[i].temps;
                     var curObj = curArray[j]; //actual tempAuthor object
                         testArray.push({
@@ -103,10 +139,40 @@ app.post('/getAllTemps', function(req, res) {
                         }); //so now this is an array with a tempautthor object and the id for the paper that the tempauthor object belongs to
                 }
             }
-            for (var i = 0; i < testArray.length; i++){
-                var fNName = testArray[i].temp;
+            var matchedAuthors = [];
+            for (var i = 0; i < testArray.length; i++) { //find all the papers that may belong to this new author. If they match, put the tempObj and resp in the matched author array
+                //then when you send it back to the client side, have the client display all those papers and ask them if they're theirs.
+                var realFName = req.body.firstName.toLowerCase();
+                var realLName = req.body.lastName.toLowerCase();
+                var realSchool = req.body.school.toLowerCase();
+                var fName = testArray[i].tempObj.firstName.toLowerCase();
+                var lName = testArray[i].tempObj.lastName.toLowerCase();
+                var school = testArray[i].tempObj.school.toLowerCase();
+                //comparing strings testing labs: http://codepen.io/anon/pen/VervyZ
+                if (realSchool === school || realSchool.indexOf(school) > -1 || school.indexOf(realSchool)> -1) { //schools have to  be the same or substrings (william vs great)
+                    fNameScore = difference(soundex(realFName), soundex(fName));
+                    lNameScore = difference(soundex(realLName), soundex(lName));
+                    var finalScore = fNameScore + lNameScore;
+                    //have to do all these because we want closest matches appearing first
+                    if (finalScore == 8) {
+                        matchedAuthors.push(testArray[i]);
+                    }
+                    else if (finalScore == 7) {
+                        matchedAuthors.push(testArray[i]);
+                    }
+                    else if (finalScore == 6) {
+                        matchedAuthors.push(testArray[i]);
+                    }
+                    else if (finalScore == 5) {
+                        matchedAuthors.push(testArray[i]);
+                    }
+                    else if (finalScore ==4) { //what if they put their partner's chinese name and actual last name, but they put their american name? then the last name
+                        //score will be 4, and first name 0, so we have to account for those people
+                        matchedAuthors.push(testArray[i]);
+                    }
+                }
             }
-            res.send(testArray);
+            res.send(matchedAuthors);
         }
     });
 });
@@ -191,7 +257,7 @@ app.post('/getPaper', function(req, res) {
     if (req.body.searchType == 'Browse') {
         var searchObject = {};
     }
-    if (req.body.searchType != "Author") {
+    if (req.body.searchType != "Author" && req.body.searchType != "id") {
         db.Papers.find({
             $and: [searchObject, {
                 subject: filter
@@ -216,6 +282,20 @@ app.post('/getSchools', function(req, res) {
             res.send(curs);
         }
     });
+});
+
+
+
+app.post('/updatePapers', function(req, res) {
+    var paperID = req.body.paperIDs;
+    for (var i = 0; i < paperID.length; i++) {
+        db.Users.update(
+            {_id: req.body.id},
+            {$push: {publications: paperID[i]}}
+        );
+        //TODO: after you finish fixing the update users thing, I'll remove that tempAuthor
+    }
+    res.send('success');
 });
 
 app.post('/addUser', function(req, res) {
@@ -313,8 +393,8 @@ app.post('/addPaper', function(req, res) {
 });
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
     var fstream;
@@ -335,7 +415,7 @@ app.post('/addPdf', function(req, res) {
                     var params = {
                         Key: name,
                         Body: data
-                    }
+                    };
                     s3bucket.upload(params, function(err, data) {
                         if (err) {
                             console.log(err);
