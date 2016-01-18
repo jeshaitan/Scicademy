@@ -40,7 +40,7 @@ td {
 }
 
 #signInBox .signInBox {
-  padding-top: 20%;
+  padding-top: 20% !important;
 }
 
 #separateSignIn {
