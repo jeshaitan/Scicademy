@@ -39,6 +39,10 @@ td {
     margin-top: 38px;
 }
 
+#signInBox .signInBox {
+  padding-top: 20%;
+}
+
 #separateSignIn {
     position: absolute;
     right: 50%;
