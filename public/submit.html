@@ -317,7 +317,7 @@
                                     authorList.push(authorObj);
                                 }
                                 authorList.push({
-                                    label: 'Author not found.',
+                                    label: 'Click here if you don\'t see your coauthor.',
                                     value: 'No author found.',
                                     id: '0'
                                 });
@@ -330,7 +330,7 @@
                 beforeTagAdded: function(event, ui) {
                     //TODO: Fix issue of authors with same name... this wouldn't work
                     var currentlyValidTags = [];
-                    for (var i = 0; i < bigAuthorList.length; i++) {
+                    for (var i = 0; i < bigAuthorList.length; i++) { //TODO: fix hack where htey can type name of author in list but not autocomplete and click enter and it'll add
                         currentlyValidTags.push(bigAuthorList[i].value);
                     }
                     if ($.inArray(ui.tagLabel, currentlyValidTags) == -1 && bypass === false) {
@@ -523,7 +523,7 @@
     </script>
     <div class="navigation">
         <div id="authorDialog">
-            <p>One of your co-authors doesn't have an account? If you tell us their name, we'll be able to link their account to this paper and include it in their publications if they ever make an account.</p>
+            <div style="margin-left:17px;"><p>One of your co-authors doesn't have an account? If you tell us their name, we'll be able to link their account to this paper and include it in their publications if they ever make an account.</p></div>
             <form id="noAuthorForm" class="appnitro credentialsTable" method="post" action="" style="margin-left: 4px;">
                 <ul>
                     <li id="authorName">
@@ -543,14 +543,14 @@
                             <input id="authorSchool" name="authorSchool" class="element text large required" type="text" maxlength="255" value="" placeholder="School">
                         </div>
                     </li>
+                    <div style="margin-left:13px;"><p>By clicking "Ok", <a class = "linkStyle" href="TermsandConditions.html"> you agree </a>that you have consent of all parties involved in the creation of this paper to publish this content on Scicademy.org</p></div>
                     <li class="buttons">
-                    	<p>By clicking "Ok", you agree that you have consent of this author and any other parties involved in the creation of this paper to publish this content on Scicademy.org</p>
                         <input type="hidden" name="form_id" value="noAuthorForm" />
                         <table>
                             <tr>
                                 <td>
                                     <input id="submitAuthorForm" class="button_text btn btn-primary btn.-xs" type="submit" name="submitAuthorForm" value="Ok" style="width:102px;" />
-                                    <img src="../images/spinTrans.gif" id="authorSpin" style="margin-top:19px;margin-bottom:19px;margin-right:37px;margin-left:37px;display:none;" />
+                                    <img alt = "loading" src="../images/spinTrans.gif" id="authorSpin" style="margin-top:19px;margin-bottom:19px;margin-right:37px;margin-left:37px;display:none;" />
                                 </td>
                                 <td>
                                     <input id="authorCancel" class="button_text btn btn-primary btn.-xs" type="button" style="width:102px;height:38px;font-size:small;" value="Cancel">
