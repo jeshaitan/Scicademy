@@ -41,6 +41,8 @@ td {
 
 #signInBox .signInBox {
   padding-top: 20% !important;
+  height: 567px !important;
+  background-color: #f8f8f8 !important;
 }
 
 #separateSignIn {
@@ -65,11 +67,6 @@ td {
 
 .verticalSeparator {
     height: 139%;
-}
-
-#signInBox {
-    height: 567px !important;
-    background-color: #f8f8f8 !important;
 }
 
 .ui-dialog {
