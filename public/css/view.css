@@ -39,10 +39,13 @@ td {
     margin-top: 38px;
 }
 
-#signInBox .signInBox {
-  padding-top: 20% !important;
+#signInBox {
   height: 567px !important;
   background-color: #f8f8f8 !important;
+}
+
+.signInBox{
+  padding-top: 20% !important;
 }
 
 #separateSignIn {
