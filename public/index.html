@@ -295,9 +295,6 @@
                     var personInfo = {
                         "id": currentAuthorID,
                         "paperIDs":checkedValues,
-                        "firstName": localStorage.getItem('fName'),
-                        "lastName": localStorage.getItem('lName'),
-                        "school": localStorage.getItem('school')
                     };
                     $.ajax({
                         url: '/updateUserWithNewPapers',
