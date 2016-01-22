@@ -300,7 +300,7 @@
                         "school": localStorage.getItem('school')
                     };
                     $.ajax({
-                        url: '/updatePapers',
+                        url: '/updateUserWithNewPapers',
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(personInfo),
