@@ -2,6 +2,11 @@ html * {
     font-family: 'Open Sans', 'Arial';
 }
 
+.bg-primary {
+    color: #fff !important;
+    background-color: #5a5699 !important;
+}
+
 input.error,
 select.error,
 textarea.error {
