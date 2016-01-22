@@ -7,6 +7,10 @@ html * {
     background-color: #5a5699 !important;
 }
 
+.text-primary {
+    color: #5a5699;
+}
+
 input.error,
 select.error,
 textarea.error {
