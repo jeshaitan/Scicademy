@@ -25,6 +25,18 @@ var db = mongojs(uri, ["Papers", "Users"], {
 });
 
 
+app.post('/updateUserWithNewPapers', function(req, res) {
+   db.Users.updateOne(
+       {"_id": ObjectID(req.body.currentAuthorID)},
+       {$addToSet: {"publications": {$each: req.body.paperIDs}}}
+       , function(err, record) {
+            if(err)
+                console.log(err);
+            else
+                console.log(record);
+       });
+});
+
 app.post('/completeAuthor', function(req, res) {
     //TODO search each word in the query individually and return all results ('rubin smith' currently doesn't bring up jesse smith)
     var m = req.body.letters.term;
