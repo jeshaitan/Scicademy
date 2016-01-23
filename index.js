@@ -387,7 +387,7 @@ app.post('/addPaper', function(req, res) {
         institution: req.body.institution,
         pdf: req.body.pdf,
         date: req.body.date,
-        published: "false"
+        published: "true"
     }, function(err, record) {
         if (err) {
             console.log(err);

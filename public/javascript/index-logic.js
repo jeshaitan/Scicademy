@@ -647,7 +647,7 @@ function requestUser(email, password) {
     var requser = {
         "email": email,
         "password": password
-    }
+    };
     $.ajax({
         url: '/getUser',
         type: 'POST',
