@@ -72,9 +72,9 @@
                 "searchType": searchType,
                 "filter": filter
             };
-            $('#'+filter).iCheck('check');
+            $('#' + filter).iCheck('check');
             $('.filterBy').on('ifChecked', function(event) {
-                window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter='+ event.target.id +'?query=' + url.slice(url.indexOf('?query=') + 7);
+                window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7);
             });
 
             $.ajax({
@@ -132,7 +132,7 @@
                             var firstAuthor = true;
                             for (var i = 0; i < info.length; i++) {
                                 //reverse search info[i]. Returned author object will be called authorObj
-                                if (info[i] == 0){
+                                if (info[i] == 0) {
                                     getTemps = true;
                                     console.log('0ed');
                                     continue;
@@ -169,8 +169,8 @@
                                 "meta": nump,
                                 "paperId": paperInfo._id
                             };
-                            console.log('id: '+authorreq2.paperId);
-                            if (getTemps){
+                            console.log('id: ' + authorreq2.paperId);
+                            if (getTemps) {
                                 getTemps = false;
                                 $.ajax({
                                     url: '/getTemps',
@@ -180,7 +180,7 @@
                                     dataType: 'json',
                                     success: function(docB) {
                                         var tempAuthorObj = docB.temps;
-                                        for (var i = 0; i < tempAuthorObj.length; i++){
+                                        for (var i = 0; i < tempAuthorObj.length; i++) {
                                             var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
                                             var userId = '0';
                                         }

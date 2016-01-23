@@ -8,7 +8,7 @@ html * {
 }
 
 .text-primary {
-    color: #5a5699;
+    color: #5a5699 !important;
 }
 
 input.error,

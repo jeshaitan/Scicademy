@@ -487,6 +487,7 @@ function readSignInForm(form) {
 var searchFName = '';
 var searchLName = '';
 var searchSchool = '';
+
 function readRegisterForm(form) {
     var firstname = $('#element_2_1').val(),
         lastname = $('#element_2_2').val(),
@@ -619,7 +620,7 @@ function addUser(newuser) {
                 localStorage.setItem('fName', searchFName);
                 localStorage.setItem('lName', searchLName);
                 localStorage.setItem('school', searchSchool);
-                localStorage.setItem('curID',res[0]._id);
+                localStorage.setItem('curID', res[0]._id);
             }
         }
     });

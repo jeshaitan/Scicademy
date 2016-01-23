@@ -11,7 +11,7 @@
     <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
     <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
     <link href="css/pageStyle.css" rel="stylesheet" type="text/css">
-    <link href="css/flat/blue.css" rel = "stylesheet" type = "text/css">
+    <link href="css/flat/blue.css" rel="stylesheet" type="text/css">
     <link href="css/indexResults.css" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/stylish-portfolio.css" rel="stylesheet" type="text/css">
@@ -21,7 +21,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="libs/icheck.min.js" type = "text/javascript"></script>
+    <script src="libs/icheck.min.js" type="text/javascript"></script>
     <script src="libs/jquery-ui.min.js" type="text/javascript"></script>
     <script async src="libs/jquery.validate.min.js" type="text/javascript"></script>
     <script async src="javascript/view.js" type="text/javascript"></script>
@@ -48,7 +48,7 @@
             --position: relative;
             --top: 20px;
         }
-
+        
         .form-container {
             width: 458px;
         }
@@ -101,11 +101,11 @@
                     hide: 'fold'
                 });
                 //TO TEST, DO NOT DELETE
-//                var authInfo = {
-//                    "firstName": 'Rubin',
-//                    "lastName": 'Smith',
-//                    "school": 'William A. shine Great neck South high School'
-//                };
+                //                var authInfo = {
+                //                    "firstName": 'Rubin',
+                //                    "lastName": 'Smith',
+                //                    "school": 'William A. shine Great neck South high School'
+                //                };
                 //TODO: uncomment below when ready to go public and you want test, delete the above
                 var authInfo = {
                     "firstName": localStorage.getItem('fName'),
@@ -113,23 +113,23 @@
                     "school": localStorage.getItem('school')
                 };
                 //TO TEST, DO NOT DELETE
-//                $.ajax({
-//                    url: '/getAllTemps',
-//                    type: 'POST',
-//                    contentType: 'application/json',
-//                    data: JSON.stringify(authInfo),
-//                    dataType: 'json',
-//                    success: function(docB) {
-//                        console.log('all temps here you go');
-//                        console.log(docB);
-//                        if (docB.length >= 1){
-//                            console.log('ddi you make it?');
-//                            retrievePapers(docB);
-//                        }
-//                    }
-//                });
+                //                $.ajax({
+                //                    url: '/getAllTemps',
+                //                    type: 'POST',
+                //                    contentType: 'application/json',
+                //                    data: JSON.stringify(authInfo),
+                //                    dataType: 'json',
+                //                    success: function(docB) {
+                //                        console.log('all temps here you go');
+                //                        console.log(docB);
+                //                        if (docB.length >= 1){
+                //                            console.log('ddi you make it?');
+                //                            retrievePapers(docB);
+                //                        }
+                //                    }
+                //                });
 
-                function retrievePapers(data){
+                function retrievePapers(data) {
                     console.log('retrieve papers data');
                     console.log(data);
                     for (var i = 0; i < data.length; i++) {
@@ -154,12 +154,12 @@
                     console.log(data);
                     $('#myPapers').html('');
                     var title = '',
-                            authors = '',
-                            abstractText = '',
-                            firstAuthor = true,
-                            date = '',
-                            getTemps = false,
-                            nump = 0;
+                        authors = '',
+                        abstractText = '',
+                        firstAuthor = true,
+                        date = '',
+                        getTemps = false,
+                        nump = 0;
 
                     var paperHtml = '';
                     $.each(data, function(paper, paperInfo) { //iterate through each paper
@@ -169,7 +169,7 @@
                                 var firstAuthor = true;
                                 for (var i = 0; i < info.length; i++) {
                                     //reverse search info[i]. Returned author object will be called authorObj
-                                    if (info[i] == 0){
+                                    if (info[i] == 0) {
                                         getTemps = true;
                                         console.log('0ed');
                                         continue;
@@ -206,8 +206,8 @@
                                     "meta": nump,
                                     "paperId": paperInfo._id
                                 };
-                                console.log('id: '+authorreq2.paperId);
-                                if (getTemps){
+                                console.log('id: ' + authorreq2.paperId);
+                                if (getTemps) {
                                     getTemps = false;
                                     $.ajax({
                                         url: '/getTemps',
@@ -217,7 +217,7 @@
                                         dataType: 'json',
                                         success: function(docB) {
                                             var tempAuthorObj = docB.temps;
-                                            for (var i = 0; i < tempAuthorObj.length; i++){
+                                            for (var i = 0; i < tempAuthorObj.length; i++) {
                                                 var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
                                                 var userId = '0';
                                             }
@@ -270,11 +270,10 @@
                         success: function(docB) {
                             console.log('all temps here you go');
                             console.log(docB);
-                            if (docB.length >= 1){
+                            if (docB.length >= 1) {
                                 console.log('ddi you make it?');
                                 retrievePapers(docB);
-                            }
-                            else{
+                            } else {
                                 $('#registerComplete').dialog('open');
                             }
                         }
@@ -284,7 +283,7 @@
                 $('#closeRegister').click(function() {
                     $('#registerComplete').dialog('close');
                 });
-                $('#closeFind').click(function(){
+                $('#closeFind').click(function() {
                     var checkedValues = $('input:checkbox:checked').map(function() {
                         return this.value;
                     }).get();
@@ -294,7 +293,7 @@
                     var currentAuthorID = localStorage.getItem('curID');
                     var personInfo = {
                         "id": currentAuthorID,
-                        "paperIDs":checkedValues,
+                        "paperIDs": checkedValues,
                     };
                     $.ajax({
                         url: '/updateUserWithNewPapers',
@@ -302,8 +301,7 @@
                         contentType: 'application/json',
                         data: JSON.stringify(personInfo),
                         dataType: 'json',
-                        success: function(docB) {
-                        }
+                        success: function(docB) {}
                     });
                     $('#findMyPapers').dialog('close');
                 });
@@ -317,7 +315,7 @@
                     $(this).parent().find('.abstractParagraph').stop().slideToggle();
                     //$(this).parent().find('.abstractParagraph').slideToggle();
                     return false;
-            }); //end abstractText click
+                }); //end abstractText click
             });
         </script>
         <div class="navigation">
@@ -349,9 +347,9 @@
                 <center>Thank you for registering and welcome to Scicademy! You can sign in to your account through the "Sign in or Register" tab in the menu above.</center>
                 <button id="closeRegister" class="btn btn-lg btn-primary">Ok</button>
             </div>
-            <div id = "findMyPapers">
-                <p>Welcome to Scicademy! Some of your research partners may have submitted papers before you created an account here and listed you as a partner.
-                Are any of these your works? If they are, click the check button that is to the left of the paper</p>
+            <div id="findMyPapers">
+                <p>Welcome to Scicademy! Some of your research partners may have submitted papers before you created an account here and listed you as a partner. Are any of these your works? If they are, click the check button that is to the left of the
+                    paper</p>
                 <div id="myPapers">
 
                 </div>

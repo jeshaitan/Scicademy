@@ -26,15 +26,20 @@ var db = mongojs(uri, ["Papers", "Users"], {
 
 
 app.post('/updateUserWithNewPapers', function(req, res) {
-   db.Users.updateOne(
-       {"_id": ObjectID(req.body.currentAuthorID)},
-       {$addToSet: {"publications": {$each: req.body.paperIDs}}}
-       , function(err, record) {
-            if(err)
-                console.log(err);
-            else
-                console.log(record);
-       });
+    db.Users.updateOne({
+        "_id": ObjectID(req.body.currentAuthorID)
+    }, {
+        $addToSet: {
+            "publications": {
+                $each: req.body.paperIDs
+            }
+        }
+    }, function(err, record) {
+        if (err)
+            console.log(err);
+        else
+            console.log(record);
+    });
 });
 
 app.post('/completeAuthor', function(req, res) {
@@ -79,40 +84,60 @@ app.post('/getUser', function(req, res) {
 });
 
 app.post('/getTemps', function(req, res) {
-    var searchObj = { "_id" : ObjectID(req.body.paperId) };
+    var searchObj = {
+        "_id": ObjectID(req.body.paperId)
+    };
     var paper = db.Papers.findOne(searchObj, function(err, doc) {
         if (err) {
             console.log(err);
         } else {
             res.send({
-                "temps":doc.tempAuthors,
+                "temps": doc.tempAuthors,
                 "meta": req.body.meta
             });
         }
     });
 });
 
-var soundex = function (s) {
+var soundex = function(s) {
     var a = s.toLowerCase().split(''),
         f = a.shift(),
         r = '',
         codes = {
-            a: '', e: '', i: '', o: '', u: '',
-            b: 1, f: 1, p: 1, v: 1,
-            c: 2, g: 2, j: 2, k: 2, q: 2, s: 2, x: 2, z: 2,
-            d: 3, t: 3,
+            a: '',
+            e: '',
+            i: '',
+            o: '',
+            u: '',
+            b: 1,
+            f: 1,
+            p: 1,
+            v: 1,
+            c: 2,
+            g: 2,
+            j: 2,
+            k: 2,
+            q: 2,
+            s: 2,
+            x: 2,
+            z: 2,
+            d: 3,
+            t: 3,
             l: 4,
-            m: 5, n: 5,
+            m: 5,
+            n: 5,
             r: 6
         };
 
     r = f +
         a
-            .map(function (v, i, a) { return codes[v] })
-            .filter(function (v, i, a) {
-                return ((i === 0) ? v !== codes[f] : v !== a[i - 1]);
-            })
-            .join('');
+        .map(function(v, i, a) {
+            return codes[v]
+        })
+        .filter(function(v, i, a) {
+            return ((i === 0) ? v !== codes[f] : v !== a[i - 1]);
+        })
+        .join('');
 
     return (r + '000').slice(0, 4).toUpperCase();
 };
@@ -134,10 +159,10 @@ app.post('/getAllTemps', function(req, res) {
             console.log(err);
         } else {
             var allTemps = [];
-            for (var i = 0; i < doc.length; i++){
+            for (var i = 0; i < doc.length; i++) {
                 allTemps.push({
-                    "temps":doc[i].tempAuthors,
-                    "paperID":doc[i]._id
+                    "temps": doc[i].tempAuthors,
+                    "paperID": doc[i]._id
                 });
             }
             var testArray = [];
@@ -145,10 +170,10 @@ app.post('/getAllTemps', function(req, res) {
                 for (var j = 0; j < allTemps[i].temps.length; j++) { //iterate through an array of all the objects in a tempAuthor array
                     var curArray = allTemps[i].temps;
                     var curObj = curArray[j]; //actual tempAuthor object
-                        testArray.push({
-                            "tempObj":curObj,
-                            "respectivePaper":allTemps[i].paperID //the id of the paper for the above tempauthor object
-                        }); //so now this is an array with a tempautthor object and the id for the paper that the tempauthor object belongs to
+                    testArray.push({
+                        "tempObj": curObj,
+                        "respectivePaper": allTemps[i].paperID //the id of the paper for the above tempauthor object
+                    }); //so now this is an array with a tempautthor object and the id for the paper that the tempauthor object belongs to
                 }
             }
             var matchedAuthors = [];
@@ -161,24 +186,20 @@ app.post('/getAllTemps', function(req, res) {
                 var lName = testArray[i].tempObj.lastName.toLowerCase();
                 var school = testArray[i].tempObj.school.toLowerCase();
                 //comparing strings testing labs: http://codepen.io/anon/pen/VervyZ
-                if (realSchool === school || realSchool.indexOf(school) > -1 || school.indexOf(realSchool)> -1) { //schools have to  be the same or substrings (william vs great)
+                if (realSchool === school || realSchool.indexOf(school) > -1 || school.indexOf(realSchool) > -1) { //schools have to  be the same or substrings (william vs great)
                     fNameScore = difference(soundex(realFName), soundex(fName));
                     lNameScore = difference(soundex(realLName), soundex(lName));
                     var finalScore = fNameScore + lNameScore;
                     //have to do all these because we want closest matches appearing first
                     if (finalScore == 8) {
                         matchedAuthors.push(testArray[i]);
-                    }
-                    else if (finalScore == 7) {
+                    } else if (finalScore == 7) {
                         matchedAuthors.push(testArray[i]);
-                    }
-                    else if (finalScore == 6) {
+                    } else if (finalScore == 6) {
                         matchedAuthors.push(testArray[i]);
-                    }
-                    else if (finalScore == 5) {
+                    } else if (finalScore == 5) {
                         matchedAuthors.push(testArray[i]);
-                    }
-                    else if (finalScore ==4) { //what if they put their partner's chinese name and actual last name, but they put their american name? then the last name
+                    } else if (finalScore == 4) { //what if they put their partner's chinese name and actual last name, but they put their american name? then the last name
                         //score will be 4, and first name 0, so we have to account for those people
                         matchedAuthors.push(testArray[i]);
                     }
@@ -301,10 +322,13 @@ app.post('/getSchools', function(req, res) {
 app.post('/updatePapers', function(req, res) {
     var paperID = req.body.paperIDs;
     for (var i = 0; i < paperID.length; i++) {
-        db.Users.update(
-            {_id: req.body.id},
-            {$push: {publications: paperID[i]}}
-        );
+        db.Users.update({
+            _id: req.body.id
+        }, {
+            $push: {
+                publications: paperID[i]
+            }
+        });
         //TODO: after you finish fixing the update users thing, I'll remove that tempAuthor
     }
     res.send('success');

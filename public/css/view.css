@@ -40,12 +40,12 @@ td {
 }
 
 #signInBox {
-  height: 567px !important;
-  background-color: #f8f8f8 !important;
+    height: 567px !important;
+    background-color: #f8f8f8 !important;
 }
 
-.signInBox{
-  padding-top: 20% !important;
+.signInBox {
+    padding-top: 20% !important;
 }
 
 #separateSignIn {

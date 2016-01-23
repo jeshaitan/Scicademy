@@ -40,9 +40,6 @@
     text-decoration: underline;
 }
 
-
-
-
 #findMyPapers a,
 #findMyPapers a:link {
     color: #316c9d;
@@ -74,8 +71,13 @@
     display: none;
 }
 
+
 /*.paperDiv {*/
-    /*margin: 10px 15px 10px 0px;*/
+
+
+/*margin: 10px 15px 10px 0px;*/
+
+
 /*}*/
 
 .sortBy h4 {
@@ -86,20 +88,43 @@
     margin-top: 14px;
 }
 
+
 /*#search-form {*/
-    /*background: url(../images/bp.png) top center no-repeat;*/
-    /*margin: 10px auto 10px;*/
+
+
+/*background: url(../images/bp.png) top center no-repeat;*/
+
+
+/*margin: 10px auto 10px;*/
+
+
 /*}*/
+
 
 /*#searchTableDiv {*/
-    /*margin-top: 24px;*/
-    /*position: relative;*/
-    /*background-color: white;*/
-    /*!* color for results area *!*/
+
+
+/*margin-top: 24px;*/
+
+
+/*position: relative;*/
+
+
+/*background-color: white;*/
+
+
+/*!* color for results area *!*/
+
+
 /*}*/
 
+
 /*.form-container {*/
-    /*width: 456px; //adjust*/
+
+
+/*width: 456px; //adjust*/
+
+
 /*}*/
 
 .papers {
