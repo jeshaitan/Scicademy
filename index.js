@@ -212,7 +212,7 @@ app.post('/getAllTemps', function(req, res) {
 });
 
 app.post('/getPaper', function(req, res) {
-    if (req.body.filter == '')
+    if (req.body.filter == '' || req.body.filter == 'allTopics')
         var filter = /.*?/;
     else
         var filter = req.body.filter;

@@ -74,6 +74,9 @@
             "filter": filter
         };
         $('#' + filter).iCheck('check');
+        if (filter == ''){
+            $('#allTopics').iCheck('check');
+        }
         $('.filterBy').on('ifChecked', function(event) {
             window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7);
         });
@@ -270,6 +273,8 @@
             <div class="filterBy">
                 <h4>Filter By:</h4>
                 <div id="filterOptions">
+                    <input type="radio" name="filterByOptions" id="allTopics" class="filterBy">All</input>
+                    <br>
                     <input type="radio" name="filterByOptions" id="compSci" class="filterBy">Computer Science and Modelling</input>
                     <br>
                     <input type="radio" name="filterByOptions" id="bioChem" class="filterBy">Biochemistry and Molecular Biology</input>
