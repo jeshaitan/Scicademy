@@ -6,7 +6,6 @@ body {
     background-color: #5a5699;
 }
 
-
 /* no close button for dialog boxes on submit page */
 
 .no-close .ui-dialog-titlebar-close {
@@ -58,7 +57,6 @@ body {
     border: medium none !important;
     box-shadow: none !important;
     margin: 0 !important;
-    ;
     padding: 0 !important;
     width: inherit !important;
 }
@@ -68,7 +66,6 @@ body {
     border: medium none !important;
     box-shadow: none !important;
     margin: 0 !important;
-    ;
     padding: 0 !important;
     width: inherit !important;
 }
@@ -100,7 +97,6 @@ ul.tagit li.tagit-choice .tagit-close .text-icon {
     border: medium none !important;
     box-shadow: none !important;
     margin: 0 !important;
-    ;
     padding: 0 !important;
     width: inherit !important;
 }
@@ -170,7 +166,6 @@ form textarea,
     font-size: small !important;
 }
 
-
 /* blue halo */
 
 form input[type=text]:focus,
@@ -206,7 +201,6 @@ form textarea:focus,
     border: 1px solid rgba(81, 203, 238, 1) !important;
 }
 
-
 /* end blue hao */
 
 .text {
@@ -237,9 +231,7 @@ textarea.error {
     border: 1px solid red !important;
 }
 
-
 /*#form_1039889 input[type="text"], #form_1039889 input[type="password"], #form_1039889 textarea {*/
-
 
 /*=======*/
 
@@ -359,7 +351,6 @@ form.appnitro {
     padding: 0 0 20px;
 }
 
-
 /**** Logo Section  *****/
 
 h1 {
@@ -381,7 +372,6 @@ img {
     behavior: url(css/iepngfix.htc);
     border: none;
 }
-
 
 /**** Form Section ****/
 
@@ -564,7 +554,6 @@ form .section_break p {
     margin: 0 0 10px;
 }
 
-
 /**** Buttons ****/
 
 input.button_text {
@@ -577,7 +566,6 @@ input.button_text {
     font-size: 120%;
     margin-right: 5px;
 }
-
 
 /**** Inputs and Labels ****/
 
@@ -671,7 +659,7 @@ select.select[class] {
     padding: 1px 0;
 }
 
-*:first-child+html select.select[class] {
+*:first-child + html select.select[class] {
     margin: 1px 0;
 }
 
@@ -716,9 +704,7 @@ textarea.large {
     height: 20em;
 }
 
-
 /**** Errors ****/
-
 
 /**** Guidelines and Error Highlight ****/
 
@@ -771,7 +757,6 @@ form li:hover .guidelines {
     padding-left: 9px;
 }
 
-
 /*** Success Message ****/
 
 .form_success {
@@ -787,7 +772,6 @@ form li:hover .guidelines {
     font-weight: normal;
     margin: 0pt 0pt 3px;
 }
-
 
 /*** Password ****/
 
@@ -823,7 +807,6 @@ ul.password {
 #li_captcha span {
     float: none;
 }
-
 
 /** Embedded Form **/
 

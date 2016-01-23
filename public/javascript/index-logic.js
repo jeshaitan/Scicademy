@@ -1,110 +1,142 @@
-$(document).ready(function() {
-    var currentUser = JSON.parse(localStorage.getItem("user"));
-    var signInHtml = '';
-    var signInHtmlEnd =
-        '<div class="credentialsTable">\
-        <div id="registerFormDiv">\
-        <h4 class="signInHeader">Register</h4>\
-            <form id="form_1037235" class="appnitro"  method="post" action="">\
-                    <ul >\
-                <li id="li_2" >\
+function completeSchool(allSchools, req) {
+    var schoolList = [];
+    for (var i = 0; i < allSchools.length; i++) {
+        var compareReq = req.term.toLowerCase().trim();
+        var curSchool = allSchools[i];
+        curSchool = curSchool[0];
+        if (curSchool[0].toLowerCase().indexOf(compareReq) != -1 || compareReq.indexOf(curSchool[0].toLowerCase()) != -1) {
+            schoolList.push(curSchool);
+        }
+    }
+    return schoolList;
+}
+
+var currentUser = JSON.parse(localStorage.getItem("user"));
+var signInHtml = '';
+var signInHtmlEnd =
+    '<div class="credentialsTable">\
+    <div id="registerFormDiv">\
+    <h4 class="signInHeader">Register</h4>\
+        <form id="form_1037235" class="appnitro"  method="post" action="">\
+                <ul >\
+            <li id="li_2" >\
+            <span>\
+            <div>\
+                <input type="text" id="element_2_1" name= "fname" class="element text required" maxlength="255" size="21" value=""/ placeholder="First Name">\
+            </div>\
+            </span>\
+            <span>\
+            <div>\
+                <input type="text" id="element_2_2" name= "lname" class="element text required" maxlength="255" size="21" value=""/ placeholder="Last Name">\
+            </div>\
+            </span>\
+            </li>\
+            <li id="li_7" >\
+            <div>\
+            <input id="element_7" name="element_7" class="element text large required" type="text" maxlength="255" value=""/ placeholder="School">\
+            </div>\
+            </li>\
+            <li id="li_6" >\
+                <label class="description required" id="element_6_label" for="element_6">Are you a High School student or an Undergrad? </label>\
                 <span>\
-                <div>\
-                    <input type="text" id="element_2_1" name= "fname" class="element text required" maxlength="255" size="21" value=""/ placeholder="First Name">\
+                <div id="highCol">\
+                    <input id="element_6_1" name="highCol" class="element radio highColRadio required" type="radio" value="1" />\
+                    <label class="choice" for="element_6_1">High School</label>\
+                    <input id="element_6_2" name="highCol" class="element radio highColRadio" type="radio" value="2" />\
+                    <label class="choice" for="element_6_2">Undergrad</label>\
                 </div>\
                 </span>\
+            </li>\
+            <li id="li_1">\
+            <label class="description required" for="element_1">What grade are you in? </label>\
+            <div>\
+            <select class="btn btn-primary dropdown-toggle" id="element_1" name="grade"> \
+                <option value="9" >9</option>\
+                <option value="10" >10</option>\
+                <option value="11" >11</option>\
+                <option value="12" selected>12</option>\
+            </select>\
+            </div> \
+            <p class="guidelines" id="guide_13" style = "width:114px; length: 108px;"><small>If you are currently on summer vacation, then enter the grade that you will be in the upcoming year. Otherwise, enter the grade you are currently in.</small></p>\
+            </li>\
+            <li>\
+                <label class = "description required" id="element_13_label" for = "element_13">Is school currently in session (including during vacations and weekends), or are you on summer break?</label>\
                 <span>\
-                <div>\
-                    <input type="text" id="element_2_2" name= "lname" class="element text required" maxlength="255" size="21" value=""/ placeholder="Last Name">\
+                <div id = "schoolSession">\
+                    <input id = "element_13_1" name = "schoolSession" class = "element radio required" type = "radio" value = "1" />\
+                    <label class = "choice" for = "element_13_1">School is still in session.</label>\
+                    <input id = "element_13_2" name = "schoolSession" class = "element radio" type = "radio" value = "0" />\
+                    <label class = "choice" for = "element_13_2">I am on summer break.</label>\
                 </div>\
+                <p class="guidelines" id="guide_13" style = "width:89px; length: 129px;"><small>This information will be used to update your grade automatically during the summer.</small></p>\
                 </span>\
-                </li>\
-                <li id="li_7" >\
-                <div>\
-                <input id="element_7" name="element_7" class="element text large required" type="text" maxlength="255" value=""/ placeholder="School">\
+            </li>\
+            <li id="li_3" >\
+            <div>\
+                <input id="element_3" name="element_3" class="element text medium required email" type="text" maxlength="255" value=""/ placeholder="Email">\
+            </div> \
+            </li>		<li id="li_4" >\
+            <div>\
+                <input id="element_4" name="element_4" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Password"> \
+            </div><p class="guidelines" id="guide_4"><small>Your password must have at least 6 characters and contain at least one number</small></p>\
+            </li>		<li id="li_5" >\
+            <div>\
+                <input id="element_5" name="element_5" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Confirm Password"> \
+            </div> \
+            </li>\
+            <li id="termsAgree" style="width:100%;">\
+                <div style="display:inline-block;margin-left:1px;" id="errorParent">\
+                    <input type="checkbox" name="agree" value="agree" id="agree">\
+                    <div id="agreeText" style="margin-left:23px;margin-top:-17px;"><p style="margin-top:-20px;margin-left:8px;">I agree to the <a href="TermsandConditions.html" target="_blank" style="color:blue;">Terms and Conditions</a></p></div>\
                 </div>\
-                </li>\
-                <li id="li_6" >\
-                    <label class="description required" id="element_6_label" for="element_6">Are you a High School student or an Undergrad? </label>\
-                    <span>\
-                    <div id="highCol">\
-                        <input id="element_6_1" name="highCol" class="element radio highColRadio required" type="radio" value="1" />\
-                        <label class="choice" for="element_6_1">High School</label>\
-                        <input id="element_6_2" name="highCol" class="element radio highColRadio" type="radio" value="2" />\
-                        <label class="choice" for="element_6_2">Undergrad</label>\
-                    </div>\
-                    </span>\
-                </li>\
-                <li id="li_1">\
-                <label class="description required" for="element_1">What grade are you in? </label>\
-                <div>\
-                <select class="btn btn-primary dropdown-toggle" id="element_1" name="grade"> \
-                    <option value="9" >9</option>\
-                    <option value="10" >10</option>\
-                    <option value="11" >11</option>\
-                    <option value="12" selected>12</option>\
-                </select>\
-                </div> \
-                <p class="guidelines" id="guide_13" style = "width:114px; length: 108px;"><small>If you are currently on summer vacation, then enter the grade that you will be in the upcoming year. Otherwise, enter the grade you are currently in.</small></p>\
-                </li>\
-                <li>\
-                    <label class = "description required" id="element_13_label" for = "element_13">Is school currently in session (including during vacations and weekends), or are you on summer break?</label>\
-                    <span>\
-                    <div id = "schoolSession">\
-                        <input id = "element_13_1" name = "schoolSession" class = "element radio required" type = "radio" value = "1" />\
-                        <label class = "choice" for = "element_13_1">School is still in session.</label>\
-                        <input id = "element_13_2" name = "schoolSession" class = "element radio" type = "radio" value = "0" />\
-                        <label class = "choice" for = "element_13_2">I am on summer break.</label>\
-                    </div>\
-                    <p class="guidelines" id="guide_13" style = "width:89px; length: 129px;"><small>This information will be used to update your grade automatically during the summer.</small></p>\
-                    </span>\
-                </li>\
-                <li id="li_3" >\
-                <div>\
-                    <input id="element_3" name="element_3" class="element text medium required email" type="text" maxlength="255" value=""/ placeholder="Email">\
-                </div> \
-                </li>		<li id="li_4" >\
-                <div>\
-                    <input id="element_4" name="element_4" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Password"> \
-                </div><p class="guidelines" id="guide_4"><small>Your password must have at least 6 characters and contain at least one number</small></p>\
-                </li>		<li id="li_5" >\
-                <div>\
-                    <input id="element_5" name="element_5" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Confirm Password"> \
-                </div> \
-                </li>\
-                <li id="termsAgree" style="width:100%;">\
-                    <div style="display:inline-block;margin-left:1px;" id="errorParent">\
-                        <input type="checkbox" name="agree" value="agree" id="agree">\
-                        <div id="agreeText" style="margin-left:23px;margin-top:-17px;"><p style="margin-top:-20px;margin-left:8px;">I agree to the <a href="TermsandConditions.html" target="_blank" style="color:blue;">Terms and Conditions</a></p></div>\
-                    </div>\
-                </li>\
-                <li class="buttons">\
-                        <input type="hidden" name="form_id" value="1037235" />\
-                        <input id="saveForm" class="button_text signRegisterBut btn btn-primary btn-xs" type="submit" name="submit" value="Register"/>\
-                        <img src="../images/spinTrans.gif" id="registerSpin" style="margin-top:19px;margin-left:37px;" />\
-                </li>\
-                    </ul>\
-                </form>\
-                </div>\
-                <div class="verticalSeparator" id="separateSignIn"></div>\
-                <div id="signInFormDiv">\
-                <h4 class="signInHeader">Sign In</h4>\
-                <form id="signInForm" method="post" action="">\
-                <!-- <span><label class="description" for="email">Email</label></span> -->\
-                <div>\
-                <input type="text" id="email" name= "email" maxlength="255" size="16" value="" class="element text medium required email" placeholder="Email">\
-                </div>\
-                <!-- <span><label class="description" for="name">Password</label></span> -->\
-                <div>\
-                <input type="password" id="password" name="password" maxlength="255" size="16" value="" class="element text medium required email" placeholder="Password">\
-                </div>\
-                <div>\
-                    <input type="submit" id="signInButton" name="signInButton" class="signRegisterBut btn btn-primary btn-xs" value="Sign In">\
-                    <img src="../images/spinTrans.gif" id="signInSpin" style="margin-top:19px;margin-left:37px;" />\
-                </div>\
+            </li>\
+            <li class="buttons">\
+                    <input type="hidden" name="form_id" value="1037235" />\
+                    <input id="saveForm" class="button_text signRegisterBut btn btn-primary btn-xs" type="submit" name="submit" value="Register"/>\
+                    <img src="../images/spinTrans.gif" id="registerSpin" style="margin-top:19px;margin-left:37px;" />\
+            </li>\
+                </ul>\
             </form>\
             </div>\
-            </div>';
+            <div class="verticalSeparator" id="separateSignIn"></div>\
+            <div id="signInFormDiv">\
+            <h4 class="signInHeader">Sign In</h4>\
+            <form id="signInForm" method="post" action="">\
+            <!-- <span><label class="description" for="email">Email</label></span> -->\
+            <div>\
+            <input type="text" id="email" name= "email" maxlength="255" size="16" value="" class="element text medium required email" placeholder="Email">\
+            </div>\
+            <!-- <span><label class="description" for="name">Password</label></span> -->\
+            <div>\
+            <input type="password" id="password" name="password" maxlength="255" size="16" value="" class="element text medium required email" placeholder="Password">\
+            </div>\
+            <div>\
+                <input type="submit" id="signInButton" name="signInButton" class="signRegisterBut btn btn-primary btn-xs" value="Sign In">\
+                <img src="../images/spinTrans.gif" id="signInSpin" style="margin-top:19px;margin-left:37px;" />\
+            </div>\
+        </form>\
+        </div>\
+        </div>';
+
+
+jQuery.validator.addMethod("isValidEmail", function (value, element) {
+    var emailRegex = /(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*:(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)(?:,\s*(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*))*)?;\s*)/
+    var email = value.match(emailRegex);
+    return this.optional(element) || email;
+}, "");
+
+jQuery.validator.addMethod("hasNumber", function (value, element) {
+    var noNums = value.search(/\d/) == -1; //if true, then no numbers
+    return !noNums;
+}, "");
+
+jQuery.validator.addMethod("notJustNums", function (value, element) {
+    var isNum = /^\d+$/;
+    var number = isNum.test(value); //check to see if it's only numbers
+    return !number;
+}, "");
+
+$(document).ready(function () {
     var currentLink = window.location.href;
     var shakeSign = false;
     if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)) {
@@ -124,7 +156,7 @@ $(document).ready(function() {
         $('#aboutli').closest('li').after('<li><a href="user.html?id=' + currentUser._id + '" id="nameli">' + currentUser.firstname + '</a></li>');
     }
 
-    $('#siso').click(function(event) {
+    $('#siso').click(function (event) {
         event.preventDefault();
         if (currentUser == null) {
             $('#signInBox').dialog('open');
@@ -136,10 +168,10 @@ $(document).ready(function() {
     });
 
     $('.sm').smartmenus({
-        showFunction: function($ul, complete) {
+        showFunction: function ($ul, complete) {
             $ul.slideDown(250, complete);
         },
-        hideFunction: function($ul, complete) {
+        hideFunction: function ($ul, complete) {
             $ul.slideUp(250, complete);
         }
     });
@@ -150,7 +182,7 @@ $(document).ready(function() {
         minWidth: 800,
         minHeight: 'auto',
         autoOpen: false,
-        close: function(event, ui) {
+        close: function (event, ui) {
             $('.failedSignIn').remove();
         },
         show: 'fade',
@@ -159,13 +191,13 @@ $(document).ready(function() {
     $('#signInSpin').hide();
     $('#registerSpin').hide();
 
-    $('#registerClick').click(function(event) {
+    $('#registerClick').click(function (event) {
         event.preventDefault();
         $('#signInBox').dialog('open');
         $('#email').focus();
     });
 
-    $(document).on("click", ".searchBoxSubmit", function(event) {
+    $(document).on("click", ".searchBoxSubmit", function (event) {
         event.preventDefault();
         console.log('made it past default');
         query = $('#searchBox').val();
@@ -189,7 +221,7 @@ $(document).ready(function() {
         window.location.href = "results.html?type=" + type + "?filter=?query=" + query;
     });
 
-    $('#signInForm').submit(function(event) {
+    $('#signInForm').submit(function (event) {
         $('#signInButton').hide();
         $('#signInSpin').show();
         $('.userPass').remove();
@@ -199,14 +231,14 @@ $(document).ready(function() {
         $('#signinBox').dialog('close');
     });
 
-    $('#form_1039889').submit(function(event) {
+    $('#form_1039889').submit(function (event) {
         // event.preventDefault();
         // event.stopImmediatePropagation();
         // readSubmitPaperForm($('#form_1039889'));
     });
 
     var submitted = false;
-    $('#form_1037235').submit(function(event) {
+    $('#form_1037235').submit(function (event) {
         $('#saveForm').hide();
         $('#registerSpin').show();
         event.preventDefault();
@@ -214,7 +246,7 @@ $(document).ready(function() {
         readRegisterForm($('#form_1037235'));
     });
     //start html injection prevention
-    $(':text').change(function() {
+    $(':text').change(function () {
         var inputText = $(this).val();
         $(this).val($($.parseHTML(inputText)).text());
     });
@@ -249,22 +281,6 @@ $(document).ready(function() {
 
     //start register javascript
     $('#li_1').hide();
-    jQuery.validator.addMethod("isValidEmail", function(value, element) {
-        var emailRegex = /(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*:(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)(?:,\s*(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*))*)?;\s*)/
-        var email = value.match(emailRegex);
-        return this.optional(element) || email;
-    }, "");
-
-    jQuery.validator.addMethod("hasNumber", function(value, element) {
-        var noNums = value.search(/\d/) == -1; //if true, then no numbers
-        return !noNums;
-    }, "");
-
-    jQuery.validator.addMethod("notJustNums", function(value, element) {
-        var isNum = /^\d+$/;
-        var number = isNum.test(value); //check to see if it's only numbers
-        return !number;
-    }, "");
 
     $('#element_1').selectmenu({
         width: 62,
@@ -316,25 +332,26 @@ $(document).ready(function() {
                 required: "Please choose either High School or Undergrad."
             }
         }, //end messages
-        errorPlacement: function(error, element) {
-                if (element.is(":radio") || element.is(":checkbox")) {
-                    error.appendTo(element.parent().parent());
-                } else {
-                    error.insertAfter(element);
-                }
-            } //end error placement
+        errorPlacement: function (error, element) {
+            if (element.is(":radio") || element.is(":checkbox")) {
+                error.appendTo(element.parent().parent());
+            } else {
+                error.insertAfter(element);
+            }
+        } //end error placement
     }); //end validate
     function getvalues(f) {
         var form = $("#" + f);
         var str = '';
-        $("input:not('input:submit')", form).each(function(i) {
+        $("input:not('input:submit')", form).each(function (i) {
             str += '\n' + $(this).prop('name') + ': ' + $(this).val();
         });
         return str;
     }
+
     var isvalidate = false;
     var submitClicked = false;
-    $('#saveForm').click(function(e) {
+    $('#saveForm').click(function (e) {
         submitClicked = true;
         $('#form_1037235').validate();
         var isvalidate = $("#form_1037235").valid();
@@ -343,7 +360,7 @@ $(document).ready(function() {
             $('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid.</p>');
         }
     });
-    $('#form_1037235').change(function() {
+    $('#form_1037235').change(function () {
         if (isvalidate == false && submitClicked == true) {
             isvalidate = $("#form_1037235").valid();
             if (isvalidate == true) {
@@ -353,10 +370,10 @@ $(document).ready(function() {
     });
 
     $('.sm').smartmenus({
-        showFunction: function($ul, complete) {
+        showFunction: function ($ul, complete) {
             $ul.slideDown(250, complete);
         },
-        hideFunction: function($ul, complete) {
+        hideFunction: function ($ul, complete) {
             $ul.slideUp(250, complete);
         }
     }); //end smartmenus
@@ -376,7 +393,7 @@ $(document).ready(function() {
      }
 
      }); //end high school or undergrad click */
-    $('input').on('ifChanged', function(event) {
+    $('input').on('ifChanged', function (event) {
         if ($('input[name="highCol"]:checked').val() == "1") {
             $('#li_1').slideDown();
         } else {
@@ -393,7 +410,7 @@ $(document).ready(function() {
     //end register JavaScript
 });
 
-$(window).load(function() {
+$(window).load(function () {
 
     function getPapers() {
         $.ajax({
@@ -404,7 +421,7 @@ $(window).load(function() {
                 "searchType": "every"
             }),
             dataType: 'json',
-            success: function(curs) {
+            success: function (curs) {
                 var papers = [];
                 for (var i = 0; i < curs.length; i++) {
                     papers.push(curs[i].title);
@@ -455,7 +472,7 @@ $(window).load(function() {
             data: {},
             dataType: 'json',
             contentType: 'application/json',
-            success: function(curs) {
+            success: function (curs) {
                 var schools = [];
                 for (var i = 0; i < curs.length; i++) {
                     schools.push(curs[i].school);
@@ -465,7 +482,9 @@ $(window).load(function() {
                 var fromStorage = "[" + localStorage["schools"] + "]";
                 schools = JSON.parse(fromStorage);
                 $('#element_7').autocomplete({
-                    source: schools[0]
+                    source: function (req, resp) {
+                        resp(completeSchool(schools, req));
+                    }
                 });
             }
         });
@@ -473,7 +492,9 @@ $(window).load(function() {
         var fromStorage = "[" + localStorage["schools"] + "]";
         var schools = JSON.parse(fromStorage);
         $('#element_7').autocomplete({
-            source: schools[0]
+            source: function (req, resp) {
+                resp(completeSchool(schools, req));
+            }
         });
     }
 });
@@ -541,7 +562,7 @@ function readSubmitPaperForm(form) {
         authorsid = [],
         tempAuthors = [],
         institution = $('#inst').val();
-    keywords = $(".tagit-label").map(function() {
+    keywords = $(".tagit-label").map(function () {
         return $(this).text();
     }).get();
 
@@ -584,7 +605,7 @@ function readSubmitPaperForm(form) {
         data: formData,
         contentType: false,
         processData: false,
-        success: function(response) {
+        success: function (response) {
             var paperdata = {
                 "title": title,
                 "authors": authorsid,
@@ -608,7 +629,7 @@ function addUser(newuser) {
         contentType: 'application/json',
         data: JSON.stringify(newuser),
         dataType: 'json',
-        success: function(res) {
+        success: function (res) {
             $('#registerSpin').hide();
             $('#saveForm').show();
             if (Object.getOwnPropertyNames(res).length == 0) {
