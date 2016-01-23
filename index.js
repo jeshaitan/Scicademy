@@ -12,7 +12,7 @@ var http = require("http"),
     aws = require('aws-sdk'),
     ObjectID = require('mongodb').ObjectID,
     mailgun = require('mailgun-js')({
-        apiKey: 'key-15707ef3e1cad6ad92d3f92d67db0140',
+        apiKey: 'key-9f25ba4ad1200d45612172f4ac993a65',
         domain: 'mg.scicademy.org'
     });
 
