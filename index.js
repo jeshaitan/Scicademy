@@ -26,7 +26,7 @@ var db = mongojs(uri, ["Papers", "Users"], {
 
 
 app.post('/updateUserWithNewPapers', function(req, res) {
-    db.Users.updateOne({
+    db.Users.update({
         "_id": ObjectID(req.body.currentAuthorID)
     }, {
         $addToSet: {
