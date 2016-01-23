@@ -44,13 +44,14 @@ app.post('/updateUserWithNewPapers', function(req, res) {
 
 app.post('/completeAuthor', function(req, res) {
     //TODO search each word in the query individually and return all results ('rubin smith' currently doesn't bring up jesse smith)
-    var m = req.body.letters.term;
-    var searchObj = {
-        "lowerName": {
-            $regex: req.body.letters.term.toLowerCase()
-        }
-    };
-    db.Users.find(searchObj, function(err, curs) {
+    //var m = req.body.letters.term;
+    //var searchObj = {
+    //    "lowerName": {
+    //        $regex: req.body.letters.term.toLowerCase()
+    //    }
+    //};
+
+    db.Users.find(function(err, curs) {
         res.send(curs);
     })
 });
@@ -429,8 +430,8 @@ app.post('/addPaper', function(req, res) {
 });
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
     var fstream;

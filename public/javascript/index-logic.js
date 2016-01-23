@@ -561,7 +561,6 @@ function readSubmitPaperForm(form) {
             };
             tempAuthors.push(tempAuthor);
         }
-
     }
     var today = new Date(),
         dd = today.getDate(),

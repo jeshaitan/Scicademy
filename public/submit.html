@@ -61,8 +61,63 @@
 <body id="main_body" class="colorBody submitBody">
     <script type="text/javascript">
         var currentAuthors = [];
-        $(document).ready(function() {
+        var bigAuthorList = [];
+        var allAuthors = [];
 
+        function compare(a,b) {
+            if (a.lName < b.lName)
+                return -1;
+            else if (a.lName > b.lName)
+                return 1;
+            else
+                return 0;
+        }
+
+        function completeAuthor(allAuthors, req){
+            var authorList = [];
+            for (var i = 0; i < allAuthors.length; i++) {
+                var authorObj = {
+                    label: allAuthors[i].firstname + ' ' + allAuthors[i].lastname + ' (' + allAuthors[i].school + ')',
+                    value: allAuthors[i].firstname + ' ' + allAuthors[i].lastname,
+                    fName: allAuthors[i].firstname,
+                    lName: allAuthors[i].lastname,
+                    school: allAuthors[i].school,
+                    id: allAuthors[i]._id
+                };
+
+                // I am Aram Baghdassarian, but what if someone puts Aram Chouldjian Baghdassarian? That's why we compare fname and lname
+                compareReq = req.term.toLowerCase();
+                if (authorObj.value.toLowerCase().indexOf(compareReq) != -1 || compareReq.indexOf(authorObj.value.toLowerCase()) != -1 || /**compareReq.indexOf(authorObj.fName.toLowerCase()) != -1 || **/ compareReq.indexOf(authorObj.lName.toLowerCase()) != -1 ) {
+                    authorList.push(authorObj);
+                }
+            }
+            authorList.push({
+                label: 'Click here if you don\'t see your coauthor.',
+                value: 'No author found.',
+                id: '0'
+            });
+            authorList = authorList.sort(compare);  //sort alphabetically
+            bigAuthorList = authorList;
+            return (authorList);
+        }
+        var totalAuthors = [];
+        $.ajax({
+            url: '/completeAuthor',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                letters: 'a'
+            }),
+            dataType: 'json',
+            error: function(jqXhR, textStatus) {
+                alert('Error processing your request. Please try again later. \n Specific error: ' + textStatus);
+            },
+            success: function(doc) {
+                totalAuthors = doc
+            }
+        });
+
+        $(document).ready(function() {
             $.getScript('javascript/index-logic.js', function(jd) {});
             var currentUser = localStorage.getItem("user");
             if (currentUser == null) {
@@ -70,7 +125,7 @@
                     closeOnEscape: false,
                     open: function(event, ui) {
                         $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                    },
+                    }
                 });
                 $('.signInBox').html('You must have an account to submit a paper');
                 $('#signInBox').dialog('open');
@@ -255,20 +310,20 @@
                 $('#li_3').slideDown();
 
             });
-            var authorCount = 1;
-            $('.add').click(function(e) {
-                e.preventDefault();
-                authorCount++;
-                var idTexth = ' id = element_4_' + authorCount + 'h';
-                breakText = '<br><br><br><br><br>';
-                var idText = "<div id='author" + authorCount + "'>";
-                var hiddenInput = '<input type="hidden" ' + idTexth + ' value="0" class="spawnUserIDh">';
-                $('#li_4').append(idText + breakText + '<span>' + hiddenInput + '<input id="element_4_' + authorCount + '" name="element_4_' + authorCount + '" class="element text spawnUserID author required" maxlength="255" size="14" value=""/>\
-					<label class="required">Author ' + authorCount + '\'s User Id</label>\
-				</span>\
-				</div>');
-                localStorage.setItem("authorCount", authorCount);
-            });
+//            var authorCount = 1;
+//            $('.add').click(function(e) {
+//                e.preventDefault();
+//                authorCount++;
+//                var idTexth = ' id = element_4_' + authorCount + 'h';
+//                breakText = '<br><br><br><br><br>';
+//                var idText = "<div id='author" + authorCount + "'>";
+//                var hiddenInput = '<input type="hidden" ' + idTexth + ' value="0" class="spawnUserIDh">';
+//                $('#li_4').append(idText + breakText + '<span>' + hiddenInput + '<input id="element_4_' + authorCount + '" name="element_4_' + authorCount + '" class="element text spawnUserID author required" maxlength="255" size="14" value=""/>\
+//					<label class="required">Author ' + authorCount + '\'s User Id</label>\
+//				</span>\
+//				</div>');
+//                localStorage.setItem("authorCount", authorCount);
+//            });
             $('#authorDialog').dialog({
                 modal: true,
                 resizable: false,
@@ -283,7 +338,6 @@
             });
 
             //tagit plugin for authors
-            var bigAuthorList = [];
             var createNew = false;
             var fullName = '';
             var bypass = false;
@@ -293,38 +347,7 @@
                 placeholderText: "Author names",
                 autocomplete: {
                     source: function(req, resp) {
-                        $.ajax({
-                            url: '/completeAuthor',
-                            type: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify({
-                                letters: req
-                            }),
-                            dataType: 'json',
-                            error: function(jqXhR, textStatus) {
-                                alert('Error processing your request. Please try again later. \n Specific error: ' + textStatus);
-                            },
-                            success: function(doc) {
-                                var authorList = [];
-                                for (var i = 0; i < doc.length; i++) {
-                                    console.log(doc[i].firstname + ' ' + doc[i].lastname + ' (' + doc[i].school + ')');
-                                    var authorObj = {
-                                        label: doc[i].firstname + ' ' + doc[i].lastname + ' (' + doc[i].school + ')',
-                                        value: doc[i].firstname + ' ' + doc[i].lastname,
-                                        school: doc[i].school,
-                                        id: doc[i]._id
-                                    };
-                                    authorList.push(authorObj);
-                                }
-                                authorList.push({
-                                    label: 'Click here if you don\'t see your coauthor.',
-                                    value: 'No author found.',
-                                    id: '0'
-                                });
-                                bigAuthorList = authorList;
-                                resp(authorList);
-                            }
-                        });
+                        resp(completeAuthor(totalAuthors, req));
                     }
                 },
                 beforeTagAdded: function(event, ui) {
@@ -598,7 +621,7 @@
 
                     <!--<label class="description required" for="element_4_1">Search for and select your authors here</label>-->
                     <div id="authorsDiv">
-                        <label style="font-size:95%;margin-bottom:5px;" class="description required">Authors of paper (each author is one tag) </label>
+                        <label style="font-size:95%;margin-bottom:5px;" class="description required">Authors of paper (each author is one tag, but don't forget yourself!) </label>
                         <div>
                             <ul class="tagit" id="authorTags" style="overflow:hidden;width:803px;"></ul>
                         </div>
@@ -658,7 +681,7 @@
                 </li>
 
                 <li id="li_9">
-                    <label class="description required" for="keywordsDiv">Keywords (10 max)</label>
+                    <label class="description required" for="keywordsDiv">Keywords (10 max, press enter to add a keyword)</label>
                     <div id="keywordsDiv">
                         <ul class="tagit" id="keywordTags" style="overflow:hidden;"></ul>
                     </div>
