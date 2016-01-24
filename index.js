@@ -24,6 +24,10 @@ var db = mongojs(uri, ["Papers", "Users"], {
     authMechanism: 'ScramSHA1'
 });
 
+var gfs = grid(db, mongojs);
+aws.config.region = 'us-east-1';
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -237,7 +241,6 @@ app.post('/getPaper', function(req, res) {
         var filter = /.*?/;
     else
         var filter = req.body.filter;
-    console.log(req.body.query + ": hello");
     if (req.body.searchType == "All") {
         var searchObject = {
             $or: [{
@@ -396,6 +399,7 @@ app.post('/addPaper', function(req, res) {
         authors: req.body.authors,
         abstract: req.body.abstract,
         keywords: req.body.keywords,
+        subject: req.body.subject,
         institution: req.body.institution,
         tempAuthors: req.body.tempAuthors,
         pdf: req.body.pdf,
@@ -437,11 +441,6 @@ app.post('/addPaper', function(req, res) {
         }
     });
 });
-
-var gfs = grid(db, mongojs);
-aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
     var fstream;
