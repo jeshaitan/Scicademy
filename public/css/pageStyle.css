@@ -27,8 +27,11 @@ textarea.error {
     background-color: #5a5699 !important;
 }
 
+
 /*Begin code for button transition*/
-.btn, .submit-container input {
+
+.btn,
+.submit-container input {
     opacity: 1;
     transition: all 0.3s ease 0s !important;
 }
@@ -41,9 +44,11 @@ textarea.error {
     height: 32px;
 }
 
-.submit-container #searchSubmitBut:hover{
+.submit-container #searchSubmitBut:hover {
     background-color: #8380B3 !important;
 }
+
+
 /*End code for button transitions*/
 
 #signInButton {
