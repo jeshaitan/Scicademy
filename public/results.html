@@ -71,6 +71,7 @@
                 "query": queryString,
                 "searchType": searchType,
                 "filter": filter
+<<<<<<< Updated upstream
             };
             $('#' + filter).iCheck('check');
             if (filter == '') {
@@ -79,6 +80,9 @@
             $('.filterBy').on('ifChecked', function(event) {
                 window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7);
             });
+=======
+            };console.log(filter);
+>>>>>>> Stashed changes
 
             $.ajax({
                 url: '/getPaper',
@@ -134,7 +138,11 @@
                             var firstAuthor = true;
                             for (var i = 0; i < info.length; i++) {
                                 //reverse search info[i]. Returned author object will be called authorObj
+<<<<<<< Updated upstream
                                 if (info[i] == 0) {
+=======
+                                if (info[i] == 0){
+>>>>>>> Stashed changes
                                     getTemps = true;
                                     continue;
                                 }
@@ -170,7 +178,11 @@
                                 "meta": nump,
                                 "paperId": paperInfo._id
                             };
+<<<<<<< Updated upstream
                             if (getTemps) {
+=======
+                            if (getTemps){
+>>>>>>> Stashed changes
                                 getTemps = false;
                                 $.ajax({
                                     url: '/getTemps',
@@ -180,12 +192,20 @@
                                     dataType: 'json',
                                     success: function(docB) {
                                         var tempAuthorObj = docB.temps;
+<<<<<<< Updated upstream
                                         for (var i = 0; i < tempAuthorObj.length; i++) {
+=======
+                                        for (var i = 0; i < tempAuthorObj.length; i++){
+>>>>>>> Stashed changes
                                             var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
                                             var userId = '0';
                                         }
                                         var userPage = "user.html?id=" + userId;
+<<<<<<< Updated upstream
                                         authors += ', <a href="' + userPage + '">' + fullName + ' </a>';
+=======
+                                        authors += '<a href="' + userPage + '">, ' + fullName + ' </a>';
+>>>>>>> Stashed changes
                                         $('#authors' + (docB.meta)).html(authors);
                                     }
                                 });

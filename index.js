@@ -153,13 +153,13 @@ var soundex = function(s) {
 
     r = f +
         a
-        .map(function(v, i, a) {
-            return codes[v]
-        })
-        .filter(function(v, i, a) {
-            return ((i === 0) ? v !== codes[f] : v !== a[i - 1]);
-        })
-        .join('');
+            .map(function(v, i, a) {
+                return codes[v]
+            })
+            .filter(function(v, i, a) {
+                return ((i === 0) ? v !== codes[f] : v !== a[i - 1]);
+            })
+            .join('');
 
     return (r + '000').slice(0, 4).toUpperCase();
 };
@@ -344,24 +344,6 @@ app.post('/getSchools', function(req, res) {
 });
 
 
-<<<<<<< HEAD
-
-app.post('/updatePapers', function(req, res) {
-    //var html = '';
-    //var data = {
-    //    from: 'Scicademy <scicademy@scicademy.org>',
-    //    to: '@gmail.com',
-    //    subject: 'Welcome to Scicademy!',
-    //    html: fs.readFileSync('emailTemplate.html').toString()
-    //    //'<div id="load"></div><script>$("#load").load("public/about.html")</script>'
-    //};
-    //mailgun.messages().send(data, function(error, body) {
-    //    console.log(body);
-    //});
-});
-
-=======
->>>>>>> 410eedc39c8ea49bf6e94881502899761f46947b
 app.post('/addUser', function(req, res) {
     db.Users.findOne({
         "email": req.body.eml
@@ -387,16 +369,16 @@ app.post('/addUser', function(req, res) {
                     if (err) {
                         console.log(err);
                     } else {
+                        res.send(record);
                         var data = {
                             from: 'Scicademy <scicademy@scicademy.org>',
                             to: req.body.eml,
                             subject: 'Welcome to Scicademy!',
-                            html: fs.readFileSync('emailTemplate.html').toString()
+                            text: 'You have just created an account with Scicademy. Add some publications to show the world your passion for science!'
                         };
                         mailgun.messages().send(data, function(error, body) {
                             console.log(body);
                         });
-                        res.send(record);
                     }
                 });
             } else {
