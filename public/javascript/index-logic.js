@@ -183,7 +183,6 @@ $(document).ready(function() {
 
     $(document).on("click", ".searchBoxSubmit", function(event) {
         event.preventDefault();
-        console.log('made it past default');
         query = $('#searchBox').val();
         var searchType = $("input[name=searchTypeOptions]:checked").val();
         switch (searchType) {
