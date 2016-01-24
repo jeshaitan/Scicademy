@@ -262,6 +262,10 @@ app.post('/getPaper', function(req, res) {
         var searchObject = {
             keywords: req.body.query
         };
+    } else if (req.body.searchType == "Abstract") {
+        var searchObject = {
+            abstract: req.body.query
+        };
     } else if (req.body.searchType == "Author") {
         db.Users.find({
             $text: {
@@ -339,20 +343,6 @@ app.post('/getSchools', function(req, res) {
     });
 });
 
-
-
-app.post('/updatePapers', function(req, res) {
-    var html = '';
-    var data = {
-        from: 'Scicademy <scicademy@scicademy.org>',
-        to: 'abagh0703@gmail.com',
-        subject: 'Welcome to Scicademy!',
-        html: '<h1>Welcome to Sciademy!</h1><p>You have just created an account with Scicademy. Add some publications to show the world your passion for science!</p>'
-    };
-    mailgun.messages().send(data, function(error, body) {
-        console.log(body);
-    });
-});
 
 app.post('/addUser', function(req, res) {
     db.Users.findOne({

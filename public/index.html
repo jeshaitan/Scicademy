@@ -48,7 +48,7 @@
             --position: relative;
             --top: 20px;
         }
-        
+
         .form-container {
             width: 458px;
         }
@@ -105,15 +105,6 @@
                     "lastName": localStorage.getItem('lName'),
                     "school": localStorage.getItem('school')
                 };
-
-                $.ajax({
-                    url: '/updatePapers',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: '',
-                    dataType: 'text',
-                    success: function(docB) {}
-                });
 
                 function retrievePapers(data) {
                     for (var i = 0; i < data.length; i++) {

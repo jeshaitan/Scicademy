@@ -633,7 +633,6 @@ function addUser(newuser) {
                 localStorage.setItem('lName', searchLName);
                 localStorage.setItem('school', searchSchool);
                 localStorage.setItem('curID', res._id);
-                console.log(res.id);
             }
         }
     });
