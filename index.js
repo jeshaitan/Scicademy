@@ -61,7 +61,7 @@ app.post('/updateUserWithNewPapers', function(req, res) {
                         db.Papers.update({
                             "_id": ObjectID(req.body.paperIDs[i])
                         }, {
-                            $pullAll: {
+                            $pull: {
                                 "authors": "0"
                             }
                         }, function(err, record) {
