@@ -319,20 +319,6 @@
                 $('#li_3').slideDown();
 
             });
-            //            var authorCount = 1;
-            //            $('.add').click(function(e) {
-            //                e.preventDefault();
-            //                authorCount++;
-            //                var idTexth = ' id = element_4_' + authorCount + 'h';
-            //                breakText = '<br><br><br><br><br>';
-            //                var idText = "<div id='author" + authorCount + "'>";
-            //                var hiddenInput = '<input type="hidden" ' + idTexth + ' value="0" class="spawnUserIDh">';
-            //                $('#li_4').append(idText + breakText + '<span>' + hiddenInput + '<input id="element_4_' + authorCount + '" name="element_4_' + authorCount + '" class="element text spawnUserID author required" maxlength="255" size="14" value=""/>\
-            //					<label class="required">Author ' + authorCount + '\'s User Id</label>\
-            //				</span>\
-            //				</div>');
-            //                localStorage.setItem("authorCount", authorCount);
-            //            });
             $('#authorDialog').dialog({
                 modal: true,
                 resizable: false,
@@ -657,25 +643,17 @@
                         <table id="subjectTable">
                             <tr>
                                 <td>
-                                    <input id="compSci" name="subjectArea" class="element radio" type="radio" value="compSci" />
-                                    <label class="choice" for="compSci">Computer Science and Modeling</label>
-                                    <input id="bioChem" name="subjectArea" class="element radio" type="radio" value="bioChem" />
-                                    <label class="choice" for="bioChem">Biochemistry and Molecular Biology</label>
-                                    <input id="bio" name="subjectArea" class="element radio" type="radio" value="bio" />
-                                    <label class="choice" for="bio">General Biology</label>
-                                    <input id="psych" name="subjectArea" class="element radio" type="radio" value="psych" />
-                                    <label class="choice" for="psych">Behavioral and Social Science</label>
+                                    <input id="compSci" name="subjectArea" class="element radio" type="radio" value="compSci">Computer Science and Modeling</input>
+                                    <input id="bioChem" name="subjectArea" class="element radio" type="radio" value="bioChem">Biochemistry and Molecular Biology</input>
+                                    <input id="bio" name="subjectArea" class="element radio" type="radio" value="bio">General Biology</input>
+                                    <input id="psych" name="subjectArea" class="element radio" type="radio" value="psych">Behavioral and Social Science</input>
                                 </td>
                                 <td></td>
                                 <td style="column-gap:40px;-moz-column-gap:40px;">
-                                    <input id="chem" name="subjectArea" class="element radio" type="radio" value="chem" />
-                                    <label class="choice" for="chem">Chemistry</label>
-                                    <input id="earth" name="subjectArea" class="element radio" type="radio" value="earth" />
-                                    <label class="choice" for="earth">Earth and Environmental Science</label>
-                                    <input id="phys" name="subjectArea" class="element radio" type="radio" value="phys" />
-                                    <label class="choice" for="phys">Physics and Astronomy</label>
-                                    <input id="engineer" name="subjectArea" class="element radio" type="radio" value="engineer" />
-                                    <label class="choice" for="engineer">Prototype Engineering</label>
+                                    <input id="chem" name="subjectArea" class="element radio" type="radio" value="chem">Chemistry</input>
+                                    <input id="earth" name="subjectArea" class="element radio" type="radio" value="earth">Earth and Environmental Science</input>
+                                    <input id="phys" name="subjectArea" class="element radio" type="radio" value="phys">Physics and Astronomy</input>
+                                    <input id="engineer" name="subjectArea" class="element radio" type="radio" value="engineer">Prototype Engineering</input>
                                 </td>
                             </tr>
                         </table>

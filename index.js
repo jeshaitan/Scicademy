@@ -237,7 +237,7 @@ app.post('/getPaper', function(req, res) {
         var filter = /.*?/;
     else
         var filter = req.body.filter;
-
+    console.log(req.body.query + ": hello");
     if (req.body.searchType == "All") {
         var searchObject = {
             $or: [{
@@ -326,6 +326,7 @@ app.post('/getPaper', function(req, res) {
                 console.log(err);
             } else {
                 res.send(curs);
+                console.log(curs)
             }
         });
     }
