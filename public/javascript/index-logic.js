@@ -554,7 +554,7 @@ function readSubmitPaperForm(form) {
         authorsid = [],
         tempAuthors = [],
         institution = $('#inst').val();
-    keywords = $(".tagit-label").map(function() {
+    keywords = $("#li_9 .tagit-label").map(function() {
         return $(this).text();
     }).get();
 
