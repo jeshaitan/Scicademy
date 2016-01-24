@@ -27,7 +27,7 @@ var db = mongojs(uri, ["Papers", "Users"], {
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
-        "_id": ObjectID(req.body.currentAuthorID)
+        "_id": ObjectID(req.body.id)
     }, {
         $addToSet: {
             "publications": {
@@ -38,8 +38,35 @@ app.post('/updateUserWithNewPapers', function(req, res) {
         if (err)
             console.log(err);
         else {
-            console.log(req.body.currentAuthorID)
-            console.log(record);
+            for (var i = 0; i < req.body.paperIDs.length; i++) {
+                db.Papers.update({
+                    "_id": ObjectID(req.body.paperIDs[i])
+                }, {
+                    $addToSet: {
+                        "authors": req.body.id
+                    },
+                    $pull: {
+                        "tempAuthors": {
+                            "name": req.body.exTempName
+                        }
+                    }
+                }, function(err, record) {
+                    if (err)
+                        console.log(err)
+                    else {
+                        db.Papers.update({
+                            "_id": ObjectID(req.body.paperIDs[i])
+                        }, {
+                            $pullAll: {
+                                "authors": "0"
+                            }
+                        }, function(err, record) {
+                            if (err)
+                                console.log(err)
+                        });
+                    }
+                });
+            }
         }
     });
 });
@@ -421,8 +448,8 @@ app.post('/addPaper', function(req, res) {
 });
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
     var fstream;

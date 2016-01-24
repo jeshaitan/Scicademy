@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html>
 
@@ -26,10 +25,10 @@
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function() {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
             a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
+                m = s.getElementsByTagName(o)[0];
             a.async = 1;
             a.src = g;
             m.parentNode.insertBefore(a, m)
@@ -42,68 +41,68 @@
 </head>
 
 <body class="colorBody">
-<script>
-    $(document).ready(function() {
-        $.getScript('javascript/index-logic.js', function(jd) {});
+    <script>
+        $(document).ready(function() {
+            $.getScript('javascript/index-logic.js', function(jd) {});
 
-        var url = window.location.href;
-        var queryString = decodeURI(url.slice(url.indexOf('?query=') + 7));
-        var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?query='));
-        var searchType = url.charAt(url.indexOf('?type=') + 6);
-        if (searchType == 1) {
-            searchType = "All";
-            $('#all').iCheck('check');
-        } else if (searchType == 2) {
-            searchType = "Title";
-            $('#title').iCheck('check');
-        } else if (searchType == 3) {
-            searchType = "Keyword";
-            $('#keyword').iCheck('check');
-        } else if (searchType == 4) {
-            searchType = "Author";
-            $('#author').iCheck('check');
-        } else if (searchType == 5) {
-            searchType = "Abstract";
-            $('#abstract').iCheck('check');
-        } else if (searchType == 6)
-            searchType = "Browse";
+            var url = window.location.href;
+            var queryString = decodeURI(url.slice(url.indexOf('?query=') + 7));
+            var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?query='));
+            var searchType = url.charAt(url.indexOf('?type=') + 6);
+            if (searchType == 1) {
+                searchType = "All";
+                $('#all').iCheck('check');
+            } else if (searchType == 2) {
+                searchType = "Title";
+                $('#title').iCheck('check');
+            } else if (searchType == 3) {
+                searchType = "Keyword";
+                $('#keyword').iCheck('check');
+            } else if (searchType == 4) {
+                searchType = "Author";
+                $('#author').iCheck('check');
+            } else if (searchType == 5) {
+                searchType = "Abstract";
+                $('#abstract').iCheck('check');
+            } else if (searchType == 6)
+                searchType = "Browse";
 
-        var searchPaper = {
-            "query": queryString,
-            "searchType": searchType,
-            "filter": filter
-        };
-        $('#' + filter).iCheck('check');
-        if (filter == ''){
-            $('#allTopics').iCheck('check');
-        }
-        $('.filterBy').on('ifChecked', function(event) {
-            window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7);
-        });
-
-        $.ajax({
-            url: '/getPaper',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(searchPaper),
-            dataType: 'json',
-            success: addPapers
-        });
-
-        function removeJSONthat(array, property, value) {
-            $.each(array, function(index, obj) {
-                if (obj[property] == value) {
-                    array.splice(index, 1);
-                    console.log(array[index]);
-                }
+            var searchPaper = {
+                "query": queryString,
+                "searchType": searchType,
+                "filter": filter
+            };
+            $('#' + filter).iCheck('check');
+            if (filter == '') {
+                $('#allTopics').iCheck('check');
+            }
+            $('.filterBy').on('ifChecked', function(event) {
+                window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7);
             });
-        }
 
-        function addPapers(data) {
-            $('.papers').html('');
-            removeJSONthat(data, "published", "false");
-            if (data.length == 0) {
-                $('.papers').append(
+            $.ajax({
+                url: '/getPaper',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(searchPaper),
+                dataType: 'json',
+                success: addPapers
+            });
+
+            function removeJSONthat(array, property, value) {
+                $.each(array, function(index, obj) {
+                    if (obj[property] == value) {
+                        array.splice(index, 1);
+                        console.log(array[index]);
+                    }
+                });
+            }
+
+            function addPapers(data) {
+                $('.papers').html('');
+                removeJSONthat(data, "published", "false");
+                if (data.length == 0) {
+                    $('.papers').append(
                         '<div class="paperDiv">\
                  							<span class="title">\
                  								<a href=""><h3>Sorry, nothing matched your search.</h3></a>\
@@ -118,9 +117,9 @@
                             </div>\
                  					</div>\
                  				<div class="separator"></div>'
-                );
-            }
-            var title = '',
+                    );
+                }
+                var title = '',
                     authors = '',
                     abstractText = '',
                     firstAuthor = true,
@@ -128,84 +127,84 @@
                     getTemps = false,
                     nump = 0;
 
-            var paperHtml = '';
-            $.each(data, function(paper, paperInfo) { //iterate through each paper
-                $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
-                    if (infoName == 'authors') { //going into the authors
-                        //then it's authors
-                        var firstAuthor = true;
-                        for (var i = 0; i < info.length; i++) {
-                            //reverse search info[i]. Returned author object will be called authorObj
-                            if (info[i] == 0) {
-                                getTemps = true;
-                                console.log('0ed');
-                                continue;
-                            }
-                            var authorreq = {
-                                "query": info[i],
-                                "searchType": "id",
-                                "meta": nump
+                var paperHtml = '';
+                $.each(data, function(paper, paperInfo) { //iterate through each paper
+                    $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
+                        if (infoName == 'authors') { //going into the authors
+                            //then it's authors
+                            var firstAuthor = true;
+                            for (var i = 0; i < info.length; i++) {
+                                //reverse search info[i]. Returned author object will be called authorObj
+                                if (info[i] == 0) {
+                                    getTemps = true;
+                                    console.log('0ed');
+                                    continue;
+                                }
+                                var authorreq = {
+                                    "query": info[i],
+                                    "searchType": "id",
+                                    "meta": nump
+                                };
+                                $.ajax({
+                                    url: '/getUser',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(authorreq),
+                                    dataType: 'json',
+                                    success: function(docB) {
+                                        var authorObj = docB.doc;
+                                        var fullName = authorObj.firstname + ' ' + authorObj.lastname;
+                                        var userId = authorObj._id;
+                                        var userPage = "user.html?id=" + userId;
+                                        if (firstAuthor) {
+                                            authors = '<a href="' + userPage + '">' + fullName + '</a>';
+                                            firstAuthor = false;
+                                        } else {
+                                            authors += '<a href="' + userPage + '">, ' + fullName + ' </a>';
+                                        }
+                                        $('#authors' + (docB.meta)).html(authors);
+                                    }
+                                });
+
+                            } //end author loop
+
+                            var authorreq2 = {
+                                "meta": nump,
+                                "paperId": paperInfo._id
                             };
-                            $.ajax({
-                                url: '/getUser',
-                                type: 'POST',
-                                contentType: 'application/json',
-                                data: JSON.stringify(authorreq),
-                                dataType: 'json',
-                                success: function(docB) {
-                                    var authorObj = docB.doc;
-                                    var fullName = authorObj.firstname + ' ' + authorObj.lastname;
-                                    var userId = authorObj._id;
-                                    var userPage = "user.html?id=" + userId;
-                                    if (firstAuthor) {
-                                        authors = '<a href="' + userPage + '">' + fullName + '</a>';
-                                        firstAuthor = false;
-                                    } else {
-                                        authors += '<a href="' + userPage + '">, ' + fullName + ' </a>';
+                            console.log('id: ' + authorreq2.paperId);
+                            if (getTemps) {
+                                getTemps = false;
+                                $.ajax({
+                                    url: '/getTemps',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(authorreq2),
+                                    dataType: 'json',
+                                    success: function(docB) {
+                                        var tempAuthorObj = docB.temps;
+                                        for (var i = 0; i < tempAuthorObj.length; i++) {
+                                            var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
+                                            var userId = '0';
+                                        }
+                                        var userPage = "user.html?id=" + userId;
+                                        authors += ', <a href="' + userPage + '">' + fullName + ' </a>';
+                                        $('#authors' + (docB.meta)).html(authors);
                                     }
-                                    $('#authors' + (docB.meta)).html(authors);
-                                }
-                            });
-
-                        } //end author loop
-
-                        var authorreq2 = {
-                            "meta": nump,
-                            "paperId": paperInfo._id
-                        };
-                        console.log('id: ' + authorreq2.paperId);
-                        if (getTemps) {
-                            getTemps = false;
-                            $.ajax({
-                                url: '/getTemps',
-                                type: 'POST',
-                                contentType: 'application/json',
-                                data: JSON.stringify(authorreq2),
-                                dataType: 'json',
-                                success: function(docB) {
-                                    var tempAuthorObj = docB.temps;
-                                    for (var i = 0; i < tempAuthorObj.length; i++) {
-                                        var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
-                                        var userId = '0';
-                                    }
-                                    var userPage = "user.html?id=" + userId;
-                                    authors += ', <a href="' + userPage + '">' + fullName + ' </a>';
-                                    $('#authors' + (docB.meta)).html(authors);
-                                }
-                            });
-                        }
-                    } //end author if
-                    else { //every piece of info but authors
-                        if (infoName == 'title') {
-                            title = info;
-                        } else if (infoName == 'date') {
-                            date = info;
-                        } else if (infoName == 'abstract') {
-                            abstractText = info;
-                        }
-                    } //end else for everything but authors
-                }); //end loop through for each piece of info in paper
-                paperHtml = '<div class="paperDiv">\
+                                });
+                            }
+                        } //end author if
+                        else { //every piece of info but authors
+                            if (infoName == 'title') {
+                                title = info;
+                            } else if (infoName == 'date') {
+                                date = info;
+                            } else if (infoName == 'abstract') {
+                                abstractText = info;
+                            }
+                        } //end else for everything but authors
+                    }); //end loop through for each piece of info in paper
+                    paperHtml = '<div class="paperDiv">\
                							<span class="title">\
                								<a href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
                							</span>\
@@ -221,86 +220,86 @@
       								</div>\
                						</div>\
                						<div class="separator"></div>';
-                $('.papers').append(paperHtml);
-                nump++;
-            }); //end loop for each paper
-        } //end addPapers
-        $('.papers').on('click', '.abstractText', function(e) {
-            $(this).parent().find('.arrowClick').toggleClass('arrowSide');
-            e.preventDefault();
-            $(this).parent().find('.abstractParagraph').stop().slideToggle();
-            //$(this).parent().find('.abstractParagraph').slideToggle();
-            return false;
-        }); //end abstractText click
-    }); //end ready
-</script>
-<div class="navigation">
-    <ul id="navlist" class="sm sm-simple">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-        <li><a href="results.html?type=6?filter=?query=">Browse Projects</a></li>
-        <li id="aboutli"><a href="about.html">About Us</a></li>
-        <li><a href="" id="siso">Sign In or Register</a></li>
-    </ul>
-</div>
-<div id="signInBox"></div>
-<div class="grid" id="grayBack">
-    <div class="searchBoxDiv" id="search-form">
-        <form class="form-container" action="">
-            <input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048" />
-            <div class="submit-container">
-                <input type="submit" value="" class="submit searchBoxSubmit" />
-            </div>
-        </form>
+                    $('.papers').append(paperHtml);
+                    nump++;
+                }); //end loop for each paper
+            } //end addPapers
+            $('.papers').on('click', '.abstractText', function(e) {
+                $(this).parent().find('.arrowClick').toggleClass('arrowSide');
+                e.preventDefault();
+                $(this).parent().find('.abstractParagraph').stop().slideToggle();
+                //$(this).parent().find('.abstractParagraph').slideToggle();
+                return false;
+            }); //end abstractText click
+        }); //end ready
+    </script>
+    <div class="navigation">
+        <ul id="navlist" class="sm sm-simple">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="submit.html" id="submitLink">Submit Research</a></li>
+            <li><a href="results.html?type=6?filter=?query=">Browse Projects</a></li>
+            <li id="aboutli"><a href="about.html">About Us</a></li>
+            <li><a href="" id="siso">Sign In or Register</a></li>
+        </ul>
     </div>
-    <div id="searchTableDiv">
-        <div class="searchInfo">
-            <div class="searchBy">
-                <h4>Search In:</h4>
-                <div id="searchOptions">
-                    <input type="radio" name="searchTypeOptions" value="All" id="all" class="searchBy" checked="checked">All Fields</input>
-                    <br>
-                    <input type="radio" name="searchTypeOptions" value="Title" id="title" class="searchBy">Title</input>
-                    <br>
-                    <input type="radio" name="searchTypeOptions" value="Keyword" id="keyword" class="searchBy">Keyword</input>
-                    <br>
-                    <input type="radio" name="searchTypeOptions" value="Author" id="author" class="searchBy">Author</input>
-                    <br>
-                    <input type="radio" name="searchTypeOptions" value="Abstract" id="abstract" class="searchBy">Abstract</input>
-                    <br>
+    <div id="signInBox"></div>
+    <div class="grid" id="grayBack">
+        <div class="searchBoxDiv" id="search-form">
+            <form class="form-container" action="">
+                <input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048" />
+                <div class="submit-container">
+                    <input type="submit" value="" class="submit searchBoxSubmit" />
+                </div>
+            </form>
+        </div>
+        <div id="searchTableDiv">
+            <div class="searchInfo">
+                <div class="searchBy">
+                    <h4>Search In:</h4>
+                    <div id="searchOptions">
+                        <input type="radio" name="searchTypeOptions" value="All" id="all" class="searchBy" checked="checked">All Fields</input>
+                        <br>
+                        <input type="radio" name="searchTypeOptions" value="Title" id="title" class="searchBy">Title</input>
+                        <br>
+                        <input type="radio" name="searchTypeOptions" value="Keyword" id="keyword" class="searchBy">Keyword</input>
+                        <br>
+                        <input type="radio" name="searchTypeOptions" value="Author" id="author" class="searchBy">Author</input>
+                        <br>
+                        <input type="radio" name="searchTypeOptions" value="Abstract" id="abstract" class="searchBy">Abstract</input>
+                        <br>
+                    </div>
+                </div>
+                <div class="filterBy">
+                    <h4>Filter By:</h4>
+                    <div id="filterOptions">
+                        <input type="radio" name="filterByOptions" id="allTopics" class="filterBy">All</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="compSci" class="filterBy">Computer Science and Modelling</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="bioChem" class="filterBy">Biochemistry and Molecular Biology</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="genBio" class="filterBy">General Biology</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="psych" class="filterBy">Behavioral and Social Science</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="genChem" class="filterBy">General Chemistry</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="earth" class="filterBy">Earth and Environmental Science</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="physAstro" class="filterBy">Physics and Astronomy</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="proto" class="filterBy">Prototype Engineering</input>
+                        <br>
+                    </div>
                 </div>
             </div>
-            <div class="filterBy">
-                <h4>Filter By:</h4>
-                <div id="filterOptions">
-                    <input type="radio" name="filterByOptions" id="allTopics" class="filterBy">All</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="compSci" class="filterBy">Computer Science and Modelling</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="bioChem" class="filterBy">Biochemistry and Molecular Biology</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="genBio" class="filterBy">General Biology</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="psych" class="filterBy">Behavioral and Social Science</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="genChem" class="filterBy">General Chemistry</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="earth" class="filterBy">Earth and Environmental Science</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="physAstro" class="filterBy">Physics and Astronomy</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="proto" class="filterBy">Prototype Engineering</input>
-                    <br>
-                </div>
+            <div class="papers">
+                <br />
+                <br />
+                <p style="margin-left:35%;"><img src="images/spin.gif"></p>
             </div>
         </div>
-        <div class="papers">
-            <br />
-            <br />
-            <p style="margin-left:35%;"><img src="images/spin.gif"></p>
-        </div>
     </div>
-</div>
 </body>
 
 </html>

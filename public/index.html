@@ -48,7 +48,7 @@
             --position: relative;
             --top: 20px;
         }
-
+        
         .form-container {
             width: 458px;
         }
@@ -105,6 +105,7 @@
                     "lastName": localStorage.getItem('lName'),
                     "school": localStorage.getItem('school')
                 };
+
                 function retrievePapers(data) {
                     for (var i = 0; i < data.length; i++) {
                         var searchIndexPapers = {
@@ -258,6 +259,7 @@
                     var personInfo = {
                         "id": currentAuthorID,
                         "paperIDs": checkedValues,
+                        "exTempName": localStorage.getItem('fName') + " " + localStorage.getItem('lName'),
                     };
                     $.ajax({
                         url: '/updateUserWithNewPapers',
@@ -277,7 +279,6 @@
                     $(this).parent().find('.arrowClick').toggleClass('arrowSide');
                     e.preventDefault();
                     $(this).parent().find('.abstractParagraph').stop().slideToggle();
-                    //$(this).parent().find('.abstractParagraph').slideToggle();
                     return false;
                 }); //end abstractText click
             });

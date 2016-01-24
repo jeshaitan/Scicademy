@@ -133,7 +133,7 @@ var signInHtmlEnd =
         </div>\
         </div>';
 
-$(document).ready(function () {
+$(document).ready(function() {
     var currentLink = window.location.href;
     var shakeSign = false;
     if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)) {
@@ -152,48 +152,36 @@ $(document).ready(function () {
         document.getElementById('siso').innerHTML = "Sign Out";
         $('#aboutli').closest('li').after('<li><a href="user.html?id=' + currentUser._id + '" id="nameli">' + currentUser.firstname + '</a></li>');
     }
-
-    $('#siso').click(function (event) {
-        event.preventDefault();
-        if (currentUser == null) {
-          $('#signInBox').dialog({
-              modal: true,
-              resizable: false,
-              minWidth: 800,
-              minHeight: 'auto',
-              autoOpen: false,
-              close: function (event, ui) {
-                  $('.failedSignIn').remove();
-              },
-              show: 'fade',
-              hide: 'drop'
-          }).dialog('open');
-            $('#element_2_1').focus();
-        } else { //sign out
-            localStorage.clear();
-            location.reload();
-        }
-    });
-
-    $('.sm').smartmenus({
-        showFunction: function ($ul, complete) {
-            $ul.slideDown(250, complete);
+    $('#signInBox').dialog({
+        modal: true,
+        resizable: false,
+        minWidth: 800,
+        minHeight: 'auto',
+        autoOpen: false,
+        close: function(event, ui) {
+            $('.failedSignIn').remove();
         },
-        hideFunction: function ($ul, complete) {
-            $ul.slideUp(250, complete);
-        }
+        show: 'fade',
+        hide: 'drop'
     });
-
     $('#signInSpin').hide();
     $('#registerSpin').hide();
-
-    $('#registerClick').click(function (event) {
+    $('#registerClick').click(function(event) {
         event.preventDefault();
         $('#signInBox').dialog('open');
         $('#email').focus();
     });
 
-    $(document).on("click", ".searchBoxSubmit", function (event) {
+    $('.sm').smartmenus({
+        showFunction: function($ul, complete) {
+            $ul.slideDown(250, complete);
+        },
+        hideFunction: function($ul, complete) {
+            $ul.slideUp(250, complete);
+        }
+    });
+
+    $(document).on("click", ".searchBoxSubmit", function(event) {
         event.preventDefault();
         query = $('#searchBox').val();
         var searchType = $("input[name=searchTypeOptions]:checked").val();
@@ -216,7 +204,7 @@ $(document).ready(function () {
         window.location.href = "results.html?type=" + type + "?filter=?query=" + query;
     });
 
-    $('#signInForm').submit(function (event) {
+    $('#signInForm').submit(function(event) {
         $('#signInButton').hide();
         $('#signInSpin').show();
         $('.userPass').remove();
@@ -226,14 +214,8 @@ $(document).ready(function () {
         $('#signinBox').dialog('close');
     });
 
-    $('#form_1039889').submit(function (event) {
-        // event.preventDefault();
-        // event.stopImmediatePropagation();
-        // readSubmitPaperForm($('#form_1039889'));
-    });
-
     var submitted = false;
-    $('#form_1037235').submit(function (event) {
+    $('#form_1037235').submit(function(event) {
         $('#saveForm').hide();
         $('#registerSpin').show();
         event.preventDefault();
@@ -241,7 +223,7 @@ $(document).ready(function () {
         readRegisterForm($('#form_1037235'));
     });
     //start html injection prevention
-    $(':text').change(function () {
+    $(':text').change(function() {
         var inputText = $(this).val();
         $(this).val($($.parseHTML(inputText)).text());
     });
@@ -278,18 +260,18 @@ $(document).ready(function () {
     $('#li_1').hide();
 
 
-    jQuery.validator.addMethod("isValidEmail", function (value, element) {
+    jQuery.validator.addMethod("isValidEmail", function(value, element) {
         var emailRegex = /(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*:(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)(?:,\s*(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*))*)?;\s*)/
         var email = value.match(emailRegex);
         return this.optional(element) || email;
     }, "");
 
-    jQuery.validator.addMethod("hasNumber", function (value, element) {
+    jQuery.validator.addMethod("hasNumber", function(value, element) {
         var noNums = value.search(/\d/) == -1; //if true, then no numbers
         return !noNums;
     }, "");
 
-    jQuery.validator.addMethod("notJustNums", function (value, element) {
+    jQuery.validator.addMethod("notJustNums", function(value, element) {
         var isNum = /^\d+$/;
         var number = isNum.test(value); //check to see if it's only numbers
         return !number;
@@ -345,18 +327,19 @@ $(document).ready(function () {
                 required: "Please choose either High School or Undergrad."
             }
         }, //end messages
-        errorPlacement: function (error, element) {
-            if (element.is(":radio") || element.is(":checkbox")) {
-                error.appendTo(element.parent().parent());
-            } else {
-                error.insertAfter(element);
-            }
-        } //end error placement
+        errorPlacement: function(error, element) {
+                if (element.is(":radio") || element.is(":checkbox")) {
+                    error.appendTo(element.parent().parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            } //end error placement
     }); //end validate
+
     function getvalues(f) {
         var form = $("#" + f);
         var str = '';
-        $("input:not('input:submit')", form).each(function (i) {
+        $("input:not('input:submit')", form).each(function(i) {
             str += '\n' + $(this).prop('name') + ': ' + $(this).val();
         });
         return str;
@@ -364,7 +347,7 @@ $(document).ready(function () {
 
     var isvalidate = false;
     var submitClicked = false;
-    $('#saveForm').click(function (e) {
+    $('#saveForm').click(function(e) {
         submitClicked = true;
         $('#form_1037235').validate();
         var isvalidate = $("#form_1037235").valid();
@@ -373,7 +356,7 @@ $(document).ready(function () {
             $('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid.</p>');
         }
     });
-    $('#form_1037235').change(function () {
+    $('#form_1037235').change(function() {
         if (isvalidate == false && submitClicked == true) {
             isvalidate = $("#form_1037235").valid();
             if (isvalidate == true) {
@@ -383,10 +366,10 @@ $(document).ready(function () {
     });
 
     $('.sm').smartmenus({
-        showFunction: function ($ul, complete) {
+        showFunction: function($ul, complete) {
             $ul.slideDown(250, complete);
         },
-        hideFunction: function ($ul, complete) {
+        hideFunction: function($ul, complete) {
             $ul.slideUp(250, complete);
         }
     }); //end smartmenus
@@ -394,7 +377,7 @@ $(document).ready(function () {
         checkboxClass: 'icheckbox_flat-blue',
         radioClass: 'iradio_flat-blue'
     });
-    $('input').on('ifChanged', function (event) {
+    $('input').on('ifChanged', function(event) {
         if ($('input[name="highCol"]:checked').val() == "1") {
             $('#li_1').slideDown();
         } else {
@@ -409,9 +392,32 @@ $(document).ready(function () {
         }
     });
     //end register JavaScript
+
+    $('#siso').click(function(event) {
+        event.preventDefault();
+        if (currentUser == null) {
+            $('#signInBox').dialog({
+                modal: true,
+                resizable: false,
+                minWidth: 800,
+                minHeight: 'auto',
+                autoOpen: false,
+                close: function(event, ui) {
+                    $('.failedSignIn').remove();
+                },
+                show: 'fade',
+                hide: 'drop'
+            }).dialog('open');
+            $('#element_2_1').focus();
+        } else { //sign out
+            localStorage.clear();
+            location.reload();
+        }
+    });
+
 });
 
-$(window).load(function () {
+$(window).load(function() {
 
     function getPapers() {
         $.ajax({
@@ -422,7 +428,7 @@ $(window).load(function () {
                 "searchType": "every"
             }),
             dataType: 'json',
-            success: function (curs) {
+            success: function(curs) {
                 var papers = [];
                 for (var i = 0; i < curs.length; i++) {
                     papers.push(curs[i].title);
@@ -458,7 +464,7 @@ $(window).load(function () {
             data: {},
             dataType: 'json',
             contentType: 'application/json',
-            success: function (curs) {
+            success: function(curs) {
                 var schools = [];
                 for (var i = 0; i < curs.length; i++) {
                     schools.push(curs[i].school);
@@ -468,7 +474,7 @@ $(window).load(function () {
                 var fromStorage = "[" + localStorage["schools"] + "]";
                 schools = JSON.parse(fromStorage);
                 $('#element_7').autocomplete({
-                    source: function (req, resp) {
+                    source: function(req, resp) {
                         resp(completeSchool(schools, req));
                     }
                 });
@@ -478,7 +484,7 @@ $(window).load(function () {
         var fromStorage = "[" + localStorage["schools"] + "]";
         var schools = JSON.parse(fromStorage);
         $('#element_7').autocomplete({
-            source: function (req, resp) {
+            source: function(req, resp) {
                 resp(completeSchool(schools, req));
             }
         });
@@ -548,7 +554,7 @@ function readSubmitPaperForm(form) {
         authorsid = [],
         tempAuthors = [],
         institution = $('#inst').val();
-    keywords = $(".tagit-label").map(function () {
+    keywords = $(".tagit-label").map(function() {
         return $(this).text();
     }).get();
 
@@ -591,7 +597,7 @@ function readSubmitPaperForm(form) {
         data: formData,
         contentType: false,
         processData: false,
-        success: function (response) {
+        success: function(response) {
             var paperdata = {
                 "title": title,
                 "authors": authorsid,
@@ -615,7 +621,7 @@ function addUser(newuser) {
         contentType: 'application/json',
         data: JSON.stringify(newuser),
         dataType: 'json',
-        success: function (res) {
+        success: function(res) {
             $('#registerSpin').hide();
             $('#saveForm').show();
             if (Object.getOwnPropertyNames(res).length == 0) {
@@ -627,7 +633,7 @@ function addUser(newuser) {
                 localStorage.setItem('lName', searchLName);
                 localStorage.setItem('school', searchSchool);
                 localStorage.setItem('curID', res._id);
-                console.log(res.id)
+                console.log(res.id);
             }
         }
     });
