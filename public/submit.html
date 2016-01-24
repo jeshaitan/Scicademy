@@ -250,12 +250,6 @@
                         i = i - 1;
                     }
                 }
-                console.log('final: ');
-                console.log(currentAuthors);
-                for (var i = 0; i < currentAuthors.length; i++) {
-                    console.log(currentAuthors[i].name);
-                }
-
                 for (var i = 0; i < currentAuthors.length; i++) {
                     var authId = currentAuthors[i].id;
                     if (authId === 0 || authId === '0') {
@@ -265,7 +259,6 @@
                             school: currentAuthors[i].school,
                             name: currentAuthors[i].name
                         };
-                        console.log(tempAuthor);
                     }
 
                 }
@@ -382,12 +375,9 @@
                     } else {
                         var searchTerm = ui.tagLabel;
                     }
-                    console.log('serach term: ' + searchTerm);
                     var idObj = $.grep(bigAuthorList, function(e) {
                         return e.value === searchTerm;
                     });
-                    console.log('big author: ' + bigAuthorList);
-                    console.log(idObj);
                     var specificId = idObj[0].id;
                     var currentAuthor = {
                         name: ui.tagLabel,
@@ -396,35 +386,23 @@
                     };
 
                     currentAuthors.push(currentAuthor);
-                    console.log('after 355');
-                    console.log(currentAuthors);
                     if (ui.tagLabel === 'No author found.') {
                         noAuthor = true;
                         $('#authorDialog').dialog('open');
-                        console.log("reached it");
                         $('#authorSpin').hide();
                         $('#submitAuthorForm').show();
-                    }
-                    //TODO remove duplicates and entries with "Author does not have account yet" when submitting
-                    for (var i = 0; i < currentAuthors.length; i++) {
-                        console.log('cur auth: ' + currentAuthors[i].name);
-                        console.log('cur authid: ' + currentAuthors[i].id);
                     }
                 },
                 beforeTagRemoved: function(event, ui) {
                     var foundIt = 0;
-                    console.log(currentAuthors.length);
                     if (currentAuthors.length > 0) {
-                        console.log('current uathors beforetag: ' + currentAuthors);
                         for (var i = 0; i < currentAuthors.length; i++) {
                             if (currentAuthors[i].name === ui.tagLabel) {
                                 foundIt = i;
                                 break;
                             }
                         }
-                        console.log('found index: ' + foundIt);
                         currentAuthors.splice(foundIt, 1);
-                        console.log('new currentAuthors after splcie: ' + currentAuthors);
                     }
                 }
             });
@@ -492,7 +470,6 @@
                     e.stopImmediatePropagation();
                     $('#authorTags').tagit('removeTagByLabel', 'No author found.');
                     fullName = $('#authorfname').val() + ' ' + $('#authorlname').val();
-                    console.log('full name: ' + fullName);
                     createNew = true;
                     bypass = true;
                     currentAuthor = {

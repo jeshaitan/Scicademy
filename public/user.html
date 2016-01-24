@@ -127,52 +127,7 @@
                 }
             });
         });
-        /*
-		$.fn.editable.defaults.mode = 'inline';
-		var editIt = false;
 
-		$(document).on('click', '#editUser' , function(){
-			if (editIt){
-				editIt = false;
-			}
-			else{
-				editIt = true;
-			}
-		});
-
-		$(document).on('click', '#editUser', function(e) {
-        edit(e, "grade")
-		});
-
-    function edit(e, field) {
-      $('#' + field).removeClass('originalColor');
-      $('#' + field).editable({
-        disabled: false,
-        type: "select",
-        pk: "1",
-        name: field,
-        url: "/editable",
-        title: "Enter " + field,
-        defaultValue: "9",
-        onblur: "ignore",
-        source: [
-            {value: 9, text: "9th"},
-            {value: 10, text: "10th"},
-            {value: 11, text: "11th"},
-            {value: 12, text: "12th"}
-        ],
-        success: function (req, res) {
-          console.log(field + " changed!")
-        }
-      });
-      if (editIt){
-        $('#' + field).editable('option', 'disabled', false);
-      }
-      else{
-        $('#' + field).editable('option', 'disabled', true);
-      }
-    }
-    */
     </script>
     <div class="navigation">
         <ul id="navlist" class="sm sm-simple">

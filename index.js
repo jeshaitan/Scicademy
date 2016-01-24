@@ -262,6 +262,10 @@ app.post('/getPaper', function(req, res) {
         var searchObject = {
             keywords: req.body.query
         };
+    } else if (req.body.searchType == "Abstract") {
+        var searchObject = {
+            abstract: req.body.query
+        };
     } else if (req.body.searchType == "Author") {
         db.Users.find({
             $text: {
@@ -340,6 +344,7 @@ app.post('/getSchools', function(req, res) {
 });
 
 
+<<<<<<< HEAD
 
 app.post('/updatePapers', function(req, res) {
     //var html = '';
@@ -355,6 +360,8 @@ app.post('/updatePapers', function(req, res) {
     //});
 });
 
+=======
+>>>>>>> 410eedc39c8ea49bf6e94881502899761f46947b
 app.post('/addUser', function(req, res) {
     db.Users.findOne({
         "email": req.body.eml
