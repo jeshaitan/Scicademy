@@ -5,4 +5,4 @@ Our goal at Scicademy is to allow students all over the globe to share their har
 
 If you're a teacher or a student and you want to bring Scicademy to your school, go right ahead. The more schools use it, the better it becomes.
 
-![Scicademy](https://github.com/jeshaitan/Scicademy/public/images/favicon.ico)
+![Scicademy Logo](https://raw.githubusercontent.com/jeshaitan/Scicademy/master/public/images/favicon.ico)
