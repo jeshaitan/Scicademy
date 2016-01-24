@@ -374,7 +374,7 @@ app.post('/addUser', function(req, res) {
                             from: 'Scicademy <scicademy@scicademy.org>',
                             to: req.body.eml,
                             subject: 'Welcome to Scicademy!',
-                            html: 'You have just created an account with Scicademy. Add some publications to show the world your passion for science!'
+                            html: fs.readFileSync('emailTemplate.html').toString()
                         };
                         mailgun.messages().send(data, function(error, body) {
                             console.log(body);
