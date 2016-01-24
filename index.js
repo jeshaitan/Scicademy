@@ -369,13 +369,14 @@ app.post('/addUser', function(req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        res.send(record);
+                        var htm = fs.readFileSync('emailTemplate.html').toString();
                         var data = {
                             from: 'Scicademy <scicademy@scicademy.org>',
                             to: req.body.eml,
                             subject: 'Welcome to Scicademy!',
-                            html: fs.readFileSync('emailTemplate.html').toString()
+                            html: htm
                         };
+                        res.send(record);
                         mailgun.messages().send(data, function(error, body) {
                             console.log(body);
                         });
@@ -438,8 +439,8 @@ app.post('/addPaper', function(req, res) {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
     var fstream;
