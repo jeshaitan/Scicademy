@@ -156,7 +156,18 @@ $(document).ready(function () {
     $('#siso').click(function (event) {
         event.preventDefault();
         if (currentUser == null) {
-            $('#signInBox').dialog('open');
+          $('#signInBox').dialog({
+              modal: true,
+              resizable: false,
+              minWidth: 800,
+              minHeight: 'auto',
+              autoOpen: false,
+              close: function (event, ui) {
+                  $('.failedSignIn').remove();
+              },
+              show: 'fade',
+              hide: 'drop'
+          }).dialog('open');
             $('#element_2_1').focus();
         } else { //sign out
             localStorage.clear();
@@ -173,18 +184,6 @@ $(document).ready(function () {
         }
     });
 
-    $('#signInBox').dialog({
-        modal: true,
-        resizable: false,
-        minWidth: 800,
-        minHeight: 'auto',
-        autoOpen: false,
-        close: function (event, ui) {
-            $('.failedSignIn').remove();
-        },
-        show: 'fade',
-        hide: 'drop'
-    }); //end dialog
     $('#signInSpin').hide();
     $('#registerSpin').hide();
 
@@ -196,7 +195,6 @@ $(document).ready(function () {
 
     $(document).on("click", ".searchBoxSubmit", function (event) {
         event.preventDefault();
-        console.log('made it past default');
         query = $('#searchBox').val();
         var searchType = $("input[name=searchTypeOptions]:checked").val();
         switch (searchType) {
@@ -396,18 +394,6 @@ $(document).ready(function () {
         checkboxClass: 'icheckbox_flat-blue',
         radioClass: 'iradio_flat-blue'
     });
-    /*	$(document).on('click','#highCol',function(){
-     //$('#highCol').click(function() {
-     console.log('hello');
-     if ($('input[name="highCol"]:checked').val()=="1"){
-     console.log('im dumb');
-     $('#li_1').slideDown();
-     }
-     else{
-     $('#li_1').slideUp();
-     }
-
-     }); //end high school or undergrad click */
     $('input').on('ifChanged', function (event) {
         if ($('input[name="highCol"]:checked').val() == "1") {
             $('#li_1').slideDown();
@@ -640,7 +626,8 @@ function addUser(newuser) {
                 localStorage.setItem('fName', searchFName);
                 localStorage.setItem('lName', searchLName);
                 localStorage.setItem('school', searchSchool);
-                localStorage.setItem('curID', res[0]._id);
+                localStorage.setItem('curID', res._id);
+                console.log(res.id)
             }
         }
     });
@@ -680,7 +667,6 @@ function requestUser(email, password) {
 
     function giveloginerror(jqXHR, textStatus) {
         $('#signInButton').show();
-        console.log('ran');
         $('#signInSpin').hide();
         if (textStatus == 'parsererror') {
             if ($('.userPass').length == 0) {

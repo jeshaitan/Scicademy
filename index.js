@@ -37,20 +37,14 @@ app.post('/updateUserWithNewPapers', function(req, res) {
     }, function(err, record) {
         if (err)
             console.log(err);
-        else
+        else {
+            console.log(req.body.currentAuthorID)
             console.log(record);
+        }
     });
 });
 
 app.post('/completeAuthor', function(req, res) {
-    //TODO search each word in the query individually and return all results ('rubin smith' currently doesn't bring up jesse smith)
-    //var m = req.body.letters.term;
-    //var searchObj = {
-    //    "lowerName": {
-    //        $regex: req.body.letters.term.toLowerCase()
-    //    }
-    //};
-
     db.Users.find(function(err, curs) {
         res.send(curs);
     })
@@ -416,11 +410,8 @@ app.post('/addPaper', function(req, res) {
                     }, {
                         multi: true
                     }, function(err, result) {
-                        if (err) {
+                        if (err)
                             console.log(err);
-                        } else {
-                            //console.log(JSON.stringify(doc.authors));
-                        }
                     });
                 }
             });

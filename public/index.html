@@ -48,7 +48,7 @@
             --position: relative;
             --top: 20px;
         }
-        
+
         .form-container {
             width: 458px;
         }
@@ -100,38 +100,12 @@
                     show: 'fade',
                     hide: 'fold'
                 });
-                //TO TEST, DO NOT DELETE
-                //                var authInfo = {
-                //                    "firstName": 'Rubin',
-                //                    "lastName": 'Smith',
-                //                    "school": 'William A. shine Great neck South high School'
-                //                };
-                //TODO: uncomment below when ready to go public and you want test, delete the above
                 var authInfo = {
                     "firstName": localStorage.getItem('fName'),
                     "lastName": localStorage.getItem('lName'),
                     "school": localStorage.getItem('school')
                 };
-                //TO TEST, DO NOT DELETE
-                //                $.ajax({
-                //                    url: '/getAllTemps',
-                //                    type: 'POST',
-                //                    contentType: 'application/json',
-                //                    data: JSON.stringify(authInfo),
-                //                    dataType: 'json',
-                //                    success: function(docB) {
-                //                        console.log('all temps here you go');
-                //                        console.log(docB);
-                //                        if (docB.length >= 1){
-                //                            console.log('ddi you make it?');
-                //                            retrievePapers(docB);
-                //                        }
-                //                    }
-                //                });
-
                 function retrievePapers(data) {
-                    console.log('retrieve papers data');
-                    console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         var searchIndexPapers = {
                             "query": data[i].respectivePaper,
@@ -150,8 +124,6 @@
                 }
 
                 function addIndexPapers(data) {
-                    console.log('data from addindexpapers');
-                    console.log(data);
                     $('#myPapers').html('');
                     var title = '',
                         authors = '',
@@ -171,7 +143,6 @@
                                     //reverse search info[i]. Returned author object will be called authorObj
                                     if (info[i] == 0) {
                                         getTemps = true;
-                                        console.log('0ed');
                                         continue;
                                     }
                                     var authorreq = {
@@ -206,7 +177,6 @@
                                     "meta": nump,
                                     "paperId": paperInfo._id
                                 };
-                                console.log('id: ' + authorreq2.paperId);
                                 if (getTemps) {
                                     getTemps = false;
                                     $.ajax({
@@ -268,10 +238,7 @@
                         data: JSON.stringify(authInfo),
                         dataType: 'json',
                         success: function(docB) {
-                            console.log('all temps here you go');
-                            console.log(docB);
                             if (docB.length >= 1) {
-                                console.log('ddi you make it?');
                                 retrievePapers(docB);
                             } else {
                                 $('#registerComplete').dialog('open');
@@ -287,9 +254,6 @@
                     var checkedValues = $('input:checkbox:checked').map(function() {
                         return this.value;
                     }).get();
-                    console.log('checked values: ');
-                    console.log(checkedValues);
-                    //checkedValues is array of all checked papers
                     var currentAuthorID = localStorage.getItem('curID');
                     var personInfo = {
                         "id": currentAuthorID,
