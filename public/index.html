@@ -106,6 +106,15 @@
                     "school": localStorage.getItem('school')
                 };
 
+                $.ajax({
+                    url: '/updatePapers',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: '',
+                    dataType: 'text',
+                    success: function(docB) {}
+                });
+
                 function retrievePapers(data) {
                     for (var i = 0; i < data.length; i++) {
                         var searchIndexPapers = {
@@ -259,7 +268,7 @@
                     var personInfo = {
                         "id": currentAuthorID,
                         "paperIDs": checkedValues,
-                        "exTempName": localStorage.getItem('fName') + " " + localStorage.getItem('lName'),
+                        "exTempName": localStorage.getItem('fName') + " " + localStorage.getItem('lName')
                     };
                     $.ajax({
                         url: '/updateUserWithNewPapers',

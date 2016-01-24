@@ -13,7 +13,7 @@ var http = require("http"),
     ObjectID = require('mongodb').ObjectID,
     mailgun = require('mailgun-js')({
         apiKey: 'key-9f25ba4ad1200d45612172f4ac993a65',
-        domain: 'mg.scicademy.org'
+        domain: 'scicademy.org'
     });
 
 app = express();
@@ -52,7 +52,7 @@ app.post('/updateUserWithNewPapers', function(req, res) {
                     }
                 }, function(err, record) {
                     if (err)
-                        console.log(err)
+                        console.log(err);
                     else {
                         db.Papers.update({
                             "_id": ObjectID(req.body.paperIDs[i])
@@ -62,7 +62,7 @@ app.post('/updateUserWithNewPapers', function(req, res) {
                             }
                         }, function(err, record) {
                             if (err)
-                                console.log(err)
+                                console.log(err);
                         });
                     }
                 });
@@ -342,18 +342,16 @@ app.post('/getSchools', function(req, res) {
 
 
 app.post('/updatePapers', function(req, res) {
-    var paperID = req.body.paperIDs;
-    for (var i = 0; i < paperID.length; i++) {
-        db.Users.update({
-            _id: req.body.id
-        }, {
-            $push: {
-                publications: paperID[i]
-            }
-        });
-        //TODO: after you finish fixing the update users thing, I'll remove that tempAuthor
-    }
-    res.send('success');
+    var html = '';
+    var data = {
+        from: 'Scicademy <scicademy@scicademy.org>',
+        to: 'abagh0703@gmail.com',
+        subject: 'Welcome to Scicademy!',
+        html: '<h1>Welcome to Sciademy!</h1><p>You have just created an account with Scicademy. Add some publications to show the world your passion for science!</p>'
+    };
+    mailgun.messages().send(data, function(error, body) {
+        console.log(body);
+    });
 });
 
 app.post('/addUser', function(req, res) {
@@ -447,10 +445,11 @@ app.post('/addPaper', function(req, res) {
         }
     });
 });
+
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
     var fstream;
