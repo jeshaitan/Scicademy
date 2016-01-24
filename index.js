@@ -62,7 +62,7 @@ app.post('/updateUserWithNewPapers', function(req, res) {
                             "_id": ObjectID(req.body.paperIDs[i])
                         }, {
                             $pull: {
-                                "authors": "0"
+                                "authors": 0
                             }
                         }, function(err, record) {
                             if (err)
