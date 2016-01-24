@@ -407,6 +407,7 @@ app.post('/addPaper', function(req, res) {
         abstract: req.body.abstract,
         keywords: req.body.keywords,
         institution: req.body.institution,
+        tempAuthors: req.body.tempAuthors,
         pdf: req.body.pdf,
         date: req.body.date,
         published: "true"
