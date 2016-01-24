@@ -374,7 +374,7 @@ app.post('/addUser', function(req, res) {
                             from: 'Scicademy <scicademy@scicademy.org>',
                             to: req.body.eml,
                             subject: 'Welcome to Scicademy!',
-                            text: 'You have just created an account with Scicademy. Add some publications to show the world your passion for science!'
+                            html: 'You have just created an account with Scicademy. Add some publications to show the world your passion for science!'
                         };
                         mailgun.messages().send(data, function(error, body) {
                             console.log(body);
@@ -438,8 +438,8 @@ app.post('/addPaper', function(req, res) {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/addPdf', function(req, res) {
     var fstream;

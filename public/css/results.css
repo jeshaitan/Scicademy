@@ -94,11 +94,23 @@
 
 #search-form {
     background: url(../images/bp.png) top center no-repeat;
-    margin: 10px auto 10px;
+    margin: 10px 10px 10px 10px;
+    float: left;
+}
+
+.sidelogo {
+    float: left;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+#boxwlogo {
+    width: 60%;
+    margin: 0 auto;
 }
 
 #searchTableDiv {
-    margin-top: 24px;
+    margin-top: 85px;
     position: relative;
     background-color: white;
     /* color for results area */
