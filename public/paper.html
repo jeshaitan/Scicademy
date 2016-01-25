@@ -91,7 +91,7 @@
                                 var searchAuthor = {
                                     "query": info[i],
                                     "searchType": "id"
-                                }
+                                };
                                 $.ajax({
                                     url: '/getUser',
                                     type: 'POST',
@@ -100,6 +100,10 @@
                                     dataType: 'json',
                                     success: function(doc) {
                                         var fullName = doc.firstname + ' ' + doc.lastname;
+                                        var inst = pdata.institution;
+                                        if (inst === ''){
+                                            inst = 'None';
+                                        }
                                         var userId = doc._id;
                                         var userPage = "user.html?id=" + userId;
                                         if (firstAuthor == true)
@@ -115,7 +119,7 @@
 											<div class="paper">\
 												<h3>' + pdata.title + '</h3>' + authors + '</div>\
 											<div class="school">\
-												<p>' + doc.school + ', ' + pdata.institution + '</p>\
+												<p>School: ' + doc.school + ', Outside institution: ' + inst + '</p>\
 											</div>\
 											<div class="date">\
 												<p>' + pdata.date + '</p>\
