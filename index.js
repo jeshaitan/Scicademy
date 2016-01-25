@@ -26,8 +26,8 @@ var db = mongojs(uri, ["Papers", "Users"], {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -62,7 +62,7 @@ app.post('/updateUserWithNewPapers', function(req, res) {
                             "_id": ObjectID(req.body.paperIDs[i])
                         }, {
                             $pull: {
-                                "authors": "0"
+                                "authors": 0
                             }
                         }, function(err, record) {
                             if (err)
