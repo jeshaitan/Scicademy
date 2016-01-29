@@ -21,7 +21,9 @@ var http = require("http"),
 app = express();
 app.use(bodyParser.json());
 app.use(busboy());
-app.use(h5bp({root: __dirname + '/public'}));
+app.use(h5bp({
+    root: __dirname + '/public'
+}));
 app.use(compression());
 var uri = "mongodb://PublicIO:publicpass@ds036698.mongolab.com:36698/alirodatabase";
 var db = mongojs(uri, ["Papers", "Users"], {
@@ -40,8 +42,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
