@@ -13,6 +13,7 @@
     "express": "^4.13.3",
     "fs": "latest",
     "gridfs-stream": "^1.1.1",
+    "h5bp": "^0.1.4",
     "http": "latest",
     "mongodb": "latest",
     "mongojs": "latest",

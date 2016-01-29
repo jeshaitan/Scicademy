@@ -14,20 +14,32 @@ var http = require("http"),
     mailgun = require('mailgun-js')({
         apiKey: 'key-9f25ba4ad1200d45612172f4ac993a65',
         domain: 'scicademy.org'
-    });
+    }),
+    h5bp = require('h5bp');
 
 app = express();
 app.use(bodyParser.json());
 app.use(busboy());
+app.use(h5bp({root: __dirname + '/public'}));
 var uri = "mongodb://PublicIO:publicpass@ds036698.mongolab.com:36698/alirodatabase";
 var db = mongojs(uri, ["Papers", "Users"], {
     authMechanism: 'ScramSHA1'
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/404.html'));
+});
+
+app.listen(port, function() {
+    console.log('Scicademy back-end server listening on port ' + port + '.');
+});
+
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -492,14 +504,4 @@ app.post('/getPdf', function(req, res) {
 
 app.post('/clearPdf', function(req, res) {
     fs.unlink(__dirname + '/public/uploads/' + req.body.query);
-});
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/404.html'));
-});
-
-app.listen(port, function() {
-    console.log('Scicademy back-end server listening on port ' + port + '.');
 });
