@@ -16,6 +16,7 @@ var http = require("http"),
         domain: 'scicademy.org'
     }),
     h5bp = require('h5bp'),
+    hash = require('password-hash'),
     compression = require('compression');
 
 app = express();
@@ -42,8 +43,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -105,26 +106,29 @@ app.post('/getUser', function(req, res) {
         };
     } else {
         searchObj = {
-            "email": req.body.email,
-            "password": req.body.password
+            "email": req.body.email
         }
     }
     var user = db.Users.findOne(searchObj, function(err, doc) {
         if (err) {
             console.log(err);
         } else {
-            if (req.body.hasOwnProperty("meta")) {
-                res.send({
-                    "doc": doc,
-                    "meta": req.body.meta
-                });
-            } else {
+            console.log('doc');
+            console.log(doc);
+            if (doc != null && req.body.hasOwnProperty('password') && req.body.password != null && hash.verify(req.body.password,doc.password)) {
+                console.log('success');
                 res.send(doc);
+            }
+            else if (req.body.hasOwnProperty('searchType')){
+                res.send(doc);
+            }
+            else {
+                console.log('failure');
+                res.send(err);
             }
         }
     });
 });
-
 app.post('/getTemps', function(req, res) {
     var searchObj = {
         "_id": ObjectID(req.body.paperId)
@@ -374,7 +378,7 @@ app.post('/addUser', function(req, res) {
                 var lowerName = req.body.fnm + " " + req.body.lnm;
                 db.Users.insert({
                     email: req.body.eml,
-                    password: req.body.pwd,
+                    password: hash.generate(req.body.pwd),
                     name: req.body.fnm + " " + req.body.lnm,
                     lowerName: lowerName.toLowerCase(),
                     firstname: req.body.fnm,
