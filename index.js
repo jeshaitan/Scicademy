@@ -119,10 +119,11 @@ app.post('/getUser', function(req, res) {
                 console.log('success');
                 res.send(doc);
             }
-            else if (req.body.hasOwnProperty('searchType')){
+            else if (req.body.hasOwnProperty('searchType')) {
                 res.send({
                     "doc": doc,
-                    "meta": req.body.meta});
+                    "meta": req.body.meta
+                });
             }
             else {
                 console.log('failure');
@@ -140,10 +141,8 @@ app.post('/getTemps', function(req, res) {
             console.log(err);
         } else {
             res.send({
-                "temps": doc.tempAuthors,
-                "meta": req.body.meta
+                "temps": doc.tempAuthors
             });
-            console.log(meta)
         }
     });
 });
