@@ -92,6 +92,7 @@
                                     "query": info[i],
                                     "searchType": "id"
                                 };
+                                console.log("getting a user")
                                 $.ajax({
                                     url: '/getUser',
                                     type: 'POST',
@@ -152,20 +153,6 @@
                 }
             });
         }); //end ready
-        /*
-        window.onbeforeunload = function(e) {
-        	$.ajax({
-        		url: '/clearPdf',
-        		type: 'POST',
-        		contentType: 'application/json',
-        		data: JSON.stringify({ query: localStorage.getItem('pdf') }),
-        		dataType: 'json',
-        		success: function() {
-        			localStorage.removeItem('pdf');
-        		}
-        	});
-        }
-        */
     </script>
 </head>
 
