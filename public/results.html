@@ -179,13 +179,15 @@
                                     data: JSON.stringify(authorreq2),
                                     dataType: 'json',
                                     success: function(docB) {
+                                        console.log('doc b');
+                                        console.log(docB);
                                         var tempAuthorObj = docB.temps;
                                         for (var i = 0; i < tempAuthorObj.length; i++) {
                                             var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
                                             var userId = '0';
+                                            var userPage = "user.html?id=" + userId;
+                                            authors += ', <a href="' + userPage + '">' + fullName + ' </a>';
                                         }
-                                        var userPage = "user.html?id=" + userId;
-                                        authors += ', <a href="' + userPage + '">' + fullName + ' </a>';
                                         $('#authors' + (docB.meta)).html(authors);
                                     }
                                 });

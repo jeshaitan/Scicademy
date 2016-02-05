@@ -120,7 +120,9 @@ app.post('/getUser', function(req, res) {
                 res.send(doc);
             }
             else if (req.body.hasOwnProperty('searchType')){
-                res.send(doc);
+                res.send({
+                    "doc": doc,
+                    "meta": req.body.meta});
             }
             else {
                 console.log('failure');
