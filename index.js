@@ -43,8 +43,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -118,9 +118,13 @@ app.post('/getUser', function(req, res) {
             if (doc != null && req.body.hasOwnProperty('password') && req.body.password != null && hash.verify(req.body.password, doc.password)) {
                 console.log('success');
                 res.send(doc);
-            } else if (req.body.hasOwnProperty('searchType')) {
-                res.send(doc);
-            } else {
+            }
+            else if (req.body.hasOwnProperty('searchType')){
+                res.send({
+                    "doc": doc,
+                    "meta": req.body.meta});
+            }
+            else {
                 console.log('failure');
                 res.send(err);
             }
