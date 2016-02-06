@@ -618,7 +618,7 @@ function addUser(newuser) {
         success: function(res) {
             $('#registerSpin').hide();
             $('#saveForm').show();
-            if (Object.getOwnPropertyNames(res).length == 0) {
+            if (false){//DOESN'T WORK ON SUBMIT PAGE WHEN EVERYTHING IN SIGN IN FORM FILLED OUT (Object.getOwnPropertyNames(res).length == 0) {
                 $('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>');
             } else {
                 document.location.href = "/index.html";
