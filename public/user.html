@@ -66,6 +66,7 @@
                 data: JSON.stringify(searchUser),
                 dataType: 'json',
                 success: function(userObj) {
+                    userObj = userObj.doc;
                     var finalPaperHtml = '';
                     var c1 = 0;
                     for (var i = 0; i < userObj.publications.length; i++) {
