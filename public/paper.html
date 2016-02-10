@@ -88,6 +88,10 @@
                             authors += '<div class="authors">';
                             for (var i = 0; i < info.length; i++) {
                                 //reverse search info[i]. Returned author object will be called authorObj
+                                if (info[i] == 0) {
+                                    getTemps = true;
+                                    continue;
+                                }
                                 var searchAuthor = {
                                     "query": info[i],
                                     "searchType": "id"
@@ -96,6 +100,7 @@
                                 $.ajax({
                                     url: '/getUser',
                                     type: 'POST',
+                                    async: false,
                                     contentType: 'application/json',
                                     data: JSON.stringify(searchAuthor),
                                     dataType: 'json',
@@ -144,7 +149,33 @@
                                         firstAuthor = false;
                                     }
                                 });
-                            }; //end author loop
+                            } //end author loop
+                            var authorreq2 = {
+                                "meta": "0",
+                                "paperId": pdata._id
+                            };
+                            if (getTemps) {
+                                getTemps = false;
+                                $.ajax({
+                                    url: '/getTemps',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(authorreq2),
+                                    dataType: 'json',
+                                    success: function(docB) {
+                                        console.log('doc b');
+                                        console.log(docB);
+                                        var tempAuthorObj = docB.temps;
+                                        for (var i = 0; i < tempAuthorObj.length; i++) {
+                                            var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
+                                            var userId = '0';
+                                            var userPage = "user.html?id=" + userId;
+                                            authors += ', <a href="' + userPage + '">' + fullName + '</a>';
+                                        }
+                                        $('.authors').html(authors);
+                                    }
+                                });
+                            }
                         } //end "if authors"
                     }); //end loop through for each piece of info in paper
                 },
