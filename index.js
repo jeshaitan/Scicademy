@@ -118,14 +118,12 @@ app.post('/getUser', function(req, res) {
             if (doc != null && req.body.hasOwnProperty('password') && req.body.password != null && hash.verify(req.body.password, doc.password)) {
                 console.log('success');
                 res.send(doc);
-            }
-            else if (req.body.hasOwnProperty('searchType')) {
+            } else if (req.body.hasOwnProperty('searchType')) {
                 res.send({
                     "doc": doc,
                     "meta": req.body.meta
                 });
-            }
-            else {
+            } else {
                 console.log('failure');
                 res.send(err);
             }
