@@ -78,7 +78,8 @@
 .abstractParagraph {
     margin-top: 5px;
     display: none;
-    margin-left: 40px;
+    margin-left: 0px;
+    margin-right: 60px;
 }
 
 .paperDiv {
