@@ -505,7 +505,7 @@ function readRegisterForm(form) {
     } else {
         var grade = "undergrad";
     }
-    var email = $('#element_3').val(),
+    var email = $('#registerFormDiv #element_3').val(),
         password = $('#element_5').val();
 
     var today = new Date();
