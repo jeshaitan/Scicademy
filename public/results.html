@@ -146,7 +146,7 @@
                                 $.ajax({
                                     url: '/getUser',
                                     type: 'POST',
-                                    async: false,
+                                    async: true,
                                     contentType: 'application/json',
                                     data: JSON.stringify(authorreq),
                                     dataType: 'json',
