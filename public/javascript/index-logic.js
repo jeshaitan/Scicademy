@@ -537,6 +537,7 @@ function readRegisterForm(form) {
     searchFName = firstname;
     searchLName = lastname;
     searchSchool = school;
+    //start testing here
     addUser(newuser);
 }
 

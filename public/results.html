@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Results</title>
+    <title>Results || Scicademy - The world's first student research database</title>
     <meta name="Description" content="View the papers that match the terms you searched for">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
@@ -146,6 +146,7 @@
                                 $.ajax({
                                     url: '/getUser',
                                     type: 'POST',
+                                    async: true,
                                     contentType: 'application/json',
                                     data: JSON.stringify(authorreq),
                                     dataType: 'json',
