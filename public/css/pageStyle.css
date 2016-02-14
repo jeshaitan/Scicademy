@@ -55,6 +55,10 @@ textarea.error {
     color: #FFFFFF !important;
 }
 
+#submitPaperBut {
+  float: left;
+}
+
 #saveForm {
     color: #FFFFFF !important;
 }
