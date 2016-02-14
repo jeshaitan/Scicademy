@@ -55,10 +55,6 @@ textarea.error {
     color: #FFFFFF !important;
 }
 
-#submitPaperBut {
-  float: left;
-}
-
 #saveForm {
     color: #FFFFFF !important;
 }
@@ -104,7 +100,7 @@ textarea.error {
 }
 
 #indexButton {
-    margin-left: 43px;
+    margin-left: 35px;
     margin-right: 5px;
 }
 
