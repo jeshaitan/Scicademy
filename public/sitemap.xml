@@ -1,39 +1,60 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+  <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
-<url>
-  <loc>http://www.scicademy.org/</loc>
-  <lastmod>2015-11-11T17:33:10+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
-<url>
-  <loc>http://www.scicademy.org/index.html</loc>
-  <lastmod>2015-11-11T17:33:10+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
-<url>
-  <loc>http://www.scicademy.org/submit.html</loc>
-  <lastmod>2015-11-11T17:33:10+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
-<url>
-  <loc>http://www.scicademy.org/about.html</loc>
-  <lastmod>2015-11-11T17:33:10+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
-<url>
-  <loc>http://www.scicademy.org/TermsandConditions.html</loc>
-  <lastmod>2015-11-11T17:33:10+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
-<url>
-  <loc>http://www.scicademy.org/PrivacyPolicy.html</loc>
-  <lastmod>2015-11-11T17:33:10+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
+  <url>
+    <loc>http://www.scicademy.org/</loc>
+    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://www.scicademy.org/'%20+%20userPage%20+%20'</loc>
+    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://www.scicademy.org/paper.html?id='%20+%20paperInfo._id%20+%20'</loc>
+    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://www.scicademy.org/index.html</loc>
+    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://www.scicademy.org/submit.html</loc>
+    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://www.scicademy.org/results.html?type=6?filter=?query=</loc>
+    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://www.scicademy.org/about.html</loc>
+    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://www.scicademy.org/uploads/'%20+%20pdata.pdf%20+%20'</loc>
+    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://www.scicademy.org/TermsandConditions.html</loc>
+    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://www.scicademy.org/PrivacyPolicy.html</loc>
+    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
 </urlset>
