@@ -51,6 +51,7 @@
                 paperID = '',
                 keywords = [],
                 firstAuthor = true;
+                var getTemps = false;
 
             var searchPaper = {
                 "query": (window.location.href).slice((window.location.href).indexOf('?id=') + 4),
@@ -96,7 +97,7 @@
                                     "query": info[i],
                                     "searchType": "id"
                                 };
-                                console.log("getting a user")
+                                console.log("getting a user");
                                 $.ajax({
                                     url: '/getUser',
                                     type: 'POST',
