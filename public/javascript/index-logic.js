@@ -695,4 +695,5 @@ function completeSchool(allSchools, req) {
             localStorage.setItem("user", user);
             document.location.href = "/index.html";
         }
-    }
+}
+}
