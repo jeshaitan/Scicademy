@@ -1,65 +1,87 @@
-
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset
-        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!--
+   created with Free Online Sitemap Generator www.xml-sitemaps.com
+  -->
   <url>
     <loc>http://www.scicademy.org/</loc>
-    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>http://www.scicademy.org/'%20+%20userPage%20+%20'</loc>
-    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>http://www.scicademy.org/paper.html?id='%20+%20paperInfo._id%20+%20'</loc>
-    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <loc>
+      http://www.scicademy.org/paper.html?id='%20+%20paperInfo._id%20+%20'
+    </loc>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>http://www.scicademy.org/index.html</loc>
-    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>http://www.scicademy.org/submit.html</loc>
-    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>http://www.scicademy.org/results.html?type=6?filter=?query=</loc>
-    <lastmod>2016-02-15T14:18:20+00:00</lastmod>
+    <loc>
+      http://www.scicademy.org/results.html?type=6?filter=?query=
+    </loc>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>http://www.scicademy.org/about.html</loc>
-    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>http://www.scicademy.org/uploads/'%20+%20pdata.pdf%20+%20'</loc>
-    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <loc>http://www.scicademy.org/sitemap.html</loc>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>
+      http://www.scicademy.org/uploads/'%20+%20pdata.pdf%20+%20'
+    </loc>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>http://www.scicademy.org/TermsandConditions.html</loc>
-    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-  <loc>http://www.scicademy.org/PrivacyPolicy.html</loc>
-  <lastmod>2016-02-15T14:18:19+00:00</lastmod>
-  <changefreq>weekly</changefreq>
+    <loc>http://www.scicademy.org/PrivacyPolicy.html</loc>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>http://www.scicademy.org/sitemap.html</loc>
-    <lastmod>2016-02-15T14:18:19+00:00</lastmod>
+    <loc>
+      http://www.scicademy.org/results.html?type=Browse?query=
+    </loc>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>
+      http://www.scicademy.org/paper.html?id=56bfe717e5ff2803007d2969
+    </loc>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>
+      http://www.scicademy.org/paper.html?id=56b528f053a8190300fb8fc5
+    </loc>
+    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>
