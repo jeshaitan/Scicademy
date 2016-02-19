@@ -7,29 +7,29 @@ function completeSchool(allSchools, req) {
         if (curSchool[0].toLowerCase().indexOf(compareReq) != -1 || compareReq.indexOf(curSchool[0].toLowerCase()) != -1) {
             schoolList.push(curSchool);
         }
-    }
-    return schoolList;
-}
 
-function unique_ify(list) {
-    var seen = {};
-    var out = [];
-    var len = list.length;
-    var j = 0;
-    for (var i = 0; i < len; i++) {
-        var item = list[i];
-        if (seen[item] !== 1) {
-            seen[item] = 1;
-            out[j++] = item;
+        return schoolList;
+    }
+
+    function unique_ify(list) {
+        var seen = {};
+        var out = [];
+        var len = list.length;
+        var j = 0;
+        for (var i = 0; i < len; i++) {
+            var item = list[i];
+            if (seen[item] !== 1) {
+                seen[item] = 1;
+                out[j++] = item;
+            }
         }
+        return out;
     }
-    return out;
-}
 
-var currentUser = JSON.parse(localStorage.getItem("user"));
-var signInHtml = '';
-var signInHtmlEnd =
-    '<div class="credentialsTable">\
+    var currentUser = JSON.parse(localStorage.getItem("user"));
+    var signInHtml = '';
+    var signInHtmlEnd =
+        '<div class="credentialsTable">\
     <div id="registerFormDiv">\
     <h4 class="signInHeader">Register</h4>\
         <form id="form_1037235" class="appnitro"  method="post" action="">\
@@ -133,565 +133,566 @@ var signInHtmlEnd =
         </div>\
         </div>';
 
-$(document).ready(function() {
-    var currentLink = window.location.href;
-    var shakeSign = false;
-    if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)) {
-        signInHtml += '<center><div id="alertDiv"><p id="alerttext" class="alertP">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' + signInHtmlEnd;
-        shakeSign = true;
-    } else {
-        signInHtml += signInHtmlEnd;
-    }
-    $('#signInBox').html(signInHtml);
-    if (shakeSign) {
-        $('#alertDiv').effect("bounce", {
-            times: 3
-        }, 1200);
-    }
-    if (currentUser != null && !($("#navlist #nameli").length)) {
-        document.getElementById('siso').innerHTML = "Sign Out";
-        $('#aboutli').closest('li').after('<li><a href="user.html?id=' + currentUser._id + '" id="nameli">' + currentUser.firstname + '</a></li>');
-    }
-    $('#signInBox').dialog({
-        modal: true,
-        resizable: false,
-        minWidth: 800,
-        minHeight: 'auto',
-        autoOpen: false,
-        close: function(event, ui) {
-            $('.failedSignIn').remove();
-        },
-        show: 'fade',
-        hide: 'drop'
-    });
-    $('#signInSpin').hide();
-    $('#registerSpin').hide();
-    $('#registerClick').click(function(event) {
-        event.preventDefault();
-        $('#signInBox').dialog('open');
-        $('#email').focus();
-    });
-
-    $('.sm').smartmenus({
-        showFunction: function($ul, complete) {
-            $ul.slideDown(250, complete);
-        },
-        hideFunction: function($ul, complete) {
-            $ul.slideUp(250, complete);
-        }
-    });
-
-    $(document).on("click", ".searchBoxSubmit", function(event) {
-        event.preventDefault();
-        query = $('#searchBox').val();
-        var searchType = $("input[name=searchTypeOptions]:checked").val();
-        switch (searchType) {
-            case "All":
-                var type = 1;
-                break;
-            case "Title":
-                var type = 2;
-                break;
-            case "Keyword":
-                var type = 3;
-                break;
-            case "Author":
-                var type = 4;
-                break;
-            default:
-                var type = 1;
-        }
-        window.location.href = "results.html?type=" + type + "?filter=?query=" + query;
-    });
-
-    $('#signInForm').submit(function(event) {
-        $('#signInButton').hide();
-        $('#signInSpin').show();
-        $('.userPass').remove();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        readSignInForm($('#signInForm'));
-        $('#signinBox').dialog('close');
-    });
-
-    var submitted = false;
-    $('#form_1037235').submit(function(event) {
-        $('#saveForm').hide();
-        $('#registerSpin').show();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        readRegisterForm($('#form_1037235'));
-    });
-    //start html injection prevention
-    $(':text').change(function() {
-        var inputText = $(this).val();
-        $(this).val($($.parseHTML(inputText)).text());
-    });
-    //end html detection prevention
-
-    var headText = $('head').html();
-    if (headText.indexOf('href="css/searchBox.css"') < 0) {
-        $('head').append('<link rel="stylesheet" href="css/searchBox.css" type="text/css" />');
-    }
-
-    if (headText.indexOf('jquery.validate.min.js') < 0) {
-        $('head').append('<script src="libs/jquery.validate.min.js" type="text/javascript"></script>');
-    }
-
-    if (headText.indexOf('javascript/view.js') < 0) {
-        $('head').append('<script src="javascript/view.js" type="text/javascript"></script>');
-    }
-
-    if (headText.indexOf('view.css') < 0) {
-        $('head').append('<link href="css/view.css" rel="stylesheet">');
-    }
-    if (headText.indexOf('flat/blue.css') < 0) {
-        $('head').append('<link href="css/flat/blue.css" rel = "stylesheet" type = "text/css">');
-        $('head').append('<script src="libs/icheck.min.js" type = "text/javascript"></script>');
-    }
-
-    //start register javascript
-    $('#li_1').hide();
-
-
-    jQuery.validator.addMethod("isValidEmail", function(value, element) {
-        var emailRegex = /(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*:(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)(?:,\s*(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*))*)?;\s*)/
-        var email = value.match(emailRegex);
-        return this.optional(element) || email;
-    }, "");
-
-    jQuery.validator.addMethod("hasNumber", function(value, element) {
-        var noNums = value.search(/\d/) == -1; //if true, then no numbers
-        return !noNums;
-    }, "");
-
-    jQuery.validator.addMethod("notJustNums", function(value, element) {
-        var isNum = /^\d+$/;
-        var number = isNum.test(value); //check to see if it's only numbers
-        return !number;
-    }, "");
-
-    $('#element_1').selectmenu({
-        width: 62,
-        icons: {
-            button: "ui-icon-circle-triangle-s"
-        } //end icons
-    }); //end selectmenu
-    // $('#saveForm').button();
-    $('#form_1037235').validate({
-        rules: {
-            element_3: { //email
-                isValidEmail: true
-            },
-
-            element_4: { //password
-                minlength: 6,
-                hasNumber: true,
-                notJustNums: true
-            },
-            element_5: { //confirm password
-                equalTo: '#element_4'
-            },
-            element_6: { //radio button for highschool or college
-                required: true
-            },
-
-            element_13: {
-                required: true
-            },
-
-            agree: {
-                required: true
-            }
-        }, //end rules
-        messages: {
-            element_3: { //email
-                required: "This field is required.",
-                isValidEmail: "Please enter a valid email address."
-            },
-            element_4: {
-                hasNumber: "Make sure that your password contains at least one number.",
-                notJustNums: "Your password cannot contain only numbers.",
-                minlength: "Your password must contain at least six characters."
-            },
-            element_5: {
-                equalTo: "The passwords do not match."
-            },
-            element_6: { //radio button for highschool or college
-                required: "Please choose either High School or Undergrad."
-            }
-        }, //end messages
-        errorPlacement: function(error, element) {
-                if (element.is(":radio") || element.is(":checkbox")) {
-                    error.appendTo(element.parent().parent());
-                } else {
-                    error.insertAfter(element);
-                }
-            } //end error placement
-    }); //end validate
-
-    function getvalues(f) {
-        var form = $("#" + f);
-        var str = '';
-        $("input:not('input:submit')", form).each(function(i) {
-            str += '\n' + $(this).prop('name') + ': ' + $(this).val();
-        });
-        return str;
-    }
-
-    var isvalidate = false;
-    var submitClicked = false;
-    $('#saveForm').click(function(e) {
-        submitClicked = true;
-        $('#form_1037235').validate();
-        var isvalidate = $("#form_1037235").valid();
-        if (isvalidate == false) {
-            e.preventDefault();
-            $('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid.</p>');
-        }
-    });
-    $('#form_1037235').change(function() {
-        if (isvalidate == false && submitClicked == true) {
-            isvalidate = $("#form_1037235").valid();
-            if (isvalidate == true) {
-                $('#incompleteRegister').remove();
-            }
-        }
-    });
-
-    $('.sm').smartmenus({
-        showFunction: function($ul, complete) {
-            $ul.slideDown(250, complete);
-        },
-        hideFunction: function($ul, complete) {
-            $ul.slideUp(250, complete);
-        }
-    }); //end smartmenus
-    $('input').iCheck({
-        checkboxClass: 'icheckbox_flat-blue',
-        radioClass: 'iradio_flat-blue'
-    });
-    $('input').on('ifChanged', function(event) {
-        if ($('input[name="highCol"]:checked').val() == "1") {
-            $('#li_1').slideDown();
+    $(document).ready(function() {
+        var currentLink = window.location.href;
+        var shakeSign = false;
+        if (currentUser == null && (currentLink.indexOf('submit.html') != -1 || currentLink.indexOf('poster.html') != -1)) {
+            signInHtml += '<center><div id="alertDiv"><p id="alerttext" class="alertP">You must have an account to submit a paper.&nbsp;&nbsp;</p><a href="index.html" style="z-index: 99999">Return to home page</a></div></center>' + signInHtmlEnd;
+            shakeSign = true;
         } else {
-            $('#li_1').slideUp();
+            signInHtml += signInHtmlEnd;
         }
-        if ($('input[name="element_14"]:checked').val() == "isPDF") { //is your file a pdf or word?
-            $('#convertToPDF').slideUp();
-            $('#li_3').slideDown();
-        } else if ($('input[name="element_14"]:checked').val() == "isWord") {
-            $('#li_3').slideUp();
-            $('#convertToPDF').slideDown();
+        $('#signInBox').html(signInHtml);
+        if (shakeSign) {
+            $('#alertDiv').effect("bounce", {
+                times: 3
+            }, 1200);
         }
-    });
-    //end register JavaScript
-
-    $('#siso').click(function(event) {
-        event.preventDefault();
-        if (currentUser == null) {
-            $('#signInBox').dialog({
-                modal: true,
-                resizable: false,
-                minWidth: 800,
-                minHeight: 'auto',
-                autoOpen: false,
-                close: function(event, ui) {
-                    $('.failedSignIn').remove();
-                },
-                show: 'fade',
-                hide: 'drop'
-            }).dialog('open');
-            $('#element_2_1').focus();
-        } else { //sign out
-            localStorage.clear();
-            location.reload();
+        if (currentUser != null && !($("#navlist #nameli").length)) {
+            document.getElementById('siso').innerHTML = "Sign Out";
+            $('#aboutli').closest('li').after('<li><a href="user.html?id=' + currentUser._id + '" id="nameli">' + currentUser.firstname + '</a></li>');
         }
-    });
-
-});
-
-$(window).load(function() {
-
-    function getPapers() {
-        $.ajax({
-            url: '/getPaper',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                "searchType": "every"
-            }),
-            dataType: 'json',
-            success: function(curs) {
-                var papers = [];
-                for (var i = 0; i < curs.length; i++) {
-                    papers.push(curs[i].title);
-                }
-                localStorage["papers"] = JSON.stringify(papers);
-                var fromStorage = "[" + localStorage["papers"] + "]";
-                var papers = JSON.parse(fromStorage);
-                $('#searchBox').autocomplete({
-                    source: papers[0]
-                });
-            }
+        $('#signInBox').dialog({
+            modal: true,
+            resizable: false,
+            minWidth: 800,
+            minHeight: 'auto',
+            autoOpen: false,
+            close: function(event, ui) {
+                $('.failedSignIn').remove();
+            },
+            show: 'fade',
+            hide: 'drop'
         });
-    }
-
-    if (!localStorage["papers"]) {
-        if (window.location.pathname.indexOf('/index.html')) {
-            getPapers();
-        } else {
-            getPapers();
-        }
-    } else {
-        var fromStorage = "[" + localStorage["papers"] + "]";
-        var papers = JSON.parse(fromStorage);
-        $('#searchBox').autocomplete({
-            source: papers[0]
-        });
-    }
-
-    if (!localStorage["schools"]) {
-        $.ajax({
-            url: '/getSchools',
-            type: 'POST',
-            data: {},
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function(curs) {
-                var schools = [];
-                for (var i = 0; i < curs.length; i++) {
-                    schools.push(curs[i].school);
-                }
-                schools = unique_ify(schools);
-                localStorage.setItem("schools", JSON.stringify(schools));
-                var fromStorage = "[" + localStorage["schools"] + "]";
-                schools = JSON.parse(fromStorage);
-                $('#element_7').autocomplete({
-                    source: function(req, resp) {
-                        resp(completeSchool(schools, req));
-                    }
-                });
-            }
-        });
-    } else {
-        var fromStorage = "[" + localStorage["schools"] + "]";
-        var schools = JSON.parse(fromStorage);
-        $('#element_7').autocomplete({
-            source: function(req, resp) {
-                resp(completeSchool(schools, req));
-            }
-        });
-    }
-});
-
-function readSignInForm(form) {
-    var signinEmail = $('#email').val();
-    var signinEmail = $("#email").val();
-    var signinPassword = $("#password").val();
-    requestUser(signinEmail, signinPassword);
-}
-var searchFName = '';
-var searchLName = '';
-var searchSchool = '';
-
-function readRegisterForm(form) {
-    var firstname = $('#element_2_1').val(),
-        lastname = $('#element_2_2').val(),
-        is_highschool = ($('#element_6_1').is(':checked')),
-        school = $('#element_7').val();
-    if (is_highschool) {
-        var grade = $('#element_1').val();
-    } else {
-        var grade = "undergrad";
-    }
-    var email = $('#registerFormDiv #element_3').val(),
-        password = $('#element_5').val();
-
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //jan -> 0 (+1)
-    var yyyy = today.getFullYear();
-
-    if (dd < 10) {
-        dd = '0' + dd
-    }
-
-    if (mm < 10) {
-        mm = '0' + mm
-    }
-
-    today = mm + '/' + dd + '/' + yyyy;
-
-    var isSummer = ($('#element_13_2').is(':checked'));
-    var newuser = {
-        "fnm": firstname,
-        "lnm": lastname,
-        "grd": grade,
-        "shl": school,
-        "eml": email,
-        "pwd": password,
-        "dte": today,
-        "isSum": isSummer
-    };
-    searchFName = firstname;
-    searchLName = lastname;
-    searchSchool = school;
-    //start testing here
-    addUser(newuser);
-}
-
-function readSubmitPaperForm(form) {
-    var title = $('#title').val(),
-        abstract = $('#element_2').val(),
-        keywords = [],
-        subject = $("input[name=subjectArea]:checked").val(),
-        authorsid = [],
-        tempAuthors = [],
-        institution = $('#inst').val();
-    keywords = $("#li_9 .tagit-label").map(function() {
-        return $(this).text();
-    }).get();
-
-    for (var i = 0; i < $('.spawnUserID').length; i++) {
-        authorsid.push($('.spawnUserIDh')[i].value);
-    }
-
-    for (var i = 0; i < currentAuthors.length; i++) {
-        var authId = currentAuthors[i].id;
-        authorsid.push(authId);
-        if (authId === 0 || authId === '0') {
-            var tempAuthor = {
-                firstName: currentAuthors[i].firstName,
-                lastName: currentAuthors[i].lastName,
-                school: currentAuthors[i].school,
-                name: currentAuthors[i].name
-            };
-            tempAuthors.push(tempAuthor);
-        }
-    }
-    var today = new Date(),
-        dd = today.getDate(),
-        mm = today.getMonth() + 1,
-        yyyy = today.getFullYear();
-
-    if (dd < 10) {
-        dd = '0' + dd;
-    }
-
-    if (mm < 10) {
-        mm = '0' + mm;
-    }
-
-    today = mm + '/' + dd + '/' + yyyy;
-    var formData = new FormData();
-    formData.append('pdf', $(element_3)[0].files[0]);
-    $.ajax({
-        url: '/addPdf',
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            var paperdata = {
-                "title": title,
-                "authors": authorsid,
-                "abstract": abstract,
-                "keywords": keywords,
-                "subject": subject,
-                "institution": institution,
-                "tempAuthors": tempAuthors,
-                "pdf": response,
-                "date": today
-            };
-            addPaper(paperdata);
-        }
-    });
-}
-
-function addUser(newuser) {
-    $.ajax({
-        url: '/addUser',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(newuser),
-        dataType: 'json',
-        success: function(res) {
-            $('#registerSpin').hide();
-            $('#saveForm').show();
-            if (false) { //DOESN'T WORK ON SUBMIT PAGE WHEN EVERYTHING IN SIGN IN FORM FILLED OUT (Object.getOwnPropertyNames(res).length == 0) {
-                $('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>');
-            } else {
-                document.location.href = "/index.html";
-                localStorage.setItem('registerComplete', '1');
-                localStorage.setItem('fName', searchFName);
-                localStorage.setItem('lName', searchLName);
-                localStorage.setItem('school', searchSchool);
-                localStorage.setItem('curID', res._id);
-            }
-        }
-    });
-}
-
-function addPaper(newpaper) {
-    $.ajax({
-        url: '/addPaper',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(newpaper),
-        dataType: 'json',
-        success: newsearchpaper
-    });
-
-    function newsearchpaper(response) {
-        $('#submitSpin').hide();
-        $('#submitSaveForm').show();
-        $('#submitComplete').dialog('open');
-    }
-}
-
-function requestUser(email, password) {
-    var requser = {
-        "email": email,
-        "password": password
-    };
-    $.ajax({
-        url: '/getUser',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(requser),
-        dataType: 'json',
-        success: loginuser,
-        error: giveloginerror
-    });
-
-    function giveloginerror(jqXHR, textStatus) {
-        $('#signInButton').show();
         $('#signInSpin').hide();
-        if (textStatus == 'parsererror') {
-            if ($('.userPass').length == 0) {
-                $('#signInFormDiv').append('<p class="failedSignIn userPass" style="float:left;color:#f00;font-weight: bold;font-size: 12px;line-height: 9px;text-align:center;">No known user with above login credentials.</p>');
-                if ($('.unknownE').length > 0) {
-                    $('.unknownE').remove();
+        $('#registerSpin').hide();
+        $('#registerClick').click(function(event) {
+            event.preventDefault();
+            $('#signInBox').dialog('open');
+            $('#email').focus();
+        });
+
+        $('.sm').smartmenus({
+            showFunction: function($ul, complete) {
+                $ul.slideDown(250, complete);
+            },
+            hideFunction: function($ul, complete) {
+                $ul.slideUp(250, complete);
+            }
+        });
+
+        $(document).on("click", ".searchBoxSubmit", function(event) {
+            event.preventDefault();
+            query = $('#searchBox').val();
+            var searchType = $("input[name=searchTypeOptions]:checked").val();
+            switch (searchType) {
+                case "All":
+                    var type = 1;
+                    break;
+                case "Title":
+                    var type = 2;
+                    break;
+                case "Keyword":
+                    var type = 3;
+                    break;
+                case "Author":
+                    var type = 4;
+                    break;
+                default:
+                    var type = 1;
+            }
+            window.location.href = "results.html?type=" + type + "?filter=?query=" + query;
+        });
+
+        $('#signInForm').submit(function(event) {
+            $('#signInButton').hide();
+            $('#signInSpin').show();
+            $('.userPass').remove();
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            readSignInForm($('#signInForm'));
+            $('#signinBox').dialog('close');
+        });
+
+        var submitted = false;
+        $('#form_1037235').submit(function(event) {
+            $('#saveForm').hide();
+            $('#registerSpin').show();
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            readRegisterForm($('#form_1037235'));
+        });
+        //start html injection prevention
+        $(':text').change(function() {
+            var inputText = $(this).val();
+            $(this).val($($.parseHTML(inputText)).text());
+        });
+        //end html detection prevention
+
+        var headText = $('head').html();
+        if (headText.indexOf('href="css/searchBox.css"') < 0) {
+            $('head').append('<link rel="stylesheet" href="css/searchBox.css" type="text/css" />');
+        }
+
+        if (headText.indexOf('jquery.validate.min.js') < 0) {
+            $('head').append('<script src="libs/jquery.validate.min.js" type="text/javascript"></script>');
+        }
+
+        if (headText.indexOf('javascript/view.js') < 0) {
+            $('head').append('<script src="javascript/view.js" type="text/javascript"></script>');
+        }
+
+        if (headText.indexOf('view.css') < 0) {
+            $('head').append('<link href="css/view.css" rel="stylesheet">');
+        }
+        if (headText.indexOf('flat/blue.css') < 0) {
+            $('head').append('<link href="css/flat/blue.css" rel = "stylesheet" type = "text/css">');
+            $('head').append('<script src="libs/icheck.min.js" type = "text/javascript"></script>');
+        }
+
+        //start register javascript
+        $('#li_1').hide();
+
+
+        jQuery.validator.addMethod("isValidEmail", function(value, element) {
+            var emailRegex = /(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*:(?:(?:\r\n)?[ \t])*(?:(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*)(?:,\s*(?:(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*|(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)*\<(?:(?:\r\n)?[ \t])*(?:@(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*(?:,@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*)*:(?:(?:\r\n)?[ \t])*)?(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|"(?:[^\"\r\\]|\\.|(?:(?:\r\n)?[ \t]))*"(?:(?:\r\n)?[ \t])*))*@(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()<>@,;:\\".\[\] \000-\031]+(?:(?:(?:\r\n)?[ \t])+|\Z|(?=[\["()<>@,;:\\".\[\]]))|\[([^\[\]\r\\]|\\.)*\](?:(?:\r\n)?[ \t])*))*\>(?:(?:\r\n)?[ \t])*))*)?;\s*)/
+            var email = value.match(emailRegex);
+            return this.optional(element) || email;
+        }, "");
+
+        jQuery.validator.addMethod("hasNumber", function(value, element) {
+            var noNums = value.search(/\d/) == -1; //if true, then no numbers
+            return !noNums;
+        }, "");
+
+        jQuery.validator.addMethod("notJustNums", function(value, element) {
+            var isNum = /^\d+$/;
+            var number = isNum.test(value); //check to see if it's only numbers
+            return !number;
+        }, "");
+
+        $('#element_1').selectmenu({
+            width: 62,
+            icons: {
+                button: "ui-icon-circle-triangle-s"
+            } //end icons
+        }); //end selectmenu
+        // $('#saveForm').button();
+        $('#form_1037235').validate({
+            rules: {
+                element_3: { //email
+                    isValidEmail: true
+                },
+
+                element_4: { //password
+                    minlength: 6,
+                    hasNumber: true,
+                    notJustNums: true
+                },
+                element_5: { //confirm password
+                    equalTo: '#element_4'
+                },
+                element_6: { //radio button for highschool or college
+                    required: true
+                },
+
+                element_13: {
+                    required: true
+                },
+
+                agree: {
+                    required: true
                 }
+            }, //end rules
+            messages: {
+                element_3: { //email
+                    required: "This field is required.",
+                    isValidEmail: "Please enter a valid email address."
+                },
+                element_4: {
+                    hasNumber: "Make sure that your password contains at least one number.",
+                    notJustNums: "Your password cannot contain only numbers.",
+                    minlength: "Your password must contain at least six characters."
+                },
+                element_5: {
+                    equalTo: "The passwords do not match."
+                },
+                element_6: { //radio button for highschool or college
+                    required: "Please choose either High School or Undergrad."
+                }
+            }, //end messages
+            errorPlacement: function(error, element) {
+                    if (element.is(":radio") || element.is(":checkbox")) {
+                        error.appendTo(element.parent().parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                } //end error placement
+        }); //end validate
+
+        function getvalues(f) {
+            var form = $("#" + f);
+            var str = '';
+            $("input:not('input:submit')", form).each(function(i) {
+                str += '\n' + $(this).prop('name') + ': ' + $(this).val();
+            });
+            return str;
+        }
+
+        var isvalidate = false;
+        var submitClicked = false;
+        $('#saveForm').click(function(e) {
+            submitClicked = true;
+            $('#form_1037235').validate();
+            var isvalidate = $("#form_1037235").valid();
+            if (isvalidate == false) {
+                e.preventDefault();
+                $('.buttons').append('<p id="incompleteRegister">One or more fields are still invalid.</p>');
+            }
+        });
+        $('#form_1037235').change(function() {
+            if (isvalidate == false && submitClicked == true) {
+                isvalidate = $("#form_1037235").valid();
+                if (isvalidate == true) {
+                    $('#incompleteRegister').remove();
+                }
+            }
+        });
+
+        $('.sm').smartmenus({
+            showFunction: function($ul, complete) {
+                $ul.slideDown(250, complete);
+            },
+            hideFunction: function($ul, complete) {
+                $ul.slideUp(250, complete);
+            }
+        }); //end smartmenus
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-blue',
+            radioClass: 'iradio_flat-blue'
+        });
+        $('input').on('ifChanged', function(event) {
+            if ($('input[name="highCol"]:checked').val() == "1") {
+                $('#li_1').slideDown();
             } else {
-                $('.userPass').effect('shake');
+                $('#li_1').slideUp();
+            }
+            if ($('input[name="element_14"]:checked').val() == "isPDF") { //is your file a pdf or word?
+                $('#convertToPDF').slideUp();
+                $('#li_3').slideDown();
+            } else if ($('input[name="element_14"]:checked').val() == "isWord") {
+                $('#li_3').slideUp();
+                $('#convertToPDF').slideDown();
+            }
+        });
+        //end register JavaScript
+
+        $('#siso').click(function(event) {
+            event.preventDefault();
+            if (currentUser == null) {
+                $('#signInBox').dialog({
+                    modal: true,
+                    resizable: false,
+                    minWidth: 800,
+                    minHeight: 'auto',
+                    autoOpen: false,
+                    close: function(event, ui) {
+                        $('.failedSignIn').remove();
+                    },
+                    show: 'fade',
+                    hide: 'drop'
+                }).dialog('open');
+                $('#element_2_1').focus();
+            } else { //sign out
+                localStorage.clear();
+                location.reload();
+            }
+        });
+
+    });
+
+    $(window).load(function() {
+
+        function getPapers() {
+            $.ajax({
+                url: '/getPaper',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "searchType": "every"
+                }),
+                dataType: 'json',
+                success: function(curs) {
+                    var papers = [];
+                    for (var i = 0; i < curs.length; i++) {
+                        papers.push(curs[i].title);
+                    }
+                    localStorage["papers"] = JSON.stringify(papers);
+                    var fromStorage = "[" + localStorage["papers"] + "]";
+                    var papers = JSON.parse(fromStorage);
+                    $('#searchBox').autocomplete({
+                        source: papers[0]
+                    });
+                }
+            });
+        }
+
+        if (!localStorage["papers"]) {
+            if (window.location.pathname.indexOf('/index.html')) {
+                getPapers();
+            } else {
+                getPapers();
             }
         } else {
-            if ($('.unknownE').length == 0) {
-                $('#signInFormDiv').append('<p class="failedSignIn unknownE" style="float:left;color:#f00;font-weight: bold;font-size: 12px;line-height: 9px;text-align:center;">Unknown error. Please try logging in later</p>');
-                if ($('.userPass').length > 0) {
-                    $('.userPass').remove();
+            var fromStorage = "[" + localStorage["papers"] + "]";
+            var papers = JSON.parse(fromStorage);
+            $('#searchBox').autocomplete({
+                source: papers[0]
+            });
+        }
+
+        if (!localStorage["schools"]) {
+            $.ajax({
+                url: '/getSchools',
+                type: 'POST',
+                data: {},
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(curs) {
+                    var schools = [];
+                    for (var i = 0; i < curs.length; i++) {
+                        schools.push(curs[i].school);
+                    }
+                    schools = unique_ify(schools);
+                    localStorage.setItem("schools", JSON.stringify(schools));
+                    var fromStorage = "[" + localStorage["schools"] + "]";
+                    schools = JSON.parse(fromStorage);
+                    $('#element_7').autocomplete({
+                        source: function(req, resp) {
+                            resp(completeSchool(schools, req));
+                        }
+                    });
                 }
-            } else {
-                $('.unknownE').effect('shake');
+            });
+        } else {
+            var fromStorage = "[" + localStorage["schools"] + "]";
+            var schools = JSON.parse(fromStorage);
+            $('#element_7').autocomplete({
+                source: function(req, resp) {
+                    resp(completeSchool(schools, req));
+                }
+            });
+        }
+    });
+
+    function readSignInForm(form) {
+        var signinEmail = $('#email').val();
+        var signinEmail = $("#email").val();
+        var signinPassword = $("#password").val();
+        requestUser(signinEmail, signinPassword);
+    }
+    var searchFName = '';
+    var searchLName = '';
+    var searchSchool = '';
+
+    function readRegisterForm(form) {
+        var firstname = $('#element_2_1').val(),
+            lastname = $('#element_2_2').val(),
+            is_highschool = ($('#element_6_1').is(':checked')),
+            school = $('#element_7').val();
+        if (is_highschool) {
+            var grade = $('#element_1').val();
+        } else {
+            var grade = "undergrad";
+        }
+        var email = $('#registerFormDiv #element_3').val(),
+            password = $('#element_5').val();
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //jan -> 0 (+1)
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = mm + '/' + dd + '/' + yyyy;
+
+        var isSummer = ($('#element_13_2').is(':checked'));
+        var newuser = {
+            "fnm": firstname,
+            "lnm": lastname,
+            "grd": grade,
+            "shl": school,
+            "eml": email,
+            "pwd": password,
+            "dte": today,
+            "isSum": isSummer
+        };
+        searchFName = firstname;
+        searchLName = lastname;
+        searchSchool = school;
+        //start testing here
+        addUser(newuser);
+    }
+
+    function readSubmitPaperForm(form) {
+        var title = $('#title').val(),
+            abstract = $('#element_2').val(),
+            keywords = [],
+            subject = $("input[name=subjectArea]:checked").val(),
+            authorsid = [],
+            tempAuthors = [],
+            institution = $('#inst').val();
+        keywords = $("#li_9 .tagit-label").map(function() {
+            return $(this).text();
+        }).get();
+
+        for (var i = 0; i < $('.spawnUserID').length; i++) {
+            authorsid.push($('.spawnUserIDh')[i].value);
+        }
+
+        for (var i = 0; i < currentAuthors.length; i++) {
+            var authId = currentAuthors[i].id;
+            authorsid.push(authId);
+            if (authId === 0 || authId === '0') {
+                var tempAuthor = {
+                    firstName: currentAuthors[i].firstName,
+                    lastName: currentAuthors[i].lastName,
+                    school: currentAuthors[i].school,
+                    name: currentAuthors[i].name
+                };
+                tempAuthors.push(tempAuthor);
             }
+        }
+        var today = new Date(),
+            dd = today.getDate(),
+            mm = today.getMonth() + 1,
+            yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        today = mm + '/' + dd + '/' + yyyy;
+        var formData = new FormData();
+        formData.append('pdf', $(element_3)[0].files[0]);
+        $.ajax({
+            url: '/addPdf',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                var paperdata = {
+                    "title": title,
+                    "authors": authorsid,
+                    "abstract": abstract,
+                    "keywords": keywords,
+                    "subject": subject,
+                    "institution": institution,
+                    "tempAuthors": tempAuthors,
+                    "pdf": response,
+                    "date": today
+                };
+                addPaper(paperdata);
+            }
+        });
+    }
+
+    function addUser(newuser) {
+        $.ajax({
+            url: '/addUser',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(newuser),
+            dataType: 'json',
+            success: function(res) {
+                $('#registerSpin').hide();
+                $('#saveForm').show();
+                if (false) { //DOESN'T WORK ON SUBMIT PAGE WHEN EVERYTHING IN SIGN IN FORM FILLED OUT (Object.getOwnPropertyNames(res).length == 0) {
+                    $('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>');
+                } else {
+                    document.location.href = "/index.html";
+                    localStorage.setItem('registerComplete', '1');
+                    localStorage.setItem('fName', searchFName);
+                    localStorage.setItem('lName', searchLName);
+                    localStorage.setItem('school', searchSchool);
+                    localStorage.setItem('curID', res._id);
+                    requestUser(newUser.eml, newUser.pwd);
+                }
+            }
+        });
+    }
+
+    function addPaper(newpaper) {
+        $.ajax({
+            url: '/addPaper',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(newpaper),
+            dataType: 'json',
+            success: newsearchpaper
+        });
+
+        function newsearchpaper(response) {
+            $('#submitSpin').hide();
+            $('#submitSaveForm').show();
+            $('#submitComplete').dialog('open');
         }
     }
 
-    function loginuser(response) {
-        user = JSON.stringify(response);
-        localStorage.setItem("user", user);
-        document.location.href = "/index.html";
+    function requestUser(email, password) {
+        var requser = {
+            "email": email,
+            "password": password
+        };
+        $.ajax({
+            url: '/getUser',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(requser),
+            dataType: 'json',
+            success: loginuser,
+            error: giveloginerror
+        });
+
+        function giveloginerror(jqXHR, textStatus) {
+            $('#signInButton').show();
+            $('#signInSpin').hide();
+            if (textStatus == 'parsererror') {
+                if ($('.userPass').length == 0) {
+                    $('#signInFormDiv').append('<p class="failedSignIn userPass" style="float:left;color:#f00;font-weight: bold;font-size: 12px;line-height: 9px;text-align:center;">No known user with above login credentials.</p>');
+                    if ($('.unknownE').length > 0) {
+                        $('.unknownE').remove();
+                    }
+                } else {
+                    $('.userPass').effect('shake');
+                }
+            } else {
+                if ($('.unknownE').length == 0) {
+                    $('#signInFormDiv').append('<p class="failedSignIn unknownE" style="float:left;color:#f00;font-weight: bold;font-size: 12px;line-height: 9px;text-align:center;">Unknown error. Please try logging in later</p>');
+                    if ($('.userPass').length > 0) {
+                        $('.userPass').remove();
+                    }
+                } else {
+                    $('.unknownE').effect('shake');
+                }
+            }
+        }
+
+        function loginuser(response) {
+            user = JSON.stringify(response);
+            localStorage.setItem("user", user);
+            document.location.href = "/index.html";
+        }
     }
-}
