@@ -44,8 +44,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -281,70 +281,69 @@ app.post('/getPaper', function(req, res) {
         var searchObject = {
             keywords: req.body.query
         };
-    }
-} else if (req.body.searchType == "Author") {
-    db.Users.find({
-        $text: {
-            $search: req.body.query
-        }
-    }, function(err, curs) {
-        if (err) {
-            console.log(err)
-        } else {
-            var searchObject = "";
-            for (var i = 0; i < curs.length; i++) {
-                searchObject += "{\"authors\": \"" + curs[i]._id + "\"},"
+    } else if (req.body.searchType == "Author") {
+        db.Users.find({
+            $text: {
+                $search: req.body.query
             }
-            searchObjectArray = JSON.parse("[" + searchObject.substring(0, searchObject.length - 1) + "]");
-            if (searchObjectArray.length == 0) {
-                res.send([]);
+        }, function(err, curs) {
+            if (err) {
+                console.log(err)
             } else {
-                db.Papers.find({
-                    $and: [{
-                        $or: searchObjectArray
-                    }, {
-                        subject: filter
-                    }]
-                }, function(err, curs) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.send(curs);
-                    }
-                });
+                var searchObject = "";
+                for (var i = 0; i < curs.length; i++) {
+                    searchObject += "{\"authors\": \"" + curs[i]._id + "\"},"
+                }
+                searchObjectArray = JSON.parse("[" + searchObject.substring(0, searchObject.length - 1) + "]");
+                if (searchObjectArray.length == 0) {
+                    res.send([]);
+                } else {
+                    db.Papers.find({
+                        $and: [{
+                            $or: searchObjectArray
+                        }, {
+                            subject: filter
+                        }]
+                    }, function(err, curs) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.send(curs);
+                        }
+                    });
+                }
             }
-        }
-    });
-} else if (req.body.searchType == 'id') {
-    var searchObject = {
-        "_id": ObjectID(req.body.query)
-    };
-    db.Papers.find(searchObject, function(err, curs) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(curs);
-        }
-    });
-} else if (req.body.searchType == 'every') {
-    var searchObject = {};
-}
-if (req.body.searchType == 'Browse') {
-    var searchObject = {};
-}
-if (req.body.searchType != "Author" && req.body.searchType != "id") {
-    db.Papers.find({
-        $and: [searchObject, {
-            subject: filter
-        }]
-    }, function(err, curs) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(curs);
-        }
-    });
-}
+        });
+    } else if (req.body.searchType == 'id') {
+        var searchObject = {
+            "_id": ObjectID(req.body.query)
+        };
+        db.Papers.find(searchObject, function(err, curs) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(curs);
+            }
+        });
+    } else if (req.body.searchType == 'every') {
+        var searchObject = {};
+    }
+    if (req.body.searchType == 'Browse') {
+        var searchObject = {};
+    }
+    if (req.body.searchType != "Author" && req.body.searchType != "id") {
+        db.Papers.find({
+            $and: [searchObject, {
+                subject: filter
+            }]
+        }, function(err, curs) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(curs);
+            }
+        });
+    }
 });
 
 app.post('/getSchools', function(req, res) {
