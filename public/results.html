@@ -182,8 +182,7 @@
                                         var tempAuthorObj = docB.temps;
                                         for (var i = 0; i < tempAuthorObj.length; i++) {
                                             var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
-                                            var userId = '0';
-                                            var userPage = "user.html?id=" + userId;
+                                            var userPage = "user.html?id=0";
                                             authors += ', <a href="' + userPage + '">' + fullName + '</a>';
                                         }
                                         $('#authors' + (docB.meta)).html(authors);
