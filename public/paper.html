@@ -71,6 +71,9 @@
                 success: function(data) {
                     $('.grid').html('');
                     var pdata = data[0];
+                    document.title = pdata.title;
+                    $('meta[name=description]').remove();
+                    $('head').append( '<meta name="description" content = ' + pdata.abstract + '>' );
                     $.ajax({
                         url: '/getPdf',
                         type: 'POST',
@@ -145,7 +148,7 @@
 									</div>\
 								</div>\
 							</div>\
-						</div>'
+						</div>';
                                         $('.grid').html(paperHtml);
                                         firstAuthor = false;
                                     }

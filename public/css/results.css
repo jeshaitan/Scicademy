@@ -75,6 +75,9 @@
     cursor: pointer;
 }
 
+.abstractDiv {
+    margin-top: -7px;
+}
 .abstractParagraph {
     margin-top: 5px;
     display: none;
@@ -116,6 +119,7 @@
     position: relative;
     background-color: white;
     /* color for results area */
+    height: 100vh;
     overflow: auto;
 }
 
@@ -123,6 +127,9 @@
     width: 456px; //adjust
 }
 
+.title h3{
+    margin-top: 13px !important;
+}
 .papers {
     width: 80%;
     position: absolute;
@@ -133,7 +140,6 @@
 .searchInfo {
     position: relative;
     width: 15%;
-    height: 600px;
     top: 10px;
     left: 30px;
     padding-left: 10px;
