@@ -35,20 +35,20 @@ var db = mongojs(uri, ["Papers", "Users"], {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', function (req, res) {
+app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/404.html'));
 });
 
-app.listen(port, function () {
+app.listen(port, function() {
     console.log('Scicademy back-end server listening on port ' + port + '.');
 });
 
 var gfs = grid(db, mongojs);
-//aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.region = 'us-east-1';
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
-app.post('/updateUserWithNewPapers', function (req, res) {
+app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
         "_id": ObjectID(req.body.id)
     }, {
@@ -57,7 +57,7 @@ app.post('/updateUserWithNewPapers', function (req, res) {
                 $each: req.body.paperIDs
             }
         }
-    }, function (err, record) {
+    }, function(err, record) {
         if (err)
             console.log(err);
         else {
@@ -73,7 +73,7 @@ app.post('/updateUserWithNewPapers', function (req, res) {
                             "name": req.body.exTempName
                         }
                     }
-                }, function (err, record) {
+                }, function(err, record) {
                     if (err)
                         console.log(err);
                     else {
@@ -83,7 +83,7 @@ app.post('/updateUserWithNewPapers', function (req, res) {
                             $pull: {
                                 "authors": 0
                             }
-                        }, function (err, record) {
+                        }, function(err, record) {
                             if (err)
                                 console.log(err);
                         });
@@ -94,13 +94,13 @@ app.post('/updateUserWithNewPapers', function (req, res) {
     });
 });
 
-app.post('/completeAuthor', function (req, res) {
-    db.Users.find(function (err, curs) {
+app.post('/completeAuthor', function(req, res) {
+    db.Users.find(function(err, curs) {
         res.send(curs);
     })
 });
 
-app.post('/getUser', function (req, res) {
+app.post('/getUser', function(req, res) {
     var searchObj = {};
     if (req.body.hasOwnProperty('searchType') && req.body.searchType == "id") {
         searchObj = {
@@ -111,7 +111,7 @@ app.post('/getUser', function (req, res) {
             "email": req.body.email
         }
     }
-    var user = db.Users.findOne(searchObj, function (err, doc) {
+    var user = db.Users.findOne(searchObj, function(err, doc) {
         if (err) {
             console.log(err);
         } else {
@@ -129,7 +129,7 @@ app.post('/getUser', function (req, res) {
     });
 });
 
-app.post('/getAllUsers', function (req, res) {
+app.post('/getAllUsers', function(req, res) {
     var allAuthors = [];
     for (var paper in req.body) {
         if (req.body.hasOwnProperty(paper)) { //loop through each paper
@@ -138,7 +138,7 @@ app.post('/getAllUsers', function (req, res) {
                 if (authorArray[i] == 0) {
                     continue;
                 }
-                allAuthors.push(authorArray[i]);  //allAuthors is now an array with all the author ids
+                allAuthors.push(authorArray[i]); //allAuthors is now an array with all the author ids
             }
         }
     }
@@ -146,16 +146,18 @@ app.post('/getAllUsers', function (req, res) {
     //    {_id: id1}, {_id: id2}
     //]
     var orArray = [];
-    for (var i = 0; i < allAuthors.length; i++){
+    for (var i = 0; i < allAuthors.length; i++) {
         orArray.push({
-            "_id" : ObjectID(allAuthors[i])
+            "_id": ObjectID(allAuthors[i])
         });
     }
     //var searchObj = {
     //    "_id" : ObjectID(authorArray[i])
     //};
 
-    var user = db.Users.find({$or: orArray}, function(err, doc) {
+    var user = db.Users.find({
+        $or: orArray
+    }, function(err, doc) {
         if (err) {
             console.log(err);
         } else {
@@ -164,11 +166,11 @@ app.post('/getAllUsers', function (req, res) {
     });
 });
 
-app.post('/getTemps', function (req, res) {
+app.post('/getTemps', function(req, res) {
     var searchObj = {
         "_id": ObjectID(req.body.paperId)
     };
-    var paper = db.Papers.findOne(searchObj, function (err, doc) {
+    var paper = db.Papers.findOne(searchObj, function(err, doc) {
         if (err) {
             console.log(err);
         } else {
@@ -180,7 +182,7 @@ app.post('/getTemps', function (req, res) {
     });
 });
 
-app.post('/getAllTemps', function (req, res) {
+app.post('/getAllTemps', function(req, res) {
     var allAuthors = [];
     for (var paper in req.body) {
         if (req.body.hasOwnProperty(paper)) { //loop through each paper
@@ -192,7 +194,7 @@ app.post('/getAllTemps', function (req, res) {
             var searchObj = {
                 "_id": ObjectID(paperId)
             };
-            var paper = db.Papers.findOne(searchObj, function (err, doc) {
+            var paper = db.Papers.findOne(searchObj, function(err, doc) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -206,7 +208,7 @@ app.post('/getAllTemps', function (req, res) {
     });
 });
 
-var soundex = function (s) {
+var soundex = function(s) {
     var a = s.toLowerCase().split(''),
         f = a.shift(),
         r = '',
@@ -238,18 +240,18 @@ var soundex = function (s) {
 
     r = f +
         a
-            .map(function (v, i, a) {
-                return codes[v]
-            })
-            .filter(function (v, i, a) {
-                return ((i === 0) ? v !== codes[f] : v !== a[i - 1]);
-            })
-            .join('');
+        .map(function(v, i, a) {
+            return codes[v]
+        })
+        .filter(function(v, i, a) {
+            return ((i === 0) ? v !== codes[f] : v !== a[i - 1]);
+        })
+        .join('');
 
     return (r + '000').slice(0, 4).toUpperCase();
 };
 
-var difference = function (first, second) {
+var difference = function(first, second) {
     var res = 0;
     for (var i = 0; i < first.length; i++) {
         if (first.charAt(i) == second.charAt(i)) {
@@ -260,8 +262,8 @@ var difference = function (first, second) {
 };
 
 
-app.post('/getAllTemps', function (req, res) {
-    var papers = db.Papers.find(function (err, doc) { //doc has all the papers in the "Papers" collection
+app.post('/getAllTemps', function(req, res) {
+    var papers = db.Papers.find(function(err, doc) { //doc has all the papers in the "Papers" collection
         if (err) {
             console.log(err);
         } else {
@@ -317,7 +319,7 @@ app.post('/getAllTemps', function (req, res) {
     });
 });
 
-app.post('/getPaper', function (req, res) {
+app.post('/getPaper', function(req, res) {
     if (req.body.filter == '' || req.body.filter == 'allTopics')
         var filter = /.*?/;
     else
@@ -349,7 +351,7 @@ app.post('/getPaper', function (req, res) {
             $text: {
                 $search: req.body.query
             }
-        }, function (err, curs) {
+        }, function(err, curs) {
             if (err) {
                 console.log(err)
             } else {
@@ -367,7 +369,7 @@ app.post('/getPaper', function (req, res) {
                         }, {
                             subject: filter
                         }]
-                    }, function (err, curs) {
+                    }, function(err, curs) {
                         if (err) {
                             console.log(err);
                         } else {
@@ -381,7 +383,7 @@ app.post('/getPaper', function (req, res) {
         var searchObject = {
             "_id": ObjectID(req.body.query)
         };
-        db.Papers.find(searchObject, function (err, curs) {
+        db.Papers.find(searchObject, function(err, curs) {
             if (err) {
                 console.log(err);
             } else {
@@ -399,7 +401,7 @@ app.post('/getPaper', function (req, res) {
             $and: [searchObject, {
                 subject: filter
             }]
-        }, function (err, curs) {
+        }, function(err, curs) {
             if (err) {
                 console.log(err);
             } else {
@@ -410,10 +412,10 @@ app.post('/getPaper', function (req, res) {
 });
 
 
-app.post('/getSchools', function (req, res) {
+app.post('/getSchools', function(req, res) {
     db.Users.find({}, {
         school: 1
-    }, function (err, curs) {
+    }, function(err, curs) {
         if (err) {
             console.log(err);
         } else {
@@ -423,10 +425,10 @@ app.post('/getSchools', function (req, res) {
 });
 
 
-app.post('/addUser', function (req, res) {
+app.post('/addUser', function(req, res) {
     db.Users.findOne({
         "email": req.body.eml
-    }, function (err, doc) {
+    }, function(err, doc) {
         if (err) {
             console.log(err);
         } else {
@@ -444,7 +446,7 @@ app.post('/addUser', function (req, res) {
                     isSummer: req.body.isSum,
                     publications: [],
                     datejoined: req.body.dte
-                }, function (err, record) {
+                }, function(err, record) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -456,7 +458,7 @@ app.post('/addUser', function (req, res) {
                             html: htm
                         };
                         res.send(record);
-                        mailgun.messages().send(data, function (error, body) {
+                        mailgun.messages().send(data, function(error, body) {
                             console.log(body);
                         });
                     }
@@ -468,7 +470,7 @@ app.post('/addUser', function (req, res) {
     });
 });
 
-app.post('/addPaper', function (req, res) {
+app.post('/addPaper', function(req, res) {
     db.Papers.insert({
         title: req.body.title,
         authors: req.body.authors,
@@ -480,13 +482,13 @@ app.post('/addPaper', function (req, res) {
         pdf: req.body.pdf,
         date: req.body.date,
         published: "true"
-    }, function (err, record) {
+    }, function(err, record) {
         if (err) {
             console.log(err);
         } else {
             db.Papers.findOne({
                 abstract: req.body.abstract
-            }, function (err, doc) {
+            }, function(err, doc) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -506,7 +508,7 @@ app.post('/addPaper', function (req, res) {
                         }
                     }, {
                         multi: true
-                    }, function (err, result) {
+                    }, function(err, result) {
                         if (err)
                             console.log(err);
                     });
@@ -517,27 +519,27 @@ app.post('/addPaper', function (req, res) {
     });
 });
 
-app.post('/addPdf', function (req, res) {
+app.post('/addPdf', function(req, res) {
     var fstream;
     var rid = randomInt(129, 9999999999999);
     req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename) {
+    req.busboy.on('file', function(fieldname, file, filename) {
         var name = rid + ':' + filename;
         fstream = fs.createWriteStream(__dirname + '/public/uploads/' + name);
         file.pipe(fstream);
-        fstream.on('close', function () {
-            fs.readFile(__dirname + '/public/uploads/' + name, function (err, data) {
+        fstream.on('close', function() {
+            fs.readFile(__dirname + '/public/uploads/' + name, function(err, data) {
                 var s3bucket = new aws.S3({
                     params: {
                         Bucket: 'aliro-pdf-assets'
                     }
                 });
-                s3bucket.createBucket(function () {
+                s3bucket.createBucket(function() {
                     var params = {
                         Key: name,
                         Body: data
                     };
-                    s3bucket.upload(params, function (err, data) {
+                    s3bucket.upload(params, function(err, data) {
                         if (err) {
                             console.log(err);
                         } else {
@@ -555,7 +557,7 @@ function randomInt(low, high) {
     return Math.floor(Math.random() * (high - low) + low);
 }
 
-app.post('/getPdf', function (req, res) {
+app.post('/getPdf', function(req, res) {
     var s3 = new aws.S3();
     var params = {
         Bucket: 'aliro-pdf-assets',
@@ -565,6 +567,6 @@ app.post('/getPdf', function (req, res) {
     s3.getObject(params).createReadStream().pipe(file);
 });
 
-app.post('/clearPdf', function (req, res) {
+app.post('/clearPdf', function(req, res) {
     fs.unlink(__dirname + '/public/uploads/' + req.body.query);
 });

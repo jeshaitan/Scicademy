@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Results | Scicademy - The first student research database.</title>
     <meta name="Description" content="View the papers that match the terms you searched for">
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
     <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
     <link href="css/jquery-ui.min.css" rel="stylesheet">
@@ -19,17 +19,16 @@
     <script src="libs/jquery-ui.min.js"></script>
     <script src="libs/jquery.smartmenus.min.js"></script>
     <script src="javascript/index-logic.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700italic,700,600,400italic' rel='stylesheet'
-          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700italic,700,600,400italic' rel='stylesheet' type='text/css'>
 
     <script>
-        (function (i, s, o, g, r, a, m) {
+        (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
             a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
+                m = s.getElementsByTagName(o)[0];
             a.async = 1;
             a.src = g;
             m.parentNode.insertBefore(a, m)
@@ -42,108 +41,107 @@
 </head>
 
 <body class="colorBody">
-<script>
-    function createAuthor(name, authID) {
-        var userPage = "user.html?id=" + authID;
-        return '<a href="' + userPage + '">' + name + '</a>';
-    }
-
-    /**allAuthors format:
-     allAuthors = [
-     "paperID035109581" : ["<authorHtmlString>",  "<author2Htmlstrin>"],
-     "differentPaper" : ["<otherAuthor>"]
-     ]
-     **/
-    function addToArray(allAuthors2, paperID, authHtml) {
-        for (var i = 0; i < allAuthors2.length; i++) { //to loop through each array in the array of objects of paperID:array of author html strings
-            var currentPaperObj = allAuthors2[i];
-            $.each(currentPaperObj, function(key, prop){ //iterate through the values in the object for the current paper
-                if (paperID == key) { //the array for the html of a specific paper already exists, so add it here
-                    prop.push(authHtml);
-                    allAuthors2[i][paperID] = prop;
-                    return allAuthors2;
-                }
-            })
-        } //if it gets past this loop, then the paper wasn't in one of the arrays.
-        var addObj = {};
-        addObj[paperID] = [authHtml];
-        allAuthors2.push(addObj);
-        return allAuthors2;
-    }
-
-    function compare(oldA, oldB) {
-        var a = oldA.substring(oldA.indexOf('>')+1, oldA.lastIndexOf('<'));
-        var b = oldB.substring(oldB.indexOf('>')+1, oldB.lastIndexOf('<'));
-        var splitA = a.split(" ");
-        var splitB = b.split(" ");
-        var lastA = splitA[splitA.length - 1];
-        var lastB = splitB[splitB.length - 1];
-
-        if (lastA < lastB) return -1;
-        if (lastA > lastB) return 1;
-        return 0;
-    }
-
-    $(document).ready(function () {
-        $.getScript('javascript/index-logic.js', function (jd) {
-        });
-
-        var url = window.location.href;
-        var queryString = decodeURI(url.slice(url.indexOf('?query=') + 7));
-        var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?query='));
-        var searchType = url.charAt(url.indexOf('?type=') + 6);
-        if (searchType == 1) {
-            searchType = "All";
-            $('#all').iCheck('check');
-        } else if (searchType == 2) {
-            searchType = "Title";
-            $('#title').iCheck('check');
-        } else if (searchType == 3) {
-            searchType = "Keyword";
-            $('#keyword').iCheck('check');
-        } else if (searchType == 4) {
-            searchType = "Author";
-            $('#author').iCheck('check');
-        } else if (searchType == 6)
-            searchType = "Browse";
-
-        var searchPaper = {
-            "query": queryString,
-            "searchType": searchType,
-            "filter": filter
-        };
-        $('#' + filter).iCheck('check');
-        if (filter == '') {
-            $('#allTopics').iCheck('check');
+    <script>
+        function createAuthor(name, authID) {
+            var userPage = "user.html?id=" + authID;
+            return '<a href="' + userPage + '">' + name + '</a>';
         }
-        $('.filterBy').on('ifChecked', function (event) {
-            window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7);
-        });
 
-        $.ajax({
-            url: '/getPaper',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(searchPaper),
-            dataType: 'json',
-            success: addPapers
-        });
+        /**allAuthors format:
+         allAuthors = [
+         "paperID035109581" : ["<authorHtmlString>",  "<author2Htmlstrin>"],
+         "differentPaper" : ["<otherAuthor>"]
+         ]
+         **/
+        function addToArray(allAuthors2, paperID, authHtml) {
+            for (var i = 0; i < allAuthors2.length; i++) { //to loop through each array in the array of objects of paperID:array of author html strings
+                var currentPaperObj = allAuthors2[i];
+                $.each(currentPaperObj, function(key, prop) { //iterate through the values in the object for the current paper
+                    if (paperID == key) { //the array for the html of a specific paper already exists, so add it here
+                        prop.push(authHtml);
+                        allAuthors2[i][paperID] = prop;
+                        return allAuthors2;
+                    }
+                })
+            } //if it gets past this loop, then the paper wasn't in one of the arrays.
+            var addObj = {};
+            addObj[paperID] = [authHtml];
+            allAuthors2.push(addObj);
+            return allAuthors2;
+        }
 
-        function removeJSONthat(array, property, value) {
-            $.each(array, function (index, obj) {
-                if (obj[property] == value) {
-                    array.splice(index, 1);
-                }
+        function compare(oldA, oldB) {
+            var a = oldA.substring(oldA.indexOf('>') + 1, oldA.lastIndexOf('<'));
+            var b = oldB.substring(oldB.indexOf('>') + 1, oldB.lastIndexOf('<'));
+            var splitA = a.split(" ");
+            var splitB = b.split(" ");
+            var lastA = splitA[splitA.length - 1];
+            var lastB = splitB[splitB.length - 1];
+
+            if (lastA < lastB) return -1;
+            if (lastA > lastB) return 1;
+            return 0;
+        }
+
+        $(document).ready(function() {
+            $.getScript('javascript/index-logic.js', function(jd) {});
+
+            var url = window.location.href;
+            var queryString = decodeURI(url.slice(url.indexOf('?query=') + 7));
+            var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?query='));
+            var searchType = url.charAt(url.indexOf('?type=') + 6);
+            if (searchType == 1) {
+                searchType = "All";
+                $('#all').iCheck('check');
+            } else if (searchType == 2) {
+                searchType = "Title";
+                $('#title').iCheck('check');
+            } else if (searchType == 3) {
+                searchType = "Keyword";
+                $('#keyword').iCheck('check');
+            } else if (searchType == 4) {
+                searchType = "Author";
+                $('#author').iCheck('check');
+            } else if (searchType == 6)
+                searchType = "Browse";
+
+            var searchPaper = {
+                "query": queryString,
+                "searchType": searchType,
+                "filter": filter
+            };
+            $('#' + filter).iCheck('check');
+            if (filter == '') {
+                $('#allTopics').iCheck('check');
+            }
+            $('.filterBy').on('ifChecked', function(event) {
+                window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7);
             });
-        }
 
-        function addPapers(data) {
-            var allAuthors = [];
-            var addTempAuthors = [];
-            $('.papers').html('');
-            removeJSONthat(data, "published", "false");
-            if (data.length == 0) {
-                $('.papers').append(
+            $.ajax({
+                url: '/getPaper',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(searchPaper),
+                dataType: 'json',
+                success: addPapers
+            });
+
+            function removeJSONthat(array, property, value) {
+                $.each(array, function(index, obj) {
+                    if (obj[property] == value) {
+                        array.splice(index, 1);
+                    }
+                });
+            }
+
+            function addPapers(data) {
+                var allAuthors = [];
+                var addTempAuthors = [];
+                $('.papers').html('');
+                removeJSONthat(data, "published", "false");
+                if (data.length == 0) {
+                    $('.papers').append(
                         '<div class="paperDiv">\
                  							<span class="title">\
                  								<a href=""><h3>Sorry, nothing matched your search.</h3></a>\
@@ -158,36 +156,35 @@
                             </div>\
                  					</div>\
                  				<div class="separator"></div>'
-                );
-            }
-            var title = '',
+                    );
+                }
+                var title = '',
                     authors = '',
                     abstractText = '',
                     firstAuthor = true,
                     date = '',
                     getTemps = false,
                     nump = 0;
-            var paperHtml = '';
-            $.each(data, function (paper, paperInfo) { //iterate through each paper
-                $.each(paperInfo, function (infoName, info) { //loop through each piece of info in the paper
-                    if (infoName == 'authors') { //going into the authors
-                    } //end author if
-                    else { //every piece of info but authors
-                        if (infoName == 'title') {
-                            title = info;
-                        } else if (infoName == 'date') {
-                            date = info;
-                        } else if (infoName == 'tempAuthors') {
-                            for (var tempInd = 0; tempInd < info.length; tempInd++) {
-                                addTempAuthors.push([info[tempInd], paperInfo._id]);
+                var paperHtml = '';
+                $.each(data, function(paper, paperInfo) { //iterate through each paper
+                    $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
+                        if (infoName == 'authors') { //going into the authors
+                        } //end author if
+                        else { //every piece of info but authors
+                            if (infoName == 'title') {
+                                title = info;
+                            } else if (infoName == 'date') {
+                                date = info;
+                            } else if (infoName == 'tempAuthors') {
+                                for (var tempInd = 0; tempInd < info.length; tempInd++) {
+                                    addTempAuthors.push([info[tempInd], paperInfo._id]);
+                                }
+                            } else if (infoName == 'abstract') {
+                                abstractText = info;
                             }
-                        }
-                        else if (infoName == 'abstract') {
-                            abstractText = info;
-                        }
-                    } //end else for everything but authors
-                }); //end loop through for each piece of info in paper
-                paperHtml = '<div class="paperDiv">\
+                        } //end else for everything but authors
+                    }); //end loop through for each piece of info in paper
+                    paperHtml = '<div class="paperDiv">\
                							<span class="title">\
                								<a href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
                							</span>\
@@ -203,140 +200,137 @@
       								</div>\
                						</div>\
                						<div class="separator"></div>';
-                $('.papers').append(paperHtml);
-                nump++;
-            }); //end loop for each paper
-            $.ajax({
-                url: '/getAllUsers',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                dataType: 'json',
-                success: function (docB) {
-                    $.each(docB, function (index, authorObj) { //loop through each author in the author object
-                        var pubList = authorObj.publications;
-                        for (var i = 0; i < pubList.length; i++) { //loop through each paper id in the publications of that author.
-                            var authID = authorObj._id;
-                            var authHtml = createAuthor(authorObj.name, authID);
-                            allAuthors = addToArray(allAuthors, pubList[i], authHtml);
-                        }
-                    });
-                    $.each(addTempAuthors, function (index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
-                        var authHtml = createAuthor(tempArray[0].name, '0');
-                        allAuthors = addToArray(allAuthors, tempArray[1], authHtml);
-                    });
-                    /**
-                     * allAuthors format:
-                     * allAuthors = [
-                     "paperID035109581" : ["<authorHtmlString>",  "<author2Htmlstrin>"],
-                     "differentPaper" : ["<otherAuthor>"]
-                     ]
-                     **/
-                    $.each(allAuthors, function (index, authorObj) { //loop through each object of id/htmlArray in allAuthors
-                        $.each(authorObj, function (paperID, htmlArray) { //loop through the values in the paper id/htmlarray object
-                            var appendHtml = '';
-                            htmlArray = htmlArray.sort(compare);
-                            $.each(htmlArray, function (authIndex, authHtml) { //loop through each html string in the author html array
-                                appendHtml += authHtml;
-                                appendHtml += ', ';
-                            });
-                            appendHtml = appendHtml.substring(0, appendHtml.length - 2);
-                            var $author = $('#authors_' + paperID);
-                            if (appendHtml.length > $author.html().length) {
-                                $author.html(appendHtml);
+                    $('.papers').append(paperHtml);
+                    nump++;
+                }); //end loop for each paper
+                $.ajax({
+                    url: '/getAllUsers',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function(docB) {
+                        $.each(docB, function(index, authorObj) { //loop through each author in the author object
+                            var pubList = authorObj.publications;
+                            for (var i = 0; i < pubList.length; i++) { //loop through each paper id in the publications of that author.
+                                var authID = authorObj._id;
+                                var authHtml = createAuthor(authorObj.name, authID);
+                                allAuthors = addToArray(allAuthors, pubList[i], authHtml);
                             }
+                        });
+                        $.each(addTempAuthors, function(index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
+                            var authHtml = createAuthor(tempArray[0].name, '0');
+                            allAuthors = addToArray(allAuthors, tempArray[1], authHtml);
+                        });
+                        /**
+                         * allAuthors format:
+                         * allAuthors = [
+                         "paperID035109581" : ["<authorHtmlString>",  "<author2Htmlstrin>"],
+                         "differentPaper" : ["<otherAuthor>"]
+                         ]
+                         **/
+                        $.each(allAuthors, function(index, authorObj) { //loop through each object of id/htmlArray in allAuthors
+                            $.each(authorObj, function(paperID, htmlArray) { //loop through the values in the paper id/htmlarray object
+                                var appendHtml = '';
+                                htmlArray = htmlArray.sort(compare);
+                                $.each(htmlArray, function(authIndex, authHtml) { //loop through each html string in the author html array
+                                    appendHtml += authHtml;
+                                    appendHtml += ', ';
+                                });
+                                appendHtml = appendHtml.substring(0, appendHtml.length - 2);
+                                var $author = $('#authors_' + paperID);
+                                if (appendHtml.length > $author.html().length) {
+                                    $author.html(appendHtml);
+                                }
+                            })
                         })
-                    })
-                }
-            });
-        } //end addPapers
-        $('.papers').on('click', '.abstractText', function (e) {
-            $(this).parent().find('.arrowClick').toggleClass('arrowSide');
-            e.preventDefault();
-            $(this).parent().find('.abstractParagraph').stop().slideToggle();
-            return false;
-        }); //end abstractText click
-    }); //end ready
-</script>
-<div class="navigation">
-    <ul id="navlist" class="sm sm-simple">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-        <li><a href="results.html?type=6?filter=?query=">Browse Projects</a></li>
-        <li id="aboutli"><a href="about.html">About Us</a></li>
-        <li><a href="" id="siso">Sign In or Register</a></li>
-    </ul>
-</div>
-<div id="signInBox"></div>
-<div class="grid" id="grayBack">
-    <div id="boxwlogo">
-        <img class="sidelogo" src="images/favicon.ico"></img>
-        <div class="searchBoxDiv" id="search-form">
-            <form class="form-container" action="">
-                <input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048"/>
-                <div class="submit-container">
-                    <input type="submit" value="" class="submit searchBoxSubmit"/>
-                </div>
-            </form>
-        </div>
+                    }
+                });
+            } //end addPapers
+            $('.papers').on('click', '.abstractText', function(e) {
+                $(this).parent().find('.arrowClick').toggleClass('arrowSide');
+                e.preventDefault();
+                $(this).parent().find('.abstractParagraph').stop().slideToggle();
+                return false;
+            }); //end abstractText click
+        }); //end ready
+    </script>
+    <div class="navigation">
+        <ul id="navlist" class="sm sm-simple">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="submit.html" id="submitLink">Submit Research</a></li>
+            <li><a href="results.html?type=6?filter=?query=">Browse Projects</a></li>
+            <li id="aboutli"><a href="about.html">About Us</a></li>
+            <li><a href="" id="siso">Sign In or Register</a></li>
+        </ul>
     </div>
-    <div id="searchTableDiv">
-        <div class="searchInfo">
-            <div class="searchBy">
-                <h4>Search In:</h4>
-
-                <div id="searchOptions">
-                    <input type="radio" name="searchTypeOptions" value="All" id="all" class="searchBy"
-                           checked="checked">All Fields</input>
-                    <br>
-                    <input type="radio" name="searchTypeOptions" value="Title" id="title" class="searchBy">Title</input>
-                    <br>
-                    <input type="radio" name="searchTypeOptions" value="Keyword" id="keyword"
-                           class="searchBy">Keyword</input>
-                    <br>
-                    <input type="radio" name="searchTypeOptions" value="Author" id="author"
-                           class="searchBy">Author</input>
-                    <br>
-                </div>
-            </div>
-            <div class="filterBy">
-                <h4>Filter By:</h4>
-
-                <div id="filterOptions">
-                    <input type="radio" name="filterByOptions" id="allTopics" class="filterBy">All</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="compSci" class="filterBy">Computer Science and
-                    Modelling</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="bioChem" class="filterBy">Biochemistry and Molecular
-                    Biology</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="genBio" class="filterBy">General Biology</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="psych" class="filterBy">Behavioral and Social
-                    Science</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="genChem" class="filterBy">General Chemistry</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="earth" class="filterBy">Earth and Environmental
-                    Science</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="physAstro" class="filterBy">Physics and
-                    Astronomy</input>
-                    <br>
-                    <input type="radio" name="filterByOptions" id="proto" class="filterBy">Prototype Engineering</input>
-                    <br>
-                </div>
+    <div id="signInBox"></div>
+    <div class="grid" id="grayBack">
+        <div id="boxwlogo">
+            <img class="sidelogo" src="images/favicon.ico"></img>
+            <div class="searchBoxDiv" id="search-form">
+                <form class="form-container" action="">
+                    <input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048" />
+                    <div class="submit-container">
+                        <input type="submit" value="" class="submit searchBoxSubmit" />
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="papers">
-            <br/>
-            <br/>
+        <div id="searchTableDiv">
+            <div class="searchInfo">
+                <div class="searchBy">
+                    <h4>Search In:</h4>
 
-            <p style="margin-left:35%;"><img src="images/spin.gif"></p>
+                    <div id="searchOptions">
+                        <input type="radio" name="searchTypeOptions" value="All" id="all" class="searchBy" checked="checked">All Fields</input>
+                        <br>
+                        <input type="radio" name="searchTypeOptions" value="Title" id="title" class="searchBy">Title</input>
+                        <br>
+                        <input type="radio" name="searchTypeOptions" value="Keyword" id="keyword" class="searchBy">Keyword</input>
+                        <br>
+                        <input type="radio" name="searchTypeOptions" value="Author" id="author" class="searchBy">Author</input>
+                        <br>
+                    </div>
+                </div>
+                <div class="filterBy">
+                    <h4>Filter By:</h4>
+
+                    <div id="filterOptions">
+                        <input type="radio" name="filterByOptions" id="allTopics" class="filterBy">All</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="compSci" class="filterBy">Computer Science and Modelling
+                        </input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="bioChem" class="filterBy">Biochemistry and Molecular Biology
+                        </input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="genBio" class="filterBy">General Biology</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="psych" class="filterBy">Behavioral and Social Science
+                        </input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="genChem" class="filterBy">General Chemistry</input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="earth" class="filterBy">Earth and Environmental Science
+                        </input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="physAstro" class="filterBy">Physics and Astronomy
+                        </input>
+                        <br>
+                        <input type="radio" name="filterByOptions" id="proto" class="filterBy">Prototype Engineering</input>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="papers">
+                <br/>
+                <br/>
+
+                <p style="margin-left:35%;"><img src="images/spin.gif"></p>
+            </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>

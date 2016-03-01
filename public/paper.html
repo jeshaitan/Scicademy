@@ -73,7 +73,7 @@
                     var pdata = data[0];
                     document.title = pdata.title;
                     $('meta[name=description]').remove();
-                    $('head').append( '<meta name="description" content = ' + pdata.abstract + '>' );
+                    $('head').append('<meta name="description" content = ' + pdata.abstract + '>');
                     $.ajax({
                         url: '/getPdf',
                         type: 'POST',
