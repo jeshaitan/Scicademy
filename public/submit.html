@@ -396,6 +396,9 @@
             $('#authorCancel').click(function() { //this dialog box only pops up if there isn't a valid author
                 $('#authorTags').tagit('removeTagByLabel', 'No author found.');
                 $('#authorDialog').dialog('close');
+                $('#authorfname').val('');
+                $('#authorlname').val('');
+                $('#authorSchool').val('');
                 $('#authorSpin').hide();
                 $('#submitAuthorForm').show();
             });
@@ -471,6 +474,9 @@
                     $('#authorTags').tagit('createTag', fullName);
                     //add class with "notRealAuthor and school"
                     $('#authorDialog').dialog('close');
+                    $('#authorfname').val('');
+                    $('#authorlname').val('');
+                    $('#authorSchool').val('');
                     $('#authorSpin').hide();
                     $('#submitAuthorForm').show();
                 }
