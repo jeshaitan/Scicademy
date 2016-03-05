@@ -1,10 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Paper | Scicademy - The first student research database.</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
     <meta name="Description" content="View the research papers of high school students">
     <link href="css/sm-core-css.css" rel="stylesheet" type="text/css">
     <link href="css/sm-simple.css" rel="stylesheet" type="text/css">
@@ -22,13 +23,13 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
     <script>
-        (function(i, s, o, g, r, a, m) {
+        (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
+            i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
             a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
+                    m = s.getElementsByTagName(o)[0];
             a.async = 1;
             a.src = g;
             m.parentNode.insertBefore(a, m)
@@ -38,25 +39,59 @@
         ga('send', 'pageview');
     </script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $.getScript('javascript/index-logic.js', function(jd) {});
+        function createAuthor(name, authID) {
+            var userPage = "user.html?id=" + authID;
+            return '<a href="' + userPage + '">' + name + '</a>';
+        }
+
+        function compare(oldA, oldB) {
+            var a = oldA.substring(oldA.indexOf('>') + 1, oldA.lastIndexOf('<'));
+            var b = oldB.substring(oldB.indexOf('>') + 1, oldB.lastIndexOf('<'));
+            var splitA = a.split(" ");
+            var splitB = b.split(" ");
+            var lastA = splitA[splitA.length - 1];
+            var lastB = splitB[splitB.length - 1];
+
+            if (lastA < lastB) return -1;
+            if (lastA > lastB) return 1;
+            return 0;
+        }
+
+        function eliminateDuplicates(arr) {
+            var i,
+                    len=arr.length,
+                    out=[],
+                    obj={};
+
+            for (i=0;i<len;i++) {
+                obj[arr[i]]=0;
+            }
+            for (i in obj) {
+                out.push(i);
+            }
+            return out;
+        }
+
+        $(document).ready(function () {
+            $.getScript('javascript/index-logic.js', function (jd) {
+            });
             var paperHtml = '',
-                title = '',
-                date = '',
-                school = '',
-                institution = '',
-                authors = '',
-                abstractText = '',
-                pdfLoc = '',
-                paperID = '',
-                keywords = [],
-                firstAuthor = true;
+                    title = '',
+                    date = '',
+                    school = '',
+                    institution = '',
+                    authors = '',
+                    abstractText = '',
+                    pdfLoc = '',
+                    paperID = '',
+                    keywords = [],
+                    firstAuthor = true;
             var getTemps = false;
 
             var searchPaper = {
                 "query": (window.location.href).slice((window.location.href).indexOf('?id=') + 4),
                 "searchType": "id"
-            }
+            };
             if (window.location.href.indexOf('?id=') < 0) {
                 $('.grid').html('<br /><p><center>No Paper id specified.</center></p><br />');
                 return false;
@@ -68,69 +103,52 @@
                 contentType: 'application/json',
                 data: JSON.stringify(searchPaper),
                 dataType: 'json',
-                success: function(data) {
+                success: function (data) {
+                    var addTempAuthors = [];
+                    var allSchools = [];
                     $('.grid').html('');
                     var pdata = data[0];
                     document.title = pdata.title;
                     $('meta[name=description]').remove();
-                    $('head').append( '<meta name="description" content = ' + pdata.abstract + '>' );
-                    $.ajax({
-                        url: '/getPdf',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            query: pdata.pdf
-                        }),
-                        success: function(res) {
-                            localStorage.setItem('pdf', res);
-                        }
-                    });
-                    firstAuthor = true;
-                    $.each(pdata, function(infoName, info) { //loop through each piece of info in the paper
+                    $('head').append('<meta name="description" content = "' + pdata.abstract + '">');
+//                    $.ajax({
+//                        url: '/getPdf',
+//                        type: 'POST',
+//                        contentType: 'application/json',
+//                        data: JSON.stringify({
+//                            query: pdata.pdf
+//                        }),
+//                        success: function (res) {
+//                            localStorage.setItem('pdf', res);
+//                        }
+//                    });
+                    $.each(pdata, function (infoName, info) { //loop through each piece of info in the paper
                         if (infoName == 'authors') { //going into the authors
-                            //then it's authors
-                            authors += '<div class="authors">';
-                            for (var i = 0; i < info.length; i++) {
-                                //reverse search info[i]. Returned author object will be called authorObj
-                                if (info[i] == 0) {
-                                    getTemps = true;
-                                    continue;
-                                }
-                                var searchAuthor = {
-                                    "query": info[i],
-                                    "searchType": "id"
-                                };
-                                console.log("getting a user");
-                                $.ajax({
-                                    url: '/getUser',
-                                    type: 'POST',
-                                    async: false,
-                                    contentType: 'application/json',
-                                    data: JSON.stringify(searchAuthor),
-                                    dataType: 'json',
-                                    success: function(doc) {
-                                        doc = doc.doc;
-                                        var fullName = doc.firstname + ' ' + doc.lastname;
-                                        var inst = pdata.institution;
-                                        if (inst === '') {
-                                            inst = 'None';
-                                        }
-                                        var userId = doc._id;
-                                        var userPage = "user.html?id=" + userId;
-                                        if (firstAuthor == true)
-                                            authors += '<a href="' + userPage + '">' + fullName + '</a>';
-                                        else
-                                            authors += ', <a href="' + userPage + '">' + fullName + '</a>';
-                                        paperHtml = '<div id="paperDiv">\
+                        } //end "if authors"
+                        if (infoName == 'tempAuthors') {
+                            for (var tempInd = 0; tempInd < info.length; tempInd++) {
+                                addTempAuthors.push([info[tempInd], pdata._id]);
+                            }
+                        }
+                        else if (infoName == 'institution') {
+                            if (info == '') {
+                                institution = 'None';
+                            }
+                            else {
+                                institution = info;
+                            }
+                        }
+                    }); //end loop through for each piece of info in paper
+                    paperHtml = '<div id="paperDiv">\
 								  		<div class="paperOptions">\
 												<a id="pdfDown" href="/uploads/' + pdata.pdf + '" class= "btn btn-danger btn-sm downloadPDF"><img src="images/pdfIcon.png">Download PDF</a>\
 												<div id="copyright" style="position:absolute;top:70px;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></div>\
 										</div>\
 										<div class="paperCol">\
 											<div class="paper">\
-												<h3>' + pdata.title + '</h3>' + authors + '</div>\
+												<h3>' + pdata.title + '</h3><p id="authorP" style="margin-bottom:0px;"></p></div>\
 											<div class="school">\
-												<p>School: ' + doc.school + ', Outside institution: ' + inst + '</p>\
+												<p id="education"><span id="schoolSpan"></span><span>,&nbsp Outside Institution: ' + institution + '</span></p>\
 											</div>\
 											<div class="date">\
 												<p>' + pdata.date + '</p>\
@@ -149,41 +167,62 @@
 								</div>\
 							</div>\
 						</div>';
-                                        $('.grid').html(paperHtml);
-                                        firstAuthor = false;
-                                    }
-                                });
-                            } //end author loop
-                            var authorreq2 = {
-                                "meta": "0",
-                                "paperId": pdata._id
-                            };
-                            if (getTemps) {
-                                getTemps = false;
-                                $.ajax({
-                                    url: '/getTemps',
-                                    type: 'POST',
-                                    contentType: 'application/json',
-                                    data: JSON.stringify(authorreq2),
-                                    dataType: 'json',
-                                    success: function(docB) {
-                                        console.log('doc b');
-                                        console.log(docB);
-                                        var tempAuthorObj = docB.temps;
-                                        for (var i = 0; i < tempAuthorObj.length; i++) {
-                                            var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
-                                            var userId = '0';
-                                            var userPage = "user.html?id=" + userId;
-                                            authors += ', <a href="' + userPage + '">' + fullName + '</a>';
-                                        }
-                                        $('.authors').html(authors);
-                                    }
-                                });
+                    $('.grid').html(paperHtml);
+                    var allAuthors = [];
+                    $.ajax({
+                        url: '/getAllUsers',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(pdata),
+                        dataType: 'json',
+                        success: function (docB) {
+                            console.log(docB);
+                            $.each(docB, function (index, authorObj) { //loop through each author in the author object
+                                var pubList = authorObj.publications;
+                                allSchools.push(authorObj.school);
+                                for (var i = 0; i < pubList.length; i++) { //loop through each paper id in the publications of that author.
+                                    var authID = authorObj._id;
+                                    var authHtml = createAuthor(authorObj.name, authID);
+                                    allAuthors.push(authHtml);
+                                }
+                            });
+                            $.each(addTempAuthors, function (index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
+                                var authHtml = createAuthor(tempArray[0].name, '0');
+                                allSchools.push(tempArray[0].school);
+                                allAuthors.push(authHtml);
+                            });
+                            allAuthors = allAuthors.sort(compare);
+                            var appendHtml = '';
+                            $.each(allAuthors, function (authIndex, authHtml) { //loop through each html string in the author html array
+                                appendHtml += authHtml + ', ';
+                            });
+                            appendHtml = appendHtml.substring(0, appendHtml.length - 2);
+                            var $author = $('#authorP');
+                            if (appendHtml.length > $author.html().length) {
+                                $author.html(appendHtml);
                             }
-                        } //end "if authors"
-                    }); //end loop through for each piece of info in paper
+
+                            //add the schools to the page.
+                            var appendSchools = '';
+                            var moreSchools = false;
+                            allSchools = eliminateDuplicates(allSchools);
+                            if (allSchools.length > 1){
+                                moreSchools = true;
+                            }
+                            $.each(allSchools, function(schoolIndex, school){
+                                    appendSchools += school + ',';
+                            });
+                            appendSchools = appendSchools.substring(0,appendSchools.length-1);
+                            if (moreSchools){
+                                $('#schoolSpan').text('Schools: ' + appendSchools);
+                            }
+                            else {
+                                $('#schoolSpan').text('School: ' + appendSchools);
+                            }
+                        }
+                    });
                 },
-                error: function(jqXHR, textStatus) {
+                error: function (jqXHR, textStatus) {
                     $('.grid').html('<br /><p><center>Sorry, no paper is found with the Paper Id: ' + searchPaper.query + '.</center></p><br />')
                     return false;
                 }
@@ -194,22 +233,22 @@
 
 <body class="colorBody">
 
-    <div class="navigation">
-        <ul id="navlist" class="sm sm-simple">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-            <li><a href="results.html?type=6?filter=?query=">Browse Projects</a></li>
-            <li id="aboutli"><a href="about.html">About Us</a></li>
-            <li><a href="" id="siso">Sign In or Register</a></li>
-        </ul>
-    </div>
-    <div id="signInBox"></div>
+<div class="navigation">
+    <ul id="navlist" class="sm sm-simple">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="submit.html" id="submitLink">Submit Research</a></li>
+        <li><a href="results.html?type=6?filter=?query=">Browse Projects</a></li>
+        <li id="aboutli"><a href="about.html">About Us</a></li>
+        <li><a href="" id="siso">Sign In or Register</a></li>
+    </ul>
+</div>
+<div id="signInBox"></div>
 
-    <div class="grid" style="margin-bottom:-38px;">
-        <p>
-            <center><img src="images/spin.gif"></center>
-        </p>
-    </div>
+<div class="grid" style="margin-bottom:-38px;">
+    <p>
+    <center><img src="images/spin.gif"></center>
+    </p>
+</div>
 </body>
 
 </html>
