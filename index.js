@@ -131,13 +131,16 @@ app.post('/getUser', function (req, res) {
 
 app.post('/getAllUsers', function (req, res) {
     var allAuthors = [];
-    var paper = req.body;
-    var authorArray = paper.authors;
-    for (var i = 0; i < authorArray.length; i++) { //loop through all the author id's
-        if (authorArray[i] == 0) {
-            continue;
+    for (var paper in req.body) {
+        if (req.body.hasOwnProperty(paper)) { //loop through each paper
+            var authorArray = req.body[paper].authors; //get list of author ids
+            for (var i = 0; i < authorArray.length; i++) { //loop through all the author id's
+                if (authorArray[i] == 0) {
+                    continue;
+                }
+                allAuthors.push(authorArray[i]); //allAuthors is now an array with all the author ids
+            }
         }
-        allAuthors.push(authorArray[i]);  //allAuthors is now an array with all the author ids
     }
     //$or: [
     //    {_id: id1}, {_id: id2}

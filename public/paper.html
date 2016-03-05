@@ -210,9 +210,9 @@
                                 moreSchools = true;
                             }
                             $.each(allSchools, function(schoolIndex, school){
-                                    appendSchools += school + ',';
+                                    appendSchools += school + ', ';
                             });
-                            appendSchools = appendSchools.substring(0,appendSchools.length-1);
+                            appendSchools = appendSchools.substring(0,appendSchools.length - 2);
                             if (moreSchools){
                                 $('#schoolSpan').text('Schools: ' + appendSchools);
                             }

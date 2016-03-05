@@ -153,6 +153,7 @@
 
 .separator {
     margin-right: 50px;
+    margin-bottom: 10px;
     height: 1px;
     background: gray;
     overflow: hidden;
