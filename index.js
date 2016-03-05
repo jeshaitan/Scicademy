@@ -129,7 +129,7 @@ app.post('/getUser', function (req, res) {
     });
 });
 
-app.post('/getAllUsers', function (req, res) {
+app.post('/getAllUsers', function (req, res) { //takes an array of paper objects
     var allAuthors = [];
     for (var paper in req.body) {
         if (req.body.hasOwnProperty(paper)) { //loop through each paper

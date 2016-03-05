@@ -169,11 +169,12 @@
 						</div>';
                     $('.grid').html(paperHtml);
                     var allAuthors = [];
+                    var sendData = [pdata];
                     $.ajax({
                         url: '/getAllUsers',
                         type: 'POST',
                         contentType: 'application/json',
-                        data: JSON.stringify(pdata),
+                        data: JSON.stringify(sendData),
                         dataType: 'json',
                         success: function (docB) {
                             console.log(docB);
