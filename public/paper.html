@@ -110,22 +110,7 @@
                     var pdata = data[0];
                     document.title = pdata.title;
                     $('meta[name=description]').remove();
-<<<<<<< HEAD
                     $('head').append('<meta name="description" content = "' + pdata.abstract + '">');
-//                    $.ajax({
-//                        url: '/getPdf',
-//                        type: 'POST',
-//                        contentType: 'application/json',
-//                        data: JSON.stringify({
-//                            query: pdata.pdf
-//                        }),
-//                        success: function (res) {
-//                            localStorage.setItem('pdf', res);
-//                        }
-//                    });
-                    $.each(pdata, function (infoName, info) { //loop through each piece of info in the paper
-=======
-                    $('head').append('<meta name="description" content = ' + pdata.abstract + '>');
                     $.ajax({
                         url: '/getPdf',
                         type: 'POST',
@@ -133,13 +118,11 @@
                         data: JSON.stringify({
                             query: pdata.pdf
                         }),
-                        success: function(res) {
+                        success: function (res) {
                             localStorage.setItem('pdf', res);
                         }
                     });
-                    firstAuthor = true;
-                    $.each(pdata, function(infoName, info) { //loop through each piece of info in the paper
->>>>>>> 5c0c890a5d2f7ce782053e2673cc69e92724a8fd
+                    $.each(pdata, function (infoName, info) { //loop through each piece of info in the paper
                         if (infoName == 'authors') { //going into the authors
                         } //end "if authors"
                         if (infoName == 'tempAuthors') {

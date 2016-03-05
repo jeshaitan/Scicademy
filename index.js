@@ -129,11 +129,8 @@ app.post('/getUser', function(req, res) {
     });
 });
 
-<<<<<<< HEAD
+
 app.post('/getAllUsers', function (req, res) { //takes an array of paper objects
-=======
-app.post('/getAllUsers', function(req, res) {
->>>>>>> 5c0c890a5d2f7ce782053e2673cc69e92724a8fd
     var allAuthors = [];
     for (var paper in req.body) {
         if (req.body.hasOwnProperty(paper)) { //loop through each paper
