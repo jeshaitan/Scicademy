@@ -118,7 +118,7 @@
                             query: pdata.pdf
                         }),
                         success: function(res) {
-                            localStorage.setItem('pdf', res);
+                            console.log('pdf written to uploads');
                         }
                     });
                     $.each(pdata, function(infoName, info) { //loop through each piece of info in the paper

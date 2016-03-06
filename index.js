@@ -575,8 +575,8 @@ app.post('/getPdf', function(req, res) {
         Bucket: 'aliro-pdf-assets',
         Key: req.body.query
     };
-    var file = require('fs').createWriteStream(__dirname + '/public/uploads/' + req.body.query);
-    s3.getObject(params).createReadStream().pipe(res);
+    var file = fs.createWriteStream(__dirname + '/public/uploads/' + req.body.query);
+    s3.getObject(params).createReadStream().pipe(file);
 });
 
 app.post('/clearPdf', function(req, res) {
