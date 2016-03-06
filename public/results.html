@@ -117,7 +117,7 @@
             else {
                 $('#prev a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum - 1).toString()));
             }
-            $('#next a').attr('href', url.replace('?page='+page,'?page='+(pageNum+1).toString()));
+            $('#next a').attr('href', url.replace('?page='+page,'?page='+(pageNum + 1).toString()));
             if (searchType == 1) {
                 searchType = "All";
                 $('#all').iCheck('check');
@@ -348,18 +348,17 @@
                         <input type="radio" name="filterByOptions" id="proto" class="filterBy">Prototype Engineering</input>
                         <br>
                     </div>
+                    <ul class="pager" style="margin-top: 50px;">
+                        <li id="prev"><a href="#">Previous Page</a></li>
+                        <li id="next"><a href="#">Next Page</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="papers">
-                <br/>
-                <br/>
-
+                <br />
+                <br />
                 <p style="margin-left:35%;"><img src="images/spin.gif"></p>
             </div>
-            <ul class="pager center-block" style="margin-top:74px;">
-                <li id="prev"><a href="#">Previous</a></li>
-                <li id="next"><a href="#">Next</a></li>
-            </ul>
         </div>
     </div>
 </body>
