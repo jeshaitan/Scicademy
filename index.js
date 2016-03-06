@@ -577,7 +577,6 @@ app.post('/getPdf', function(req, res) {
     var out = fs.createWriteStream(__dirname + '/public/uploads/' + req.body.query);
     s3.getObject(params).createReadStream().pipe(out).on('finish', function() {
       res.send('pdf downloaded');
-      console.log('pdf downloaded.')
     });
 });
 
