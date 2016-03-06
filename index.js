@@ -45,8 +45,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -129,7 +129,8 @@ app.post('/getUser', function(req, res) {
     });
 });
 
-app.post('/getAllUsers', function(req, res) {
+
+app.post('/getAllUsers', function(req, res) { //takes an array of paper objects
     var allAuthors = [];
     for (var paper in req.body) {
         if (req.body.hasOwnProperty(paper)) { //loop through each paper
@@ -145,6 +146,10 @@ app.post('/getAllUsers', function(req, res) {
     //$or: [
     //    {_id: id1}, {_id: id2}
     //]
+
+    if (allAuthors.length == 0) {
+        res.send({});
+    }
     var orArray = [];
     for (var i = 0; i < allAuthors.length; i++) {
         orArray.push({

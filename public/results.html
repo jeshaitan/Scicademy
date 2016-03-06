@@ -33,7 +33,6 @@
             a.src = g;
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
         ga('create', 'UA-69262899-1', 'auto');
         ga('send', 'pageview');
     </script>
@@ -46,7 +45,6 @@
             var userPage = "user.html?id=" + authID;
             return '<a href="' + userPage + '">' + name + '</a>';
         }
-
         /**allAuthors format:
          allAuthors = [
          "paperID035109581" : ["<authorHtmlString>",  "<author2Htmlstrin>"],
@@ -70,6 +68,20 @@
             return allAuthors2;
         }
 
+        function eliminateDuplicates(arr) {
+            var i,
+                len = arr.length,
+                out = [],
+                obj = {};
+            for (i = 0; i < len; i++) {
+                obj[arr[i]] = 0;
+            }
+            for (i in obj) {
+                out.push(i);
+            }
+            return out;
+        }
+
         function compare(oldA, oldB) {
             var a = oldA.substring(oldA.indexOf('>') + 1, oldA.lastIndexOf('<'));
             var b = oldB.substring(oldB.indexOf('>') + 1, oldB.lastIndexOf('<'));
@@ -77,18 +89,16 @@
             var splitB = b.split(" ");
             var lastA = splitA[splitA.length - 1];
             var lastB = splitB[splitB.length - 1];
-
             if (lastA < lastB) return -1;
             if (lastA > lastB) return 1;
             return 0;
         }
-
         $(document).ready(function() {
             $.getScript('javascript/index-logic.js', function(jd) {});
 
             var url = window.location.href;
             var queryString = decodeURI(url.slice(url.indexOf('?query=') + 7));
-            var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?query='));
+            var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?page='));
             var searchType = url.charAt(url.indexOf('?type=') + 6);
             var page = url.charAt(url.indexOf('?page=') + 6);
             if (searchType == 1) {
@@ -117,7 +127,7 @@
                 $('#allTopics').iCheck('check');
             }
             $('.filterBy').on('ifChecked', function(event) {
-                window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7 + '?page=1');
+                window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?page=1' + '?query=' + url.slice(url.indexOf('?query=') + 7);
             });
 
             $.ajax({
@@ -128,101 +138,93 @@
                 dataType: 'json',
                 success: addPapers
             });
+        });
 
-            function removeJSONthat(array, property, value) {
-                $.each(array, function(index, obj) {
-                    if (obj[property] == value) {
-                        array.splice(index, 1);
-                    }
-                });
+        function addPapers(data) {
+            var allSchools = [];
+            var allAuthors = [];
+            var addTempAuthors = [];
+            $('.papers').html('');
+            if (data.length == 0) {
+                $('.papers').append(
+                    '<div class="paperDiv">\
+             							<span class="title">\
+             								<a href=""><h3>Sorry, nothing matched your search.</h3></a>\
+             							</span><div class="authors"></div></div>\
+             							<div class="abstractDiv">\
+             								<a class="abstractText">\
+             									<span class="arrowClick arrowSide"></span>\
+             									<span class="preTxt">See below for more info.</span>\
+             								</a>\
+             							<div class="abstractParagraph" id="abstract0">If you are looking for a specific paper and it\'s not here, try searching by Author (All Fields searches Author by User Id).<br /> If you\'re looking to see if your idea is original, you\'re in luck!</div>\
+                          <div class="abstractParagraph" id="abstract0.5"><br /><em>\"Originality is nothing but judicious imitation. The most original writers borrowed one from another\"</em> -Voltaire</div>\
+                        </div>\
+             					</div>\
+             				<div class="separator"></div>'
+                );
             }
-
-            function addPapers(data) {
-                var allAuthors = [];
-                var addTempAuthors = [];
-                $('.papers').html('');
-                removeJSONthat(data, "published", "false");
-                if (data.length == 0) {
-                    $('.papers').append(
-                        '<div class="paperDiv">\
-                 							<span class="title">\
-                 								<a href=""><h3>Sorry, nothing matched your search.</h3></a>\
-                 							</span><div class="authors"></div></div>\
-                 							<div class="abstractDiv">\
-                 								<a class="abstractText">\
-                 									<span class="arrowClick arrowSide"></span>\
-                 									<span class="preTxt">See below for more info.</span>\
-                 								</a>\
-                 							<div class="abstractParagraph" id="abstract0">If you are looking for a specific paper and it\'s not here, try searching by Author (All Fields searches Author by User Id).<br /> If you\'re looking to see if your idea is original, you\'re in luck!</div>\
-                              <div class="abstractParagraph" id="abstract0.5"><br /><em>\"Originality is nothing but judicious imitation. The most original writers borrowed one from another\"</em> -Voltaire</div>\
-                            </div>\
-                 					</div>\
-                 				<div class="separator"></div>'
-                    );
-                }
-                var title = '',
-                    authors = '',
-                    abstractText = '',
-                    firstAuthor = true,
-                    date = '',
-                    getTemps = false,
-                    nump = 0;
-                var paperHtml = '';
-                $.each(data, function(paper, paperInfo) { //iterate through each paper
-                    $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
-                        if (infoName == 'authors') { //going into the authors
-                        } //end author if
-                        else { //every piece of info but authors
-                            if (infoName == 'title') {
-                                title = info;
-                            } else if (infoName == 'date') {
-                                date = info;
-                            } else if (infoName == 'tempAuthors') {
-                                for (var tempInd = 0; tempInd < info.length; tempInd++) {
-                                    addTempAuthors.push([info[tempInd], paperInfo._id]);
-                                }
-                            } else if (infoName == 'abstract') {
-                                abstractText = info;
-                            }
-                        } //end else for everything but authors
-                    }); //end loop through for each piece of info in paper
-                    paperHtml = '<div class="paperDiv">\
-               							<span class="title">\
-               								<a href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
-               							</span>\
-      									<div class="authors" id="authors_' + paperInfo._id + '"></div>\
-      									<div class="date">' + date + '</div>\
-      								</div>\
-      								<div class="abstractDiv">\
-      									<a class="abstractText">\
-      										<span class="arrowClick arrowSide"></span>\
-      										<span class="preTxt">Abstract</span>\
-      									</a>\
-      									<div class="abstractParagraph" id="abstract1">' + abstractText + '</div>\
-      								</div>\
-               						</div>\
-               						<div class="separator"></div>';
-                    $('.papers').append(paperHtml);
-                    nump++;
-                }); //end loop for each paper
-                $.ajax({
-                    url: '/getAllUsers',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(data),
-                    dataType: 'json',
-                    success: function(docB) {
+            var title = '',
+                authors = '',
+                abstractText = '',
+                firstAuthor = true,
+                date = '',
+                getTemps = false,
+                nump = 0;
+            var paperHtml = '';
+            $.each(data, function(paper, paperInfo) { //iterate through each paper
+                $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
+                    if (infoName == 'title') {
+                        title = info;
+                    } else if (infoName == 'date') {
+                        date = info;
+                    } else if (infoName == 'tempAuthors') {
+                        for (var tempInd = 0; tempInd < info.length; tempInd++) {
+                            addTempAuthors.push([info[tempInd], paperInfo._id]);
+                        }
+                    } else if (infoName == 'abstract') {
+                        abstractText = info;
+                    }
+                }); //end loop through for each piece of info in paper
+                paperHtml = '<div class="paperDiv">\
+           							<span class="title">\
+           								<a href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
+           							</span>\
+  									<div class="authors" id="authors_' + paperInfo._id + '"></div>\
+  									<div class="date">' + date + '</div>\
+  								</div>\
+  								<div class="abstractDiv">\
+  									<a class="abstractText">\
+  										<span class="arrowClick arrowSide"></span>\
+  										<span class="preTxt">Abstract</span>\
+  									</a>\
+  									<div class="abstractParagraph" id="abstract1">' + abstractText + '</div>\
+  								</div>\
+           						</div>\
+           						<div class="separator"></div>';
+                $('.papers').append(paperHtml);
+                nump++;
+            }); //end loop for each paper
+            $.ajax({
+                url: '/getAllUsers',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function(docB) {
                         $.each(docB, function(index, authorObj) { //loop through each author in the author object
                             var pubList = authorObj.publications;
+                            var authorSchool = authorObj.school;
                             for (var i = 0; i < pubList.length; i++) { //loop through each paper id in the publications of that author.
                                 var authID = authorObj._id;
                                 var authHtml = createAuthor(authorObj.name, authID);
                                 allAuthors = addToArray(allAuthors, pubList[i], authHtml);
+                                allSchools = addToArray(allSchools, pubList[i], authorSchool);
                             }
                         });
                         $.each(addTempAuthors, function(index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
                             var authHtml = createAuthor(tempArray[0].name, '0');
                             allAuthors = addToArray(allAuthors, tempArray[1], authHtml);
+                            allSchools = addToArray(allSchools, tempArray[1], tempArray[0].school);
                         });
                         /**
                          * allAuthors format:
@@ -245,23 +247,35 @@
                                     $author.html(appendHtml);
                                 }
                             })
-                        })
+                        });
                     }
-                });
-            } //end addPapers
-            $('.papers').on('click', '.abstractText', function(e) {
-                $(this).parent().find('.arrowClick').toggleClass('arrowSide');
-                e.preventDefault();
-                $(this).parent().find('.abstractParagraph').stop().slideToggle();
-                return false;
-            }); //end abstractText click
-        }); //end ready
+                    //***** THIS IS CODE TO ADD SCHOOLS TO THE RESULTS PAGE *****
+                    //                    $.each(allSchools, function(index, schoolObj){
+                    //                        $.each(schoolObj, function(paperID, schoolArray){
+                    //                            var appendSchools = '';
+                    //                            schoolArray = eliminateDuplicates(schoolArray);
+                    //                            //TODO alphabetize the schools
+                    //                            $.each(schoolArray, function(schoolIndex, schoolString){
+                    //                                appendSchools += schoolString + ', ';
+                    //                            });
+                    //                            appendSchools = appendSchools.substring(0, appendSchools.length - 2);
+                    //                            var $school = $('#school')
+                    //                        })
+                    //                    })
+            });
+        } //end addPapers
+        $('.papers').on('click', '.abstractText', function(e) {
+            $(this).parent().find('.arrowClick').toggleClass('arrowSide');
+            e.preventDefault();
+            $(this).parent().find('.abstractParagraph').stop().slideToggle();
+            return false;
+        }); //end abstractText click
     </script>
     <div class="navigation">
         <ul id="navlist" class="sm sm-simple">
             <li><a href="index.html">Home</a></li>
             <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-            <li><a href="results.html?type=6?filter=?query=?page=1">Browse Projects</a></li>
+            <li><a href="results.html?type=6?filter=?page=1?query=">Browse Projects</a></li>
             <li id="aboutli"><a href="about.html">About Us</a></li>
             <li><a href="" id="siso">Sign In or Register</a></li>
         </ul>

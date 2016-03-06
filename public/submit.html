@@ -396,6 +396,9 @@
             $('#authorCancel').click(function() { //this dialog box only pops up if there isn't a valid author
                 $('#authorTags').tagit('removeTagByLabel', 'No author found.');
                 $('#authorDialog').dialog('close');
+                $('#authorfname').val('');
+                $('#authorlname').val('');
+                $('#authorSchool').val('');
                 $('#authorSpin').hide();
                 $('#submitAuthorForm').show();
             });
@@ -471,6 +474,9 @@
                     $('#authorTags').tagit('createTag', fullName);
                     //add class with "notRealAuthor and school"
                     $('#authorDialog').dialog('close');
+                    $('#authorfname').val('');
+                    $('#authorlname').val('');
+                    $('#authorSchool').val('');
                     $('#authorSpin').hide();
                     $('#submitAuthorForm').show();
                 }
@@ -562,7 +568,7 @@
         <ul id="navlist" class="sm sm-simple">
             <li><a href="index.html">Home</a></li>
             <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-            <li><a href="results.html?type=6?filter=?query=?page=1">Browse Projects</a></li>
+            <li><a href="results.html?type=6?filter=?page=1?query=">Browse Projects</a></li>
             <li id="aboutli"><a href="about.html">About Us</a></li>
             <li><a href="" id="siso">Sign In or Register</a></li>
         </ul>
