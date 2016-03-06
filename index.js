@@ -571,7 +571,7 @@ function randomInt(low, high) {
 app.post('/getPdf', function(req, res) {
     var s3 = new aws.S3();
     var params = {
-        Bucket: 'aliro-pdf-assets',
+        Bucket: 'aliro-pdf-assetsG',
         Key: req.body.query
     };
     console.log(__dirname + '/public/uploads/' + req.body.query);
