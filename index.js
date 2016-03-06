@@ -575,13 +575,11 @@ app.post('/getPdf', function(req, res) {
         Bucket: 'aliro-pdf-assets',
         Key: req.body.query
     };
-    var file = fs.createWriteStream(__dirname + '/public/uploads/' + req.body.query);
-    s3.getObject(params, function(err, data) {
-      if(err)
-        console.log(err);
-      else
-        console.log('DATA RECIEVED: ' + data.body);
-    }).createReadStream().pipe(file);
+    var out = fs.createWriteStream(__dirname + '/public/uploads/' + req.body.query);
+    s3.service.getObject(params).createReadStream().pipe(out).on('finish', function() {
+      req.send('pdf downloaded');
+      console.log('pdf downloaded.')
+    });
 });
 
 app.post('/clearPdf', function(req, res) {
