@@ -31,7 +31,7 @@
   </url>
   <url>
     <loc>
-      http://www.scicademy.org/results.html?type=6?filter=?query=
+      http://www.scicademy.org/results.html?type=6?filter=?page=1?query=
     </loc>
     <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -60,13 +60,6 @@
   </url>
   <url>
     <loc>http://www.scicademy.org/PrivacyPolicy.html</loc>
-    <lastmod>2016-02-16T08:56:25+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>
-      http://www.scicademy.org/results.html?type=Browse?query=
-    </loc>
     <lastmod>2016-02-16T08:56:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
   </url>

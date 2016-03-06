@@ -201,7 +201,7 @@ $(document).ready(function() {
             default:
                 var type = 1;
         }
-        window.location.href = "results.html?type=" + type + "?filter=?query=" + query + "?page=1";
+        window.location.href = "results.html?type=" + type + "?filter=?page=1?query=" + query;
     });
 
     $('#signInForm').submit(function(event) {
