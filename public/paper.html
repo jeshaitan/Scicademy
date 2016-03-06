@@ -118,53 +118,54 @@
                             query: pdata.pdf
                         }),
                         success: function(res) {
-                          $.each(pdata, function(infoName, info) { //loop through each piece of info in the paper
-                              if (infoName == 'authors') { //going into the authors
-                              } //end "if authors"
-                              if (infoName == 'tempAuthors') {
-                                  for (var tempInd = 0; tempInd < info.length; tempInd++) {
-                                      addTempAuthors.push([info[tempInd], pdata._id]);
-                                  }
-                              } else if (infoName == 'institution') {
-                                  if (info == '') {
-                                      institution = 'None';
-                                  } else {
-                                      institution = info;
-                                  }
-                              }
-                          }); //end loop through for each piece of info in paper
-                          paperHtml = '<div id="paperDiv">\
-                            <div class="paperOptions">\
-                              <a id="pdfDown" href="/uploads/' + pdata.pdf + '" class= "btn btn-danger btn-sm downloadPDF"><img src="images/pdfIcon.png">Download PDF</a>\
-                              <div id="copyright" style="position:absolute;top:70px;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></div>\
-                          </div>\
-                          <div class="paperCol">\
-                            <div class="paper">\
-                              <h3>' + pdata.title + '</h3><p id="authorP" style="margin-bottom:0px;"></p></div>\
-                            <div class="school">\
-                              <p id="education"><span id="schoolSpan"></span><span>,&nbsp Outside Institution: ' + institution + '</span></p>\
-                            </div>\
-                            <div class="date">\
-                              <p>' + pdata.date + '</p>\
-                            </div>\
-                            <div class="abstract">\
-                              <span class="abstractHead">\
-                                <h4 class="abstractHeadText">Abstract</h4>\
-                              </span>\
-                              <div class="abstractText">\
-                              <p>' + pdata.abstract + '</p>\
-                            </div>\
-                          </div>\
-                          <div id="pdf-container">\
-                          <object data="/uploads/' + pdata.pdf + '" width="98%" height="1300" type="application/pdf">\
-                          <p>You don\'nt have a PDF plugin for this browser. Click Download PDF up in the top left to view the PDF anyway!</p>\
-                          </object>\
-                        </div>\
-                      </div>\
-                    </div>\
-                  </div>';
+                            console.log(res);
                         }
                     });
+                    $.each(pdata, function(infoName, info) { //loop through each piece of info in the paper
+                        if (infoName == 'authors') { //going into the authors
+                        } //end "if authors"
+                        if (infoName == 'tempAuthors') {
+                            for (var tempInd = 0; tempInd < info.length; tempInd++) {
+                                addTempAuthors.push([info[tempInd], pdata._id]);
+                            }
+                        } else if (infoName == 'institution') {
+                            if (info == '') {
+                                institution = 'None';
+                            } else {
+                                institution = info;
+                            }
+                        }
+                    }); //end loop through for each piece of info in paper
+                    paperHtml = '<div id="paperDiv">\
+								  		<div class="paperOptions">\
+												<a id="pdfDown" href="/uploads/' + pdata.pdf + '" class= "btn btn-danger btn-sm downloadPDF"><img src="images/pdfIcon.png">Download PDF</a>\
+												<div id="copyright" style="position:absolute;top:70px;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></div>\
+										</div>\
+										<div class="paperCol">\
+											<div class="paper">\
+												<h3>' + pdata.title + '</h3><p id="authorP" style="margin-bottom:0px;"></p></div>\
+											<div class="school">\
+												<p id="education"><span id="schoolSpan"></span><span>,&nbsp Outside Institution: ' + institution + '</span></p>\
+											</div>\
+											<div class="date">\
+												<p>' + pdata.date + '</p>\
+											</div>\
+											<div class="abstract">\
+												<span class="abstractHead">\
+													<h4 class="abstractHeadText">Abstract</h4>\
+												</span>\
+												<div class="abstractText">\
+												<p>' + pdata.abstract + '</p>\
+											</div>\
+										</div>\
+										<div id="pdf-container">\
+										<object data="/uploads/' + pdata.pdf + '" width="98%" height="1300" type="application/pdf">\
+                    <p>You don\'nt have a PDF plugin for this browser. Click Download PDF up in the top left to view the PDF anyway!</p>\
+                    </object>\
+									</div>\
+								</div>\
+							</div>\
+						</div>';
                     $('.grid').html(paperHtml);
                     var allAuthors = [];
                     var sendData = [pdata];
