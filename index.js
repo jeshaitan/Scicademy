@@ -44,7 +44,6 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-console.log(process.env.AWS_ACCESS_KEY_ID);
 aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
@@ -577,7 +576,7 @@ app.post('/getPdf', function(req, res) {
     };
     var out = fs.createWriteStream(__dirname + '/public/uploads/' + req.body.query);
     s3.getObject(params).createReadStream().pipe(out).on('finish', function() {
-      req.send('pdf downloaded');
+      res.send('pdf downloaded');
       console.log('pdf downloaded.')
     });
 });
