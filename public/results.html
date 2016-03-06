@@ -108,16 +108,15 @@
             var searchType = url.charAt(url.indexOf('?type=') + 6);
             var page = url.charAt(url.indexOf('?page=') + 6);
             var pageNum = Number(page);
-            if (page == '1'){
+            if (page == '1') {
                 $('#prev').addClass('disabled');
-                $('#prev a').click(function(event){
-                   event.preventDefault();
+                $('#prev a').click(function(event) {
+                    event.preventDefault();
                 });
-            }
-            else {
+            } else {
                 $('#prev a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum - 1).toString()));
             }
-            $('#next a').attr('href', url.replace('?page='+page,'?page='+(pageNum + 1).toString()));
+            $('#next a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum + 1).toString()));
             if (searchType == 1) {
                 searchType = "All";
                 $('#all').iCheck('check');
