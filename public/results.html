@@ -107,6 +107,17 @@
             var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?page='));
             var searchType = url.charAt(url.indexOf('?type=') + 6);
             var page = url.charAt(url.indexOf('?page=') + 6);
+            var pageNum = Number(page);
+            if (page == '1'){
+                $('#prev').addClass('disabled');
+                $('#prev a').click(function(event){
+                   event.preventDefault();
+                });
+            }
+            else {
+                $('#prev a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum - 1).toString()));
+            }
+            $('#next a').attr('href', url.replace('?page='+page,'?page='+(pageNum+1).toString()));
             if (searchType == 1) {
                 searchType = "All";
                 $('#all').iCheck('check');
@@ -345,6 +356,10 @@
 
                 <p style="margin-left:35%;"><img src="images/spin.gif"></p>
             </div>
+            <ul class="pager center-block" style="margin-top:74px;">
+                <li id="prev"><a href="#">Previous</a></li>
+                <li id="next"><a href="#">Next</a></li>
+            </ul>
         </div>
     </div>
 </body>
