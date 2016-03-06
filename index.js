@@ -579,11 +579,9 @@ app.post('/getPdf', function(req, res) {
     s3.getObject(params, function(err, data) {
       if(err)
         console.log(err);
-      else {
-        console.log('DATA RECIEVED: ' + data);
-        data.createReadStream().pipe(file);
-      }
-    });
+      else
+        console.log('DATA RECIEVED: ' + data.body);
+    }).createReadStream().pipe(file);
 });
 
 app.post('/clearPdf', function(req, res) {
