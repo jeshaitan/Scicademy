@@ -17,8 +17,7 @@ var http = require("http"),
     }),
     h5bp = require('h5bp'),
     hash = require('password-hash'),
-    compression = require('compression'),
-    async = require('async');
+    compression = require('compression');
 
 app = express();
 app.use(bodyParser.json());
@@ -577,7 +576,14 @@ app.post('/getPdf', function(req, res) {
         Key: req.body.query
     };
     var file = fs.createWriteStream(__dirname + '/public/uploads/' + req.body.query);
-    s3.getObject(params).createReadStream().pipe(file);
+    s3.getObject(params, function(err, data) {
+      if(err)
+        console.log(err);
+      else {
+        console.log('DATA RECIEVED: ' + data);
+        data.createReadStream().pipe(file);
+      }
+    });
 });
 
 app.post('/clearPdf', function(req, res) {
