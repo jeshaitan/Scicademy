@@ -320,6 +320,7 @@ app.post('/getAllTemps', function(req, res) {
 });
 
 app.post('/getPaper', function(req, res) {
+    var pageSize = 5;
     if (req.body.filter == '' || req.body.filter == 'allTopics')
         var filter = /.*?/;
     else
@@ -373,7 +374,10 @@ app.post('/getPaper', function(req, res) {
                         if (err) {
                             console.log(err);
                         } else {
-                            res.send(curs);
+                            if (curs.length < req.body.page * pageSize)
+                                res.send(curs.slice(curs.length - pageSize, curs.length));
+                            else
+                                res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
                         }
                     });
                 }
@@ -405,7 +409,10 @@ app.post('/getPaper', function(req, res) {
             if (err) {
                 console.log(err);
             } else {
-                res.send(curs);
+                if (curs.length < req.body.page * pageSize)
+                    res.send(curs.slice(curs.length - pageSize, curs.length));
+                else
+                    res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
             }
         });
     }

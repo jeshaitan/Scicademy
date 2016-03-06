@@ -90,6 +90,7 @@
             var queryString = decodeURI(url.slice(url.indexOf('?query=') + 7));
             var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?query='));
             var searchType = url.charAt(url.indexOf('?type=') + 6);
+            var page = url.charAt(url.indexOf('?page=') + 6);
             if (searchType == 1) {
                 searchType = "All";
                 $('#all').iCheck('check');
@@ -108,14 +109,15 @@
             var searchPaper = {
                 "query": queryString,
                 "searchType": searchType,
-                "filter": filter
+                "filter": filter,
+                "page": page
             };
             $('#' + filter).iCheck('check');
             if (filter == '') {
                 $('#allTopics').iCheck('check');
             }
             $('.filterBy').on('ifChecked', function(event) {
-                window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7);
+                window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?query=' + url.slice(url.indexOf('?query=') + 7 + '?page=1');
             });
 
             $.ajax({
@@ -259,7 +261,7 @@
         <ul id="navlist" class="sm sm-simple">
             <li><a href="index.html">Home</a></li>
             <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-            <li><a href="results.html?type=6?filter=?query=">Browse Projects</a></li>
+            <li><a href="results.html?type=6?filter=?query=?page=1">Browse Projects</a></li>
             <li id="aboutli"><a href="about.html">About Us</a></li>
             <li><a href="" id="siso">Sign In or Register</a></li>
         </ul>
