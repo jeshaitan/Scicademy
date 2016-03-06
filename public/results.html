@@ -95,7 +95,13 @@
         }
         $(document).ready(function() {
             $.getScript('javascript/index-logic.js', function(jd) {});
-
+            $('.papers').on('click', '.abstractText', function(e) {
+                console.log('ran');
+                $(this).parent().find('.arrowClick').toggleClass('arrowSide');
+                e.preventDefault();
+                $(this).parent().find('.abstractParagraph').stop().slideToggle();
+                return false;
+            }); //end abstractText click
             var url = window.location.href;
             var queryString = decodeURI(url.slice(url.indexOf('?query=') + 7));
             var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?page='));
@@ -264,12 +270,6 @@
                     //                    })
             });
         } //end addPapers
-        $('.papers').on('click', '.abstractText', function(e) {
-            $(this).parent().find('.arrowClick').toggleClass('arrowSide');
-            e.preventDefault();
-            $(this).parent().find('.abstractParagraph').stop().slideToggle();
-            return false;
-        }); //end abstractText click
     </script>
     <div class="navigation">
         <ul id="navlist" class="sm sm-simple">
