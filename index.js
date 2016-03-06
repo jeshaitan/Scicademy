@@ -575,7 +575,7 @@ app.post('/getPdf', function(req, res) {
         Key: req.body.query
     };
     console.log(__dirname + '/public/uploads/' + req.body.query);
-    var out = fs.createWriteStream('/public/uploads/' + req.body.query);
+    var out = fs.createWriteStream(__dirname + '/public/uploads/' + req.body.query);
     s3.getObject(params).
       on('httpData', function(chunk) { out.write(chunk); }).
       on('httpDone', function() {
