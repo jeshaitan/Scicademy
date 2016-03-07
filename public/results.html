@@ -107,16 +107,6 @@
             var filter = url.slice(url.indexOf('?filter=') + 8, url.indexOf('?page='));
             var searchType = url.charAt(url.indexOf('?type=') + 6);
             var page = url.charAt(url.indexOf('?page=') + 6);
-            var pageNum = Number(page);
-            if (page == '1') {
-                $('#prev').addClass('disabled');
-                $('#prev a').click(function(event) {
-                    event.preventDefault();
-                });
-            } else {
-                $('#prev a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum - 1).toString()));
-            }
-            $('#next a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum + 1).toString()));
             if (searchType == 1) {
                 searchType = "All";
                 $('#all').iCheck('check');
@@ -145,7 +135,37 @@
             $('.filterBy').on('ifChecked', function(event) {
                 window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?page=1' + '?query=' + url.slice(url.indexOf('?query=') + 7);
             });
+            $.ajax({
+                url: '/getPaperLength',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(searchPaper),
+                dataType: 'json',
+                success: addPagination
+            });
 
+            function addPagination(data2){
+                console.log('ran');
+                var data2 = data2[0];
+                var pageNum = Number(page);
+                if (page == '1') {
+                    $('#prev').addClass('disabled');
+                    $('#prev a').click(function(event){
+                        event.preventDefault();
+                    });
+                } else {
+                    $('#prev a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum - 1).toString()));
+                }
+                if (pageNum * 5 < data2){
+                    $('#next a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum + 1).toString()));
+                }
+                else{
+                    $('#next').addClass('disabled');
+                    $('#next a').click(function(event){
+                        event.preventDefault();
+                    });
+                }
+            }
             $.ajax({
                 url: '/getPaper',
                 type: 'POST',
