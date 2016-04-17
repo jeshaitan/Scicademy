@@ -186,6 +186,21 @@ app.post('/getTemps', function(req, res) {
     });
 });
 
+app.post('/addView', function(req, res) {
+    var searchObj = {
+        "_id": ObjectID(req.body.paperId)
+    };
+    db.Papers.update(
+        searchObj,
+        { $inc: { views: 1} }, function(err, doc) {
+            if (err) {
+            } else {
+                res.send(' ');
+            }
+        }
+    )
+});
+
 app.post('/getAllTemps', function(req, res) {
     var allAuthors = [];
     for (var paper in req.body) {
@@ -413,6 +428,7 @@ app.post('/getPaper', function(req, res) {
             if (err) {
                 console.log(err);
             } else {
+                //curs is an array of paper objects
                 if (curs.length < req.body.page * pageSize)
                     res.send(curs.slice(curs.length - pageSize, curs.length));
                 else
@@ -666,7 +682,6 @@ app.post('/getPdf', function(req, res) {
         Bucket: 'aliro-pdf-assets',
         Key: req.body.query
     };
-    console.log(__dirname + '/public/uploads/' + req.body.query);
     var out = fs.createWriteStream(__dirname + '/public/uploads/' + req.body.query);
     s3.getObject(params).
       on('httpData', function(chunk) { out.write(chunk); }).

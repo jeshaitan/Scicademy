@@ -103,6 +103,16 @@
                 data: JSON.stringify(searchPaper),
                 dataType: 'json',
                 success: function(data) {
+                    var viewSearch = {
+                        "paperID:": data[0]._id
+                    };
+                    $.ajax({
+                        url: '/addView',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(viewSearch),
+                        dataType: 'json'
+                    });
                     var addTempAuthors = [];
                     var allSchools = [];
                     $('.grid').html('');

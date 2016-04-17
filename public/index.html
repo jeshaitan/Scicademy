@@ -31,15 +31,14 @@
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
             a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
+                    m = s.getElementsByTagName(o)[0];
             a.async = 1;
             a.src = g;
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
         ga('create', 'UA-69262899-1', 'auto');
         ga('send', 'pageview');
     </script>
@@ -48,7 +47,7 @@
             --position: relative;
             --top: 20px;
         }
-        
+
         .form-container {
             width: 458px;
         }
@@ -61,155 +60,148 @@
 </head>
 
 <body>
-    <div id="indexBody">
-        <!-- <div id="backgroundPic"></div> -->
-        <script type="text/javascript">
-            var currentUser = null;
-            $(function() {
-                $('a[href*=#]:not([href=#])').click(function() {
-                    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
-                        var target = $(this.hash);
-                        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                        if (target.length) {
-                            $('html,body').animate({
-                                scrollTop: target.offset().top
-                            }, 1000);
-                            return false;
-                        }
+<div id="indexBody">
+    <!-- <div id="backgroundPic"></div> -->
+    <script type="text/javascript">
+        var currentUser = null;
+        $(function() {
+            $('a[href*=#]:not([href=#])').click(function() {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
                     }
-                });
-            });
-
-            $.getScript('javascript/index-logic.js', function(jd) {}); //end ready
-            $(document).ready(function() {
-                $('#siteMapIndex').hide();
-                $('#registerComplete').dialog({
-                    resizable: false,
-                    minWidth: 300,
-                    minHeight: 150,
-                    autoOpen: false,
-                    show: 'fade',
-                    hide: 'fold'
-                });
-
-                $('#findMyPapers').dialog({
-                    resizable: true,
-                    minWidth: 1000,
-                    minHeight: 200,
-                    autoOpen: false,
-                    show: 'fade',
-                    hide: 'fold'
-                });
-                var authInfo = {
-                    "firstName": localStorage.getItem('fName'),
-                    "lastName": localStorage.getItem('lName'),
-                    "school": localStorage.getItem('school')
-                };
-
-                function retrievePapers(data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var searchIndexPapers = {
-                            "query": data[i].respectivePaper,
-                            "searchType": 'id'
-                        };
-                        $.ajax({
-                            url: '/getPaper',
-                            type: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify(searchIndexPapers),
-                            dataType: 'json',
-                            success: addIndexPapers
-                        });
-                    }
-                    $('#findMyPapers').dialog('open');
                 }
-
-                function addIndexPapers(data) {
-                    $('#myPapers').html('');
-                    var title = '',
+            });
+        });
+        $.getScript('javascript/index-logic.js', function(jd) {}); //end ready
+        $(document).ready(function() {
+            $('#siteMapIndex').hide();
+            $('#registerComplete').dialog({
+                resizable: false,
+                minWidth: 300,
+                minHeight: 150,
+                autoOpen: false,
+                show: 'fade',
+                hide: 'fold'
+            });
+            $('#findMyPapers').dialog({
+                resizable: true,
+                minWidth: 1000,
+                minHeight: 200,
+                autoOpen: false,
+                show: 'fade',
+                hide: 'fold'
+            });
+            var authInfo = {
+                "firstName": localStorage.getItem('fName'),
+                "lastName": localStorage.getItem('lName'),
+                "school": localStorage.getItem('school')
+            };
+            function retrievePapers(data) {
+                for (var i = 0; i < data.length; i++) {
+                    var searchIndexPapers = {
+                        "query": data[i].respectivePaper,
+                        "searchType": 'id'
+                    };
+                    $.ajax({
+                        url: '/getPaper',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(searchIndexPapers),
+                        dataType: 'json',
+                        success: addIndexPapers
+                    });
+                }
+                $('#findMyPapers').dialog('open');
+            }
+            function addIndexPapers(data) {
+                $('#myPapers').html('');
+                var title = '',
                         authors = '',
                         abstractText = '',
                         firstAuthor = true,
                         date = '',
                         getTemps = false,
                         nump = 0;
-
-                    var paperHtml = '';
-                    $.each(data, function(paper, paperInfo) { //iterate through each paper
-                        $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
-                            if (infoName == 'authors') { //going into the authors
-                                //then it's authors
-                                var firstAuthor = true;
-                                for (var i = 0; i < info.length; i++) {
-                                    //reverse search info[i]. Returned author object will be called authorObj
-                                    if (info[i] == 0) {
-                                        getTemps = true;
-                                        continue;
-                                    }
-                                    var authorreq = {
-                                        "query": info[i],
-                                        "searchType": "id",
-                                        "meta": nump
-                                    };
-                                    $.ajax({
-                                        url: '/getUser',
-                                        type: 'POST',
-                                        contentType: 'application/json',
-                                        data: JSON.stringify(authorreq),
-                                        dataType: 'json',
-                                        success: function(docB) {
-                                            var authorObj = docB.doc;
-                                            var fullName = authorObj.firstname + ' ' + authorObj.lastname;
-                                            var userId = authorObj._id;
-                                            var userPage = "user.html?id=" + userId;
-                                            if (firstAuthor) {
-                                                authors = '<a href="' + userPage + '">' + fullName + '</a>';
-                                                firstAuthor = false;
-                                            } else {
-                                                authors += '<a href="' + userPage + '">, ' + fullName + ' </a>';
-                                            }
-                                            $('#authors' + (docB.meta)).html(authors);
-                                        }
-                                    });
-
-                                } //end author loop
-
-                                var authorreq2 = {
-                                    "meta": nump,
-                                    "paperId": paperInfo._id
+                var paperHtml = '';
+                $.each(data, function(paper, paperInfo) { //iterate through each paper
+                    $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
+                        if (infoName == 'authors') { //going into the authors
+                            //then it's authors
+                            var firstAuthor = true;
+                            for (var i = 0; i < info.length; i++) {
+                                //reverse search info[i]. Returned author object will be called authorObj
+                                if (info[i] == 0) {
+                                    getTemps = true;
+                                    continue;
+                                }
+                                var authorreq = {
+                                    "query": info[i],
+                                    "searchType": "id",
+                                    "meta": nump
                                 };
-                                if (getTemps) {
-                                    getTemps = false;
-                                    $.ajax({
-                                        url: '/getTemps',
-                                        type: 'POST',
-                                        contentType: 'application/json',
-                                        data: JSON.stringify(authorreq2),
-                                        dataType: 'json',
-                                        success: function(docB) {
-                                            var tempAuthorObj = docB.temps;
-                                            for (var i = 0; i < tempAuthorObj.length; i++) {
-                                                var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
-                                                var userId = '0';
-                                            }
-                                            var userPage = "user.html?id=" + userId;
-                                            authors += ', <a href="' + userPage + '">' + fullName + ' </a>';
-                                            $('#authors' + (docB.meta)).html(authors);
+                                $.ajax({
+                                    url: '/getUser',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(authorreq),
+                                    dataType: 'json',
+                                    success: function(docB) {
+                                        var authorObj = docB.doc;
+                                        var fullName = authorObj.firstname + ' ' + authorObj.lastname;
+                                        var userId = authorObj._id;
+                                        var userPage = "user.html?id=" + userId;
+                                        if (firstAuthor) {
+                                            authors = '<a href="' + userPage + '">' + fullName + '</a>';
+                                            firstAuthor = false;
+                                        } else {
+                                            authors += '<a href="' + userPage + '">, ' + fullName + ' </a>';
                                         }
-                                    });
-                                }
-                            } //end author if
-                            else { //every piece of info but authors
-                                if (infoName == 'title') {
-                                    title = info;
-                                } else if (infoName == 'date') {
-                                    date = info;
-                                } else if (infoName == 'abstract') {
-                                    abstractText = info;
-                                }
-                            } //end else for everything but authors
-                        }); //end loop through for each piece of info in paper
-                        paperHtml = '<div class="paperDiv">\
+                                        $('#authors' + (docB.meta)).html(authors);
+                                    }
+                                });
+                            } //end author loop
+                            var authorreq2 = {
+                                "meta": nump,
+                                "paperId": paperInfo._id
+                            };
+                            if (getTemps) {
+                                getTemps = false;
+                                $.ajax({
+                                    url: '/getTemps',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(authorreq2),
+                                    dataType: 'json',
+                                    success: function(docB) {
+                                        var tempAuthorObj = docB.temps;
+                                        for (var i = 0; i < tempAuthorObj.length; i++) {
+                                            var fullName = tempAuthorObj[i].firstName + ' ' + tempAuthorObj[i].lastName;
+                                            var userId = '0';
+                                        }
+                                        var userPage = "user.html?id=" + userId;
+                                        authors += ', <a href="' + userPage + '">' + fullName + ' </a>';
+                                        $('#authors' + (docB.meta)).html(authors);
+                                    }
+                                });
+                            }
+                        } //end author if
+                        else { //every piece of info but authors
+                            if (infoName == 'title') {
+                                title = info;
+                            } else if (infoName == 'date') {
+                                date = info;
+                            } else if (infoName == 'abstract') {
+                                abstractText = info;
+                            }
+                        } //end else for everything but authors
+                    }); //end loop through for each piece of info in paper
+                    paperHtml = '<div class="paperDiv">\
                         <div style="margin-bottom: -12px;"><input style="margin-bottom:8px;" type="checkbox" class="selectMyPapers icheckbox_flat-blue" name="myPapers" value=' + paperInfo._id + '>This is also my paper</div>\
                							<span class="title">\
                								<a href="/paper.html?id=' + paperInfo._id + '"><h6>' + title + '</h6></a>\
@@ -226,200 +218,199 @@
       								</div>\
                						</div>\
                						<div class="separator"></div>';
-                        $('#myPapers').append(paperHtml);
-                        nump++;
-                    }); //end loop for each paper
-                } //end addPapers
-
-                if (localStorage.getItem('registerComplete') == '1') {
-                    $.ajax({
-                        url: '/getAllTemps',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify(authInfo),
-                        dataType: 'json',
-                        success: function(docB) {
-                            if (docB.length >= 1) {
-                                retrievePapers(docB);
-                            } else {
-                                $('#registerComplete').dialog('open');
-                            }
+                    $('#myPapers').append(paperHtml);
+                    nump++;
+                }); //end loop for each paper
+            } //end addPapers
+            if (localStorage.getItem('registerComplete') == '1') {
+                $.ajax({
+                    url: '/getAllTemps',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(authInfo),
+                    dataType: 'json',
+                    success: function(docB) {
+                        if (docB.length >= 1) {
+                            retrievePapers(docB);
+                        } else {
+                            $('#registerComplete').dialog('open');
                         }
-                    });
-                    localStorage.setItem('registerComplete', '0');
-                }
-                $('#closeRegister').click(function() {
-                    $('#registerComplete').dialog('close');
+                    }
                 });
-                $('#closeFind').click(function() {
-                    var checkedValues = $('input:checkbox:checked').map(function() {
-                        return this.value;
-                    }).get();
-                    var currentAuthorID = localStorage.getItem('curID');
-                    var personInfo = {
-                        "id": currentAuthorID,
-                        "paperIDs": checkedValues,
-                        "exTempName": localStorage.getItem('fName') + " " + localStorage.getItem('lName')
-                    };
-                    $.ajax({
-                        url: '/updateUserWithNewPapers',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify(personInfo),
-                        dataType: 'json',
-                        success: function(docB) {}
-                    });
-                    $('#findMyPapers').dialog('close');
-                });
-                $('input').iCheck({
-                    checkboxClass: 'icheckbox_flat-blue',
-                    radioClass: 'iradio_flat-blue'
-                });
-                $(document).on('click', '.abstractText', function(e) {
-                    $(this).parent().find('.arrowClick').toggleClass('arrowSide');
-                    e.preventDefault();
-                    $(this).parent().find('.abstractParagraph').stop().slideToggle();
-                    return false;
-                }); //end abstractText click
+                localStorage.setItem('registerComplete', '0');
+            }
+            $('#closeRegister').click(function() {
+                $('#registerComplete').dialog('close');
             });
-        </script>
-        <div class="navigation">
-            <ul id="navlist" class="sm sm-simple">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="submit.html" id="submitLink">Submit Research</a></li>
-                <li><a href="results.html?type=6?filter=?page=1?query=">Browse Projects</a></li>
-                <li id="aboutli"><a href="about.html">About Us</a></li>
-                <li><a href="" id="siso">Sign In or Register</a></li>
-            </ul>
+            $('#closeFind').click(function() {
+                var checkedValues = $('input:checkbox:checked').map(function() {
+                    return this.value;
+                }).get();
+                var currentAuthorID = localStorage.getItem('curID');
+                var personInfo = {
+                    "id": currentAuthorID,
+                    "paperIDs": checkedValues,
+                    "exTempName": localStorage.getItem('fName') + " " + localStorage.getItem('lName')
+                };
+                $.ajax({
+                    url: '/updateUserWithNewPapers',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(personInfo),
+                    dataType: 'json',
+                    success: function(docB) {}
+                });
+                $('#findMyPapers').dialog('close');
+            });
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_flat-blue',
+                radioClass: 'iradio_flat-blue'
+            });
+            $(document).on('click', '.abstractText', function(e) {
+                $(this).parent().find('.arrowClick').toggleClass('arrowSide');
+                e.preventDefault();
+                $(this).parent().find('.abstractParagraph').stop().slideToggle();
+                return false;
+            }); //end abstractText click
+        });
+    </script>
+    <div class="navigation">
+        <ul id="navlist" class="sm sm-simple">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="submit.html" id="submitLink">Submit Research</a></li>
+            <li><a href="results.html?type=6?filter=?page=1?query=">Browse Projects</a></li>
+            <li id="aboutli"><a href="about.html">About Us</a></li>
+            <li><a href="" id="siso">Sign In or Register</a></li>
+        </ul>
+    </div>
+    <div id="signInBox"></div>
+    <div style="height:100vh;">
+        <div id="logo">
+            <img src="images/logo.png" id="compImage">
         </div>
-        <div id="signInBox"></div>
-        <div style="height:100vh;">
-            <div id="logo">
-                <img src="images/logo.png" id="compImage">
-            </div>
-            <!-- Search box form -->
-            <div class="searchBoxDiv" id="search-form">
-                <form class="form-container searchForm" action="">
-                    <input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048" />
-                    <div class="submit-container">
-                        <input value=" " type="submit" id="searchSubmitBut" class="submit searchBoxSubmit" />
-                    </div>
-                </form>
-                <br>
-                <table>
-                    <tr>
-                        <td>
-                            <a href="#about" class="btn btn-primary btn-lg" id="indexButton">Find Out More</a>
-                        </td>
-                        <td>
-                            <a href="submit.html" class="btn btn-primary btn-lg" id="submitPaperBut">Publish Your Research</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div id="registerComplete">
-                <center>Thank you for registering and welcome to Scicademy! You can sign in to your account through the "Sign in or Register" tab in the menu above.</center>
-                <button id="closeRegister" class="btn btn-lg btn-primary">Ok</button>
-            </div>
-            <div id="findMyPapers">
-                <p>Welcome to Scicademy! Some of your research partners may have submitted papers before you created an account here and listed you as a partner. Are any of these your works? If they are, click the check button that is to the left of the
-                    paper
-                </p>
-                <div id="myPapers">
-
+        <!-- Search box form -->
+        <div class="searchBoxDiv" id="search-form">
+            <form class="form-container searchForm" action="">
+                <input type="text" class="search-field" id="searchBox" placeholder="Find Research" maxlength="2048" />
+                <div class="submit-container">
+                    <input value=" " type="submit" id="searchSubmitBut" class="submit searchBoxSubmit" />
                 </div>
-                <button id="closeFind" class="btn btn-lg btn-primary">Ok, I've checkmarked all my papers (if any)</button>
+            </form>
+            <br>
+            <table>
+                <tr>
+                    <td>
+                        <a href="#about" class="btn btn-primary btn-lg" id="indexButton">Find Out More</a>
+                    </td>
+                    <td>
+                        <a href="submit.html" class="btn btn-primary btn-lg" id="submitPaperBut">Publish Your Research</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="registerComplete">
+            <center>Thank you for registering and welcome to Scicademy! You can sign in to your account through the "Sign in or Register" tab in the menu above.</center>
+            <button id="closeRegister" class="btn btn-lg btn-primary">Ok</button>
+        </div>
+        <div id="findMyPapers">
+            <p>Welcome to Scicademy! Some of your research partners may have submitted papers before you created an account here and listed you as a partner. Are any of these your works? If they are, click the check button that is to the left of the
+                paper
+            </p>
+            <div id="myPapers">
+
             </div>
+            <button id="closeFind" class="btn btn-lg btn-primary">Ok, I've checkmarked all my papers (if any)</button>
         </div>
     </div>
-    <div id="footerDiv">
-        <div>
-            <section id="about" class="about">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h2>Scicademy: The first ever student research database</h2>
-                        </div>
+</div>
+<div id="footerDiv">
+    <div>
+        <section id="about" class="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>Scicademy: The first ever student research database</h2>
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container -->
-            </section>
-            <!-- Services -->
-            <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
-            <section id="services" class="services bg-primary">
-                <div class="container">
-                    <div class="row text-center">
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <h2>Scicademy</h2>
-                            <hr class="small">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="service-item">
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+        </section>
+        <!-- Services -->
+        <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+        <section id="services" class="services bg-primary">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-lg-10 col-lg-offset-1">
+                        <h2>Scicademy</h2>
+                        <hr class="small">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-item">
                                         <span class="fa-stack fa-4x">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-search fa-stack-1x text-primary"></i>
                             </span>
-                                        <h4>
-                                    <strong>Search</strong>
-                                </h4>
-                                        <p>See what research high school and undergraduate students have conducted in a field that interests you. <em>Stand on the shoulders of giants.</em></p>
-                                        <br />
-                                    </div>
+                                    <h4>
+                                        <strong>Search</strong>
+                                    </h4>
+                                    <p>See what research high school and undergraduate students have conducted in a field that interests you. <em>Stand on the shoulders of giants.</em></p>
+                                    <br />
                                 </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="service-item">
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-item">
                                         <span class="fa-stack fa-4x">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-book fa-stack-1x text-primary"></i>
                             </span>
-                                        <h4>
-                                    <strong>Read</strong>
-                                </h4>
-                                        <p>Learn about the incredible studies high school and undergraduate students have conducted and the results they've found. Browse topics that interest you and use those papers to inspire your own.</p>
-                                        <br />
-                                    </div>
+                                    <h4>
+                                        <strong>Read</strong>
+                                    </h4>
+                                    <p>Learn about the incredible studies high school and undergraduate students have conducted and the results they've found. Browse topics that interest you and use those papers to inspire your own.</p>
+                                    <br />
                                 </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="service-item">
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-item">
                                         <span class="fa-stack fa-4x">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-upload fa-stack-1x text-primary"></i>
                             </span>
-                                        <h4>
-                                    <strong>Publish</strong>
-                                </h4>
-                                        <p>If you're a high school student, then don't let your work be forgotten about next year. Submit it on Scicademy and let other people learn from it and be inspired by it.</p>
-                                        <br />
-                                    </div>
+                                    <h4>
+                                        <strong>Publish</strong>
+                                    </h4>
+                                    <p>If you're a high school student, then don't let your work be forgotten about next year. Submit it on Scicademy and let other people learn from it and be inspired by it.</p>
+                                    <br />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-1 text-center">
-                        <h4><strong>Scicademy</strong>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Scicademy</strong>
                     </h4>
-                        <ul class="list-unstyled">
-                            <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:admin@scicademy.org">scicademy@scicademy.org</a>
-                            </li>
-                        </ul>
-                        <br>
-                        <hr class="small">
-                        <p class="text-muted">Copyright &copy; Scicademy 2016</p>
-                        <a href="sitemap.html">
-                            <p class="text-muted">Sitemap</p>
-                        </a>
-                    </div>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:admin@scicademy.org">scicademy@scicademy.org</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <hr class="small">
+                    <p class="text-muted">Copyright &copy; Scicademy 2016</p>
+                    <a href="sitemap.html">
+                        <p class="text-muted">Sitemap</p>
+                    </a>
                 </div>
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
+</div>
 </body>
 
 </html>
