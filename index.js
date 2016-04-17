@@ -193,7 +193,7 @@ app.post('/getViews', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.sendStatus(doc.views);
+            res.send(doc.views);
         }
     });
 });
