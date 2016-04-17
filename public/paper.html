@@ -111,7 +111,11 @@
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(viewSearch),
-                        dataType: 'json'
+                        dataType: 'json',
+                        success: function(d){
+                            console.log('paper ID here: ');
+                            console.log(d);
+                        }
                     });
                     var addTempAuthors = [];
                     var allSchools = [];

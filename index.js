@@ -205,7 +205,7 @@ app.post('/addView2', function(req, res) {
 
 app.post('/addView', function(req, res) {
     var searchObj = {
-        "_id": req.body.paperID
+        "_id": ObjectID(req.body.paperID)
     };
     db.Papers.update(
         searchObj,
@@ -214,7 +214,7 @@ app.post('/addView', function(req, res) {
                 console.log(err);
             }
             else{
-                res.send(' ');
+                res.send(req.body.paperID);
             }
         }
     )
