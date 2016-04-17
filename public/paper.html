@@ -128,7 +128,6 @@
                             query: pdata.pdf
                         }),
                         success: function(res) {
-                            console.log(res);
                             $.each(pdata, function(infoName, info) { //loop through each piece of info in the paper
                                 if (infoName == 'authors') { //going into the authors
                                 } //end "if authors"
@@ -184,7 +183,6 @@
                                 data: JSON.stringify(sendData),
                                 dataType: 'json',
                                 success: function(docB) {
-                                    console.log(docB);
                                     $.each(docB, function(index, authorObj) { //loop through each author in the author object
                                         var pubList = authorObj.publications;
                                         allSchools.push(authorObj.school);

@@ -128,6 +128,13 @@
                 "filter": filter,
                 "page": page
             };
+//            $.ajax({
+//                url: '/addView2',
+//                type: 'POST',
+//                contentType: 'application/json',
+//                data: JSON.stringify({'sa':'sdf'}),
+//                dataType: 'json'
+//            });
             $('#' + filter).iCheck('check');
             if (filter == '') {
                 $('#allTopics').iCheck('check');
