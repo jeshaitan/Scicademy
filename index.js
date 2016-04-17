@@ -196,6 +196,9 @@ app.post('/addView2', function(req, res) {
             if (err) {
                 console.log(err);
             }
+            else{
+                res.send(' ');
+            }
         }
     )
 });
@@ -209,6 +212,9 @@ app.post('/addView', function(req, res) {
         { $inc: { views: 1} }, function(err, doc) {
             if (err) {
                 console.log(err);
+            }
+            else{
+                res.send(' ');
             }
         }
     )
