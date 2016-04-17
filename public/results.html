@@ -128,13 +128,6 @@
                 "filter": filter,
                 "page": page
             };
-//            $.ajax({
-//                url: '/addView2',
-//                type: 'POST',
-//                contentType: 'application/json',
-//                data: JSON.stringify({'sa':'sdf'}),
-//                dataType: 'json'
-//            });
             $('#' + filter).iCheck('check');
             if (filter == '') {
                 $('#allTopics').iCheck('check');
@@ -209,6 +202,7 @@
             var title = '',
                 authors = '',
                 abstractText = '',
+                views = 0,
                 firstAuthor = true,
                 date = '',
                 getTemps = false,
@@ -218,6 +212,8 @@
                 $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
                     if (infoName == 'title') {
                         title = info;
+                    } else if (infoName == 'views') {
+                        views = info;
                     } else if (infoName == 'date') {
                         date = info;
                     } else if (infoName == 'tempAuthors') {
@@ -233,7 +229,7 @@
            								<a href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
            							</span>\
   									<div class="authors" id="authors_' + paperInfo._id + '"></div>\
-  									<div class="date">' + date + '</div>\
+  									<div class="date">' + date + '<span class="glyphicon glyphicon-eye-open" style="margin-left:30px;margin-top:3px;margin-right:7px;"></span>' + views +'</div>\
   								</div>\
   								<div class="abstractDiv">\
   									<a class="abstractText">\

@@ -185,22 +185,17 @@ app.post('/getTemps', function(req, res) {
         }
     });
 });
-
-app.post('/addView2', function(req, res) {
+app.post('/getViews', function(req, res) {
     var searchObj = {
-        "_id": ObjectID('56b528f053a8190300fb8fc5')
+        "_id": ObjectID(req.body.paperID)
     };
-    db.Papers.update(
-        searchObj,
-        { $inc: { views: 1} }, function(err, doc) {
-            if (err) {
-                console.log(err);
-            }
-            else{
-                res.send(' ');
-            }
+    var paper = db.Papers.findOne(searchObj, function(err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.sendStatus(doc.views);
         }
-    )
+    });
 });
 
 app.post('/addView', function(req, res) {
@@ -214,7 +209,7 @@ app.post('/addView', function(req, res) {
                 console.log(err);
             }
             else{
-                res.send(req.body.paperID);
+                res.send(' ');
             }
         }
     )

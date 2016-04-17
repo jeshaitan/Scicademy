@@ -104,17 +104,25 @@
                 dataType: 'json',
                 success: function(data) {
                     var viewSearch = {
-                        "paperID:": data[0]._id
+                        paperID: data[0]._id
                     };
                     $.ajax({
                         url: '/addView',
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(viewSearch),
-                        dataType: 'json',
-                        success: function(d){
-                            console.log('paper ID here: ');
-                            console.log(d);
+                        dataType: 'json'
+                    });
+                    $.ajax({
+                        url: '/getViews',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(viewSearch),
+                        dataType: 'json'    ,
+                        success: function(data3) {
+                            console.log('views: ');
+                            console.log(data3);
+                            $('#viewSpan').text('&nbsp&nbsp' + data3.toString());
                         }
                     });
                     var addTempAuthors = [];
@@ -160,7 +168,7 @@
                               </div>\
                               <div class="date">\
                                 <p>' + pdata.date + '</p>\
-                              </div>\
+                              </div><div class = "views"><span class="glyphicon glyphicon-eye-open"></span><span id="viewSpan">&nbsp&nbsp</span></div>\
                               <div class="abstract">\
                                 <span class="abstractHead">\
                                   <h4 class="abstractHeadText">Abstract</h4>\
