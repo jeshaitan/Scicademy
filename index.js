@@ -203,12 +203,15 @@ app.post('/addView', function(req, res) {
         "_id": ObjectID(req.body.paperID)
     };
     db.Papers.update(
-        searchObj,
-        { $inc: { views: 1} }, function(err, doc) {
+        searchObj, {
+            $inc: {
+                views: 1
+            }
+        },
+        function(err, doc) {
             if (err) {
                 console.log(err);
-            }
-            else{
+            } else {
                 res.send(' ');
             }
         }
@@ -698,12 +701,14 @@ app.post('/getPdf', function(req, res) {
     };
     var out = fs.createWriteStream(__dirname + '/public/uploads/' + req.body.query);
     s3.getObject(params).
-      on('httpData', function(chunk) { out.write(chunk); }).
-      on('httpDone', function() {
+    on('httpData', function(chunk) {
+        out.write(chunk);
+    }).
+    on('httpDone', function() {
         out.end();
         res.send('http done');
-      }).
-      send();
+    }).
+    send();
 });
 
 app.post('/clearPdf', function(req, res) {
