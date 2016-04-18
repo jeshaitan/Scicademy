@@ -356,7 +356,7 @@ app.post('/getAllTemps', function(req, res) {
 });
 
 app.post('/getPaper', function(req, res) {
-    var pageSize = 5;
+    var pageSize = 7;
     if (req.body.filter == '' || req.body.filter == 'allTopics')
         var filter = /.*?/;
     else
