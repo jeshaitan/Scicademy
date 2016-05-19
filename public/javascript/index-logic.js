@@ -87,13 +87,17 @@ var signInHtmlEnd =
                 </span>\
             </li>\
             <li id="li_3" >\
+            <span>\
+            <div>\
+                <input type="text" id="referral" name= "refer" class="element text required" maxlength="255" size="21" value=""/ placeholder="Referrer">\
+            </div><p class="guidelines" id="guide_refer"><small>The name of the person who referred you to create an account on Scicademy, if applicable.</small></p>\
             <div>\
                 <input id="element_3" name="element_3" class="element text medium required email" type="text" maxlength="255" value=""/ placeholder="Email">\
             </div> \
             </li>		<li id="li_4" >\
             <div>\
                 <input id="element_4" name="element_4" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Password"> \
-            </div><p class="guidelines" id="guide_4"><small>Your password must have at least 6 characters and contain at least one number</small></p>\
+            </div><p class="guidelines" id="guide_4"><small>Your password must have at least 6 characters and contain at least one number.</small></p>\
             </li>		<li id="li_5" >\
             <div>\
                 <input id="element_5" name="element_5" class="element text medium required" type="password" maxlength="255" value=""/ placeholder="Confirm Password"> \
@@ -499,7 +503,8 @@ function readRegisterForm(form) {
     var firstname = $('#element_2_1').val(),
         lastname = $('#element_2_2').val(),
         is_highschool = ($('#element_6_1').is(':checked')),
-        school = $('#element_7').val();
+        school = $('#element_7').val(),
+	      referrer = $('#referral').val();
     if (is_highschool) {
         var grade = $('#element_1').val();
     } else {
@@ -532,7 +537,8 @@ function readRegisterForm(form) {
         "eml": email,
         "pwd": password,
         "dte": today,
-        "isSum": isSummer
+        "isSum": isSummer,
+	      "referrer": referrer
     };
     searchFName = firstname;
     searchLName = lastname;
