@@ -247,45 +247,45 @@
                 data: JSON.stringify(data),
                 dataType: 'json',
                 success: function(docB) {
-                        $.each(docB, function(index, authorObj) { //loop through each author in the author object
-                            var pubList = authorObj.publications;
-                            var authorSchool = authorObj.school;
-                            for (var i = 0; i < pubList.length; i++) { //loop through each paper id in the publications of that author.
-                                var authID = authorObj._id;
-                                var authHtml = createAuthor(authorObj.name, authID);
-                                allAuthors = addToArray(allAuthors, pubList[i], authHtml);
-                                allSchools = addToArray(allSchools, pubList[i], authorSchool);
+                    $.each(docB, function(index, authorObj) { //loop through each author in the author object
+                        var pubList = authorObj.publications;
+                        var authorSchool = authorObj.school;
+                        for (var i = 0; i < pubList.length; i++) { //loop through each paper id in the publications of that author.
+                            var authID = authorObj._id;
+                            var authHtml = createAuthor(authorObj.name, authID);
+                            allAuthors = addToArray(allAuthors, pubList[i], authHtml);
+                            allSchools = addToArray(allSchools, pubList[i], authorSchool);
+                        }
+                    });
+                    $.each(addTempAuthors, function(index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
+                        var authHtml = createAuthor(tempArray[0].name, '0');
+                        allAuthors = addToArray(allAuthors, tempArray[1], authHtml);
+                        console.log(allAuthors)
+                        allSchools = addToArray(allSchools, tempArray[1], tempArray[0].school);
+                    });
+                    /**
+                     * allAuthors format:
+                     * allAuthors = [
+                     "paperID035109581" : ["<authorHtmlString>",  "<author2Htmlstrin>"],
+                     "differentPaper" : ["<otherAuthor>"]
+                     ]
+                     **/
+                    $.each(allAuthors, function(index, authorObj) { //loop through each object of id/htmlArray in allAuthors
+                        $.each(authorObj, function(paperID, htmlArray) { //loop through the values in the paper id/htmlarray object
+                            var appendHtml = '';
+                            htmlArray = htmlArray.sort(compare);
+                            $.each(htmlArray, function(authIndex, authHtml) { //loop through each html string in the author html array
+                                appendHtml += authHtml;
+                                appendHtml += ', ';
+                            });
+                            appendHtml = appendHtml.substring(0, appendHtml.length - 2);
+                            var $author = $('#authors_' + paperID);
+                            if (appendHtml.length > $author.html().length) {
+                                $author.html(appendHtml);
                             }
-                        });
-                        $.each(addTempAuthors, function(index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
-                            var authHtml = createAuthor(tempArray[0].name, '0');
-                            allAuthors = addToArray(allAuthors, tempArray[1], authHtml);
-                            console.log(allAuthors)
-                            allSchools = addToArray(allSchools, tempArray[1], tempArray[0].school);
-                        });
-                        /**
-                         * allAuthors format:
-                         * allAuthors = [
-                         "paperID035109581" : ["<authorHtmlString>",  "<author2Htmlstrin>"],
-                         "differentPaper" : ["<otherAuthor>"]
-                         ]
-                         **/
-                        $.each(allAuthors, function(index, authorObj) { //loop through each object of id/htmlArray in allAuthors
-                            $.each(authorObj, function(paperID, htmlArray) { //loop through the values in the paper id/htmlarray object
-                                var appendHtml = '';
-                                htmlArray = htmlArray.sort(compare);
-                                $.each(htmlArray, function(authIndex, authHtml) { //loop through each html string in the author html array
-                                    appendHtml += authHtml;
-                                    appendHtml += ', ';
-                                });
-                                appendHtml = appendHtml.substring(0, appendHtml.length - 2);
-                                var $author = $('#authors_' + paperID);
-                                if (appendHtml.length > $author.html().length) {
-                                    $author.html(appendHtml);
-                                }
-                            })
-                        });
-                    }
+                        })
+                    });
+                }
             });
         } //end addPapers
     </script>

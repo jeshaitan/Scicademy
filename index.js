@@ -135,7 +135,7 @@ app.post('/getAllUsers', function(req, res) { //takes an array of paper objects
         if (req.body.hasOwnProperty(paper)) { //loop through each paper
             var authorArray = req.body[paper].authors; //get list of author ids
             for (var i = 0; i < authorArray.length; i++) { //loop through all the author id's
-                if (authorArray[i] == 0) {//temp author
+                if (authorArray[i] == 0) { //temp author
                     continue;
                 }
                 allAuthors.push(authorArray[i]); //allAuthors is now an array with all the author ids
