@@ -44,8 +44,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -135,7 +135,7 @@ app.post('/getAllUsers', function(req, res) { //takes an array of paper objects
         if (req.body.hasOwnProperty(paper)) { //loop through each paper
             var authorArray = req.body[paper].authors; //get list of author ids
             for (var i = 0; i < authorArray.length; i++) { //loop through all the author id's
-                if (authorArray[i] == 0) {
+                if (authorArray[i] == 0) {//temp author
                     continue;
                 }
                 allAuthors.push(authorArray[i]); //allAuthors is now an array with all the author ids

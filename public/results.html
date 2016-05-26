@@ -96,7 +96,6 @@
         $(document).ready(function() {
             $.getScript('javascript/index-logic.js', function(jd) {});
             $('.papers').on('click', '.abstractText', function(e) {
-                console.log('ran');
                 $(this).parent().find('.arrowClick').toggleClass('arrowSide');
                 e.preventDefault();
                 $(this).parent().find('.abstractParagraph').stop().slideToggle();
@@ -145,7 +144,6 @@
             });
 
             function addPagination(data2) {
-                console.log('ran');
                 var data2 = data2[0];
                 var pageNum = Number(page);
                 if (page == '1') {
@@ -262,6 +260,7 @@
                         $.each(addTempAuthors, function(index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
                             var authHtml = createAuthor(tempArray[0].name, '0');
                             allAuthors = addToArray(allAuthors, tempArray[1], authHtml);
+                            console.log(allAuthors)
                             allSchools = addToArray(allSchools, tempArray[1], tempArray[0].school);
                         });
                         /**
@@ -287,19 +286,6 @@
                             })
                         });
                     }
-                    //***** THIS IS CODE TO ADD SCHOOLS TO THE RESULTS PAGE *****
-                    //                    $.each(allSchools, function(index, schoolObj){
-                    //                        $.each(schoolObj, function(paperID, schoolArray){
-                    //                            var appendSchools = '';
-                    //                            schoolArray = eliminateDuplicates(schoolArray);
-                    //                            //TODO alphabetize the schools
-                    //                            $.each(schoolArray, function(schoolIndex, schoolString){
-                    //                                appendSchools += schoolString + ', ';
-                    //                            });
-                    //                            appendSchools = appendSchools.substring(0, appendSchools.length - 2);
-                    //                            var $school = $('#school')
-                    //                        })
-                    //                    })
             });
         } //end addPapers
     </script>
