@@ -140,12 +140,17 @@
 
 .searchInfo {
     position: relative;
-    width: 15%;
+    width: 18%;
     top: 10px;
     left: 30px;
     padding-left: 10px;
+    padding-right: 10px;
     --border-right-style: solid;
     --border-width: 1px;
+}
+
+.result {
+  width: 100%;
 }
 
 .submit-container {

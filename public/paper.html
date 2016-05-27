@@ -198,11 +198,11 @@
                                     $.each(docB, function(index, authorObj) { //loop through each author in the author object
                                         var pubList = authorObj.publications;
                                         allSchools.push(authorObj.school);
-                                        
+
                                         var authID = authorObj._id;
                                         var authHtml = createAuthor(authorObj.name, authID);
                                         allAuthors.push(authHtml);
-                                        
+
                                     });
                                     $.each(addTempAuthors, function(index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
                                         var authHtml = createAuthor(tempArray[0].name, '0');

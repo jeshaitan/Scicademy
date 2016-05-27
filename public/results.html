@@ -136,41 +136,43 @@
             });
 
             //change color of upvote button on mouseover and mouseout
-//            $('.papers').on('mouseover','.upvoteIcon', function(){
-//                if ((this).attr('color') == 'rgb(128, 128, 128)'){
-//                    $(this).css('color','rgb(0, 0, 255)');
-//                }
-//            });
-//            $('.papers').on('mouseout','.upvoteIcon', function(){
-//                $(this).css('color','rgb(128, 128, 128)');
-//            });
+            //            $('.papers').on('mouseover','.upvoteIcon', function(){
+            //                if ((this).attr('color') == 'rgb(128, 128, 128)'){
+            //                    $(this).css('color','rgb(90, 86, 153)');
+            //                }
+            //            });
+            //            $('.papers').on('mouseout','.upvoteIcon', function(){
+            //                $(this).css('color','rgb(128, 128, 128)');
+            //            });
             //logic for when upvote clicked
-            $('.papers').on('click','.upvoteIcon', function(){
+            $('.papers').on('click', '.upvoteIcon', function() {
                 var currentUser = JSON.parse(localStorage.getItem("user"));
                 var voteStatus = -1;
-                if ($(this).css('color') == 'rgb(0, 0, 255)'){
+                if ($(this).css('color') == 'rgb(90, 86, 153)') {
                     voteStatus = 1;
                 }
-                if (currentUser == null){ //if they don't have an account tell them they can't upvote
+                if (currentUser == null) { //if they don't have an account tell them they can't upvote
                     $('[data-toggle="tooltip"]').tooltip();
                     $(this).mouseover();
-                }
-                else { //if they have an account we can start the process of updating the voting
+                } else { //if they have an account we can start the process of updating the voting
                     var initialVotes = $(this).siblings(".upvoteCount").text();
-                    if (voteStatus == 1){ //they are un-upvoting it
+                    if (voteStatus == 1) { //they are un-upvoting it
                         $(this).siblings(".upvoteCount").text(parseInt(initialVotes) - 1);
                         $(this).css('color', 'rgb(128, 128, 128)')
-                    }
-                    else{ //they are upvoting it
+                    } else { //they are upvoting it
                         $(this).siblings(".upvoteCount").text(parseInt(initialVotes) + 1);
-                        $(this).css('color', 'rgb(0, 0, 255)');
+                        $(this).css('color', 'rgb(90, 86, 153)');
                     }
                     var paperID = $(this).parent().parent().find("a.pIDField").attr('href').substring(15);
                     $.ajax({
                         url: '/changeVote',
                         type: 'POST',
                         contentType: 'application/json',
-                        data: JSON.stringify({userID: currentUser._id, paperID: paperID, voteStatus: voteStatus}),
+                        data: JSON.stringify({
+                            userID: currentUser._id,
+                            paperID: paperID,
+                            voteStatus: voteStatus
+                        }),
                         dataType: 'json'
                     });
                 }
@@ -259,20 +261,18 @@
                         title = info;
                     } else if (infoName == 'views') {
                         views = info;
-                    } else if (infoName == 'upvotes'){
+                    } else if (infoName == 'upvotes') {
                         upvotes = info;
                     } else if (infoName == 'upvoted') {
                         if (currentUser != null) {
                             titleText = "Overall this is a good study"
-                        }
-                        else{
+                        } else {
                             titleText = "Create an account to upvote research!"
                         }
-                        if (currentUser != null && $.inArray(currentUser._id, info) != -1){
+                        if (currentUser != null && $.inArray(currentUser._id, info) != -1) {
                             upvoted = true;
-                            upvoteColor = 'rgb(0, 0, 255)';
-                        }
-                        else{
+                            upvoteColor = 'rgb(90, 86, 153)';
+                        } else {
                             upvoted = false;
                             upvoteColor = 'rgb(128, 128, 128)';
                         }
@@ -286,7 +286,7 @@
                         abstractText = info;
                     }
                 }); //end loop through for each piece of info in paper
-                paperHtml = '<tr><td><span class="upvoteIcon glyphicon glyphicon-arrow-up " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:38px;font-size:28px;margin-right:20px;transition: all 0.12s ease;cursor:pointer;"></span><p class="upvoteCount" style="">' + upvotes + '</p></td><td><div class="paperDiv">\
+                paperHtml = '<tr class="result"><td><span class="upvoteIcon glyphicon glyphicon-arrow-up " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:25px;font-size:25px;margin-left:10px;margin-right:30px;transition: all 0.12s ease;cursor:pointer;"></span><p class="upvoteCount" style="font-size:15px;">' + upvotes + '</p></td><td><div class="paperDiv">\
            							<span class="title">\
            								<a class="pIDField" href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
            							</span>\
@@ -300,12 +300,13 @@
   									</a>\
   									<div class="abstractParagraph" id="abstract1">' + abstractText + '</div>\
   								</div>\
-           						</div></td></tr>\
-           						<div class="separator"></div>';
+                  <div class="separator"></div>\
+           						</div></td></tr>';
+
                 //$('.papers').append(paperHtml);
                 papersArray.push([paperHtml, views, upvotes]); //add an array with the paper html, its views, and its upvotes so you can later sort by views and upvotes
-            nump++;
-        }); //end loop for each paper
+                nump++;
+            }); //end loop for each paper
 
             /*            papersArray format:
             [
@@ -315,11 +316,11 @@
 
             //first we sort the papers by number of views, where papersArray is an array of all the papers
             papersArray.sort(function(a, b) {
-               return ((b[1]+(b[2]*25)) - (a[1]+(a[2]*25)));  //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
+                return ((b[1] + (b[2] * 25)) - (a[1] + (a[2] * 25))); //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
             });
 
             //now we add the papers to the page
-            $.each(papersArray, function(paperIndex, paperViewArray){ //loop through each array of paperHTML and views number
+            $.each(papersArray, function(paperIndex, paperViewArray) { //loop through each array of paperHTML and views number
                 $('.papers').append(paperViewArray[0]);
             });
 
@@ -441,10 +442,10 @@
             </div>
             <div class="papers">
                 <table>
-                <br />
-                <br />
-                <p style="margin-left:35%;"><img src="images/spin.gif"></p>
-            </table>
+                    <br />
+                    <br />
+                    <p style="margin-left:35%;"><img src="images/spin.gif"></p>
+                </table>
             </div>
         </div>
         <div style="padding:20px 0px; background-color:white">

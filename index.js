@@ -44,8 +44,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -216,14 +216,14 @@ app.post('/addView', function(req, res) {
             }
         }
     );
-        //CODE TO ADD A FIELD TO ALL PAPER DOCUMENTS
-/*    db.Papers.update({}, {$set : {"FIELDNAME":[]}}, {upsert:false, multi:true}, function(err, doc) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(' ');
-        }
-    })*/
+    //CODE TO ADD A FIELD TO ALL PAPER DOCUMENTS
+    /*    db.Papers.update({}, {$set : {"FIELDNAME":[]}}, {upsert:false, multi:true}, function(err, doc) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(' ');
+            }
+        })*/
 });
 
 app.post('/changeVote', function(req, res) {
@@ -231,32 +231,33 @@ app.post('/changeVote', function(req, res) {
         "_id": ObjectID(req.body.paperID)
     };
     var voteStatus = req.body.voteStatus;
-    var changeUpvoted = {upvoted: req.body.userID}; //this will be the text that you use to either add or remove the author from the upvoted array in the paper document
+    var changeUpvoted = {
+        upvoted: req.body.userID
+    }; //this will be the text that you use to either add or remove the author from the upvoted array in the paper document
     if (voteStatus == -1) {
         db.Papers.update(
             searchObj, {
                 $inc: {
-                    upvotes: voteStatus * -1  //if they click it when it's already upvoted, remove the downvote
+                    upvotes: voteStatus * -1 //if they click it when it's already upvoted, remove the downvote
                 },
                 $addToSet: changeUpvoted
             },
-            function (err, doc) {
+            function(err, doc) {
                 if (err) {
                     console.log(err);
                 } else {
                     res.send(' ');
                 }
             });
-    }
-    else {
+    } else {
         db.Papers.update(
             searchObj, {
                 $inc: {
-                    upvotes: voteStatus * -1  //if they click it when it's already upvoted, remove the downvote
+                    upvotes: voteStatus * -1 //if they click it when it's already upvoted, remove the downvote
                 },
                 $pull: changeUpvoted
             },
-            function (err, doc) {
+            function(err, doc) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -405,7 +406,7 @@ app.post('/getAllTemps', function(req, res) {
 });
 
 app.post('/getPaper', function(req, res) {
-    var pageSize = 7;
+    var pageSize = 6;
     if (req.body.filter == '' || req.body.filter == 'allTopics')
         var filter = /.*?/;
     else
