@@ -286,7 +286,7 @@
                         abstractText = info;
                     }
                 }); //end loop through for each piece of info in paper
-                paperHtml = '<tr><td><span class="upvoteIcon glyphicon glyphicon-arrow-up " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:38px;font-size:28px;margin-right:20px;transition: all 0.12s ease;"></span><p class="upvoteCount" style="">' + upvotes + '</p></td><td><div class="paperDiv">\
+                paperHtml = '<tr><td><span class="upvoteIcon glyphicon glyphicon-arrow-up " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:38px;font-size:28px;margin-right:20px;transition: all 0.12s ease;cursor:pointer;"></span><p class="upvoteCount" style="">' + upvotes + '</p></td><td><div class="paperDiv">\
            							<span class="title">\
            								<a class="pIDField" href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
            							</span>\
@@ -303,9 +303,9 @@
            						</div></td></tr>\
            						<div class="separator"></div>';
                 //$('.papers').append(paperHtml);
-                papersArray.push([paperHtml, views]); //add an array with the paper html and its views so you can later sort by views
-                nump++;
-            }); //end loop for each paper
+                papersArray.push([paperHtml, views, upvotes]); //add an array with the paper html, its views, and its upvotes so you can later sort by views and upvotes
+            nump++;
+        }); //end loop for each paper
 
             /*            papersArray format:
             [
@@ -315,7 +315,7 @@
 
             //first we sort the papers by number of views, where papersArray is an array of all the papers
             papersArray.sort(function(a, b) {
-               return b[1] - a[1]
+               return ((b[1]+(b[2]*25)) - (a[1]+(a[2]*25)));  //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
             });
 
             //now we add the papers to the page
