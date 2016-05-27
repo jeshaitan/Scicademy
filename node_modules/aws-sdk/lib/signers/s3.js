@@ -11,6 +11,7 @@ AWS.Signers.S3 = inherit(AWS.Signers.RequestSigner, {
    */
   subResources: {
     'acl': 1,
+    'accelerate': 1,
     'cors': 1,
     'lifecycle': 1,
     'delete': 1,
@@ -20,6 +21,7 @@ AWS.Signers.S3 = inherit(AWS.Signers.RequestSigner, {
     'partNumber': 1,
     'policy': 1,
     'requestPayment': 1,
+    'replication': 1,
     'restore': 1,
     'tagging': 1,
     'torrent': 1,
