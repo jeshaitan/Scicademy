@@ -215,7 +215,56 @@ app.post('/addView', function(req, res) {
                 res.send(' ');
             }
         }
-    )
+    );
+        //CODE TO ADD A FIELD TO ALL PAPER DOCUMENTS
+/*    db.Papers.update({}, {$set : {"FIELDNAME":[]}}, {upsert:false, multi:true}, function(err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(' ');
+        }
+    })*/
+});
+
+app.post('/changeVote', function(req, res) {
+    var searchObj = {
+        "_id": ObjectID(req.body.paperID)
+    };
+    var voteStatus = req.body.voteStatus;
+    var changeUpvoted = {upvoted: req.body.userID}; //this will be the text that you use to either add or remove the author from the upvoted array in the paper document
+    if (voteStatus == -1) {
+        db.Papers.update(
+            searchObj, {
+                $inc: {
+                    upvotes: voteStatus * -1  //if they click it when it's already upvoted, remove the downvote
+                },
+                $addToSet: changeUpvoted
+            },
+            function (err, doc) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send(' ');
+                }
+            });
+    }
+    else {
+        db.Papers.update(
+            searchObj, {
+                $inc: {
+                    upvotes: voteStatus * -1  //if they click it when it's already upvoted, remove the downvote
+                },
+                $pull: changeUpvoted
+            },
+            function (err, doc) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send(' ');
+                }
+            }
+        )
+    }
 });
 
 app.post('/getAllTemps', function(req, res) {

@@ -134,6 +134,48 @@
             $('.filterBy').on('ifChecked', function(event) {
                 window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?page=1' + '?query=' + url.slice(url.indexOf('?query=') + 7);
             });
+
+            //change color of upvote button on mouseover and mouseout
+//            $('.papers').on('mouseover','.upvoteIcon', function(){
+//                if ((this).attr('color') == 'rgb(128, 128, 128)'){
+//                    $(this).css('color','rgb(0, 0, 255)');
+//                }
+//            });
+//            $('.papers').on('mouseout','.upvoteIcon', function(){
+//                $(this).css('color','rgb(128, 128, 128)');
+//            });
+            //logic for when upvote clicked
+            $('.papers').on('click','.upvoteIcon', function(){
+                var currentUser = JSON.parse(localStorage.getItem("user"));
+                var voteStatus = -1;
+                if ($(this).css('color') == 'rgb(0, 0, 255)'){
+                    voteStatus = 1;
+                }
+                if (currentUser == null){ //if they don't have an account tell them they can't upvote
+                    $('[data-toggle="tooltip"]').tooltip();
+                    $(this).mouseover();
+                }
+                else { //if they have an account we can start the process of updating the voting
+                    var initialVotes = $(this).siblings(".upvoteCount").text();
+                    if (voteStatus == 1){ //they are un-upvoting it
+                        $(this).siblings(".upvoteCount").text(parseInt(initialVotes) - 1);
+                        $(this).css('color', 'rgb(128, 128, 128)')
+                    }
+                    else{ //they are upvoting it
+                        $(this).siblings(".upvoteCount").text(parseInt(initialVotes) + 1);
+                        $(this).css('color', 'rgb(0, 0, 255)');
+                    }
+                    var paperID = $(this).parent().parent().find("a.pIDField").attr('href').substring(15);
+                    $.ajax({
+                        url: '/changeVote',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({userID: currentUser._id, paperID: paperID, voteStatus: voteStatus}),
+                        dataType: 'json'
+                    });
+                }
+            });
+
             $.ajax({
                 url: '/getPaperLength',
                 type: 'POST',
@@ -174,6 +216,7 @@
         });
 
         function addPapers(data) {
+            var currentUser = JSON.parse(localStorage.getItem("user"));
             var papersArray = [];
             var allSchools = [];
             var allAuthors = [];
@@ -198,9 +241,13 @@
                 );
             }
             var title = '',
+                titleText = '',
                 authors = '',
                 abstractText = '',
                 views = 0,
+                upvotes = 0,
+                upvoted = false,
+                upvoteColor = '',
                 firstAuthor = true,
                 date = '',
                 getTemps = false,
@@ -212,6 +259,23 @@
                         title = info;
                     } else if (infoName == 'views') {
                         views = info;
+                    } else if (infoName == 'upvotes'){
+                        upvotes = info;
+                    } else if (infoName == 'upvoted') {
+                        if (currentUser != null) {
+                            titleText = "Overall this is a good study"
+                        }
+                        else{
+                            titleText = "Create an account to upvote research!"
+                        }
+                        if (currentUser != null && $.inArray(currentUser._id, info) != -1){
+                            upvoted = true;
+                            upvoteColor = 'rgb(0, 0, 255)';
+                        }
+                        else{
+                            upvoted = false;
+                            upvoteColor = 'rgb(128, 128, 128)';
+                        }
                     } else if (infoName == 'date') {
                         date = info;
                     } else if (infoName == 'tempAuthors') {
@@ -222,9 +286,9 @@
                         abstractText = info;
                     }
                 }); //end loop through for each piece of info in paper
-                paperHtml = '<div class="paperDiv">\
+                paperHtml = '<tr><td><span class="upvoteIcon glyphicon glyphicon-arrow-up " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:38px;font-size:28px;margin-right:20px;transition: all 0.12s ease;"></span><p class="upvoteCount" style="">' + upvotes + '</p></td><td><div class="paperDiv">\
            							<span class="title">\
-           								<a href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
+           								<a class="pIDField" href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
            							</span>\
   									<div class="authors" id="authors_' + paperInfo._id + '"></div>\
   									<div class="date">' + date + '<span class="glyphicon glyphicon-eye-open" style="margin-left:30px;margin-top:3px;margin-right:7px;"></span>' + views + '</div>\
@@ -236,7 +300,7 @@
   									</a>\
   									<div class="abstractParagraph" id="abstract1">' + abstractText + '</div>\
   								</div>\
-           						</div>\
+           						</div></td></tr>\
            						<div class="separator"></div>';
                 //$('.papers').append(paperHtml);
                 papersArray.push([paperHtml, views]); //add an array with the paper html and its views so you can later sort by views
@@ -376,9 +440,11 @@
                 </div>
             </div>
             <div class="papers">
+                <table>
                 <br />
                 <br />
                 <p style="margin-left:35%;"><img src="images/spin.gif"></p>
+            </table>
             </div>
         </div>
         <div style="padding:20px 0px; background-color:white">
