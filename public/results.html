@@ -260,7 +260,6 @@
                     $.each(addTempAuthors, function(index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
                         var authHtml = createAuthor(tempArray[0].name, '0');
                         allAuthors = addToArray(allAuthors, tempArray[1], authHtml);
-                        console.log(allAuthors)
                         allSchools = addToArray(allSchools, tempArray[1], tempArray[0].school);
                     });
                     /**
@@ -270,7 +269,7 @@
                      "differentPaper" : ["<otherAuthor>"]
                      ]
                      **/
-                    $.each(allAuthors, function(index, authorObj) { //loop through each object of id/htmlArray in allAuthors
+                    $.each(allAuthors, function(index, authorObj) { //loop through each object of id/htmlArray in allAuthors. key is id of paper, value is all the authors in that paper
                         $.each(authorObj, function(paperID, htmlArray) { //loop through the values in the paper id/htmlarray object
                             var appendHtml = '';
                             htmlArray = htmlArray.sort(compare);
@@ -280,7 +279,7 @@
                             });
                             appendHtml = appendHtml.substring(0, appendHtml.length - 2);
                             var $author = $('#authors_' + paperID);
-                            if (appendHtml.length > $author.html().length) {
+                            if ($author.html() != null && appendHtml.length > $author.html().length) {
                                 $author.html(appendHtml);
                             }
                         })
