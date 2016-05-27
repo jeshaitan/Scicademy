@@ -55,7 +55,7 @@
   "directories": {},
   "dist": {
     "shasum": "c674842d70410fb28ae1e92e6135a927854bc275",
-    "tarball": "http://registry.npmjs.org/socks-proxy-agent/-/socks-proxy-agent-2.0.0.tgz"
+    "tarball": "https://registry.npmjs.org/socks-proxy-agent/-/socks-proxy-agent-2.0.0.tgz"
   },
   "gitHead": "23f3b4ad9fcaac4191597cd87647f23014739e3b",
   "homepage": "https://github.com/TooTallNate/node-socks-proxy-agent#readme",

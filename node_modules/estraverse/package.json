@@ -47,7 +47,7 @@
   "directories": {},
   "dist": {
     "shasum": "867a3e8e58a9f84618afb6c2ddbcd916b7cbaf71",
-    "tarball": "http://registry.npmjs.org/estraverse/-/estraverse-1.5.1.tgz"
+    "tarball": "https://registry.npmjs.org/estraverse/-/estraverse-1.5.1.tgz"
   },
   "engines": {
     "node": ">=0.4.0"

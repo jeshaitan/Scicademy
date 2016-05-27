@@ -11,7 +11,7 @@ module.exports = {
 	"Dir path": function (t, a) {
 		a(t(pg)('./sample'), require(pg + '/sample'));
 	},
-	"Resolve": function (t, a) {
+	Resolve: function (t, a) {
 		a(t(pg).resolve('./sample'), resolve(pg, 'sample.js'));
 	}
 };

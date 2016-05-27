@@ -50,7 +50,7 @@
   "directories": {},
   "dist": {
     "shasum": "52a63e56ca0b84a7f3a5f3d61872f126ad7a5943",
-    "tarball": "http://registry.npmjs.org/xregexp/-/xregexp-2.0.0.tgz"
+    "tarball": "https://registry.npmjs.org/xregexp/-/xregexp-2.0.0.tgz"
   },
   "engines": {
     "node": "*"

@@ -12,6 +12,7 @@ var Rule = function (name, value, important, merge, index, currentFileInfo, inli
     this.inline = inline || false;
     this.variable = (variable !== undefined) ? variable
         : (name.charAt && (name.charAt(0) === '@'));
+    this.allowRoot = true;
 };
 
 function evalName(context, name) {
@@ -90,24 +91,6 @@ Rule.prototype.makeImportant = function () {
                           "!important",
                           this.merge,
                           this.index, this.currentFileInfo, this.inline);
-};
-
-// Recursive marking for rules
-var mark = function(value) {
-    if (!Array.isArray(value)) {
-        if (value.markReferenced) {
-            value.markReferenced();
-        }
-    } else {
-        value.forEach(function (ar) {
-            mark(ar);
-        });
-    }
-};
-Rule.prototype.markReferenced = function () {
-    if (this.value) {
-        mark(this.value);
-    }
 };
 
 module.exports = Rule;

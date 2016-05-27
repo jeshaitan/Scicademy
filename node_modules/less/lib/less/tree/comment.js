@@ -5,6 +5,7 @@ var Comment = function (value, isLineComment, index, currentFileInfo) {
     this.value = value;
     this.isLineComment = isLineComment;
     this.currentFileInfo = currentFileInfo;
+    this.allowRoot = true;
 };
 Comment.prototype = new Node();
 Comment.prototype.type = "Comment";
@@ -15,11 +16,7 @@ Comment.prototype.genCSS = function (context, output) {
     output.add(this.value);
 };
 Comment.prototype.isSilent = function(context) {
-    var isReference = (this.currentFileInfo && this.currentFileInfo.reference && !this.isReferenced),
-        isCompressed = context.compress && this.value[2] !== "!";
-    return this.isLineComment || isReference || isCompressed;
-};
-Comment.prototype.markReferenced = function () {
-    this.isReferenced = true;
+    var isCompressed = context.compress && this.value[2] !== "!";
+    return this.isLineComment || isCompressed;
 };
 module.exports = Comment;

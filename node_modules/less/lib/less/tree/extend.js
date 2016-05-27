@@ -1,11 +1,15 @@
-var Node = require("./node");
+var Node = require("./node"),
+    Selector = require("./selector");
 
-var Extend = function Extend(selector, option, index) {
+var Extend = function Extend(selector, option, index, currentFileInfo, visibilityInfo) {
     this.selector = selector;
     this.option = option;
     this.index = index;
     this.object_id = Extend.next_id++;
     this.parent_ids = [this.object_id];
+    this.currentFileInfo = currentFileInfo || {};
+    this.copyVisibilityInfo(visibilityInfo);
+    this.allowRoot = true;
 
     switch(option) {
         case "all":
@@ -26,11 +30,12 @@ Extend.prototype.accept = function (visitor) {
     this.selector = visitor.visit(this.selector);
 };
 Extend.prototype.eval = function (context) {
-    return new Extend(this.selector.eval(context), this.option, this.index);
+    return new Extend(this.selector.eval(context), this.option, this.index, this.currentFileInfo, this.visibilityInfo());
 };
 Extend.prototype.clone = function (context) {
-    return new Extend(this.selector, this.option, this.index);
+    return new Extend(this.selector, this.option, this.index, this.currentFileInfo, this.visibilityInfo());
 };
+//it concatenates (joins) all selectors in selector array
 Extend.prototype.findSelfSelectors = function (selectors) {
     var selfElements = [],
         i,
@@ -46,6 +51,7 @@ Extend.prototype.findSelfSelectors = function (selectors) {
         selfElements = selfElements.concat(selectors[i].elements);
     }
 
-    this.selfSelectors = [{ elements: selfElements }];
+    this.selfSelectors = [new Selector(selfElements)];
+    this.selfSelectors[0].copyVisibilityInfo(this.visibilityInfo());
 };
 module.exports = Extend;

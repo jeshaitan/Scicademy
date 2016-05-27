@@ -1,3 +1,8 @@
+v0.4.1  --  2016.02.23
+* Support JSON modules in requireInContext
+* Fix spelling of LICENSE
+* Configure lint scripts
+
 v0.4.0  --  2014.04.27
 * Move out main modules from lib folder
 * Validate context object in module/requireInContext

@@ -5,11 +5,12 @@
 var validValue = require('es5-ext/object/valid-value')
   , Module     = require('module')
   , readFile   = require('fs').readFileSync
-  , dirname    = require('path').dirname
+  , path       = require('path')
   , vm         = require('vm')
   , memoize    = require('memoizee')
   , errorMsg   = require('./is-module-not-found-error')
 
+  , dirname = path.dirname, extname = path.extname
   , natives = process.binding('natives')
   , wrap = Module.wrap, get;
 
@@ -37,7 +38,11 @@ module.exports = exports = function (path, context) {
 		throw new Error(errorMsg.pattern.replace(errorMsg.token, path));
 	}
 	fmodule.loaded = true;
-	vm.runInContext(wrap(content), context, path).call(fmodule.exports,
-		fmodule.exports, fmodule.require.bind(fmodule), fmodule, path, dirpath);
+	if (extname(path) === '.json') {
+		fmodule.exports = JSON.parse(content);
+	} else {
+		vm.runInContext(wrap(content), context, path).call(fmodule.exports,
+			fmodule.exports, fmodule.require.bind(fmodule), fmodule, path, dirpath);
+	}
 	return fmodule.exports;
 };

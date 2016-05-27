@@ -1,3 +1,46 @@
+# 2.7.1 HOTFIX
+
+2016-05-09
+
+ - Revert commit 470af20 (source map performance) which broke source maps
+
+# 2.7.0
+
+2016-05-07
+
+ - Fixes for contrast() function
+ - Allow root functions for plugins
+ - Allow semi-colon separators in functions
+ - Performance improvements for source maps
+ - Fix "blank page" issue in browser
+ - Compatibility fixes for Node 6.x
+ - Fix AST to include single-line comments
+ - Fix reversion for "color-like" words (outputting color values)
+
+# 2.6.1
+
+2016-03-04
+
+ - Update Less.js dependencies
+ - Fix comments after named color regression
+ - use instanceof operator instead of class comparison optimization
+ - disallow whitespace in variable calls
+
+# 2.6.0
+
+2016-01-29
+
+ - Underscore now allowed in dimension unit
+ - Fixes for import by reference
+ - Fix for #2384 Changes HTTPRequest "sync" setting to simply hide the page until less has rendered, browser version is now orders of magnitude faster.
+ - Added ability to cache stylesheets while using modifyVars
+ - Error when when image-size functions are used in browser-less
+ - Fixed extend leaking through nested parent selector. #2586
+ - Added "or" keyword and allowed arbitrary logical expression in guards
+ - Fixing #2124 - Parsing Error "Unrecognised input" for color operations
+ - Logical operator ```and``` now has higher precedence than logical operator ```or```.
+ - Allow unknown at-rules w/o {} block
+
 # 2.5.3
 
 2015-09-25
@@ -117,7 +160,7 @@
  - Improved keyword and anonymous usage with the replace function
  - Added `getCSSAppendage` to sourcemap builder to avoid duplication in plugins
  - Fix problem with plugins when used with the promises version of render
- - If the render callback throws an exception it now propogates instead of calling the callback again with an error
+ - If the render callback throws an exception it now propagates instead of calling the callback again with an error
 
 # 2.1.0
 

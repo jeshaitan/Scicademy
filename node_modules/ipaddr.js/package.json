@@ -51,7 +51,7 @@
   },
   "dist": {
     "shasum": "5fa78cf301b825c78abc3042d812723049ea23c7",
-    "tarball": "http://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.0.5.tgz"
+    "tarball": "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.0.5.tgz"
   },
   "engines": {
     "node": ">= 0.10"

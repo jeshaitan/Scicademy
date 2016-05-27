@@ -48,7 +48,7 @@
   },
   "dist": {
     "shasum": "8151d358e20c8acc7fb745e7472c0025fe496570",
-    "tarball": "http://registry.npmjs.org/esutils/-/esutils-1.0.0.tgz"
+    "tarball": "https://registry.npmjs.org/esutils/-/esutils-1.0.0.tgz"
   },
   "engines": {
     "node": ">=0.10.0"

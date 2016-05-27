@@ -95,7 +95,7 @@ var ProcessExtendsVisitor = function() {
 ProcessExtendsVisitor.prototype = {
     run: function(root) {
         var extendFinder = new ExtendFinderVisitor();
-        this.extendIndicies = {};
+        this.extendIndices = {};
         extendFinder.run(root);
         if (!extendFinder.foundExtends) { return root; }
         root.allExtends = root.allExtends.concat(this.doExtendChaining(root.allExtends, root.allExtends));
@@ -105,7 +105,7 @@ ProcessExtendsVisitor.prototype = {
         return newRoot;
     },
     checkExtendsForNonMatched: function(extendList) {
-        var indicies = this.extendIndicies;
+        var indices = this.extendIndices;
         extendList.filter(function(extend) {
             return !extend.hasFoundMatches && extend.parent_ids.length == 1;
         }).forEach(function(extend) {
@@ -115,8 +115,8 @@ ProcessExtendsVisitor.prototype = {
                 }
                 catch(_) {}
 
-                if (!indicies[extend.index + ' ' + selector]) {
-                    indicies[extend.index + ' ' + selector] = true;
+                if (!indices[extend.index + ' ' + selector]) {
+                    indices[extend.index + ' ' + selector] = true;
                     logger.warn("extend '" + selector + "' has no matches");
                 }
             });
@@ -140,7 +140,7 @@ ProcessExtendsVisitor.prototype = {
         // a target extend is the one on the ruleset we are looking at copy/edit/pasting in place
         // e.g.  .a:extend(.b) {}  and .b:extend(.c) {} then the first extend extends the second one
         // and the second is the target.
-        // the seperation into two lists allows us to process a subset of chains with a bigger set, as is the
+        // the separation into two lists allows us to process a subset of chains with a bigger set, as is the
         // case when processing media queries
         for (extendIndex = 0; extendIndex < extendsList.length; extendIndex++) {
             for (targetExtendIndex = 0; targetExtendIndex < extendsListTarget.length; targetExtendIndex++) {
@@ -156,17 +156,17 @@ ProcessExtendsVisitor.prototype = {
                 matches = extendVisitor.findMatch(extend, selectorPath);
 
                 if (matches.length) {
-
                     extend.hasFoundMatches = true;
 
                     // we found a match, so for each self selector..
                     extend.selfSelectors.forEach(function(selfSelector) {
+                        var info = targetExtend.visibilityInfo();
 
                         // process the extend as usual
-                        newSelector = extendVisitor.extendSelector(matches, selectorPath, selfSelector);
+                        newSelector = extendVisitor.extendSelector(matches, selectorPath, selfSelector, extend.isVisible());
 
                         // but now we create a new extend from it
-                        newExtend = new(tree.Extend)(targetExtend.selector, targetExtend.option, 0);
+                        newExtend = new(tree.Extend)(targetExtend.selector, targetExtend.option, 0, targetExtend.currentFileInfo, info);
                         newExtend.selfSelectors = newSelector;
 
                         // add the extend onto the list of extends for that selector
@@ -247,7 +247,9 @@ ProcessExtendsVisitor.prototype = {
                     allExtends[extendIndex].hasFoundMatches = true;
 
                     allExtends[extendIndex].selfSelectors.forEach(function(selfSelector) {
-                        selectorsToAdd.push(extendVisitor.extendSelector(matches, selectorPath, selfSelector));
+                        var extendedSelectors;
+                        extendedSelectors = extendVisitor.extendSelector(matches, selectorPath, selfSelector, allExtends[extendIndex].isVisible());
+                        selectorsToAdd.push(extendedSelectors);
                     });
                 }
             }
@@ -363,7 +365,7 @@ ProcessExtendsVisitor.prototype = {
         }
         return false;
     },
-    extendSelector:function (matches, selectorPath, replacementSelector) {
+    extendSelector:function (matches, selectorPath, replacementSelector, isVisible) {
 
         //for a set of matches, replace each match with the replacement selector
 
@@ -423,10 +425,17 @@ ProcessExtendsVisitor.prototype = {
         }
 
         path = path.concat(selectorPath.slice(currentSelectorPathIndex, selectorPath.length));
-
+        path = path.map(function (currentValue) {
+            // we can re-use elements here, because the visibility property matters only for selectors
+            var derived = currentValue.createDerived(currentValue.elements);
+            if (isVisible) {
+                derived.ensureVisibility();
+            } else {
+                derived.ensureInvisibility();
+            }
+            return derived;
+        });
         return path;
-    },
-    visitRulesetOut: function (rulesetNode) {
     },
     visitMedia: function (mediaNode, visitArgs) {
         var newAllExtends = mediaNode.allExtends.concat(this.allExtendsStack[this.allExtendsStack.length - 1]);

@@ -6,27 +6,8 @@
  * MIT Licensed
  */
 
-'use strict';
-
-/**
- * Module exports.
- * @public
- */
-
 module.exports = preferredMediaTypes;
-module.exports.preferredMediaTypes = preferredMediaTypes;
-
-/**
- * Module variables.
- * @private
- */
-
-var simpleMediaTypeRegExp = /^\s*([^\s\/;]+)\/([^;\s]+)\s*(?:;(.*))?$/;
-
-/**
- * Parse the Accept header.
- * @private
- */
+preferredMediaTypes.preferredMediaTypes = preferredMediaTypes;
 
 function parseAccept(accept) {
   var accepts = splitMediaTypes(accept);
@@ -43,42 +24,35 @@ function parseAccept(accept) {
   accepts.length = j;
 
   return accepts;
-}
+};
 
-/**
- * Parse a media type from the Accept header.
- * @private
- */
-
-function parseMediaType(str, i) {
-  var match = simpleMediaTypeRegExp.exec(str);
+function parseMediaType(s, i) {
+  var match = s.match(/\s*(\S+?)\/([^;\s]+)\s*(?:;(.*))?/);
   if (!match) return null;
 
-  var params = Object.create(null);
-  var q = 1;
-  var subtype = match[2];
-  var type = match[1];
+  var type = match[1],
+      subtype = match[2],
+      full = "" + type + "/" + subtype,
+      params = {},
+      q = 1;
 
   if (match[3]) {
-    var kvps = splitParameters(match[3]).map(splitKeyValuePair);
+    params = match[3].split(';').map(function(s) {
+      return s.trim().split('=');
+    }).reduce(function (set, p) {
+      var name = p[0].toLowerCase();
+      var value = p[1];
 
-    for (var j = 0; j < kvps.length; j++) {
-      var pair = kvps[j];
-      var key = pair[0].toLowerCase();
-      var val = pair[1];
+      set[name] = value && value[0] === '"' && value[value.length - 1] === '"'
+        ? value.substr(1, value.length - 2)
+        : value;
 
-      // get the value, unwrapping quotes
-      var value = val && val[0] === '"' && val[val.length - 1] === '"'
-        ? val.substr(1, val.length - 2)
-        : val;
+      return set;
+    }, params);
 
-      if (key === 'q') {
-        q = parseFloat(value);
-        break;
-      }
-
-      // store parameter
-      params[key] = value;
+    if (params.q != null) {
+      q = parseFloat(params.q);
+      delete params.q;
     }
   }
 
@@ -87,14 +61,10 @@ function parseMediaType(str, i) {
     subtype: subtype,
     params: params,
     q: q,
-    i: i
+    i: i,
+    full: full
   };
 }
-
-/**
- * Get the priority of a media type.
- * @private
- */
 
 function getMediaTypePriority(type, accepted, index) {
   var priority = {o: -1, q: 0, s: 0};
@@ -109,11 +79,6 @@ function getMediaTypePriority(type, accepted, index) {
 
   return priority;
 }
-
-/**
- * Get the specificity of the media type.
- * @private
- */
 
 function specify(type, spec, index) {
   var p = parseMediaType(type);
@@ -152,12 +117,8 @@ function specify(type, spec, index) {
     q: spec.q,
     s: s,
   }
-}
 
-/**
- * Get the preferred media types from an Accept header.
- * @public
- */
+}
 
 function preferredMediaTypes(accept, provided) {
   // RFC 2616 sec 14.2: no header = */*
@@ -165,10 +126,9 @@ function preferredMediaTypes(accept, provided) {
 
   if (!provided) {
     // sorted list of all types
-    return accepts
-      .filter(isQuality)
-      .sort(compareSpecs)
-      .map(getFullType);
+    return accepts.filter(isQuality).sort(compareSpecs).map(function getType(spec) {
+      return spec.full;
+    });
   }
 
   var priorities = provided.map(function getPriority(type, index) {
@@ -181,37 +141,13 @@ function preferredMediaTypes(accept, provided) {
   });
 }
 
-/**
- * Compare two specs.
- * @private
- */
-
 function compareSpecs(a, b) {
   return (b.q - a.q) || (b.s - a.s) || (a.o - b.o) || (a.i - b.i) || 0;
 }
 
-/**
- * Get full type string.
- * @private
- */
-
-function getFullType(spec) {
-  return spec.type + '/' + spec.subtype;
-}
-
-/**
- * Check if a spec has any quality.
- * @private
- */
-
 function isQuality(spec) {
   return spec.q > 0;
 }
-
-/**
- * Count the number of quotes in a string.
- * @private
- */
 
 function quoteCount(string) {
   var count = 0;
@@ -224,31 +160,6 @@ function quoteCount(string) {
 
   return count;
 }
-
-/**
- * Split a key value pair.
- * @private
- */
-
-function splitKeyValuePair(str) {
-  var index = str.indexOf('=');
-  var key;
-  var val;
-
-  if (index === -1) {
-    key = str;
-  } else {
-    key = str.substr(0, index);
-    val = str.substr(index + 1);
-  }
-
-  return [key, val];
-}
-
-/**
- * Split an Accept header into media types.
- * @private
- */
 
 function splitMediaTypes(accept) {
   var accepts = accept.split(',');
@@ -265,30 +176,4 @@ function splitMediaTypes(accept) {
   accepts.length = j + 1;
 
   return accepts;
-}
-
-/**
- * Split a string of parameters.
- * @private
- */
-
-function splitParameters(str) {
-  var parameters = str.split(';');
-
-  for (var i = 1, j = 0; i < parameters.length; i++) {
-    if (quoteCount(parameters[j]) % 2 == 0) {
-      parameters[++j] = parameters[i];
-    } else {
-      parameters[j] += ';' + parameters[i];
-    }
-  }
-
-  // trim parameters
-  parameters.length = j + 1;
-
-  for (var i = 0; i < parameters.length; i++) {
-    parameters[i] = parameters[i].trim();
-  }
-
-  return parameters;
 }

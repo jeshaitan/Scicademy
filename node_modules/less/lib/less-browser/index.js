@@ -8,6 +8,7 @@ var addDataAttr = require("./utils").addDataAttr,
 module.exports = function(window, options) {
     var document = window.document;
     var less = require('../less')();
+
     //module.exports = less;
     less.options = options;
     var environment = less.environment,
@@ -19,6 +20,7 @@ module.exports = function(window, options) {
     require("./log-listener")(less, options);
     var errors = require("./error-reporting")(window, less, options);
     var cache = less.cache = options.cache || require("./cache")(window, options, less.logger);
+    require('./image-size')(less.environment);
 
     //Setup user functions
     if (options.functions) {
@@ -112,14 +114,13 @@ module.exports = function(window, options) {
             if (webInfo) {
                 webInfo.remaining = remaining;
 
-                if (!instanceOptions.modifyVars) {
-                    var css = cache.getCSS(path, webInfo);
-                    if (!reload && css) {
-                        webInfo.local = true;
-                        callback(null, css, data, sheet, webInfo, path);
-                        return;
-                    }
+                var css = cache.getCSS(path, webInfo, instanceOptions.modifyVars);
+                if (!reload && css) {
+                    webInfo.local = true;
+                    callback(null, css, data, sheet, webInfo, path);
+                    return;
                 }
+
             }
 
             //TODO add tests around how this behaves when reloading
@@ -132,9 +133,7 @@ module.exports = function(window, options) {
                     callback(e);
                 } else {
                     result.css = postProcessCSS(result.css);
-                    if (!instanceOptions.modifyVars) {
-                        cache.setCSS(sheet.href, webInfo.lastModified, result.css);
-                    }
+                    cache.setCSS(sheet.href, webInfo.lastModified, instanceOptions.modifyVars, result.css);
                     callback(null, result.css, data, sheet, webInfo, path);
                 }
             });
@@ -226,34 +225,57 @@ module.exports = function(window, options) {
             fileManager.clearFileCache();
         }
         return new Promise(function (resolve, reject) {
-            var startTime, endTime, totalMilliseconds;
+            var startTime, endTime, totalMilliseconds, remainingSheets;
             startTime = endTime = new Date();
 
-            loadStyleSheets(function (e, css, _, sheet, webInfo) {
-                if (e) {
-                    errors.add(e, e.href || sheet.href);
-                    reject(e);
-                    return;
-                }
-                if (webInfo.local) {
-                    less.logger.info("loading " + sheet.href + " from cache.");
-                } else {
-                    less.logger.info("rendered " + sheet.href + " successfully.");
-                }
-                browser.createCSS(window.document, css, sheet);
-                less.logger.info("css for " + sheet.href + " generated in " + (new Date() - endTime) + 'ms');
-                if (webInfo.remaining === 0) {
-                    totalMilliseconds = new Date() - startTime;
-                    less.logger.info("less has finished. css generated in " + totalMilliseconds + 'ms');
-                    resolve({
-                        startTime: startTime,
-                        endTime: endTime,
-                        totalMilliseconds: totalMilliseconds,
-                        sheets: less.sheets.length
-                    });
-                }
+            // Set counter for remaining unprocessed sheets
+            remainingSheets = less.sheets.length;
+
+            if (remainingSheets === 0) {
+
                 endTime = new Date();
-            }, reload, modifyVars);
+                totalMilliseconds = endTime - startTime;
+                less.logger.info("Less has finished and no sheets were loaded.");
+                resolve({
+                    startTime: startTime,
+                    endTime: endTime,
+                    totalMilliseconds: totalMilliseconds,
+                    sheets: less.sheets.length
+                });
+
+            } else {
+                // Relies on less.sheets array, callback seems to be guaranteed to be called for every element of the array
+                loadStyleSheets(function (e, css, _, sheet, webInfo) {
+                    if (e) {
+                        errors.add(e, e.href || sheet.href);
+                        reject(e);
+                        return;
+                    }
+                    if (webInfo.local) {
+                        less.logger.info("Loading " + sheet.href + " from cache.");
+                    } else {
+                        less.logger.info("Rendered " + sheet.href + " successfully.");
+                    }
+                    browser.createCSS(window.document, css, sheet);
+                    less.logger.info("CSS for " + sheet.href + " generated in " + (new Date() - endTime) + 'ms');
+
+                    // Count completed sheet
+                    remainingSheets--;
+
+                    // Check if the last remaining sheet was processed and then call the promise
+                    if (remainingSheets === 0) {
+                        totalMilliseconds = new Date() - startTime;
+                        less.logger.info("Less has finished. CSS generated in " + totalMilliseconds + 'ms');
+                        resolve({
+                            startTime: startTime,
+                            endTime: endTime,
+                            totalMilliseconds: totalMilliseconds,
+                            sheets: less.sheets.length
+                        });
+                    }
+                    endTime = new Date();
+                }, reload, modifyVars);
+            }
 
             loadStyles(modifyVars);
         });

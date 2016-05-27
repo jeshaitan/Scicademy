@@ -17,12 +17,13 @@ var Node = require("./node"),
 // `import,push`, we also pass it a callback, which it'll call once
 // the file has been fetched, and parsed.
 //
-var Import = function (path, features, options, index, currentFileInfo) {
+var Import = function (path, features, options, index, currentFileInfo, visibilityInfo) {
     this.options = options;
     this.index = index;
     this.path = path;
     this.features = features;
     this.currentFileInfo = currentFileInfo;
+    this.allowRoot = true;
 
     if (this.options.less !== undefined || this.options.inline) {
         this.css = !this.options.less || this.options.inline;
@@ -32,6 +33,7 @@ var Import = function (path, features, options, index, currentFileInfo) {
             this.css = true;
         }
     }
+    this.copyVisibilityInfo(visibilityInfo);
 };
 
 //
@@ -87,7 +89,7 @@ Import.prototype.evalForImport = function (context) {
         path = path.value;
     }
 
-    return new Import(path.eval(context), this.features, this.options, this.index, this.currentFileInfo);
+    return new Import(path.eval(context), this.features, this.options, this.index, this.currentFileInfo, this.visibilityInfo());
 };
 Import.prototype.evalPath = function (context) {
     var path = this.path.eval(context);
@@ -107,6 +109,20 @@ Import.prototype.evalPath = function (context) {
     return path;
 };
 Import.prototype.eval = function (context) {
+    var result = this.doEval(context);
+    if (this.options.reference || this.blocksVisibility()) {
+        if (result.length || result.length === 0) {
+            result.forEach(function (node) {
+                    node.addVisibilityBlock();
+                }
+            );
+        } else {
+            result.addVisibilityBlock();
+        }
+    }
+    return result;
+};
+Import.prototype.doEval = function (context) {
     var ruleset, registry,
         features = this.features && this.features.eval(context);
 
@@ -126,13 +142,12 @@ Import.prototype.eval = function (context) {
             return [];
         }
     }
-
     if (this.options.inline) {
         var contents = new Anonymous(this.root, 0,
           {
               filename: this.importedFilename,
               reference: this.path.currentFileInfo && this.path.currentFileInfo.reference
-          }, true, true, false);
+          }, true, true);
 
         return this.features ? new Media([contents], this.features.value) : [contents];
     } else if (this.css) {
@@ -143,7 +158,6 @@ Import.prototype.eval = function (context) {
         return newImport;
     } else {
         ruleset = new Ruleset(null, this.root.rules.slice(0));
-
         ruleset.evalImports(context);
 
         return this.features ? new Media(ruleset.rules, this.features.value) : ruleset.rules;

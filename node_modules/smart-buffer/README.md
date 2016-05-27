@@ -1,4 +1,4 @@
-smart-buffer  [![Build Status](https://travis-ci.org/JoshGlazebrook/smart-buffer.svg?branch=master)](https://travis-ci.org/JoshGlazebrook/smart-buffer)
+smart-buffer  [![Build Status](https://travis-ci.org/JoshGlazebrook/smart-buffer.svg?branch=master)](https://travis-ci.org/JoshGlazebrook/smart-buffer)  [![Coverage Status](https://coveralls.io/repos/github/JoshGlazebrook/smart-buffer/badge.svg?branch=master)](https://coveralls.io/github/JoshGlazebrook/smart-buffer?branch=master)
 =============
 
 smart-buffer is a light Buffer wrapper that takes away the need to keep track of what position to read and write data to and from the underlying Buffer. It also adds null terminating string operations and **grows** as you add more data.
@@ -162,6 +162,14 @@ returns `Buffer`
 > Note: This function uses `slice` to retrieve the Buffer.
 
 
+### SmartBuffer.readBufferNT()
+
+returns `Buffer`
+
+> Note: This reads the next sequence of bytes in the buffer until a null (0x00) value is found. (Null terminated buffer)
+> Note: This function uses `slice` to retrieve the Buffer.
+
+
 ## Writing Data
 
 smart-buffer supports all of the common write functions you will find in the vanilla Buffer class. The only difference is, you do not need to specify which location to write to in your Buffer by default. You do however have the option of **inserting** a piece of data into your smart-buffer at a given location. 
@@ -229,6 +237,13 @@ returns this
 ## Writing Buffer Values
 
 ### SmartBuffer.writeBuffer( value, [offset] )
+> `Buffer` **Buffer value to write**
+
+> `Number` **The position to insert this Buffer's content at**
+
+returns this
+
+### SmartBuffer.writeBufferNT( value, [offset] )
 > `Buffer` **Buffer value to write**
 
 > `Number` **The position to insert this Buffer's content at**

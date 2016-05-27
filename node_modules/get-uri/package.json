@@ -17,10 +17,10 @@
   },
   "_npmVersion": "2.11.2",
   "_phantomChildren": {
+    "buffer-shims": "1.0.0",
     "core-util-is": "1.0.2",
     "inherits": "2.0.1",
-    "isarray": "0.0.1",
-    "process-nextick-args": "1.0.6",
+    "process-nextick-args": "1.0.7",
     "string_decoder": "0.10.31",
     "util-deprecate": "1.0.2"
   },
@@ -66,7 +66,7 @@
   "directories": {},
   "dist": {
     "shasum": "7375d04daf7fcb584b3632679cbdf339b51bb149",
-    "tarball": "http://registry.npmjs.org/get-uri/-/get-uri-1.1.0.tgz"
+    "tarball": "https://registry.npmjs.org/get-uri/-/get-uri-1.1.0.tgz"
   },
   "gitHead": "0358bd1de11469aebc6e7535b3bc9dfd8fd6c652",
   "homepage": "https://github.com/TooTallNate/node-get-uri#readme",

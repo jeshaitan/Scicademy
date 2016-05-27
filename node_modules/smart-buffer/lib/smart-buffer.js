@@ -18,49 +18,46 @@ var SmartBuffer = (function () {
     function SmartBuffer(arg1, arg2) {
         var type;
         switch (type = typeof arg1) {
-            case "number":
+            case 'number':
                 if (isFinite(arg1) && arg1 > 0) {
                     this.buff = new Buffer(Math.ceil(arg1));
                     this.length = 0;
                 } else {
-                    throw new Error("When specifying a size, it must be a valid number above zero.");
+                    throw new Error('When specifying a size, it must be a valid number above zero.');
                 }
                 break;
 
-            case "string":
+            case 'string':
                 if (Buffer.isEncoding(arg1)) {
                     this.buff = new Buffer(4096);
                     this.length = 0;
                     this.encoding = arg1;
                 } else {
-                    throw new Error("Invalid Encoding");
+                    throw new Error('Invalid Encoding');
                 }
                 break;
 
-            case "object":
+            case 'object':
                 if (Buffer.isBuffer(arg1)) {
                     this.buff = arg1;
                     this.length = arg1.length;
                 } else {
-                    throw new TypeError("First argument must be a Buffer, Number representing the size, or a String representing the encoding.");
+                    throw new TypeError('First argument must be a Buffer, Number representing the size, or a String representing the encoding.');
                 }
                 break;
 
-            case "undefined":
+            default:
                 this.buff = new Buffer(4096);
                 this.length = 0;
                 break;
-
-            default:
-                throw new TypeError("First argument must be a Buffer, Number representing the size, or a String representing the encoding.");
         }
 
-        if (typeof this.encoding === "undefined") {
-            if (typeof arg2 === "string") {
+        if (typeof this.encoding === 'undefined') {
+            if (typeof arg2 === 'string') {
                 if (Buffer.isEncoding(arg2)) {
                     this.encoding = arg2;
                 } else {
-                    throw new Error("Invalid Encoding");
+                    throw new Error('Invalid Encoding');
                 }
             }
         }
@@ -71,12 +68,12 @@ var SmartBuffer = (function () {
 
 
     SmartBuffer.prototype._ensureWritable = function (len, offset) {
-        this._ensureCapacity(this.length + len + (offset || 0));
+        this._ensureCapacity(this.length + len + (typeof offset === 'number' ? offset : 0));
 
-        if (typeof offset === "number") {
+        if (typeof offset === 'number') {
             this.buff.copy(this.buff, offset + len, offset, this.buff.length);
         }
-        this.length = Math.max(this.length + len, (offset || 0) + len);
+        this.length = Math.max(this.length + len, (typeof offset === 'number' ?  offset : 0) + len);
     };
 
     SmartBuffer.prototype._ensureCapacity = function (minlen) {
@@ -104,7 +101,7 @@ var SmartBuffer = (function () {
     var makeWriter = function (func, size) {
         return function (value, offset) {
             this._ensureWritable(size, offset);
-            func.call(this.buff, value, typeof offset === "number" ? offset : this._writeOffset);
+            func.call(this.buff, value, typeof offset === 'number' ? offset : this._writeOffset);
             this._writeOffset += size;
             return this;
         }
@@ -174,11 +171,31 @@ var SmartBuffer = (function () {
      * @returns {Buffer} Buffer containing the read bytes.
      */
     SmartBuffer.prototype.readBuffer = function (len) {
-        var endpoint = Math.min(this.length, this._readOffset + len);
+        var endpoint = Math.min(this.length, this._readOffset + (typeof len === 'number' ? len : this.length));
         var ret = this.buff.slice(this._readOffset, endpoint);
         this._readOffset = endpoint;
         return ret;
     };
+
+    /**
+     * Reads a null terminated sequence of bytes from the underlying buffer.
+     * @returns {Buffer} Buffer containing the read bytes.
+     */
+    SmartBuffer.prototype.readBufferNT = function () {
+        var nullpos = this.length;
+        for (var i = this._readOffset; i < this.length; i++) {
+            if (this.buff[i] == 0x00) {
+                nullpos = i;
+                break;
+            }
+        }
+
+        var ret = this.buff.slice(this._readOffset, nullpos);
+        this._readOffset = nullpos + 1;
+
+        return ret;
+    };
+
 
     /*
      Write Operations
@@ -214,9 +231,9 @@ var SmartBuffer = (function () {
     SmartBuffer.prototype.writeString = function (value, offset, encoding) {
         var len, _offset, type = typeof offset;
 
-        if (type === "number") {
+        if (type === 'number') {
             _offset = offset;
-        } else if (type === "string") {
+        } else if (type === 'string') {
             encoding = offset;
             offset = this._writeOffset;
         } else {
@@ -254,8 +271,23 @@ var SmartBuffer = (function () {
     SmartBuffer.prototype.writeBuffer = function (value, offset) {
         var len = value.length;
         this._ensureWritable(len, offset);
-        value.copy(this.buff, offset || this._writeOffset);
+        value.copy(this.buff, typeof offset === 'number' ? offset : this._writeOffset);
         this._writeOffset += len;
+        return this;
+    };
+
+    /**
+     * Writes a null terminated Buffer to the underlying buffer.
+     * @param value {Buffer} The buffer to write.
+     * @param offset {Number} The offset to write the Buffer to.
+     * @returns {*}
+     */
+    SmartBuffer.prototype.writeBufferNT = function (value, offset) {
+        var len = value.length;
+        this._ensureWritable(len, offset);
+        value.copy(this.buff, typeof offset === 'number' ? offset : this._writeOffset);
+        this.buff[(typeof offset === 'number' ? offset : this._writeOffset) + len] = 0x00;
+        this._writeOffset += len + 1;
         return this;
     };
 
@@ -283,7 +315,7 @@ var SmartBuffer = (function () {
      */
     SmartBuffer.prototype.skip = function (amount) {
         if (this._readOffset + amount > this.length)
-            throw new Error("Target position is beyond the bounds of the data.");
+            throw new Error('Target position is beyond the bounds of the data.');
 
         this._readOffset += amount;
     };
@@ -294,7 +326,7 @@ var SmartBuffer = (function () {
      */
     SmartBuffer.prototype.rewind = function (amount) {
         if (this._readOffset - amount < 0)
-            throw new Error("Target position is beyond the bounds of the data.");
+            throw new Error('Target position is beyond the bounds of the data.');
 
         this._readOffset -= amount;
     };
@@ -305,7 +337,7 @@ var SmartBuffer = (function () {
      */
     SmartBuffer.prototype.skipTo = function (position) {
         if (position < 0 || position > this.length)
-            throw new Error("Target position is beyond the bounds of the data.");
+            throw new Error('Target position is beyond the bounds of the data.');
 
         this._readOffset = position;
     };

@@ -50,7 +50,7 @@
   "directories": {},
   "dist": {
     "shasum": "afe430e60b4db3ce2ed22ceea0f16f1c31763ef7",
-    "tarball": "http://registry.npmjs.org/ast-types/-/ast-types-0.3.38.tgz"
+    "tarball": "https://registry.npmjs.org/ast-types/-/ast-types-0.3.38.tgz"
   },
   "engines": {
     "node": ">= 0.6"

@@ -61,7 +61,7 @@
   "directories": {},
   "dist": {
     "shasum": "57eb5347aa805d74ec681cb25649dba39c933499",
-    "tarball": "http://registry.npmjs.org/proxy-agent/-/proxy-agent-2.0.0.tgz"
+    "tarball": "https://registry.npmjs.org/proxy-agent/-/proxy-agent-2.0.0.tgz"
   },
   "gitHead": "f437275e85d069898d0ae1d9642849f1878583c7",
   "homepage": "https://github.com/TooTallNate/node-proxy-agent",
