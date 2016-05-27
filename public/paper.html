@@ -198,11 +198,11 @@
                                     $.each(docB, function(index, authorObj) { //loop through each author in the author object
                                         var pubList = authorObj.publications;
                                         allSchools.push(authorObj.school);
-                                        for (var i = 0; i < pubList.length; i++) { //loop through each paper id in the publications of that author.
-                                            var authID = authorObj._id;
-                                            var authHtml = createAuthor(authorObj.name, authID);
-                                            allAuthors.push(authHtml);
-                                        }
+                                        
+                                        var authID = authorObj._id;
+                                        var authHtml = createAuthor(authorObj.name, authID);
+                                        allAuthors.push(authHtml);
+                                        
                                     });
                                     $.each(addTempAuthors, function(index, tempArray) { //loop through each tempAuthor object in the addTempAuthors array
                                         var authHtml = createAuthor(tempArray[0].name, '0');
