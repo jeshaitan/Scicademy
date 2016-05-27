@@ -589,6 +589,8 @@ function readSubmitPaperForm(form) {
         mm = '0' + mm;
     }
 
+    var upvotes = 0;
+    var upvoted = [];
     today = mm + '/' + dd + '/' + yyyy;
     var formData = new FormData();
     formData.append('pdf', $(element_3)[0].files[0]);
@@ -608,7 +610,9 @@ function readSubmitPaperForm(form) {
                 "institution": institution,
                 "tempAuthors": tempAuthors,
                 "pdf": response,
-                "date": today
+                "date": today,
+                "upvotes": upvotes,
+                "upvoted": upvoted
             };
             addPaper(paperdata);
         }
