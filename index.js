@@ -29,7 +29,7 @@ app.use(h5bp({
 app.use(compression());
 var uri = "mongodb://PublicIO:publicpass@ds036698.mongolab.com:36698/alirodatabase";
 var db = mongojs(uri, ["Papers", "Users"], {
-    authMechanism: 'ScramSHA1'
+    authMechanism: 'SCRAM-SHA-1'
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
