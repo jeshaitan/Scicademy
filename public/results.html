@@ -98,7 +98,14 @@
             $('.papers').on('click', '.abstractText', function(e) {
                 $(this).parent().find('.arrowClick').toggleClass('arrowSide');
                 e.preventDefault();
-                $(this).parent().find('.abstractParagraph').stop().slideToggle();
+                $(this).parent().find('.abstractParagraph').stop().slideToggle('400', function(){
+                    var pageHeight = $('.papers').css('height'); //first get the current size of the paper results div
+                    pageHeight = pageHeight.substring(0,pageHeight.length-1); //cut off the pixels from "649px"
+                    pageHeight = (parseInt(pageHeight) + 50); //make the pageHeight 50 pixels taller
+                    if (pageHeight > 400) {  //min-height is 400px
+                        $('#searchTableDiv').css('height', pageHeight);  //change the size of the searchtable, thereby remvoing the scrollbar
+                    }
+                });
                 return false;
             }); //end abstractText click
             var url = window.location.href;
@@ -368,9 +375,8 @@
                             }
                         })
                     });
-//                    var pageHeight = ($('.paperDiv').length-1) * 34 + 50; //each paperDiv takes up approximately 134 pixels in height, -1 because the length was 1 higher than the actual # of papers for some reason
                     var pageHeight = $('.papers').css('height'); //first get the current size of the paper results div
-                    pageHeight = pageHeight.substring(0,pageHeight.length-1); //cut of the pixels from "649px"
+                    pageHeight = pageHeight.substring(0,pageHeight.length-1); //cut off the pixels from "649px"
                     pageHeight = (parseInt(pageHeight) + 50); //make the pageHeight 50 pixels taller
                     if (pageHeight > 400) {  //min-height is 400px
                         $('#searchTableDiv').css('height', pageHeight);  //change the size of the searchtable, thereby remvoing the scrollbar
