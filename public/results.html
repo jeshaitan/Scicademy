@@ -368,6 +368,8 @@
                             }
                         })
                     });
+                    var pageHeight = ($('.paperDiv').length -1) * 134; //each paperDiv takes up approximately 134 pixels in height, -1 because the length was 1 higher than the actual # of papers for some reason
+                    $('#searchTableDiv').css('height', pageHeight); //this is to avoid the annoying scrollbar
                 }
             });
         } //end addPapers
@@ -394,7 +396,7 @@
                 </form>
             </div>
         </div>
-        <div id="searchTableDiv">
+        <div id="searchTableDiv" style="min-height: 400px;">
             <div class="searchInfo">
                 <div class="searchBy">
                     <h4>Search In:</h4>
