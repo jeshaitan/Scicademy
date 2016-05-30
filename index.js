@@ -496,9 +496,14 @@ app.post('/getPaper', function(req, res) {
                 console.log(err);
             } else {
                 //curs is an array of paper objects
-                if (curs.length < req.body.page * pageSize)
+
+                //first have to sort curs by our scoring system. if we don't sort them now then we'll only be sorting the papers we have on THAT results page.
+                curs.sort(function(a, b) {
+                    return ((b.views + (b.upvotes * 25)) - (a.views + (a.upvotes * 25))); //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
+                });
+                if (curs.length < req.body.page * pageSize) //if there aren't enough papers to fill the page that the user is on
                     res.send(curs.slice(curs.length - pageSize, curs.length));
-                else
+                else //if there are more than enough papers to fill the page that the user is on
                     res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
             }
         });

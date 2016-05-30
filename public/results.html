@@ -303,8 +303,8 @@
                   <div class="separator"></div>\
            						</div></td></tr>';
 
-                //$('.papers').append(paperHtml);
-                papersArray.push([paperHtml, views, upvotes]); //add an array with the paper html, its views, and its upvotes so you can later sort by views and upvotes
+                $('.papers').append(paperHtml);
+//                papersArray.push([paperHtml, views, upvotes]); //add an array with the paper html, its views, and its upvotes so you can later sort by views and upvotes
                 nump++;
             }); //end loop for each paper
 
@@ -315,14 +315,14 @@
             ]*/
 
             //first we sort the papers by number of views, where papersArray is an array of all the papers
-            papersArray.sort(function(a, b) {
-                return ((b[1] + (b[2] * 25)) - (a[1] + (a[2] * 25))); //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
-            });
+//            papersArray.sort(function(a, b) {
+//                return ((b[1] + (b[2] * 25)) - (a[1] + (a[2] * 25))); //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
+//            });
 
             //now we add the papers to the page
-            $.each(papersArray, function(paperIndex, paperViewArray) { //loop through each array of paperHTML and views number
-                $('.papers').append(paperViewArray[0]);
-            });
+//            $.each(papersArray, function(paperIndex, paperViewArray) { //loop through each array of paperHTML and views number
+//                $('.papers').append(paperViewArray[0]);
+//            });
 
             $.ajax({
                 url: '/getAllUsers',
@@ -368,8 +368,13 @@
                             }
                         })
                     });
-                    var pageHeight = ($('.paperDiv').length -1) * 134; //each paperDiv takes up approximately 134 pixels in height, -1 because the length was 1 higher than the actual # of papers for some reason
-                    $('#searchTableDiv').css('height', pageHeight); //this is to avoid the annoying scrollbar
+//                    var pageHeight = ($('.paperDiv').length-1) * 34 + 50; //each paperDiv takes up approximately 134 pixels in height, -1 because the length was 1 higher than the actual # of papers for some reason
+                    var pageHeight = $('.papers').css('height'); //first get the current size of the paper results div
+                    pageHeight = pageHeight.substring(0,pageHeight.length-1); //cut of the pixels from "649px"
+                    pageHeight = (parseInt(pageHeight) + 50); //make the pageHeight 50 pixels taller
+                    if (pageHeight > 400) {  //min-height is 400px
+                        $('#searchTableDiv').css('height', pageHeight);  //change the size of the searchtable, thereby remvoing the scrollbar
+                    }
                 }
             });
         } //end addPapers
