@@ -272,9 +272,9 @@
                         upvotes = info;
                     } else if (infoName == 'upvoted') {
                         if (currentUser != null) {
-                            titleText = "Overall this is a good study"
+                            titleText = "This is high-quality research"
                         } else {
-                            titleText = "Create an account to upvote research!"
+                            titleText = "Create an account to vote on research!"
                         }
                         if (currentUser != null && $.inArray(currentUser._id, info) != -1) {
                             upvoted = true;
@@ -293,7 +293,7 @@
                         abstractText = info;
                     }
                 }); //end loop through for each piece of info in paper
-                paperHtml = '<tr class="result"><td><span class="upvoteIcon glyphicon glyphicon-arrow-up " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:25px;font-size:25px;margin-left:10px;margin-right:30px;transition: all 0.12s ease;cursor:pointer;"></span><p class="upvoteCount" style="font-size:15px;">' + upvotes + '</p></td><td><div class="paperDiv">\
+                paperHtml = '<tr class="result"><td><span class="upvoteIcon glyphicon glyphicon-education " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:25px;font-size:25px;margin-left:15px;margin-right:20px;transition: all 0.12s ease;cursor:pointer;"></span><p class="upvoteCount" style="font-size:15px;">' + upvotes + '</p> <!-- <p style="color:lightgrey;font-size:10px;margin-right:10px;position:absolute;">High-quality research</p> --> </td><td><div class="paperDiv">\
            							<span class="title">\
            								<a class="pIDField" href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
            							</span>\
