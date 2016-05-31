@@ -234,12 +234,20 @@ $(document).ready(function() {
     //end html detection prevention
 
     var headText = $('head').html();
+    var bodyText = $('body').html();
     if (headText.indexOf('href="css/searchBox.css"') < 0) {
         $('head').append('<link rel="stylesheet" href="css/searchBox.css" type="text/css" />');
     }
 
     if (headText.indexOf('jquery.validate.min.js') < 0) {
         $('head').append('<script src="libs/jquery.validate.min.js" type="text/javascript"></script>');
+    }
+
+    //REMOVE THIS IF STATEMENT TO ALLOW FOR MONETARY AWARDS PAGE
+    if (bodyText.indexOf('awards.html') > 0) {
+        console.log('worked');
+        bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
+        $('body').html(bodyText);
     }
 
     if (headText.indexOf('javascript/view.js') < 0) {
