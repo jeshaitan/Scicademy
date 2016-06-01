@@ -244,11 +244,18 @@ $(document).ready(function() {
     }
 
     //REMOVE THIS IF STATEMENT TO ALLOW FOR MONETARY AWARDS PAGE
-    if (bodyText.indexOf('awards.html') > 0) {
-        console.log('worked');
-        bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
-        $('body').html(bodyText);
-    }
+    $.get("http://ipinfo.io", function (response) {
+        if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) {
+            console.log(response.city.indexOf('New Hyde') != -1);
+            bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
+            $('body').html(bodyText);
+        }
+    }, "jsonp");
+    //if (bodyText.indexOf('awards.html') > 0) {
+    //    console.log('worked');
+    //    bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
+    //    $('body').html(bodyText);
+    //}
 
     if (headText.indexOf('javascript/view.js') < 0) {
         $('head').append('<script src="javascript/view.js" type="text/javascript"></script>');
