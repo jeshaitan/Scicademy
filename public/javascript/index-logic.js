@@ -245,8 +245,7 @@ $(document).ready(function() {
 
     //REMOVE THIS IF STATEMENT TO ALLOW FOR MONETARY AWARDS PAGE
     $.get("http://ipinfo.io", function (response) {
-        if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) {
-            console.log(response.city.indexOf('New Hyde') != -1);
+        if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) { //if they are in these locations, then don't show the awards
             bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
             $('body').html(bodyText);
         }
