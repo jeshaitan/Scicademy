@@ -671,6 +671,9 @@ app.post('/addPaper', function(req, res) {
         subject: req.body.subject,
         institution: req.body.institution,
         tempAuthors: req.body.tempAuthors,
+        upvotes: req.body.upvotes,
+        upvoted: req.body.upvoted,
+        views: req.body.views,
         pdf: req.body.pdf,
         date: req.body.date,
         published: "true"
