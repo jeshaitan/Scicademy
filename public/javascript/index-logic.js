@@ -89,7 +89,7 @@ var signInHtmlEnd =
             <li id="li_3" >\
             <span>\
             <div>\
-                <input type="text" id="referral" name= "refer" class="element text required" maxlength="255" size="21" value=""/ placeholder="Referrer">\
+                <input type="text" id="referral" name= "refer" class="element text" maxlength="255" size="21" value=""/ placeholder="Referrer (optional)">\
             </div><p class="guidelines" id="guide_refer"><small>The name of the person who referred you to create an account on Scicademy, if applicable.</small></p>\
             <div>\
                 <input id="element_3" name="element_3" class="element text medium required email" type="text" maxlength="255" value=""/ placeholder="Email">\
