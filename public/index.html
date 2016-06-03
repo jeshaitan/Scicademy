@@ -247,6 +247,7 @@
                         data: JSON.stringify(authInfo),
                         dataType: 'json',
                         success: function(docB) {
+                            console.log('length: ' + docB.length);
                             if (docB.length >= 1) {
                                 retrievePapers(docB);
                             } else {

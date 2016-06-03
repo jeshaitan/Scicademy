@@ -86,11 +86,13 @@ var signInHtmlEnd =
                 <p class="guidelines" id="guide_13" style = "width:89px; length: 129px;"><small>This information will be used to update your grade automatically during the summer.</small></p>\
                 </span>\
             </li>\
-            <li id="li_3" >\
-            <span>\
+            <li>\
             <div>\
-                <input type="text" id="referral" name= "refer" class="element text" maxlength="255" size="21" value=""/ placeholder="Referrer (optional)">\
+            <input type="text" id="referral" name= "refer" class="element text" maxlength="255" size="21" value=""/ placeholder="Referrer (optional)">\
             </div><p class="guidelines" id="guide_refer"><small>The name of the person who referred you to create an account on Scicademy, if applicable.</small></p>\
+            </li>\
+            <li id="li_3" class="userSignUpDiv">\
+            <span>\
             <div>\
                 <input id="element_3" name="element_3" class="element text medium required email" type="text" maxlength="255" value=""/ placeholder="Email">\
             </div> \
@@ -645,8 +647,8 @@ function addUser(newuser) {
         success: function(res) {
             $('#registerSpin').hide();
             $('#saveForm').show();
-            if (false) { //DOESN'T WORK ON SUBMIT PAGE WHEN EVERYTHING IN SIGN IN FORM FILLED OUT (Object.getOwnPropertyNames(res).length == 0) {
-                $('#li_3 div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>');
+            if (Object.getOwnPropertyNames(res).length == 0) { //DOESN'T WORK ON SUBMIT PAGE WHEN EVERYTHING IN SIGN IN FORM FILLED OUT (Object.getOwnPropertyNames(res).length == 0) {
+                $('.userSignUpDiv div').append('<label id="element_3-error" class="error" for="element_3" style="display: block;">An account with this email already exists.</label>');
             } else {
                 document.location.href = "/index.html";
                 localStorage.setItem('registerComplete', '1');
