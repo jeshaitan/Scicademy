@@ -1,10 +1,10 @@
 function completeSchool(allSchools, req) {
     var schoolList = [];
+    var allSchools = allSchools[0]; //allSchools is an array in another array initially
     for (var i = 0; i < allSchools.length; i++) {
-        var compareReq = req.term.toLowerCase().trim();
-        var curSchool = allSchools[i];
-        curSchool = curSchool[0];
-        if (curSchool[0].toLowerCase().indexOf(compareReq) != -1 || compareReq.indexOf(curSchool[0].toLowerCase()) != -1) {
+        var compareReq = req.term.toLowerCase().trim();  //make the search term lowercase and remove spaces
+        var curSchool = allSchools[i];  //set the current school being compared to the i'th school out of all schools
+        if (curSchool.toLowerCase().indexOf(compareReq) != -1 || compareReq.indexOf(curSchool.toLowerCase()) != -1) {
             schoolList.push(curSchool);
         }
     }
@@ -87,7 +87,7 @@ var signInHtmlEnd =
                 </span>\
             </li>\
             <li>\
-            <div>\
+            <div> \
             <input type="text" id="referral" name= "refer" class="element text" maxlength="255" size="21" value=""/ placeholder="Referrer (optional)">\
             </div><p class="guidelines" id="guide_refer"><small>The name of the person who referred you to create an account on Scicademy, if applicable.</small></p>\
             </li>\
@@ -489,7 +489,7 @@ $(window).load(function() {
                 schools = JSON.parse(fromStorage);
                 $('#element_7').autocomplete({
                     source: function(req, resp) {
-                        resp(completeSchool(schools, req));
+                        resp(completeSchool(schools, req).slice(0, 10));  //limit to 10 results max
                     }
                 });
             }
@@ -499,7 +499,7 @@ $(window).load(function() {
         var schools = JSON.parse(fromStorage);
         $('#element_7').autocomplete({
             source: function(req, resp) {
-                resp(completeSchool(schools, req));
+                resp(completeSchool(schools, req).slice(0, 10)); //limit to 10 results max
             }
         });
     }

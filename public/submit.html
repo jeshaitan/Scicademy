@@ -501,7 +501,7 @@
                         schools = JSON.parse(fromStorage);
                         $('#authorSchool').autocomplete({
                             source: function(req, resp) {
-                                resp(completeSchool(schools, req));
+                                resp(completeSchool(schools, req).slice(0, 10));
                             }
                         });
                     }
@@ -511,7 +511,7 @@
                 var schools = JSON.parse(fromStorage);
                 $('#authorSchool').autocomplete({
                     source: function(req, resp) {
-                        resp(completeSchool(schools, req));
+                        resp(completeSchool(schools, req).slice(0, 10));
                     }
                 });
             }

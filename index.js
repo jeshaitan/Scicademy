@@ -268,7 +268,7 @@ app.post('/changeVote', function(req, res) {
     }
 });
 
-app.post('/getAllTemps', function(req, res) {
+app.post('/getAllTemps2', function(req, res) {
     var allAuthors = [];
     for (var paper in req.body) {
         if (req.body.hasOwnProperty(paper)) { //loop through each paper
