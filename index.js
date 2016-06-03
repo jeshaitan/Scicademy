@@ -44,8 +44,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -460,10 +460,12 @@ app.post('/getPaper', function(req, res) {
                         if (err) {
                             console.log(err);
                         } else {
-                            if (curs.length < req.body.page * pageSize)
-                                res.send(curs.slice(curs.length - pageSize, curs.length));
-                            else
+                            if (curs.length < (req.body.page * pageSize)) { //if there are not enough papers to fill up the page
+                                res.send(curs.slice(pageSize * (req.body.page - 1), curs.length));
+                            }
+                            else {
                                 res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
+                            }
                         }
                     });
                 }
@@ -502,7 +504,7 @@ app.post('/getPaper', function(req, res) {
                     return ((b.views + (b.upvotes * 25)) - (a.views + (a.upvotes * 25))); //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
                 });
                 if (curs.length < req.body.page * pageSize) //if there aren't enough papers to fill the page that the user is on
-                    res.send(curs.slice(curs.length - pageSize, curs.length));
+                    res.send(curs.slice(pageSize * (req.body.page - 1), curs.length));
                 else //if there are more than enough papers to fill the page that the user is on
                     res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
             }
