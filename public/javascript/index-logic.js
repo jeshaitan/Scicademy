@@ -413,7 +413,20 @@ $(document).ready(function() {
             location.reload();
         }
     });
-
+    $.get("http://ipinfo.io", function (response) {
+        if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Port Washington') != -1 || response.city.indexOf('Merrick') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) { //if they are in these locations, then don't show the awards
+            bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
+            //$('body').html(bodyText);
+            $('.awardsTab').remove();
+        }
+    }, "jsonp");
+    //http.get('http://ipinfo.io', function(res) {
+    //    console.log(res.city);
+    //        if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Port Washington') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) { //if they are in these locations, then don't show the awards
+    //            bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
+    //            $('body').html(bodyText);
+    //        }
+    //})
 });
 
 $(window).load(function() {
