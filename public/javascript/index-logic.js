@@ -604,6 +604,7 @@ function readSubmitPaperForm(form) {
     }
 
     var upvotes = 0;
+    var viewCounter = 0;
     var upvoted = [];
     today = mm + '/' + dd + '/' + yyyy;
     var formData = new FormData();
@@ -625,6 +626,7 @@ function readSubmitPaperForm(form) {
                 "tempAuthors": tempAuthors,
                 "pdf": response,
                 "date": today,
+                "views": viewCounter,
                 "upvotes": upvotes,
                 "upvoted": upvoted
             };
