@@ -103,7 +103,7 @@
 													</div>\
 												<div class="about" id="about">\
 														<p class="since">Joined on ' + userObj.datejoined + '</p>\
-														<p class="id">User Id: ' + userObj._id + '</p>\
+														<p class="id" id="userIDP">User Id: ' + userObj._id + '</p>\
 													</div>\
 												</div>\
 												<div class="separator separator2" id="userPubSep"></div>\
@@ -112,10 +112,19 @@
 													<div id="publications"><br /><p>This user has no publications.</p><br /><br /></div>\
 												</div>\
 											</div>\
-										</div>'
+										</div>';
                     $('.grid').html(userHtml);
                     if (userObj.grade == "undergrad") {
                         $('#grade').text("Undergraduate Researcher");
+                        var userIDHTML = $('#userIDP').html();
+                        $('.details p').remove();
+                    }
+                    else if (userObj.grade == "Nonstudent") {
+                        $('#grade').text("Nonstudent");
+                        $('.details p').remove();
+                    }
+                    else if (userObj.grade == "student") {
+                        $('#grade').text("Student Researcher");
                     }
                 },
                 error: function(jqXHR, textStatus) {

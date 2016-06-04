@@ -46,19 +46,18 @@ var signInHtmlEnd =
             </div>\
             </span>\
             </li>\
-            <li id="li_7" >\
-            <div>\
-            <input id="element_7" name="element_7" class="element text large required" type="text" maxlength="255" value=""/ placeholder="School">\
-            </div>\
-            </li>\
             <li id="li_6" >\
-                <label class="description required" id="element_6_label" for="element_6">Are you a High School student or an Undergrad? </label>\
+                <label class="description required" id="element_6_label" for="element_6">What is your current student status?</label>\
                 <span>\
                 <div id="highCol">\
                     <input id="element_6_1" name="highCol" class="element radio highColRadio required" type="radio" value="1" />\
                     <label class="choice" for="element_6_1">High School</label>\
                     <input id="element_6_2" name="highCol" class="element radio highColRadio" type="radio" value="2" />\
                     <label class="choice" for="element_6_2">Undergrad</label>\
+                    <input id="otherStudent" name="highCol" class="element radio highColRadio" type="radio" value="3" />\
+                    <label class="choice" for="element_6_3">Other (student)</label>\
+                    <input id="notStudent" name="highCol" class="element radio highColRadio" type="radio" value="4" />\
+                    <label class="choice" for="element_6_4">Not a student</label>\
                 </div>\
                 </span>\
             </li>\
@@ -75,19 +74,7 @@ var signInHtmlEnd =
             <p class="guidelines" id="guide_13" style = "width:114px; length: 108px;"><small>If you are currently on summer vacation, then enter the grade that you will be in the upcoming year. Otherwise, enter the grade you are currently in.</small></p>\
             </li>\
             <li>\
-                <label class = "description required" id="element_13_label" for = "element_13">Is school currently in session (including during vacations and weekends), or are you on summer break?</label>\
-                <span>\
-                <div id = "schoolSession">\
-                    <input id = "element_13_1" name = "schoolSession" class = "element radio required" type = "radio" value = "1" />\
-                    <label class = "choice" for = "element_13_1">School is still in session.</label>\
-                    <input id = "element_13_2" name = "schoolSession" class = "element radio" type = "radio" value = "0" />\
-                    <label class = "choice" for = "element_13_2">I am on summer break.</label>\
-                </div>\
-                <p class="guidelines" id="guide_13" style = "width:89px; length: 129px;"><small>This information will be used to update your grade automatically during the summer.</small></p>\
-                </span>\
-            </li>\
-            <li>\
-            <div> \
+            <div>\
             <input type="text" id="referral" name= "refer" class="element text" maxlength="255" size="21" value=""/ placeholder="Referrer (optional)">\
             </div><p class="guidelines" id="guide_refer"><small>The name of the person who referred you to create an account on Scicademy, if applicable.</small></p>\
             </li>\
@@ -235,6 +222,42 @@ $(document).ready(function() {
     });
     //end html detection prevention
 
+    //begin script for adding/removing school field
+    $('input').on('ifChanged', function(event) {
+        var isStudent = parseInt($('input[name=highCol]:checked','#form_1037235').val()) <= 3; //values 1,2, and 3 indicate they're a student
+        var schoolFieldPresent = $('#li_7').length != 0;
+        if (!schoolFieldPresent && isStudent) {   //check if school field doesn't already exist and the value selected indicates that the user is a student
+            var schoolString = '<li id="li_7" >';   //separate this string into multiple lines because it's easy to read and proper styling in google's style guide
+            //it's also better than using / at the end of each line because this method can survive compression
+            schoolString += '<div>';
+            schoolString += '<input id="element_7" name="element_7" class="element text large required" type="text" maxlength="255" value=""/ placeholder="School">';
+            schoolString += '</div>';
+            schoolString += '</li>';
+            //School and summer session field
+            schoolString += '<li id ="schoolSessionLi">';
+            schoolString += '<label class = "description required" id="element_13_label" for = "element_13">Is school currently in session (including during vacations and weekends), or are you on summer break?</label>';
+            schoolString +='<span>';
+            schoolString +='<div id = "schoolSession">';
+            schoolString +='<input id = "element_13_1" name = "schoolSession" class = "element radio required" type = "radio" value = "1" />';
+            schoolString +='<label class = "choice" for = "element_13_1">School is still in session.</label>';
+            schoolString +='<input id = "element_13_2" name = "schoolSession" class = "element radio" type = "radio" value = "0" />';
+            schoolString +='<label class = "choice" for = "element_13_2">I am on summer break.</label>';
+            schoolString +='</div>';
+            schoolString +='<p class="guidelines" id="guide_13" style = "width:89px; length: 129px;"><small>This information will be used to update your grade automatically during the summer.</small></p>';
+            schoolString +='</span>';
+            schoolString +='</li>';
+            $('#li_6').after(schoolString);
+            $('input[name=schoolSession]').iCheck({
+                checkboxClass: 'icheckbox_flat-blue',
+                radioClass: 'iradio_flat-blue'
+            });
+        }
+        else if (schoolFieldPresent && !isStudent){  //if the school field is present and they're not a student
+            $('#li_7').remove();
+            $('#schoolSessionLi').remove();
+        }
+    });
+    //end script for adding/removing school field
     var headText = $('head').html();
     var bodyText = $('body').html();
     if (headText.indexOf('href="css/searchBox.css"') < 0) {
@@ -325,7 +348,7 @@ $(document).ready(function() {
                 equalTo: "The passwords do not match."
             },
             element_6: { //radio button for highschool or college
-                required: "Please choose either High School or Undergrad."
+                required: "Please choose an option."
             }
         }, //end messages
         errorPlacement: function(error, element) {
@@ -523,8 +546,15 @@ function readRegisterForm(form) {
 	      referrer = $('#referral').val();
     if (is_highschool) {
         var grade = $('#element_1').val();
-    } else {
-        var grade = "undergrad";
+    }
+    else if ($('#element_6_2').is(':checked')){
+        var grade = "undergrad"
+    }
+    else if ($('#otherStudent').is(':checked')){
+        var grade = "student"
+    }
+    else {
+        var grade = "Nonstudent";
     }
     var email = $('#registerFormDiv #element_3').val(),
         password = $('#element_5').val();
