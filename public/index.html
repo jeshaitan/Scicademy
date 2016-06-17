@@ -239,7 +239,7 @@
                     }); //end loop for each paper
                 } //end addPapers
 
-                if (localStorage.getItem('registerComplete') == '1') {  //if they just registered
+                if (localStorage.getItem('registerComplete') == '1') { //if they just registered
                     $.ajax({
                         url: '/getAllTemps',
                         type: 'POST',
@@ -247,7 +247,7 @@
                         data: JSON.stringify(authInfo),
                         dataType: 'json',
                         success: function(docB) {
-                            if (docB.length >= 1) {  //if there is at least one tempauthor....
+                            if (docB.length >= 1) { //if there is at least one tempauthor....
                                 retrievePapers(docB);
                             } else { //registercomplete has some default "welcome" text. if we go to retrieve papers, this dialog box text is cleared and more relevant text is added
                                 $('#registerComplete').dialog('open');

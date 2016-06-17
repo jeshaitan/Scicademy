@@ -118,12 +118,10 @@
                         $('#grade').text("Undergraduate Researcher");
                         var userIDHTML = $('#userIDP').html();
                         $('.details p').remove();
-                    }
-                    else if (userObj.grade == "Nonstudent") {
+                    } else if (userObj.grade == "Nonstudent") {
                         $('#grade').text("Nonstudent");
                         $('.details p').remove();
-                    }
-                    else if (userObj.grade == "student") {
+                    } else if (userObj.grade == "student") {
                         $('#grade').text("Student Researcher");
                     }
                 },

@@ -98,12 +98,12 @@
             $('.papers').on('click', '.abstractText', function(e) {
                 $(this).parent().find('.arrowClick').toggleClass('arrowSide');
                 e.preventDefault();
-                $(this).parent().find('.abstractParagraph').stop().slideToggle('400', function(){
+                $(this).parent().find('.abstractParagraph').stop().slideToggle('400', function() {
                     var pageHeight = $('.papers').css('height'); //first get the current size of the paper results div
-                    pageHeight = pageHeight.substring(0,pageHeight.length-1); //cut off the pixels from "649px"
+                    pageHeight = pageHeight.substring(0, pageHeight.length - 1); //cut off the pixels from "649px"
                     pageHeight = (parseInt(pageHeight) + 50); //make the pageHeight 50 pixels taller
-                    if (pageHeight > 400) {  //min-height is 400px
-                        $('#searchTableDiv').css('height', pageHeight);  //change the size of the searchtable, thereby remvoing the scrollbar
+                    if (pageHeight > 400) { //min-height is 400px
+                        $('#searchTableDiv').css('height', pageHeight); //change the size of the searchtable, thereby remvoing the scrollbar
                     }
                 });
                 return false;
@@ -263,36 +263,27 @@
                 nump = 0;
             var paperHtml = '';
             $.each(data, function(paper, paperInfo) { //iterate through each paper
-                $.each(paperInfo, function(infoName, info) { //loop through each piece of info in the paper
-                    if (infoName == 'title') {
-                        title = info;
-                    } else if (infoName == 'views') {
-                        views = info;
-                    } else if (infoName == 'upvotes') {
-                        upvotes = info;
-                    } else if (infoName == 'upvoted') {
-                        if (currentUser != null) {
-                            titleText = "This is high-quality research"
-                        } else {
-                            titleText = "Create an account to vote on research!"
-                        }
-                        if (currentUser != null && $.inArray(currentUser._id, info) != -1) {
-                            upvoted = true;
-                            upvoteColor = 'rgb(90, 86, 153)';
-                        } else {
-                            upvoted = false;
-                            upvoteColor = 'rgb(128, 128, 128)';
-                        }
-                    } else if (infoName == 'date') {
-                        date = info;
-                    } else if (infoName == 'tempAuthors') {
-                        for (var tempInd = 0; tempInd < info.length; tempInd++) {
-                            addTempAuthors.push([info[tempInd], paperInfo._id]);
-                        }
-                    } else if (infoName == 'abstract') {
-                        abstractText = info;
-                    }
-                }); //end loop through for each piece of info in paper
+                if (paperInfo.published == 'false')
+                    continue;
+                title = paperInfo.title;
+                views = paperInfo.views;
+                upvotes = paperInfo.upvotes;
+                if (currentUser == null)
+                    titleText = 'Create an account to vote on research!'
+                else
+                    titleText = 'This is high-quality research.'
+                if (currentUser != null && paperInfo.upvoted.contains(currentUser._id)) {
+                    upvoted = true;
+                    upvoteColor = 'rgb(90, 86, 153)';
+                } else {
+                    upvoted = false;
+                    upvoteColor = 'rgb(128, 128, 128)';
+                }
+                date = paperInfo.date;
+                for (var i = 0; i < paperInfo.length; i++) {
+                    addTempAuthors.push([paperInfo.tempAuthors[i], paperInfo._id]);
+                }
+                abstractText = paperInfo.abstract;
                 paperHtml = '<tr class="result"><td><span class="upvoteIcon glyphicon glyphicon-education " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:25px;font-size:25px;margin-left:15px;margin-right:20px;transition: all 0.12s ease;cursor:pointer;"></span><p class="upvoteCount" style="font-size:15px;">' + upvotes + '</p> <!-- <p style="color:lightgrey;font-size:10px;margin-right:10px;position:absolute;">High-quality research</p> --> </td><td><div class="paperDiv">\
            							<span class="title">\
            								<a class="pIDField" href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
@@ -311,7 +302,7 @@
            						</div></td></tr>';
 
                 $('.papers').append(paperHtml);
-//                papersArray.push([paperHtml, views, upvotes]); //add an array with the paper html, its views, and its upvotes so you can later sort by views and upvotes
+                //                papersArray.push([paperHtml, views, upvotes]); //add an array with the paper html, its views, and its upvotes so you can later sort by views and upvotes
                 nump++;
             }); //end loop for each paper
 
@@ -322,14 +313,14 @@
             ]*/
 
             //first we sort the papers by number of views, where papersArray is an array of all the papers
-//            papersArray.sort(function(a, b) {
-//                return ((b[1] + (b[2] * 25)) - (a[1] + (a[2] * 25))); //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
-//            });
+            //            papersArray.sort(function(a, b) {
+            //                return ((b[1] + (b[2] * 25)) - (a[1] + (a[2] * 25))); //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
+            //            });
 
             //now we add the papers to the page
-//            $.each(papersArray, function(paperIndex, paperViewArray) { //loop through each array of paperHTML and views number
-//                $('.papers').append(paperViewArray[0]);
-//            });
+            //            $.each(papersArray, function(paperIndex, paperViewArray) { //loop through each array of paperHTML and views number
+            //                $('.papers').append(paperViewArray[0]);
+            //            });
 
             $.ajax({
                 url: '/getAllUsers',
@@ -376,10 +367,10 @@
                         })
                     });
                     var pageHeight = $('.papers').css('height'); //first get the current size of the paper results div
-                    pageHeight = pageHeight.substring(0,pageHeight.length-1); //cut off the pixels from "649px"
+                    pageHeight = pageHeight.substring(0, pageHeight.length - 1); //cut off the pixels from "649px"
                     pageHeight = (parseInt(pageHeight) + 50); //make the pageHeight 50 pixels taller
-                    if (pageHeight > 400) {  //min-height is 400px
-                        $('#searchTableDiv').css('height', pageHeight);  //change the size of the searchtable, thereby remvoing the scrollbar
+                    if (pageHeight > 400) { //min-height is 400px
+                        $('#searchTableDiv').css('height', pageHeight); //change the size of the searchtable, thereby remvoing the scrollbar
                     }
                 }
             });

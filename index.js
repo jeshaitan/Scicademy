@@ -462,8 +462,7 @@ app.post('/getPaper', function(req, res) {
                         } else {
                             if (curs.length < (req.body.page * pageSize)) { //if there are not enough papers to fill up the page
                                 res.send(curs.slice(pageSize * (req.body.page - 1), curs.length));
-                            }
-                            else {
+                            } else {
                                 res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
                             }
                         }
