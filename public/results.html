@@ -249,42 +249,35 @@
              				<div class="separator"></div>'
                 );
             }
-            var title = '',
-                titleText = '',
-                authors = '',
-                abstractText = '',
+            var authors = '',
                 views = 0,
                 upvotes = 0,
-                upvoted = false,
-                upvoteColor = '',
                 firstAuthor = true,
-                date = '',
                 getTemps = false,
                 nump = 0;
-            var paperHtml = '';
             $.each(data, function(paper, paperInfo) { //iterate through each paper
                 if (paperInfo.published == 'false')
                     return true;
-                title = paperInfo.title;
-                views = paperInfo.views;
-                upvotes = paperInfo.upvotes;
+                var title = paperInfo.title;
+                var views = paperInfo.views;
+                var upvotes = paperInfo.upvotes;
                 if (currentUser == null)
-                    titleText = 'Create an account to vote on research!'
+                    var titleText = 'Create an account to vote on research!'
                 else
-                    titleText = 'This is high-quality research.'
-                if (currentUser != null && paperInfo.upvoted.contains(currentUser._id)) {
-                    upvoted = true;
-                    upvoteColor = 'rgb(90, 86, 153)';
+                    var titleText = 'This is high-quality research.'
+                if (currentUser != null && paperInfo.upvoted.indexOf(currentUser._id) != -1) {
+                    var upvoted = true;
+                    var upvoteColor = 'rgb(90, 86, 153)';
                 } else {
-                    upvoted = false;
-                    upvoteColor = 'rgb(128, 128, 128)';
+                    var upvoted = false;
+                    var upvoteColor = 'rgb(128, 128, 128)';
                 }
-                date = paperInfo.date;
-                for (var i = 0; i < paperInfo.length; i++) {
+                var date = paperInfo.date;
+                for (var i = 0; i < paperInfo.tempAuthors.length; i++) {
                     addTempAuthors.push([paperInfo.tempAuthors[i], paperInfo._id]);
                 }
-                abstractText = paperInfo.abstract;
-                paperHtml = '<tr class="result"><td><span class="upvoteIcon glyphicon glyphicon-education " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:25px;font-size:25px;margin-left:15px;margin-right:20px;transition: all 0.12s ease;cursor:pointer;"></span><p class="upvoteCount" style="font-size:15px;">' + upvotes + '</p> <!-- <p style="color:lightgrey;font-size:10px;margin-right:10px;position:absolute;">High-quality research</p> --> </td><td><div class="paperDiv">\
+                var abstractText = paperInfo.abstract;
+                var paperHtml = '<tr class="result"><td><span class="upvoteIcon glyphicon glyphicon-education " data-toggle="tooltip" data-placement="top" trigger="click" title="' + titleText + '" style="color:' + upvoteColor + ';top:25px;font-size:25px;margin-left:15px;margin-right:20px;transition: all 0.12s ease;cursor:pointer;"></span><p class="upvoteCount" style="font-size:15px;">' + upvotes + '</p> <!-- <p style="color:lightgrey;font-size:10px;margin-right:10px;position:absolute;">High-quality research</p> --> </td><td><div class="paperDiv">\
            							<span class="title">\
            								<a class="pIDField" href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
            							</span>\
