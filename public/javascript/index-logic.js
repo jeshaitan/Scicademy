@@ -439,7 +439,8 @@ $(document).ready(function() {
         }
     });
     $.get("http://ipinfo.io", function (response) {
-        if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Port Washington') != -1 || response.city.indexOf('Merrick') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) { //if they are in these locations, then don't show the awards
+        //if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Port Washington') != -1 || response.city.indexOf('Merrick') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) { //if they are in these locations, then don't show the awards
+       if (true) {
             bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
             //$('body').html(bodyText);
             $('.awardsTab').remove();
