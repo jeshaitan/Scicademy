@@ -264,7 +264,7 @@
             var paperHtml = '';
             $.each(data, function(paper, paperInfo) { //iterate through each paper
                 if (paperInfo.published == 'false')
-                    continue;
+                    return true;
                 title = paperInfo.title;
                 views = paperInfo.views;
                 upvotes = paperInfo.upvotes;
