@@ -44,8 +44,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -452,6 +452,8 @@ app.post('/getPaper', function(req, res) {
                 } else {
                     db.Papers.find({
                         $and: [{
+                            published: "true"
+                        }, {
                             $or: searchObjectArray
                         }, {
                             subject: filter
@@ -460,10 +462,16 @@ app.post('/getPaper', function(req, res) {
                         if (err) {
                             console.log(err);
                         } else {
-                            if (curs.length < (req.body.page * pageSize)) { //if there are not enough papers to fill up the page
-                                res.send(curs.slice(pageSize * (req.body.page - 1), curs.length));
-                            } else {
-                                res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
+                            if (req.body.len == "yes") //if looking for length
+                                res.send({
+                                len: curs.length
+                            });
+                            else {
+                                if (curs.length < (req.body.page * pageSize)) { //if there are not enough papers to fill up the page
+                                    res.send(curs.slice(pageSize * (req.body.page - 1), curs.length));
+                                } else {
+                                    res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
+                                }
                             }
                         }
                     });
@@ -478,109 +486,12 @@ app.post('/getPaper', function(req, res) {
             if (err) {
                 console.log(err);
             } else {
-                res.send(curs);
-            }
-        });
-    } else if (req.body.searchType == 'every') {
-        var searchObject = {};
-    }
-    if (req.body.searchType == 'Browse') {
-        var searchObject = {};
-    }
-    if (req.body.searchType != "Author" && req.body.searchType != "id") {
-        db.Papers.find({
-            $and: [searchObject, {
-                subject: filter
-            }]
-        }, function(err, curs) {
-            if (err) {
-                console.log(err);
-            } else {
-                //curs is an array of paper objects
-
-                //first have to sort curs by our scoring system. if we don't sort them now then we'll only be sorting the papers we have on THAT results page.
-                curs.sort(function(a, b) {
-                    return ((b.views + (b.upvotes * 25)) - (a.views + (a.upvotes * 25))); //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
-                });
-                if (curs.length < req.body.page * pageSize) //if there aren't enough papers to fill the page that the user is on
-                    res.send(curs.slice(pageSize * (req.body.page - 1), curs.length));
-                else //if there are more than enough papers to fill the page that the user is on
-                    res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
-            }
-        });
-    }
-});
-
-app.post('/getPaperLength', function(req, res) {
-    var pageSize = 5;
-    if (req.body.filter == '' || req.body.filter == 'allTopics')
-        var filter = /.*?/;
-    else
-        var filter = req.body.filter;
-    if (req.body.searchType == "All") {
-        var searchObject = {
-            $or: [{
-                $text: {
-                    $search: req.body.query
-                }
-            }, {
-                keywords: req.body.query
-            }, {
-                authors: req.body.query
-            }]
-        };
-    } else if (req.body.searchType == "Title") {
-        var searchObject = {
-            $text: {
-                $search: req.body.query
-            }
-        };
-    } else if (req.body.searchType == "Keyword") {
-        var searchObject = {
-            keywords: req.body.query
-        };
-    } else if (req.body.searchType == "Author") {
-        db.Users.find({
-            $text: {
-                $search: req.body.query
-            }
-        }, function(err, curs) {
-            if (err) {
-                console.log(err)
-            } else {
-                var searchObject = "";
-                for (var i = 0; i < curs.length; i++) {
-                    searchObject += "{\"authors\": \"" + curs[i]._id + "\"},"
-                }
-                searchObjectArray = JSON.parse("[" + searchObject.substring(0, searchObject.length - 1) + "]");
-                if (searchObjectArray.length == 0) {
-                    res.send([]);
-                } else {
-                    db.Papers.find({
-                        $and: [{
-                            $or: searchObjectArray
-                        }, {
-                            subject: filter
-                        }]
-                    }, function(err, curs) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            res.send([curs.length]);
-                        }
+                if (req.body.len == "yes")
+                    res.send({
+                        len: curs.length
                     });
-                }
-            }
-        });
-    } else if (req.body.searchType == 'id') {
-        var searchObject = {
-            "_id": ObjectID(req.body.query)
-        };
-        db.Papers.find(searchObject, function(err, curs) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send(curs);
+                else
+                    res.send(curs);
             }
         });
     } else if (req.body.searchType == 'every') {
@@ -591,14 +502,33 @@ app.post('/getPaperLength', function(req, res) {
     }
     if (req.body.searchType != "Author" && req.body.searchType != "id") {
         db.Papers.find({
-            $and: [searchObject, {
-                subject: filter
-            }]
+            $and: [{
+                    published: "true"
+                },
+                searchObject, {
+                    subject: filter
+                }
+            ]
         }, function(err, curs) {
             if (err) {
                 console.log(err);
             } else {
-                res.send([curs.length]);
+                if (req.body.len == "yes")
+                    res.send({
+                        len: curs.length
+                    });
+                else {
+                    //curs is an array of paper objects
+
+                    //first have to sort curs by our scoring system. if we don't sort them now then we'll only be sorting the papers we have on THAT results page.
+                    curs.sort(function(a, b) {
+                        return ((b.views + (b.upvotes * 25)) - (a.views + (a.upvotes * 25))); //score the papers by views + (upvotes*25), meaning each upvote counts for 25 views
+                    });
+                    if (curs.length < req.body.page * pageSize) //if there aren't enough papers to fill the page that the user is on
+                        res.send(curs.slice(pageSize * (req.body.page - 1), curs.length));
+                    else //if there are more than enough papers to fill the page that the user is on
+                        res.send(curs.slice(req.body.page * pageSize - pageSize, req.body.page * pageSize));
+                }
             }
         });
     }

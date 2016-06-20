@@ -134,6 +134,7 @@
                 "filter": filter,
                 "page": page
             };
+
             $('#' + filter).iCheck('check');
             if (filter == '') {
                 $('#allTopics').iCheck('check');
@@ -185,17 +186,23 @@
                 }
             });
 
+            var searchPaperLen = {
+                "query": queryString,
+                "searchType": searchType,
+                "filter": filter,
+                "page": page,
+                "len": "yes"
+            };
+
             $.ajax({
-                url: '/getPaperLength',
+                url: '/getPaper',
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify(searchPaper),
+                data: JSON.stringify(searchPaperLen),
                 dataType: 'json',
-                success: addPagination
-            });
+            }).done(addPagination);
 
-            function addPagination(data2) {
-                var data2 = data2[0];
+            function addPagination(lenJSON) {
                 var pageNum = Number(page);
                 if (page == '1') {
                     $('#prev').addClass('disabled');
@@ -205,7 +212,7 @@
                 } else {
                     $('#prev a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum - 1).toString()));
                 }
-                if (pageNum * 6 < data2) {
+                if (pageNum * 6 < lenJSON.len) {
                     $('#next a').attr('href', url.replace('?page=' + page, '?page=' + (pageNum + 1).toString()));
                 } else {
                     $('#next').addClass('disabled');
