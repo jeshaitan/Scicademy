@@ -606,9 +606,12 @@ function readSubmitPaperForm(form) {
         return $(this).text();
     }).get();
 
+    authorsid.push(localStorage.getItem('curID')); //add self to authors list
     for (var i = 0; i < $('.spawnUserID').length; i++) {
         authorsid.push($('.spawnUserIDh')[i].value);
     }
+
+    authorsid = unique_ify(authorsid);
 
     for (var i = 0; i < currentAuthors.length; i++) {
         var authId = currentAuthors[i].id;

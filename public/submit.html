@@ -143,7 +143,7 @@
                         $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
                     }
                 });
-                $('.signInBox').html('You must have an account to submit a paper');
+                $('.signInBox').html('You must have an account to submit a paper.');
                 $('#signInBox').dialog('open');
                 $('#element_2_1').focus();
             } //end if currentUser
@@ -193,14 +193,14 @@
                 messages: {
                     element_2: {
                         required: "This field is required",
-                        isLong: "Your abstract must be at least 70 words"
+                        isLong: "Your abstract must be at least 70 words."
                     },
                     element_14: {
-                        pdfChecked: "Your paper must be a PDF"
+                        pdfChecked: "Your paper must be a PDF."
                     },
                     element_9: {
                         required: "This field is required",
-                        isFourWords: "You must have at least four keywords"
+                        isFourWords: "You must have at least four keywords."
                     }
                 }
             });
@@ -272,7 +272,7 @@
                     //too little keywords...
                     $('#keywordTags').addClass('error');
                     if ($('#keywordError').length < 1) {
-                        $('#keywordsDiv').append('<p id="keywordError" class="error" style="color:#f00;display:block;font-weight:bold;margin-top:10px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least four keywrods</p>');
+                        $('#keywordsDiv').append('<p id="keywordError" class="error" style="color:#f00;display:block;font-weight:bold;margin-top:10px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least four keywrods.</p>');
                     }
                 } else {
                     $('#keywordTags').removeClass('error');
@@ -281,7 +281,7 @@
                 if (authorLength < 1) {
                     $('#authorTags').addClass('error');
                     if ($('#authorError').length < 1) {
-                        $('#authorsDiv').append('<p id="authorError" class="error" style="color:#f00;display:block;font-weight:bold;margin-bottom:0px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least one author</p>');
+                        $('#authorsDiv').append('<p id="authorError" class="error" style="color:#f00;display:block;font-weight:bold;margin-bottom:0px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least one author.</p>');
                     }
                 } else {
                     $('#authorTags').removeClass('error');
@@ -292,7 +292,7 @@
                 if (isvalidate == false || keywordsLength < 4 || authorLength < 1) {
                     e.preventDefault();
                     if ($('#incompleteSubmit').length == 0) {
-                        $('.submitButtons').append('<p id="incompleteSubmit" style = "color:red; margin-left:10px; margin-top: 10px;">One or more fields are still invalid</p>');
+                        $('.submitButtons').append('<p id="incompleteSubmit" style = "color:red; margin-left:10px; margin-top: 10px;">One or more fields are still invalid.</p>');
                     } else {
                         $('#incompleteSubmit').effect('shake');
                     }
@@ -603,7 +603,7 @@
 
                     <!--<label class="description required" for="element_4_1">Search for and select your authors here</label>-->
                     <div id="authorsDiv">
-                        <label style="font-size:95%;margin-bottom:5px;" class="description required">Authors of paper (each author is one tag, but don't forget yourself!) </label>
+                        <label style="font-size:95%;margin-bottom:5px;" class="description required">Co-authors of paper. Do not include yourself! </label>
 
                         <div>
                             <ul class="tagit" id="authorTags" style="overflow:hidden;width:803px;"></ul>
@@ -705,13 +705,13 @@
                 </div>
                 <div id="convertToPDF">
                     <li>
-                        <p>Make sure your paper is in PDF format. Either save it as a pdf, or use <a href="https://www.freepdfconvert.com/">a free online pdf converter</a>.</p>
+                        <p>Make sure your paper is in PDF format. Either save it as a pdf, or use <a href="https://www.freepdfconvert.com/">a free online pdf converter.</a>.</p>
                         <input type="button" id="converted" class="button_text btn btn-primary btn-xs" value="Ok, it's a pdf now."></input>
                     </li>
                 </div>
                 <div id="upload">
                     <li id="li_3">
-                        <label class="description required" for="element_3">Upload Your PDF </label>
+                        <label class="description required" for="element_3">Upload Your PDF.</label>
 
                         <div>
                             <input id="element_3" name="element_3" class="element file required" accept="application/pdf" type="file" />
