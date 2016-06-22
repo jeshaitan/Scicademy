@@ -279,7 +279,7 @@
                     $('#keywordError').remove();
                 }
                 var isvalidate = $("#form_1039889").valid();
-                if (isvalidate == false || keywordsLength < 4 || authorLength < 1) {
+                if (isvalidate == false || keywordsLength < 4) {
                     e.preventDefault();
                     if ($('#incompleteSubmit').length == 0) {
                         $('.submitButtons').append('<p id="incompleteSubmit" style = "color:red; margin-left:10px; margin-top: 10px;">One or more fields are still invalid.</p>');
