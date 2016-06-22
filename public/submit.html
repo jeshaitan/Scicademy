@@ -278,16 +278,6 @@
                     $('#keywordTags').removeClass('error');
                     $('#keywordError').remove();
                 }
-                if (authorLength < 1) {
-                    $('#authorTags').addClass('error');
-                    if ($('#authorError').length < 1) {
-                        $('#authorsDiv').append('<p id="authorError" class="error" style="color:#f00;display:block;font-weight:bold;margin-bottom:0px;font-size:9px;line-height:9px;padding-top:3px;">You must have at least one author.</p>');
-                    }
-                } else {
-                    $('#authorTags').removeClass('error');
-                    $('#authorError').remove();
-                }
-
                 var isvalidate = $("#form_1039889").valid();
                 if (isvalidate == false || keywordsLength < 4 || authorLength < 1) {
                     e.preventDefault();
