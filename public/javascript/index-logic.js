@@ -216,7 +216,12 @@ $(document).ready(function() {
         readRegisterForm($('#form_1037235'));
     });
     //start html injection prevention
-    $(':text').change(function() {
+    //$(':text').change(function() {
+    //    console.log('changed');
+    //    var inputText = $(this).val();
+    //    $(this).val($($.parseHTML(inputText)).text());
+    //});
+    $(':text').on('input propertychange paste', function() {
         var inputText = $(this).val();
         $(this).val($($.parseHTML(inputText)).text());
     });
