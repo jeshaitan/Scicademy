@@ -96,6 +96,53 @@
                 return false;
             }
 
+            //Begin reporting papers javascript
+            $('#reportBox').dialog({
+                modal: false,
+                resizable: true,
+                minWidth: 800,
+                minHeight: 'auto',
+                autoOpen: false,
+                hide: 'fade',
+                close: function(event, ui) {
+                    $('#reportReason').val('');
+                }
+            });
+
+            $('.grid').on('click', '.report', function(){ //When a report tag is clicked
+                $('#reportBox').dialog('open');
+            });
+            $('#finishReporting').click(function(){
+                var paperName = window.location.href;
+                $.ajax({
+                    url: '/sendReport',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        paperName: paperName,
+                        reportReason: $('#reportReason').val()
+                    }),
+                    dataType: 'json'
+                });
+                $('#reportBox').dialog('close');
+                $('#hasReported').dialog('open');
+            });
+            //End reporting papers javascript.
+
+            //Begin "this paper has been reported" dialog box
+            $('#hasReported').dialog({
+                modal: false,
+                resizable: false,
+                minWidth: 600,
+                minHeight: 'auto',
+                autoOpen: false,
+                show: 'fade'
+            });
+            $('#closeHasReported').click(function(){
+                $('#hasReported').dialog('close');
+            });
+            //End "this paper has been reported" dialog box
+
             $.ajax({
                 url: '/getPaper',
                 type: 'POST',
@@ -159,6 +206,7 @@
                               <div class="paperOptions">\
                                 <a id="pdfDown" href="/uploads/' + pdata.pdf + '" class= "btn btn-danger btn-sm downloadPDF"><img src="images/pdfIcon.png">Download PDF</a>\
                                 <div id="copyright" style="position:absolute;top:70px;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></div>\
+                                <div class="reportDiv" style="position:absolute;top:70px;"><strong><a class="report" style="cursor:pointer;" data-toggle="tooltip" data-placement="right" title="Report papers that you believe are inappropriate, plagiarized or fabricated.">Report this paper</a></strong></div>\
                             </div>\
                             <div class="paperCol">\
                               <div class="paper">\
@@ -263,7 +311,19 @@
         </ul>
     </div>
     <div id="signInBox"></div>
-
+    <div id="reportBox" style="text-align:center">
+        <h3>Report this paper</h3>
+        <p>Report papers that are plagiarized from other sites, contain phony content, are inappropriate, or for any other reasons that you believe qualify.</p>
+        <br />
+        <textarea id="reportReason" placeholder="Enter your reason for reporting this paper." rows="4" cols="50"></textarea>
+        <br />
+        <a class="btn btn-primary btn-lg" style="color:white;margin-top:10px;" id="finishReporting">Send Report</a>
+    </div>
+    <div id="hasReported" style="text-align:center">
+        <h3>This paper has been reported. Thank you.</h3>
+        <br />
+        <a class="btn btn-primary btn-lg" style="color:white;margin-top:10px;" id="closeHasReported">Ok</a>
+    </div>
     <div class="grid" style="margin-bottom:-38px;">
         <p>
             <center><img src="images/spin.gif"></center>

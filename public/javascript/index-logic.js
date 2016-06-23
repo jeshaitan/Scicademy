@@ -221,7 +221,7 @@ $(document).ready(function() {
     //    var inputText = $(this).val();
     //    $(this).val($($.parseHTML(inputText)).text());
     //});
-    $(':text').on('input propertychange paste', function() {
+    $(':text').on('input propertychange paste keyup', function() {
         var inputText = $(this).val();
         $(this).val($($.parseHTML(inputText)).text());
     });
