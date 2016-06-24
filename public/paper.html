@@ -110,7 +110,9 @@
             });
 
             $('.grid').on('click', '.report', function(){ //When a report tag is clicked
-                $('#reportBox').dialog('open');
+                var $reportBox = $('#reportBox');
+                $reportBox.dialog('open');
+                $reportBox.css('visibility','visible');
             });
             $('#finishReporting').click(function(){
                 var paperName = window.location.href;
@@ -125,7 +127,9 @@
                     dataType: 'json'
                 });
                 $('#reportBox').dialog('close');
-                $('#hasReported').dialog('open');
+                var $hasReported = $('#hasReported');
+                $hasReported.dialog('open');
+                $hasReported.css('visibility', 'visible');
             });
             //End reporting papers javascript.
 
@@ -311,7 +315,7 @@
         </ul>
     </div>
     <div id="signInBox"></div>
-    <div id="reportBox" style="text-align:center">
+    <div id="reportBox" style="text-align:center;visibility:hidden;">
         <h3>Report this paper</h3>
         <p>Report papers that are plagiarized from other sites, contain phony content, are inappropriate, or for any other reasons that you believe qualify.</p>
         <br />
@@ -319,7 +323,7 @@
         <br />
         <a class="btn btn-primary btn-lg" style="color:white;margin-top:10px;" id="finishReporting">Send Report</a>
     </div>
-    <div id="hasReported" style="text-align:center">
+    <div id="hasReported" style="text-align:center;visibility:hidden;">
         <h3>This paper has been reported. Thank you.</h3>
         <br />
         <a class="btn btn-primary btn-lg" style="color:white;margin-top:10px;" id="closeHasReported">Ok</a>
