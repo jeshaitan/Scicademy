@@ -143,6 +143,61 @@
                 window.location.href = '/results.html?type=' + url.charAt(url.indexOf('?type=') + 6) + '?filter=' + event.target.id + '?page=1' + '?query=' + url.slice(url.indexOf('?query=') + 7);
             });
 
+            //Begin reporting papers javascript
+            $('#reportBox').dialog({
+                modal: false,
+                resizable: true,
+                minWidth: 800,
+                minHeight: 'auto',
+                autoOpen: false,
+                hide: 'fade',
+                close: function(event, ui) {
+                    $('#reportReason').val('');
+                }
+            });
+
+            $('.grid').on('click', '.report', function(){ //When a report tag is clicked
+                var $reportBox = $('#reportBox');
+                $reportBox.dialog('open');
+                $reportBox.css('visibility','visible');
+                var paperName = $(this).closest('.date').siblings('.title').find('a').attr('href');
+                $('#storeName').text(paperName);
+            });
+            $('#finishReporting').click(function(){
+                var paperName = $('#storeName').text();
+                $.ajax({
+                    url: '/sendReport',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        paperName: paperName,
+                        reportReason: $('#reportReason').val()
+                    }),
+                    dataType: 'json'
+                });
+                $('#reportBox').dialog('close');
+                var $hasReported = $('#hasReported');
+                $hasReported.dialog('open');
+                $hasReported.css('visibility', 'visible');
+
+            });
+            //End reporting papers javascript.
+
+            //Begin "this paper has been reported" dialog box
+            $('#hasReported').dialog({
+                modal: false,
+                resizable: false,
+                minWidth: 600,
+                minHeight: 'auto',
+                autoOpen: false,
+                show: 'fade'
+            });
+            $('#closeHasReported').click(function(){
+                $('#hasReported').dialog('close');
+            });
+            //End "this paper has been reported" dialog box
+
+
             //change color of upvote button on mouseover and mouseout
             //            $('.papers').on('mouseover','.upvoteIcon', function(){
             //                if ((this).attr('color') == 'rgb(128, 128, 128)'){
@@ -289,7 +344,7 @@
            								<a class="pIDField" href="/paper.html?id=' + paperInfo._id + '"><h3>' + title + '</h3></a>\
            							</span>\
   									<div class="authors" id="authors_' + paperInfo._id + '"></div>\
-  									<div class="date">' + date + '<span class="glyphicon glyphicon-eye-open" style="margin-left:30px;margin-top:3px;margin-right:7px;"></span>' + views + '</div>\
+  									<div class="date">' + date + '<span class="glyphicon glyphicon-eye-open" style="margin-left:30px;margin-top:3px;margin-right:7px;"></span>' + views + '<span style="margin-left:30px;margin-top:3px;margin-right:7px;"><span class="reportDiv"><a class="report" style="cursor:pointer;" data-toggle="tooltip" data-placement="right" title="Report papers that you believe are inappropriate, plagiarized or fabricated.">Report this paper</a></span></span></div>\
   								</div>\
   								<div class="abstractDiv">\
   									<a class="abstractText">\
@@ -388,6 +443,19 @@
     </div>
     <div id="signInBox"></div>
     <div class="grid" id="grayBack">
+        <div id="reportBox" style="text-align:center;visibility:hidden;">
+            <h3>Report this paper</h3>
+            <p>Report papers that are plagiarized from other sites, contain phony content, are inappropriate, or for any other reasons that you believe qualify.</p>
+            <br />
+            <textarea id="reportReason" placeholder="Enter your reason for reporting this paper." rows="4" cols="50"></textarea>
+            <br />
+            <a class="btn btn-primary btn-lg" style="color:white;margin-top:10px;" id="finishReporting">Send Report</a>
+        </div>
+        <div id="hasReported" style="text-align:center;visibility:hidden;">
+            <h3>This paper has been reported. Thank you.</h3>
+            <br />
+            <a class="btn btn-primary btn-lg" style="color:white;margin-top:10px;" id="closeHasReported">Ok</a>
+        </div>
         <div id="boxwlogo">
             <img class="sidelogo" src="images/favicon.ico"></img>
             <div class="searchBoxDiv" id="search-form">
@@ -465,6 +533,7 @@
             </ul>
         </div>
     </div>
+    <p style="visibility: hidden;" id="storeName"></p>
 </body>
 
 </html>

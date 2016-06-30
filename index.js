@@ -593,6 +593,27 @@ app.post('/addUser', function(req, res) {
     });
 });
 
+app.post('/sendReport', function(req, res) {
+    var data = {
+        from: 'Scicademy <scicademy@scicademy.org>',
+        to: 'jesse.etan.smith@gmail.com',
+        subject: 'Paper reported',
+        html: 'User reported www.scicademy.org' + req.body.paperName + ' for this reason: ' + req.body.reportReason
+    };
+    mailgun.messages().send(data, function(error, body) {
+        console.log(body);
+    });
+    var data2 = {
+        from: 'Scicademy <scicademy@scicademy.org>',
+        to: 'abagh0703@gmail.com',
+        subject: 'Paper reported',
+        html: 'User reported www.scicademy.org' + req.body.paperName + ' for this reason: ' + req.body.reportReason
+    };
+    mailgun.messages().send(data2, function(error, body) {
+        console.log(body);
+    });
+});
+
 app.post('/addPaper', function(req, res) {
     db.Papers.insert({
         title: req.body.title,

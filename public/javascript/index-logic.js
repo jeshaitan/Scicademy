@@ -216,7 +216,12 @@ $(document).ready(function() {
         readRegisterForm($('#form_1037235'));
     });
     //start html injection prevention
-    $(':text').change(function() {
+    //$(':text').change(function() {
+    //    console.log('changed');
+    //    var inputText = $(this).val();
+    //    $(this).val($($.parseHTML(inputText)).text());
+    //});
+    $(':text').on('input propertychange paste keyup', function() {
         var inputText = $(this).val();
         $(this).val($($.parseHTML(inputText)).text());
     });
@@ -438,14 +443,13 @@ $(document).ready(function() {
             location.reload();
         }
     });
-    $.get("http://ipinfo.io", function (response) {
-        //if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Port Washington') != -1 || response.city.indexOf('Merrick') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) { //if they are in these locations, then don't show the awards
-       if (true) {
-            bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
-            //$('body').html(bodyText);
-            $('.awardsTab').remove();
-        }
-    }, "jsonp");
+    //$.get("http://ipinfo.io", function (response) {
+    //    if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Port Washington') != -1 || response.city.indexOf('Merrick') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) { //if they are in these locations, then don't show the awards
+    //        bodyText = bodyText.replace('<li><a href="awards.html">Monetary Awards</a></li>', '');
+    //        //$('body').html(bodyText);
+    //        $('.awardsTab').remove();
+    //    }
+    //}, "jsonp");
     //http.get('http://ipinfo.io', function(res) {
     //    console.log(res.city);
     //        if (response.city.indexOf('New Hyde') != -1 || response.city.indexOf('Port Washington') != -1 || response.city.indexOf('Manhasset') != -1 || response.city.indexOf('Great Neck') != -1) { //if they are in these locations, then don't show the awards
