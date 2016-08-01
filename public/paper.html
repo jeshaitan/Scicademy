@@ -109,12 +109,12 @@
                 }
             });
 
-            $('.grid').on('click', '.report', function(){ //When a report tag is clicked
+            $('.grid').on('click', '.report', function() { //When a report tag is clicked
                 var $reportBox = $('#reportBox');
                 $reportBox.dialog('open');
-                $reportBox.css('visibility','visible');
+                $reportBox.css('visibility', 'visible');
             });
-            $('#finishReporting').click(function(){
+            $('#finishReporting').click(function() {
                 var paperName = window.location.href;
                 $.ajax({
                     url: '/sendReport',
@@ -142,7 +142,7 @@
                 autoOpen: false,
                 show: 'fade'
             });
-            $('#closeHasReported').click(function(){
+            $('#closeHasReported').click(function() {
                 $('#hasReported').dialog('close');
             });
             //End "this paper has been reported" dialog box
