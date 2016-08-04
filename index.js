@@ -44,8 +44,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -216,14 +216,6 @@ app.post('/addView', function(req, res) {
             }
         }
     );
-    //CODE TO ADD A FIELD TO ALL PAPER DOCUMENTS
-    /*    db.Papers.update({}, {$set : {"FIELDNAME":[]}}, {upsert:false, multi:true}, function(err, doc) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send(' ');
-            }
-        })*/
 });
 
 app.post('/changeVote', function(req, res) {
