@@ -18,6 +18,15 @@ var http = require("http"),
     h5bp = require('h5bp'),
     hash = require('password-hash'),
     compression = require('compression');
+const createDOMPurify = require('dompurify');
+const jsdom = require('jsdom');
+const window = jsdom.jsdom('', {
+    features: {
+        FetchExternalResources: false, // disables resource loading over HTTP / filesystem
+        ProcessExternalResources: false // do not execute JS within script blocks
+    }
+}).defaultView;
+const DOMPurify = createDOMPurify(window);
 
 app = express();
 app.use(bodyParser.json());
@@ -557,18 +566,18 @@ app.post('/addUser', function(req, res) {
             if (!doc) {
                 var lowerName = req.body.fnm + " " + req.body.lnm;
                 db.Users.insert({
-                    email: req.body.eml,
+                    email: DOMPurify.sanitize(req.body.eml),
                     password: hash.generate(req.body.pwd),
-                    name: req.body.fnm + " " + req.body.lnm,
-                    lowerName: lowerName.toLowerCase(),
-                    firstname: req.body.fnm,
-                    lastname: req.body.lnm,
-                    school: req.body.shl,
-                    grade: req.body.grd,
-                    isSummer: req.body.isSum,
-                    referrer: req.body.referrer,
+                    name: DOMPurify.sanitize(req.body.fnm + " " + req.body.lnm),
+                    lowerName: DOMPurify.sanitize(lowerName.toLowerCase()),
+                    firstname: DOMPurify.sanitize(req.body.fnm),
+                    lastname: DOMPurify.sanitize(req.body.lnm),
+                    school: DOMPurify.sanitize(req.body.shl),
+                    grade: DOMPurify.sanitize(req.body.grd),
+                    isSummer: DOMPurify.sanitize(req.body.isSum),
+                    referrer: DOMPurify.sanitize(req.body.referrer),
                     publications: [],
-                    datejoined: req.body.dte
+                    datejoined: DOMPurify.sanitize(req.body.dte)
                 }, function(err, record) {
                     if (err) {
                         console.log(err);
@@ -598,7 +607,7 @@ app.post('/sendReport', function(req, res) {
         from: 'Scicademy <scicademy@scicademy.org>',
         to: 'jesse.etan.smith@gmail.com',
         subject: 'Paper reported',
-        html: 'User reported www.scicademy.org' + req.body.paperName + ' for this reason: ' + req.body.reportReason
+        html: DOMPurify.sanitize('User reported www.scicademy.org' + req.body.paperName + ' for this reason: ' + req.body.reportReason)
     };
     mailgun.messages().send(data, function(error, body) {
         console.log(body);
@@ -607,7 +616,7 @@ app.post('/sendReport', function(req, res) {
         from: 'Scicademy <scicademy@scicademy.org>',
         to: 'abagh0703@gmail.com',
         subject: 'Paper reported',
-        html: 'User reported www.scicademy.org' + req.body.paperName + ' for this reason: ' + req.body.reportReason
+        html: DOMPurify.sanitize('User reported www.scicademy.org' + req.body.paperName + ' for this reason: ' + req.body.reportReason)
     };
     mailgun.messages().send(data2, function(error, body) {
         console.log(body);
@@ -616,18 +625,18 @@ app.post('/sendReport', function(req, res) {
 
 app.post('/addPaper', function(req, res) {
     db.Papers.insert({
-        title: req.body.title,
-        authors: req.body.authors,
-        abstract: req.body.abstract,
-        keywords: req.body.keywords,
-        subject: req.body.subject,
-        institution: req.body.institution,
-        tempAuthors: req.body.tempAuthors,
-        upvotes: req.body.upvotes,
-        upvoted: req.body.upvoted,
-        views: req.body.views,
-        pdf: req.body.pdf,
-        date: req.body.date,
+        title: DOMPurify.sanitize(req.body.title),
+        authors: DOMPurify.sanitize(req.body.authors),
+        abstract: DOMPurify.sanitize(req.body.abstract),
+        keywords: DOMPurify.sanitize(req.body.keywords),
+        subject: DOMPurify.sanitize(req.body.subject),
+        institution: DOMPurify.sanitize(req.body.institution),
+        tempAuthors: DOMPurify.sanitize(req.body.tempAuthors),
+        upvotes: DOMPurify.sanitize(req.body.upvotes),
+        upvoted: DOMPurify.sanitize(req.body.upvoted),
+        views: DOMPurify.sanitize(req.body.views),
+        pdf: DOMPurify.sanitize(req.body.pdf),
+        date: DOMPurify.sanitize(req.body.date),
         published: "true"
     }, function(err, record) {
         if (err) {
