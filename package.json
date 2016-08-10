@@ -17,6 +17,7 @@
     "gridfs-stream": "^1.1.1",
     "h5bp": "^0.1.4",
     "http": "latest",
+    "jsdom": "^9.4.1",
     "mailgun-js": "latest",
     "mongodb": "latest",
     "mongojs": "latest",
