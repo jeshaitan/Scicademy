@@ -53,8 +53,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -616,6 +616,7 @@ app.post('/sendReport', function(req, res) {
 });
 
 app.post('/addPaper', function(req, res) {
+    var searchObj = '';
     db.Papers.insert({
         title: DOMPurify.sanitize(req.body.title),
         authors: DOMPurify.sanitize(req.body.authors),
@@ -634,35 +635,59 @@ app.post('/addPaper', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            db.Papers.findOne({
-                abstract: req.body.abstract
-            }, function(err, doc) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var authorsIdStrings = doc.authors,
-                        authorsOId = [];
-                    for (var i = 0; i < authorsIdStrings.length; i++) {
-                        authorsOId.push(ObjectID(authorsIdStrings[i]));
+            try {
+                db.Papers.findOne({
+                    abstract: req.body.abstract
+                }, function (err, doc) {
+                    searchObj = {
+                        "_id": doc._id
+                    };
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var authorsIdStrings = doc.authors,
+                            authorsOId = [];
+                        for (var i = 0; i < authorsIdStrings.length; i++) {
+                            authorsOId.push(ObjectID(authorsIdStrings[i]));
+                        }
+                        db.Users.update({
+                            _id: {
+                                $in: authorsOId
+                            }
+                        }, {
+                            $push: {
+                                publications: ("" + doc._id)
+                            }
+                        }, {
+                            multi: true
+                        }, function (err, result) {
+                            if (err)
+                                console.log(err);
+                        });
                     }
-
-                    db.Users.update({
-                        _id: {
-                            $in: authorsOId
-                        }
-                    }, {
-                        $push: {
-                            publications: ("" + doc._id)
-                        }
-                    }, {
-                        multi: true
-                    }, function(err, result) {
-                        if (err)
-                            console.log(err);
-                    });
+                });
+                res.send(record);
+            }
+            catch(err){
+                if (searchObj == ''){
+                    res.send('');
                 }
-            });
-            res.send(record);
+                db.Papers.update(
+                    searchObj, {
+                        $set: {
+                            published: "false"
+                        }
+                    },
+                    function(err, doc) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.send(' ');
+                        }
+                    }
+                );
+                res.send('');
+            }
         }
     });
 });
