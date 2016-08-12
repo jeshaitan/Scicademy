@@ -638,7 +638,7 @@ app.post('/addPaper', function(req, res) {
             try {
                 db.Papers.findOne({
                     abstract: req.body.abstract
-                }, function (err, doc) {
+                }, function(err, doc) {
                     searchObj = {
                         "_id": doc._id
                     };
@@ -660,16 +660,15 @@ app.post('/addPaper', function(req, res) {
                             }
                         }, {
                             multi: true
-                        }, function (err, result) {
+                        }, function(err, result) {
                             if (err)
                                 console.log(err);
                         });
                     }
                 });
                 res.send(record);
-            }
-            catch(err){
-                if (searchObj == ''){
+            } catch (err) {
+                if (searchObj == '') {
                     res.send('');
                 }
                 db.Papers.update(
