@@ -625,9 +625,9 @@ app.post('/addPaper', function(req, res) {
         subject: DOMPurify.sanitize(req.body.subject),
         institution: DOMPurify.sanitize(req.body.institution),
         tempAuthors: DOMPurify.sanitize(req.body.tempAuthors),
-        upvotes: DOMPurify.sanitize(req.body.upvotes),
-        upvoted: DOMPurify.sanitize(req.body.upvoted),
-        views: DOMPurify.sanitize(req.body.views),
+        upvotes: req.body.upvotes,
+        upvoted: req.body.upvoted,
+        views: req.body.views,
         pdf: DOMPurify.sanitize(req.body.pdf),
         date: DOMPurify.sanitize(req.body.date),
         published: "true"
