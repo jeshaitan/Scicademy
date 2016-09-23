@@ -613,12 +613,13 @@ function readSubmitPaperForm(form) {
         return $(this).text();
     }).get();
 
-    authorsid.push(JSON.parse(localStorage.getItem('user'))._id); //add self to authors list
     for (var i = 0; i < $('.spawnUserID').length; i++) {
         authorsid.push($('.spawnUserIDh')[i].value);
     }
 
     authorsid = unique_ify(authorsid);
+    authorsid.push(JSON.parse(localStorage.getItem('user'))._id); //add self to authors list
+    console.log(authorsid);
 
     for (var i = 0; i < currentAuthors.length; i++) {
         var authId = currentAuthors[i].id;

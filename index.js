@@ -53,8 +53,8 @@ app.listen(port, function() {
 
 var gfs = grid(db, mongojs);
 aws.config.region = 'us-east-1';
-aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+//aws.config.credentials.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+//aws.config.credentials.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 app.post('/updateUserWithNewPapers', function(req, res) {
     db.Users.update({
@@ -619,7 +619,7 @@ app.post('/addPaper', function(req, res) {
     var searchObj = '';
     db.Papers.insert({
         title: DOMPurify.sanitize(req.body.title),
-        authors: DOMPurify.sanitize(req.body.authors),
+        authors: req.body.authors,
         abstract: DOMPurify.sanitize(req.body.abstract),
         keywords: DOMPurify.sanitize(req.body.keywords),
         subject: DOMPurify.sanitize(req.body.subject),
@@ -663,6 +663,8 @@ app.post('/addPaper', function(req, res) {
                         }, function(err, result) {
                             if (err)
                                 console.log(err);
+                            else
+                                console.log(authorsOId);
                         });
                     }
                 });
