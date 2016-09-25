@@ -75,7 +75,7 @@ body {
 
 .downloadPDF {
     position: absolute;
-    top: -5px;
+    top: 8px;
     border-color: black;
     border-style: ridge;
     border-width: 1px;
